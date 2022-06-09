@@ -5,9 +5,11 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<typeAlias type=""/>
+		<typeAlias type="fin.spring.projob.freelancer.vo.Freelancer" alias="Freelancer"/>
+		<typeAlias type="fin.spring.projob.company.vo.Company" alias="Company"/>
 	</typeAliases>
 	<mappers>
-		<mapper/>
+		<mapper resource="mappers/freelancer-mapper.xml"/>
+		<mapper resource="mappers/company-mapper.xml"/>
 	</mappers>
 </configuration>

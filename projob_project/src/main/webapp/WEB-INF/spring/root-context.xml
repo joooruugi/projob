@@ -16,7 +16,10 @@
 		<property name="username" value="PROJOB"/>
 		<property name="password" value="projob"/>
 	</bean>	 -->
-	<!-- <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
-		<property name="configLocation" />
-	</bean> -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+	</bean> 
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+		<constructor-arg ref="sqlSessionFactoryBean"/>
+	</bean>
 </beans>
