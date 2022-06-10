@@ -10,7 +10,7 @@ import fin.spring.projob.company.service.CompanyService;
 import fin.spring.projob.company.vo.Company;
 
 @Controller
-@RequestMapping("/com")
+@RequestMapping("/comp")
 public class CompanyController {
 
 	@Autowired
@@ -19,7 +19,7 @@ public class CompanyController {
 	@RequestMapping(value="/insert", method=RequestMethod.GET)
 	public ModelAndView insertCompany(
 			ModelAndView mv) {
-		mv.setViewName("com/info");
+		mv.setViewName("comp/info");
 		return mv;
 	}
 	
