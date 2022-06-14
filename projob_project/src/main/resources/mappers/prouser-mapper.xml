@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="prouser">
+	<insert id="insertProuser" parameterType="Prouser">
+		insert into prouser(us_id, us_pw, us_name, us_phone, us_email, us_address, us_crn, us_info, us_ok)
+		values(#{us_id}, #{us_pw}, #{us_name}, #{us_phone}, #{us_email}, #{us_address}, #{us_crn}, #{us_info}, #{us_ok})
+	</insert>
+</mapper>
