@@ -7,12 +7,13 @@ import fin.spring.projob.prouser.dao.ProuserDao;
 import fin.spring.projob.prouser.vo.Prouser;
 
 @Service
-public class ProuserService {
-
+public class ProuserServiceImpl {
+	
 	@Autowired
 	private ProuserDao pdao;
 	
 	public int insertProuser(Prouser puser) {
 		return pdao.insertProuser(puser);
 	}
+	
 }
