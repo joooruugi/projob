@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    	<!-- jQuery, bootstrap CDN -->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script> <!-- msie 문제 해결 -->
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<!-- SocketJS CDN -->
+	<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/footer.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header1.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
@@ -19,67 +28,91 @@
     <jsp:include page="/WEB-INF/views/header.jsp" flush="false"/>
 
     <!--바디 큰 배너가 들어가지 않는 한 body width : 80~90% 중앙정렬로 맞춰주세요-->
-    <div style="margin-left:300px">
-	    <div>프로잡의 채팅방</div>
-		<input type="hidden" id="id" value="탕코딩">
+    	<h1>Chatting Page (id: ${userid})</h1>
+	<br>
+	<div>
 		<div>
-			<div id="chatarea" style="width: 300px; height: 300px; border: 1px solid black;"></div>
-			<input type="text" id="message" />
-			<input type="button" id="send" value="보내기" />
-			<input type="button" id="exit" value="나가기" />
-		</div>
+			<input type="text" id="message"/>
+    		<input type="button" id="sendBtn" value="전송"/>
+    	</div>
+    	<br>
+    	<div class="well" id="chatdata">
+    		<!-- User Session Info Hidden -->
+    		<input type="hidden" value='${userid}' id="sessionuserid">
+    	</div>
 	</div>
     <!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
     
-	<script>
-		// ##### 입장~~~!!
-		let websocket;
-		connect();
-		function connect(){
-	// 		websocket = new WebSocket("ws://본인 아이 피주소/www/chat-ws");
-			websocket = new WebSocket("ws://localhost/www/chat-ws");
-				//웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
-				websocket.onopen = onOpen;
-				websocket.onmessage = onMessage;
-		}
-		
-		// ##### 연결 되었습니다!
-		function onOpen(){
-			id = document.getElementById("id").value;
-			websocket.send(id + "님 입장하셨습니다.");
-		}
-		
-		// ##### 메세지 보내기 버튼 클릭!
-		$("#send").click(function() {
-			send();
-		});
-		
-		function send(){
-			id = document.getElementById("id").value;
-			msg = document.getElementById("message").value;
-			websocket.send(id + ":"+ msg);
-			document.getElementById("message").value = "";
-		}
-		
-		function onMessage(evt){
-			data= evt.data;
-			chatarea = document.getElementById("chatarea");
-			chatarea.innerHTML = chatarea.innerHTML + "<br/>" + data
-		}
-		
-		// ##### 연결을 해제합니다!
-		$("#exit").click(function() {
-			disconnect();
-		});
+<script type="text/javascript">
+$(function(){
+	//websocket을 지정한 URL로 연결
+	sock= new SockJS("<c:url value="/echo"/>");
 	
-		function disconnect(){
-			id = document.getElementById("id").value;
-			websocket.send(id+"님이 퇴장하셨습니다");
-			websocket.close();
-		}
+	//websocket 서버에서 메시지를 보내면 자동으로 실행된다.
+	sock.onmessage = onMessage;
+	//websocket 과 연결을 끊고 싶을때 실행하는 메소드
+	sock.onclose = onClose;
+});
+	
+$("#sendBtn").click(function(){
+	console.log('send message...');
+       sendMessage();
+   });	        
+	
+	
+function sendMessage(){      
+	//websocket으로 메시지를 보내겠다.
+  	sock.send($("#message").val());     
+}
+            
+//evt 파라미터는 websocket이 보내준 데이터다.
+function onMessage(evt){  //변수 안에 function자체를 넣음.
+	var data = evt.data;
+	var sessionid = null;
+	var message = null;
+	
+	//문자열을 splite//
+	var strArray = data.split('|');
+	
+	for(var i=0; i<strArray.length; i++){
+		console.log('str['+i+']: ' + strArray[i]);
+	}
+	
+	//current session id//
+	var currentuser_session = $('#sessionuserid').val();
+	console.log('current session id: ' + currentuser_session);
+	
+	sessionid = strArray[0]; //현재 메세지를 보낸 사람의 세션 등록//
+	message = strArray[1]; //현재 메세지를 저장//
+	
+	//나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.//
+	if(sessionid == currentuser_session){
+		var printHTML = "<div class='well'>";
+		printHTML += "<div class='alert alert-info'>";
+		printHTML += "<strong>["+sessionid+"] -> "+message+"</strong>";
+		printHTML += "</div>";
+		printHTML += "</div>";
 		
-		</script>
+		$("#chatdata").append(printHTML);
+	} else{
+		var printHTML = "<div class='well'>";
+		printHTML += "<div class='alert alert-warning'>";
+		printHTML += "<strong>["+sessionid+"] -> "+message+"</strong>";
+		printHTML += "</div>";
+		printHTML += "</div>";
+		
+		$("#chatdata").append(printHTML);
+	}
+	
+	console.log('chatting data: ' + data);
+	
+  	/* sock.close(); */
+}
+function onClose(evt){
+	$("#data").append("연결 끊김");
+}    
+</script>
 </body>
 
 </html>

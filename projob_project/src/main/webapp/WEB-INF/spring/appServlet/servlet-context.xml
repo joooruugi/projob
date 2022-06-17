@@ -27,6 +27,11 @@
 	
 	<context:component-scan base-package="fin.spring.projob" />
 	
+	<websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/echo"/>
+		<websocket:sockjs />
+	</websocket:handlers>
 	
+	<beans:bean id="echoHandler" class="fin.spring.projob.messenger.common.EchoHandler"/>
 	
 </beans:beans>
