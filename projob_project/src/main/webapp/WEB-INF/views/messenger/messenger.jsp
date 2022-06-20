@@ -30,20 +30,39 @@
     <!--바디 큰 배너가 들어가지 않는 한 body width : 80~90% 중앙정렬로 맞춰주세요-->
     <h1>Chatting Page (id: ${userid})</h1>
 	<br>
-	<div style="width: 70%; height:700px; margin: 0 auto 50px; background-color:  rgb(232, 232, 232); border-radius: 30px;">
-	<div style="float: left;">
-		채팅방 목록
+	<div style="width: 1200px; height:725px; margin: 0 auto 50px; background-color:  rgb(232, 232, 232); border-radius: 30px;">
+		<div style="float: left; width:530px;">
+			<div style="margin: 20px 30px 0; float: left;">
+				<input type="button" value="단체방 생성" class="btn2" style="padding: 5px 10px;"> 
+				<!-- 검색 -->
+				<nav class="navbar navbar-light" style="float:right; position: relative; top: -10px; margin-left: 10px; margin: 0;">
+					<div class="container-fluid" style="margin: 0;">
+						<form action="@@@" method="get" id="frm" class="d-flex">
+							<input class="form-control me-2" type="search" name="q" placeholder="ID/전화번호 검색" aria-label="Search" >
+							<button id="s_search_btn" class="btn btn-outline-success" type="submit">Search</button>
+						</form>
+					</div>
+				</nav>
+			</div>
+			<div style="height: 630px; background-color: white; margin: 20px 30px; clear: both;">
+				채팅방 목록
+			</div>
+		</div>
+		<div style="float:right; width: 600px; margin: 20px 30px 0">
+	<input type="button" value="참가자" class="btn1" style="padding: 5px 10px;">
+	<input type="button" value="초대하기" class="btn3" style="padding: 5px 10px;">
+	<input type="button" value="나가기" class="btn4" style="float:right; padding: 5px 10px;">
 	</div>
-	<div style=" width: 48%; height: 630px; margin: 20px 30px; float: right; background-color: white;">
-		<div style="width: 48%; height: 630px; overflow: auto; margin-bottom: 10px;">
+	<div style="height: 600px; margin: 20px 30px 0 30px; float: right; background-color: white;">
+		<div style="width: 600px	; height: 600px; overflow: auto; margin-bottom: 10px;">
 			<div class="well" id="chatdata">
 		    		<!-- User Session Info Hidden -->
 		    		<input type="hidden" value='${userid}' id="sessionuserid">
 	    	</div>
 		</div>
 			<div >
-				<input type="text" id="message" style="width:540px" placeholder=" 내용을 입력해 주세요" onkeyup="enterkey()"/>
-	    		<input type="button" id="sendBtn" value="전송" class="btn8" style="padding: 5px 10px"/>
+				<input type="text" id="message" style="width:87%" placeholder=" 내용을 입력해 주세요" onkeyup="enterkey()"/>
+	    		<input type="button" id="sendBtn" value="전송" class="btn8" style="padding: 5px 10px; width:11%; float: right"/>
     		</div>
 	   </div>
 	</div>
@@ -78,8 +97,12 @@ function enterkey(){
 	
 function sendMessage(){      
 	//websocket으로 메시지를 보내겠다.
-  	sock.send($("#message").val());
-	$("#message").val("");
+	if($("#message").val()==""){
+		alert('내용을 입력해 주세요');
+	} else {
+	  	sock.send($("#message").val());
+		$("#message").val("");
+	}
 }
             
 //evt 파라미터는 websocket이 보내준 데이터다.
