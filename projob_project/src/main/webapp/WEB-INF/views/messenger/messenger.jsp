@@ -26,21 +26,28 @@
 <body>
     <!--헤더-->
     <jsp:include page="/WEB-INF/views/header.jsp" flush="false"/>
-
+	
     <!--바디 큰 배너가 들어가지 않는 한 body width : 80~90% 중앙정렬로 맞춰주세요-->
-    	<h1>Chatting Page (id: ${userid})</h1>
+    <h1>Chatting Page (id: ${userid})</h1>
 	<br>
-	<div>
-		<div>
-			<input type="text" id="message"/>
-    		<input type="button" id="sendBtn" value="전송"/>
-    	</div>
-    	<br>
-    	<div class="well" id="chatdata">
-    		<!-- User Session Info Hidden -->
-    		<input type="hidden" value='${userid}' id="sessionuserid">
-    	</div>
+	<div style="width: 70%; height:700px; margin: 0 auto 50px; background-color:  rgb(232, 232, 232); border-radius: 30px;">
+	<div style="float: left;">
+		채팅방 목록
 	</div>
+	<div style=" width: 48%; height: 630px; margin: 20px 30px; float: right; background-color: white;">
+		<div style="width: 48%; height: 630px; overflow: auto; margin-bottom: 10px;">
+			<div class="well" id="chatdata">
+		    		<!-- User Session Info Hidden -->
+		    		<input type="hidden" value='${userid}' id="sessionuserid">
+	    	</div>
+		</div>
+			<div >
+				<input type="text" id="message" style="width:540px" placeholder=" 내용을 입력해 주세요" onkeyup="enterkey()"/>
+	    		<input type="button" id="sendBtn" value="전송" class="btn8" style="padding: 5px 10px"/>
+    		</div>
+	   </div>
+	</div>
+	<div style="clear: both;"></div>
     <!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
     
@@ -59,11 +66,20 @@ $("#sendBtn").click(function(){
 	console.log('send message...');
        sendMessage();
    });	        
-	
+
+//엔터키 이벤트 등록
+function enterkey(){
+	if (window.event.keyCode == 13) {
+    	// 엔터키가 눌렸을 때
+    	console.log('enter message...');
+    	sendMessage();
+	}
+}
 	
 function sendMessage(){      
 	//websocket으로 메시지를 보내겠다.
-  	sock.send($("#message").val());     
+  	sock.send($("#message").val());
+	$("#message").val("");
 }
             
 //evt 파라미터는 websocket이 보내준 데이터다.
@@ -90,7 +106,11 @@ function onMessage(evt){  //변수 안에 function자체를 넣음.
 	if(sessionid == currentuser_session){
 		var printHTML = "<div class='well'>";
 		printHTML += "<div class='alert alert-info'>";
+		if(message === undefined){
+		printHTML += "<strong>["+sessionid+"]</strong>";	
+		} else {
 		printHTML += "<strong>["+sessionid+"] -> "+message+"</strong>";
+		}
 		printHTML += "</div>";
 		printHTML += "</div>";
 		
@@ -98,7 +118,11 @@ function onMessage(evt){  //변수 안에 function자체를 넣음.
 	} else{
 		var printHTML = "<div class='well'>";
 		printHTML += "<div class='alert alert-warning'>";
-		printHTML += "<strong>["+sessionid+"] -> "+message+"</strong>";
+		if(message === undefined){
+			printHTML += "<strong>["+sessionid+"]</strong>";	
+			} else {
+			printHTML += "<strong>["+sessionid+"] -> "+message+"</strong>";
+			}
 		printHTML += "</div>";
 		printHTML += "</div>";
 		

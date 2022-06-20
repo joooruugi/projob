@@ -19,9 +19,10 @@ public class EchoHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		sessionList.add(session);
 		logger.info("{} 연결됨 ", session.getId());
-		System.out.println("채팅방 입장자 : " +  session.getId());
 //		System.out.println("채팅방 입장자 : " + session.getPrincipal().getName());
-		System.out.println("연결성공");
+		for(WebSocketSession sess : sessionList) {
+			sess.sendMessage(new TextMessage(session.getId() + "님이 입장하였습니다."));
+		}
 	}
 	
 	@Override
@@ -31,7 +32,6 @@ public class EchoHandler extends TextWebSocketHandler {
 		for(WebSocketSession sess : sessionList) {
 			sess.sendMessage(new TextMessage(session.getId() + "|" + message.getPayload()));
 		}
-		System.out.println("전송");
 	}
 	
 	@Override
@@ -39,8 +39,10 @@ public class EchoHandler extends TextWebSocketHandler {
 		sessionList.remove(session);
 		
 		logger.info("{}연결 끊김", session.getId());
-		System.out.println("채팅방 퇴장자 : " + session.getId());
 //		System.out.println("채팅방 퇴장자 : " + session.getPrincipal().getName());
+		for(WebSocketSession sess : sessionList) {
+			sess.sendMessage(new TextMessage(session.getId() + "님이 퇴장하였습니다."));
+		}
 	}
 
 }
