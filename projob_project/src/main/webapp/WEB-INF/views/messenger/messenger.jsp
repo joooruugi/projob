@@ -21,6 +21,44 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header1.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/all.css">
+    <style>
+    	#modal1{
+    	position:absolute;
+    	top:0;
+    	left:0;
+    	width:300px;
+    	height:300px;
+    	background-color:yellow;
+    	display: none;
+    	}
+    	#modal2{
+    	position:absolute;
+    	top:0;
+    	left:0;
+    	width:300px;
+    	height:300px;
+    	background-color:yellow;
+    	display: none;
+    	}
+    	#modal3{
+    	position:absolute;
+    	top:0;
+    	left:0;
+    	width:300px;
+    	height:300px;
+    	background-color:yellow;
+    	display: none;
+    	}
+    	#modal4{
+    	position:absolute;
+    	top:0;
+    	left:0;
+    	width:300px;
+    	height:300px;
+    	background-color:yellow;
+    	display: none;
+    	}
+    </style>
 </head>
 
 <body>
@@ -33,25 +71,54 @@
 	<div style="width: 1200px; height:725px; margin: 0 auto 50px; background-color:  rgb(232, 232, 232); border-radius: 30px;">
 		<div style="float: left; width:530px;">
 			<div style="margin: 20px 30px 0; float: left;">
-				<input type="button" value="단체방 생성" class="btn2" style="padding: 5px 10px;"> 
+				<input type="button" value="대화방 생성" class="btn2 createroom" style="padding: 5px 10px;"> 
 				<!-- 검색 -->
 				<nav class="navbar navbar-light" style="float:right; position: relative; top: -10px; margin-left: 10px; margin: 0;">
 					<div class="container-fluid" style="margin: 0;">
-						<form action="@@@" method="get" id="frm" class="d-flex">
+						<form  id="frm" class="d-flex">
 							<input class="form-control me-2" type="search" name="q" placeholder="ID/전화번호 검색" aria-label="Search" >
-							<button id="s_search_btn" class="btn btn-outline-success" type="submit">Search</button>
+							<button id="s_search_btn" class="btn btn-outline-success usersearch" type="button">Search</button>
 						</form>
 					</div>
 				</nav>
 			</div>
-			<div style="height: 630px; background-color: white; margin: 20px 30px; clear: both;">
-				채팅방 목록
+			<div style="height: 630px; background-color: white; margin: 20px 30px; clear: both; overflow: auto;">
+				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
+					방1번
+				</div>
+				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
+					방2번
+				</div>
+				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
+					방3번
+				</div>
+				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
+					방4번
+				</div>
+				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
+					방5번
+				</div>
+				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
+					방6번
+				</div>
+				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
+					방7번
+				</div>
+				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
+					방8번
+				</div>
+				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
+					방9번
+				</div>
+				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
+					방10번
+				</div>
 			</div>
 		</div>
 		<div style="float:right; width: 600px; margin: 20px 30px 0">
-	<input type="button" value="참가자" class="btn1" style="padding: 5px 10px;">
-	<input type="button" value="초대하기" class="btn3" style="padding: 5px 10px;">
-	<input type="button" value="나가기" class="btn4" style="float:right; padding: 5px 10px;">
+	<input type="button" value="참가자" class="btn1 roommember" style="padding: 5px 10px;">
+	<input type="button" value="초대하기" class="btn3 roominvite" style="padding: 5px 10px;">
+	<input type="button" value="나가기" class="btn4 roomout" style="float:right; padding: 5px 10px;">
 	</div>
 	<div style="height: 600px; margin: 20px 30px 0 30px; float: right; background-color: white;">
 		<div style="width: 600px	; height: 600px; overflow: auto; margin-bottom: 10px;">
@@ -67,8 +134,48 @@
 	   </div>
 	</div>
 	<div style="clear: both;"></div>
+	
     <!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
+    
+    
+    <div id="modal1">
+    	<div>
+    		@@@방생성@@@
+    	</div>
+    </div>
+    <div id="modal2">
+    	<div>
+    		@@@참가자목록@@@
+    	</div>
+    </div>
+    <div id="modal3">
+    	<div>
+    		@@@초대하기@@@
+    	</div>
+    </div>
+    <div id="modal4">
+    	<div>
+    		@@@검색결과@@@
+    	</div>
+    </div>
+    
+    <script>
+    	$(".createroom").click(function(){
+    		$("#modal1").toggle();
+    		$("#modal2").hide();
+    		$("#modal3").hide();
+    	});
+    	$(".roommember").click(function(){
+    		$("#modal2").toggle();
+    	});
+    	$(".roominvite").click(function(){
+    		$("#modal3").toggle();
+    	});
+    	$(".usersearch").click(function(){
+    		$("#modal4").toggle();
+    	});
+    </script>
     
 <script type="text/javascript">
 $(function(){
