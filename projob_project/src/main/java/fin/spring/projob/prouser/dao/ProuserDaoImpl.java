@@ -12,9 +12,16 @@ public class ProuserDaoImpl implements ProuserDao{
 
 	@Inject SqlSession sql;
 	@Override
-	public int insertProuser(Prouser prouser) throws Exception{
-		return sql.insert("Prouser.insertProuser", prouser);
-		
+	public int insertProuserfree(Prouser prouser) throws Exception{
+		return sql.insert("Prouser.insertProuserfree", prouser);
+	}
+	@Override
+	public int insertProusercomp(Prouser prouser) throws Exception{
+		return sql.insert("Prouser.insertProusercomp", prouser);
+	}
+	@Override
+	public int insertProusercomp2(Prouser prouser) throws Exception{
+		return sql.insert("Prouser.insertProusercomp2", prouser);
 	}
 	
 }

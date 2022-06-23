@@ -30,16 +30,16 @@
             <p class="fonthighlight">정보 입력</p>
         </div>
         <div class="writeinfo">
-            <form action="">
+            <form action="<%=request.getContextPath()%>/infofree" method="post">
                 <div class="inforow">
                     <br>
                     <label class="labelinfo" for="us_name">이름</label><br><br>
-                    <input type="text" class="inputinfo" id="us_name" placeholder="" style="font-family: 'Cafe24SsurroundAir';
+                    <input type="text" class="inputinfo" id="us_name" name="us_name" placeholder="" style="font-family: 'Cafe24SsurroundAir';
                     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
                     font-weight: normal;
                     font-style: normal;"><br><br>
                     <label class="labelinfo" for="us_id">아이디</label><br><br>
-                    <input type="text" class="inputinfo" id="us_id" placeholder="" style="font-family: 'Cafe24SsurroundAir';
+                    <input type="text" class="inputinfo" name="us_id" id="us_id" placeholder="" style="font-family: 'Cafe24SsurroundAir';
                     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
                     font-weight: normal;
                     font-style: normal;"><br>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="inforow">
                     <label class="labelinfo" for="us_pw">비밀번호</label><br><br>
-                    <input type="password" class="inputinfo" id="us_pw" placeholder="">
+                    <input type="password" class="inputinfo" name="us_pw" id="us_pw" placeholder="">
                 </div>
                 <div class="inforow">
                     <label class="labelinfo" for="us_pwcheck">비밀번호 확인</label><br><br>
@@ -55,14 +55,14 @@
                 </div>
                 <div class="inforow">
                     <label class="labelinfo" for="us_phone">연락처</label><br><br>
-                    <input type="tel" class="inputinfo" id="us_phone" placeholder="" style="font-family: 'Cafe24SsurroundAir';
+                    <input type="tel" class="inputinfo" name="us_phone" id="us_phone" placeholder="" style="font-family: 'Cafe24SsurroundAir';
                     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
                     font-weight: normal;
                     font-style: normal;">
                 </div>
                 <div class="inforow">
                     <label class="labelinfo" for="us_email" id="checkemail">이메일</label><br><br>
-                    <input type="email" class="inputinfo" id="us_email" placeholder="" style="font-family: 'Cafe24SsurroundAir';
+                    <input type="email" class="inputinfo" name="us_email" id="us_email" placeholder="" style="font-family: 'Cafe24SsurroundAir';
                     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
                     font-weight: normal;
                     font-style: normal;"><br>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="inforow">
                     <label class="labelinfo" for="us_address">주소</label><br><br>
-                    <input type="text" class="inputinfo" id="us_address" placeholder="" style="font-family: 'Cafe24SsurroundAir';
+                    <input type="text" class="inputinfo" name="us_address" id="us_address" placeholder="" style="font-family: 'Cafe24SsurroundAir';
                     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
                     font-weight: normal;
                     font-style: normal;">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="inforow">
                     <label class="labelinfo" for="us_crn">사업자등록번호</label><br><br>
-                    <input type="text" class="inputinfo" id="us_crn" placeholder="" style="font-family: 'Cafe24SsurroundAir';
+                    <input type="text" class="inputinfo" name="us_crn" id="us_crn" placeholder="" style="font-family: 'Cafe24SsurroundAir';
                     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
                     font-weight: normal;
                     font-style: normal;">
@@ -101,13 +101,14 @@
                         <option value="1">기업</option>
                     </select>
                 </div> -->
-            </form>
+            
         </div>
         <div class="infonextbtn">
             <button type="submit" class="btn3">
                 <p class="fonthighlight">NEXT</p>
             </button>
         </div>
+        </form>
     </div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />

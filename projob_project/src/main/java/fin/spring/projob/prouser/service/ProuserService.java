@@ -4,5 +4,7 @@ import fin.spring.projob.prouser.vo.Prouser;
 
 public interface ProuserService {
 
-	public int insertProuser(Prouser prouser) throws Exception;
+	public int insertProuserfree(Prouser prouser) throws Exception;
+	public int insertProusercomp(Prouser prouser) throws Exception;
+	public int insertProusercomp2(Prouser prouser) throws Exception;
 }

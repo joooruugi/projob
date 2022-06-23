@@ -7,15 +7,15 @@ public class Prouser {
 	private String us_name;
 	private String us_phone;
 	private String us_email;
-	private String usAddress;
+	private String us_address;
 	private int us_crn;
 	private int us_info;
 	private int us_ok;
 	@Override
 	public String toString() {
 		return "Prouser [us_id=" + us_id + ", us_pw=" + us_pw + ", us_name=" + us_name + ", us_phone=" + us_phone
-				+ ", us_email=" + us_email + ", usAddress=" + usAddress + ", us_crn=" + us_crn + ", us_info=" + us_info
-				+ ", us_ok=" + us_ok + "]";
+				+ ", us_email=" + us_email + ", us_address=" + us_address + ", us_crn=" + us_crn + ", us_info="
+				+ us_info + ", us_ok=" + us_ok + "]";
 	}
 	public String getUs_id() {
 		return us_id;
@@ -47,11 +47,11 @@ public class Prouser {
 	public void setUs_email(String us_email) {
 		this.us_email = us_email;
 	}
-	public String getUsAddress() {
-		return usAddress;
+	public String getUs_address() {
+		return us_address;
 	}
-	public void setUsAddress(String usAddress) {
-		this.usAddress = usAddress;
+	public void setUs_address(String us_address) {
+		this.us_address = us_address;
 	}
 	public int getUs_crn() {
 		return us_crn;
@@ -71,5 +71,4 @@ public class Prouser {
 	public void setUs_ok(int us_ok) {
 		this.us_ok = us_ok;
 	}
-	
 }

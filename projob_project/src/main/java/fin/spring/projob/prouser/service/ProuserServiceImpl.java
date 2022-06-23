@@ -15,8 +15,16 @@ public class ProuserServiceImpl implements ProuserService {
 	@Inject ProuserDao pdao;
 	
 	@Override
-	public int insertProuser(Prouser puser) throws Exception {
-		return pdao.insertProuser(puser);
+	public int insertProuserfree(Prouser puser) throws Exception {
+		return pdao.insertProuserfree(puser);
+	}
+	@Override
+	public int insertProusercomp(Prouser puser) throws Exception {
+		return pdao.insertProusercomp(puser);
+	}
+	@Override
+	public int insertProusercomp2(Prouser puser) throws Exception {
+		return pdao.insertProusercomp2(puser);
 	}
 	
 }

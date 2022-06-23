@@ -8,6 +8,8 @@ import fin.spring.projob.prouser.vo.Prouser;
 
 @Repository
 public interface ProuserDao {
-	//È¸¿ø°¡ÀÔ
-	public int insertProuser(Prouser prouser) throws Exception;
+	//íšŒì›ê°€ì…
+	public int insertProuserfree(Prouser prouser) throws Exception;
+	public int insertProusercomp(Prouser prouser) throws Exception;
+	public int insertProusercomp2(Prouser prouser) throws Exception;
 }
