@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="http://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
 <title>PROJOB_JOIN</title>
 
 <link rel="stylesheet"
@@ -67,17 +70,27 @@
 
             </div>
             <div class="termsagree">
-                <p class="fontname"><input type="checkbox">전체동의</p>
+                <p class="fontname"><input type="checkbox" name="agreeall" value="1">전체동의</p>
             </div>
         </div>
         <div class="termsnextbtn">
-            <button type="submit" class="btn3">
+            <button type="submit" class="btn3" id="termsbtn">
                 <p class="fonthighlight">NEXT</p>
             </button>
         </div>
     </div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<script>
+	 $("#termsbtn").click(function(){
+	    	if($("input:checkbox[name=agreeall]").is(":checked")==false) {  
+		    	//작업 
+	    		 alert('동의하셔야 회원가입이 가능합니다.');
+		    	}else{
+		    		location.href='infocomp';
+		    	}
+		});
+	</script>
 </body>
 
 </html>

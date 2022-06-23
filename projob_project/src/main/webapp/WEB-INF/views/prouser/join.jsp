@@ -32,7 +32,7 @@
 					 <img src="<%=request.getContextPath() %>/resources/images/freelancerjoin.png">
 				</div>
 				<div class="joinleftbtn">
-					<button class="btn8" type="submit">
+					<button class="btn8" type="submit" onclick="location.href='termsfree'">
 						<p class="fontnothing">프리랜서 회원가입</p>
 					</button>
 				</div>
@@ -43,7 +43,7 @@
 					 <img src="<%=request.getContextPath() %>/resources/images/companyjoin.png">
 				</div>
 				<div class="joinrightbtn">
-					<button class="btn8" type="submit">
+					<button class="btn8" type="submit" onclick="location.href='termscomp'">
 						<p class="fontnothing">기업 회원가입</p>
 					</button>
 				</div>

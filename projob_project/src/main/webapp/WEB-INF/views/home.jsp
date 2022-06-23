@@ -15,9 +15,9 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 </head>
 <body>
-	<!--Çì´õ-->
+	<!--í—¤ë”-->
 	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
-	<!--ÇªÅÍ-->
+	<!--í‘¸í„°-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 </body>
 </html>

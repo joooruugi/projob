@@ -7,12 +7,7 @@ import org.springframework.stereotype.Repository;
 import fin.spring.projob.prouser.vo.Prouser;
 
 @Repository
-public class ProuserDao {
-
-	@Autowired
-	private SqlSessionTemplate sqlsession;
-	
-	public int insertProuser(Prouser puser) {
-		return sqlsession.insert("Prouser.insertProuser", puser);
-	}
+public interface ProuserDao {
+	//회원가입
+	public int insertProuser(Prouser prouser) throws Exception;
 }

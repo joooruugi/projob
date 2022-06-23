@@ -1,35 +1,88 @@
 package fin.spring.projob.prouser.controller;
 
+
+import javax.inject.Inject;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import fin.spring.projob.prouser.service.ProuserService;
+import fin.spring.projob.prouser.service.ProuserServiceImpl;
+import fin.spring.projob.prouser.vo.Prouser;
 
 @Controller
 public class ProuserController {
-
-	//È¸¿ø°¡ÀÔ »ç¿ëÀÚ ¼±ÅÃ È­¸é(È¸¿ø°¡ÀÔ1)
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProuserController.class);
+	
+	@Autowired
+	private ProuserServiceImpl service;
+	
+	//íšŒì›ê°€ì… ì‚¬ìš©ì ì„ íƒ í™”ë©´(íšŒì›ê°€ì…1)
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public ModelAndView join(ModelAndView mv) {
 		mv.setViewName("prouser/join");
+		logger.info("íšŒì›ê°€ì…");
 		return mv;
 	}
-	//È¸¿ø°¡ÀÔ »ç¿ëÀÚ ¾à°üµ¿ÀÇ È­¸é(È¸¿ø°¡ÀÔ2)
-	@RequestMapping(value="/terms",  method=RequestMethod.GET)
-	public ModelAndView terms(ModelAndView mv) {
-		mv.setViewName("prouser/terms");
+	//íšŒì›ê°€ì… ì‚¬ìš©ì>í”„ë¦¬ëœì„œ ì•½ê´€ë™ì˜ í™”ë©´(íšŒì›ê°€ì…2)
+	@RequestMapping(value="/termsfree",  method=RequestMethod.GET)
+	public ModelAndView termsfree(ModelAndView mv) {
+		mv.setViewName("prouser/termsfree");
 		return mv;
 	}
-	//È¸¿ø°¡ÀÔ »ç¿ëÀÚ>ÇÁ¸®·£¼­ Á¤º¸ÀÔ·Â È­¸é(È¸¿ø°¡ÀÔ3)
+	//íšŒì›ê°€ì… ì‚¬ìš©ì>ê¸°ì—… ì•½ê´€ë™ì˜ í™”ë©´(íšŒì›ê°€ì…2)
+	@RequestMapping(value="/termscomp",  method=RequestMethod.GET)
+	public ModelAndView termscomp(ModelAndView mv) {
+		mv.setViewName("prouser/termscomp");
+		return mv;
+	}
+	//íšŒì›ê°€ì… ì‚¬ìš©ì>í”„ë¦¬ëœì„œ ì •ë³´ì…ë ¥ í™”ë©´GET(íšŒì›ê°€ì…3)
 	@RequestMapping(value="/infofree",  method=RequestMethod.GET)
 	public ModelAndView infofree(ModelAndView mv) {
 		mv.setViewName("prouser/infofree");
+		logger.info("join for freelancer_GET");
 		return mv;
 	}
-	//È¸¿ø°¡ÀÔ »ç¿ëÀÚ>±â¾÷ Á¤º¸ÀÔ·Â È­¸é(È¸¿ø°¡ÀÔ3)
+	//íšŒì›ê°€ì… ì‚¬ìš©ì>í”„ë¦¬ëœì„œ ì •ë³´ì…ë ¥ í™”ë©´POST(íšŒì›ê°€ì…3)
+	@PostMapping("/infofree")
+	public ModelAndView infofreepost(ModelAndView mv
+			, Prouser prouser
+			, RedirectAttributes rttr
+			, HttpServletRequest req
+			) throws Exception {
+		logger.info("join for freelancer_POST");
+		int result = service.insertProuser(prouser);
+		if(result <1) {
+			rttr.addFlashAttribute("msg", " ê°€ì…ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
+			mv.setViewName("redirect:/infofree");
+			return mv;
+		}
+		mv.setViewName("redirect:/");
+		return mv;
+	}
+	//íšŒì›ê°€ì… ì‚¬ìš©ì>ê¸°ì—… ì •ë³´ì…ë ¥ í™”ë©´(íšŒì›ê°€ì…3)
 	@RequestMapping(value="/infocomp",  method=RequestMethod.GET)
 	public ModelAndView infocomp(ModelAndView mv) {
 		mv.setViewName("prouser/infocomp");
+		return mv;
+	}
+	
+	
+	
+	//ì‚¬ìš©ì ë¡œê·¸ì¸
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public ModelAndView login(ModelAndView mv) {
+		mv.setViewName("prouser/login");
 		return mv;
 	}
 }

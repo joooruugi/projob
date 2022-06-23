@@ -8,7 +8,7 @@
             <div class="headerupright">
                 <input type="text" placeholder="프로젝트명을 검색해보세요!">
                 <button type="submit" class="fonthighlight btnwhite" onclick="location.href='join'">Join</button>
-                <button type="submit" class="fonthighlight btnwhite">Login</button>
+                <button type="submit" class="fonthighlight btnwhite" onclick="location.href='login'">Login</button>
             </div>
         </div>
         <div class="headerdown">
