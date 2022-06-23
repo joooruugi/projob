@@ -3,11 +3,11 @@
 <div class="header">
         <div class="headerup">
             <div class="headerlogo">
-                <img src="<%=request.getContextPath() %>/resources/images/PROJOB로고.png">
+                <img onclick="location.href='/projob'" src="<%=request.getContextPath() %>/resources/images/PROJOB로고.png">
             </div>
             <div class="headerupright">
                 <input type="text" placeholder="프로젝트명을 검색해보세요!">
-                <button type="submit" class="fonthighlight btnwhite">Join</button>
+                <button type="submit" class="fonthighlight btnwhite" onclick="location.href='join'">Join</button>
                 <button type="submit" class="fonthighlight btnwhite">Login</button>
             </div>
         </div>
