@@ -83,16 +83,19 @@
 				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_address">주소</label><br> <br>
-					<input type="text" class="inputinfo" name="us_address" required
-						id="us_address" placeholder=""
+					<input type="text" class="inputinfo" name="us_address memberAddr1"
+						required id="us_address" readonly="readonly" placeholder=""
+						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
+					<input type="text" class="inputinfo" name="us_address2 memberAddr2"
+						required id="us_address2" readonly="readonly" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					<br>
-					<button type="submit" class="inputinfobtn" id="addressapi">주소
-						검색</button>
+					<button type="button" class="inputinfobtn"
+						onclick="execution_daum_address()" id="addressapi">주소 검색</button>
 				</div>
 				<div class="inforow">
-					<label class="labelinfo" for="us_address2">상세주소</label><br> <br>
-					<input type="text" class="inputinfo" id="us_address2"
+					<label class="labelinfo" for="us_address3">상세주소</label><br> <br>
+					<input type="text" class="inputinfo" readonly="readonly" id="us_address3"
 						placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
@@ -113,6 +116,8 @@
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<script
+		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$("#alert-success").hide();
@@ -135,26 +140,88 @@
 			});
 		});
 		//아이디 중복확인 구현중
-		$("#us_id").on("propertychange change keyup paste input", function(){
+		$("#us_id").on("propertychange change keyup paste input", function() {
 			var usid = $("#us_id").val();
-			var data = {usid : usid}
-			
+			var data = {
+				usid : usid
+			}
+
 			$.ajax({
-				type:"post",
-				url:"/projob/usidChk",
+				type : "post",
+				url : "/projob/usidChk",
 				data : data,
-				success: function(result){
+				success : function(result) {
 					//cosole.log("성공 여부 : "+result);
-					if(result !='fail'){
+					if (result != 'fail') {
 						$('.id_input').css("display", "inline-block");
 						$('.id_input2').css("display", "none");
-					}else{
+					} else {
 						$('.id_input2').css("display", "inline-block");
 						$('.id_input').css("display", "none");
 					}
 				}
 			});
 		});
+		//주소 API
+		function execution_daum_address() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+							// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							var addr = ''; // 주소 변수
+							var extraAddr = ''; // 참고항목 변수
+
+							//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+								addr = data.roadAddress;
+							} else { // 사용자가 지번 주소를 선택했을 경우(J)
+								addr = data.jibunAddress;
+							}
+
+							// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+							if (data.userSelectedType === 'R') {
+								// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+								// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+								if (data.bname !== ''
+										&& /[동|로|가]$/g.test(data.bname)) {
+									extraAddr += data.bname;
+								}
+								// 건물명이 있고, 공동주택일 경우 추가한다.
+								if (data.buildingName !== ''
+										&& data.apartment === 'Y') {
+									extraAddr += (extraAddr !== '' ? ', '
+											+ data.buildingName
+											: data.buildingName);
+								}
+								// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+								if (extraAddr !== '') {
+									extraAddr = ' (' + extraAddr + ')';
+								}
+								// 조합된 참고항목을 해당 필드에 넣는다.
+								//document.getElementById("sample6_extraAddress").value = extraAddr;
+								addr += extraAddr;
+
+							} else {
+								//document.getElementById("sample6_extraAddress").value = '';
+								addr +=' ';
+							}
+
+							// 우편번호와 주소 정보를 해당 필드에 넣는다.
+							// document.getElementById('sample6_postcode').value = data.zonecode;
+							// document.getElementById("sample6_address").value = addr;
+							$(".us_address").val(data.zonecode);
+							$(".us_address2").val(addr);
+							
+							// 커서를 상세주소 필드로 이동한다.
+							//document.getElementById("sample6_detailAddress").focus();
+							$(".us_address3").attr("readonly", false);
+							$(".us_address3").focus();
+							
+						}
+					}).open();
+		}
 	</script>
 </body>
 
