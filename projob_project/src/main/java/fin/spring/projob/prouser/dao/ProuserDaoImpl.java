@@ -2,6 +2,7 @@ package fin.spring.projob.prouser.dao;
 
 import javax.inject.Inject;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -18,10 +19,6 @@ public class ProuserDaoImpl implements ProuserDao{
 	@Override
 	public int insertProusercomp(Prouser prouser) throws Exception{
 		return sql.insert("Prouser.insertProusercomp", prouser);
-	}
-	@Override
-	public int insertProusercomp2(Prouser prouser) throws Exception{
-		return sql.insert("Prouser.insertProusercomp2", prouser);
 	}
 	
 }

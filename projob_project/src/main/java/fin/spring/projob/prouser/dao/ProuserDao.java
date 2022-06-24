@@ -1,6 +1,7 @@
 package fin.spring.projob.prouser.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +12,4 @@ public interface ProuserDao {
 	//회원가입
 	public int insertProuserfree(Prouser prouser) throws Exception;
 	public int insertProusercomp(Prouser prouser) throws Exception;
-	public int insertProusercomp2(Prouser prouser) throws Exception;
 }

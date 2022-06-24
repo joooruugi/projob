@@ -11,11 +11,15 @@ public class Prouser {
 	private int us_crn;
 	private int us_info;
 	private int us_ok;
+	private String us_adname;
+	private String us_adphone;
+	private String us_ademail;
 	@Override
 	public String toString() {
 		return "Prouser [us_id=" + us_id + ", us_pw=" + us_pw + ", us_name=" + us_name + ", us_phone=" + us_phone
 				+ ", us_email=" + us_email + ", us_address=" + us_address + ", us_crn=" + us_crn + ", us_info="
-				+ us_info + ", us_ok=" + us_ok + "]";
+				+ us_info + ", us_ok=" + us_ok + ", us_adname=" + us_adname + ", us_adphone=" + us_adphone
+				+ ", us_ademail=" + us_ademail + "]";
 	}
 	public String getUs_id() {
 		return us_id;
@@ -71,4 +75,23 @@ public class Prouser {
 	public void setUs_ok(int us_ok) {
 		this.us_ok = us_ok;
 	}
+	public String getUs_adname() {
+		return us_adname;
+	}
+	public void setUs_adname(String us_adname) {
+		this.us_adname = us_adname;
+	}
+	public String getUs_adphone() {
+		return us_adphone;
+	}
+	public void setUs_adphone(String us_adphone) {
+		this.us_adphone = us_adphone;
+	}
+	public String getUs_ademail() {
+		return us_ademail;
+	}
+	public void setUs_ademail(String us_ademail) {
+		this.us_ademail = us_ademail;
+	}
+	
 }

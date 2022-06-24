@@ -2,6 +2,7 @@ package fin.spring.projob.prouser.controller;
 
 import javax.inject.Inject;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class ProuserController {
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public ModelAndView join(ModelAndView mv) {
 		mv.setViewName("prouser/join");
-		logger.info("회원가입");
+		logger.info("join");
 		return mv;
 	}
 
@@ -38,6 +39,7 @@ public class ProuserController {
 	@RequestMapping(value = "/termsfree", method = RequestMethod.GET)
 	public ModelAndView termsfree(ModelAndView mv) {
 		mv.setViewName("prouser/termsfree");
+		logger.info("termsfree");
 		return mv;
 	}
 
@@ -45,6 +47,7 @@ public class ProuserController {
 	@RequestMapping(value = "/termscomp", method = RequestMethod.GET)
 	public ModelAndView termscomp(ModelAndView mv) {
 		mv.setViewName("prouser/termscomp");
+		logger.info("termscomp");
 		return mv;
 	}
 
@@ -71,22 +74,21 @@ public class ProuserController {
 		return mv;
 	}
 
-	// 회원가입 사용자>기업 정보입력 화면(회원가입3)
+	// 회원가입 사용자>기업 정보입력 화면GET(회원가입3)
 	@RequestMapping(value = "/infocomp", method = RequestMethod.GET)
 	public ModelAndView infocomp(ModelAndView mv) {
-		logger.info("join for freelancer_GET");
+		logger.info("join for company_GET");
 		mv.setViewName("prouser/infocomp");
 		return mv;
 	}
 
-	// 회원가입 사용자>기업 정보입력 화면POST(회원가입3)
+	// 회원가입 사용자>기업 정보입력 화면POST1(회원가입3)
 	@PostMapping("/infocomp")
 	public ModelAndView infocomppost(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpServletRequest req)
 			throws Exception {
 		logger.info("join for company_POST");
 		int result = service.insertProusercomp(prouser);
-		int result2 = service.insertProusercomp2(prouser);
-		if (result < 1 && result2 < 1) {
+		if (result < 1) {
 			rttr.addFlashAttribute("msg", " 가입에 실패하였습니다.");
 			mv.setViewName("redirect:/infocomp");
 			return mv;
