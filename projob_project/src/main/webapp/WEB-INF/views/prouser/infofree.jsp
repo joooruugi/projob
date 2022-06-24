@@ -45,6 +45,12 @@
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
 					<button type="submit" class="inputinfobtn" id="checkid">중복확인</button>
 				</div>
+				<div class="inforow id_input">
+					<p class="fonthighlight" style="color: blue">사용가능한 아이디입니다.</p>
+				</div>
+				<div class="inforow id_input2">
+					<p class="fonthighlight" style="color: red">사용중인 아이디입니다.</p>
+				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_pw">비밀번호</label><br> <br>
 					<input type="password" class="inputinfo" required name="us_pw"
@@ -108,26 +114,47 @@
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script type="text/javascript">
-	$(function(){
-		$("#alert-success").hide();
-		$("#alert-fail").hide();
-		$("input").keyup(function(){
-			var pass = $("#us_pw").val();
-			var passcheck = $("#us_pwcheck").val();
-			if(pass != "" || passcheck != ""){
-				if(pass == passcheck){
-					$("#alert-success").show();
-					$("#alert-fail").hide();
-					$("#submit").removeAttr("disabled");
-				}else{
-					$("#alert-success").hide();
-					$("#alert-fail").show();
-					$("#submit").attr("disabled", "disabled");
+		$(function() {
+			$("#alert-success").hide();
+			$("#alert-fail").hide();
+			$("input").keyup(function() {
+				var pass = $("#us_pw").val();
+				var passcheck = $("#us_pwcheck").val();
+				if (pass != "" || passcheck != "") {
+					if (pass == passcheck) {
+						$("#alert-success").show();
+						$("#alert-fail").hide();
+						$("#submit").removeAttr("disabled");
+					} else {
+						$("#alert-success").hide();
+						$("#alert-fail").show();
+						$("#submit").attr("disabled", "disabled");
+					}
 				}
-			}
-			
+
+			});
 		});
-	});
+		//아이디 중복확인 구현중
+		$("#us_id").on("propertychange change keyup paste input", function(){
+			var usid = $("#us_id").val();
+			var data = {usid : usid}
+			
+			$.ajax({
+				type:"post",
+				url:"/projob/usidChk",
+				data : data,
+				success: function(result){
+					//cosole.log("성공 여부 : "+result);
+					if(result !='fail'){
+						$('.id_input').css("display", "inline-block");
+						$('.id_input2').css("display", "none");
+					}else{
+						$('.id_input2').css("display", "inline-block");
+						$('.id_input').css("display", "none");
+					}
+				}
+			});
+		});
 	</script>
 </body>
 

@@ -3,6 +3,7 @@ package fin.spring.projob.prouser.service;
 import javax.inject.Inject;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,10 @@ public class ProuserServiceImpl implements ProuserService {
 	@Override
 	public int insertProusercomp(Prouser puser) throws Exception {
 		return pdao.insertProusercomp(puser);
+	}
+	@Override
+	public int idchk(String us_id) throws Exception{
+		int result= pdao.idchk(us_id);
+		return result;
 	}
 }

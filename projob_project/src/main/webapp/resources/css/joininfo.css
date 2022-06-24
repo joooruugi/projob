@@ -64,3 +64,10 @@
 .infonextbtn p{
     font-size: large;
 }
+
+.id_input{
+	display:none;
+}
+.id_input2{
+	display:none;
+}

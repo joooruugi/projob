@@ -20,5 +20,10 @@ public class ProuserDaoImpl implements ProuserDao{
 	public int insertProusercomp(Prouser prouser) throws Exception{
 		return sql.insert("Prouser.insertProusercomp", prouser);
 	}
+	@Override
+	public int idchk(String us_id) throws Exception{
+		int result = sql.selectOne("Prouser.idchk", us_id);
+		return result;
+	}
 	
 }

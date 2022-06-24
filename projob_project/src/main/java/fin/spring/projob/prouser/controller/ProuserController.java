@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -97,6 +98,20 @@ public class ProuserController {
 		return mv;
 	}
 
+	//회원가입 사용자>프리랜서 아이디 중복확인
+	@RequestMapping(value="/usidChk", method=RequestMethod.POST)
+	@ResponseBody
+	public String usidChkPOST(String us_id) throws Exception{
+//		logger.info("usidChk() 진입");
+		int result = service.idchk(us_id);
+		logger.info("결과값 = " + result);
+		if(result != 0) {
+			return "fail";
+		}else {
+			return "success";
+		}
+		
+	}
 	// 사용자 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(ModelAndView mv) {
