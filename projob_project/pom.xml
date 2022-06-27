@@ -221,6 +221,12 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.13.2.2</version>
 		</dependency>
+		<!-- stomp -->
+		<dependency>
+		    <groupId>org.springframework.integration</groupId>
+		    <artifactId>spring-integration-stomp</artifactId>
+		    <version>5.3.2.RELEASE</version>
+		</dependency>
 	
 	</dependencies>
 	<build>

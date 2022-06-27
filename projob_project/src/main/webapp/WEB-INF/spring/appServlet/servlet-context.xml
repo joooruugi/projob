@@ -27,8 +27,11 @@
 	
 	<context:component-scan base-package="fin.spring.projob" />
 	
-	<websocket:handlers>
-		<websocket:mapping handler="echoHandler" path="/echo"/>
+	 <websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/chat"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
 		<websocket:sockjs />
 	</websocket:handlers>
 	

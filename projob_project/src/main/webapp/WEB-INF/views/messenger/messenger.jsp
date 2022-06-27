@@ -15,8 +15,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<!-- SocketJS CDN -->
 	<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/footer.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header1.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
@@ -66,7 +66,7 @@
     <jsp:include page="/WEB-INF/views/header.jsp" flush="false"/>
 	
     <!--바디 큰 배너가 들어가지 않는 한 body width : 80~90% 중앙정렬로 맞춰주세요-->
-    <h1>Chatting Page (id: ${userid})</h1>
+    <h1>Chatting Page (id: ${userId})</h1>
 	<br>
 	<div style="width: 1200px; height:725px; margin: 0 auto 50px; background-color:  rgb(232, 232, 232); border-radius: 30px;">
 		<div style="float: left; width:530px;">
@@ -124,7 +124,7 @@
 		<div style="width: 600px	; height: 600px; overflow: auto; margin-bottom: 10px;">
 			<div class="well" id="chatdata">
 		    		<!-- User Session Info Hidden -->
-		    		<input type="hidden" value='${userid}' id="sessionuserid">
+		    		<input type="hidden" value='${userId}' id="sessionuserid">
 	    	</div>
 		</div>
 			<div >
@@ -177,10 +177,68 @@
     	});
     </script>
     
-<script type="text/javascript">
+	 <!--  <script>
+    	var userId = $('#sessionuserid').val();
+	    $(function(){
+	        var socket = new SockJS("<c:url value="/chat"/>");
+	        stompClient = Stomp.over(socket);
+	        stompClient.connect({}, function () {
+	            stompClient.subscribe('/topic/' + userId, function (e) {
+	            	console.log(e);
+	            	console.log(e.body);
+	                showMessage(JSON.parse(e.body));
+	                alertClosing('comeMessage',2000);
+	            });
+	        });
+	    });
+	
+	    function send() {
+	        data = {'chatRoomId': userId, 'sender' :userId, 'receiver': userId,'message': $("#message").val()};
+	        stompClient.send("/app/chat/send", {}, JSON.stringify(data));
+	        showMessage(data);
+	        $("#message").val('');
+	    }
+	    
+	    $("#sendBtn").click(function(){
+	    	console.log('send message...');
+	           send();
+	       });	        
+	    
+	  //엔터키 이벤트 등록
+	    function enterkey(){
+	    	if (window.event.keyCode == 13) {
+	        	// 엔터키가 눌렸을 때
+	        	console.log('enter message...');
+	        	send();
+	    	}
+	    }
+	  
+	  //evt 파라미터는 websocket이 보내준 데이터다.
+	    function showMessage(evt){  //변수 안에 function자체를 넣음.
+		  console.log(evt);
+	    	//var data = evt.message;
+	    	var data = evt.data;
+			
+	    	//나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.//
+	    		var printHTML = "<div class='well'>";
+	    		printHTML += "<div class='alert alert-info'>";
+	    		printHTML += "<strong>["+evt.sender+"] -> "+evt.message+"</strong>";
+	    		printHTML += "</div>";
+	    		printHTML += "</div>";
+	    		
+	    		$("#chatdata").append(printHTML);
+	    	
+	    	console.log('chatting data: ' + data);
+	    	
+	      	/* sock.close(); */
+	    }
+    </script> -->
+    
+ <script type="text/javascript">
 $(function(){
 	//websocket을 지정한 URL로 연결
-	sock= new SockJS("<c:url value="/echo"/>");
+/* 	sock= new SockJS("<c:url value="/chat"/>"); */
+	sock= new SockJS("<c:url value="/chat"/>");
 	
 	//websocket 서버에서 메시지를 보내면 자동으로 실행된다.
 	sock.onmessage = onMessage;

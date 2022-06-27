@@ -1,5 +1,7 @@
 package fin.spring.projob.messenger.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,8 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class MessengerController {
 	
 	@RequestMapping(value = "/messenger", method = RequestMethod.GET)
-	public ModelAndView chat(ModelAndView mv) {
+	public ModelAndView chat(ModelAndView mv,
+			HttpSession ss
+			) {
 		mv.setViewName("messenger/messenger");
+		ss.setAttribute("userId", "jw");
 		
 //		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //		System.out.println("username : " + user.getUsername());
