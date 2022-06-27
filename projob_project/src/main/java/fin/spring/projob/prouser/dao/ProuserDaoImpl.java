@@ -22,8 +22,7 @@ public class ProuserDaoImpl implements ProuserDao{
 	}
 	@Override
 	public int idchk(String us_id) throws Exception{
-		int result = sql.selectOne("Prouser.idchk", us_id);
-		return result;
+		return sql.selectOne("Prouser.idchk", us_id);
 	}
 	
 }

@@ -32,7 +32,7 @@
     font-style: normal;
     font-size: large;
 }
-.writeinfo input{
+.inforow input{
     width: 400px;
     height: 30px;
 }
@@ -41,7 +41,6 @@
     height: 30px;
     margin-bottom: 20px;
 } */
-
 .inputinfobtn{
     border: 1px solid transparent;
     background-color: rgb(73, 84, 100);

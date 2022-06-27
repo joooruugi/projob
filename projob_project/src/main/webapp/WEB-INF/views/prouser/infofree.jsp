@@ -43,12 +43,12 @@
 					<br> <input type="text" class="inputinfo" required
 						name="us_id" id="us_id" placeholder="숫자+영어 혼합하여 6자 이상 입력"
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
-					<button type="submit" class="inputinfobtn" id="checkid">중복확인</button>
+					<button type="button" class="inputinfobtn" id="checkid">중복확인</button>
 				</div>
-				<div class="inforow id_input">
-					<p class="fonthighlight" style="color: blue">사용가능한 아이디입니다.</p>
+				<div class="inforow idchk1">
+					<p class="fonthighlight  " style="color: blue">사용가능한 아이디입니다.</p>
 				</div>
-				<div class="inforow id_input2">
+				<div class="inforow   idchk2">
 					<p class="fonthighlight" style="color: red">사용중인 아이디입니다.</p>
 				</div>
 				<div class="inforow">
@@ -83,29 +83,33 @@
 				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_address">주소</label><br> <br>
-					<input type="text" class="inputinfo" name="us_address memberAddr1"
-						required id="us_address" readonly="readonly" placeholder=""
+					<input type="text" class="inputinfo us_address"
+						name="us_address memberAddr1" required id="us_address"
+						readonly="readonly" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-					<input type="text" class="inputinfo" name="us_address2 memberAddr2"
+					<br> <br> <input type="text"
+						class="inputinfo us_address2" name="us_address2 memberAddr2"
 						required id="us_address2" readonly="readonly" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-					<br>
+					<br> <br>
+					<div class="inforow">
+						<label class="labelinfo" for="us_address3">상세주소</label><br> <br>
+						<input type="text" class="inputinfo us_address3"
+							name="us_address3 memberAddr3" readonly="readonly"
+							id="us_address3" placeholder=""
+							style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
+					</div>
 					<button type="button" class="inputinfobtn"
 						onclick="execution_daum_address()" id="addressapi">주소 검색</button>
 				</div>
-				<div class="inforow">
-					<label class="labelinfo" for="us_address3">상세주소</label><br> <br>
-					<input type="text" class="inputinfo" readonly="readonly" id="us_address3"
-						placeholder=""
-						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				</div>
+
 				<div class="inforow">
 					<label class="labelinfo" for="us_crn">사업자등록번호</label><br> <br>
 					<input type="text" class="inputinfo" name="us_crn" required
 						id="us_crn" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
-				<br>
+				<br> <br>
 		</div>
 		<div class="infonextbtn">
 			<button type="submit" id="submit" class="btn3">
@@ -139,26 +143,36 @@
 
 			});
 		});
+		</script>
+		<script>
 		//아이디 중복확인 구현중
-		$("#us_id").on("propertychange change keyup paste input", function() {
-			var usid = $("#us_id").val();
-			var data = {
-				usid : usid
-			}
-
-			$.ajax({
-				type : "post",
-				url : "/projob/usidChk",
-				data : data,
-				success : function(result) {
-					//cosole.log("성공 여부 : "+result);
-					if (result != 'fail') {
-						$('.id_input').css("display", "inline-block");
-						$('.id_input2').css("display", "none");
-					} else {
-						$('.id_input2').css("display", "inline-block");
-						$('.id_input').css("display", "none");
-					}
+		$(function() {
+			$("#idchk1").hide();
+			$("#idchk2").hide();
+			$('#checkid').click(function() {
+				if ($('#us_id').val() != '') {
+					$.ajax({
+						type : 'GET',
+						url : '/projob/usidChk',
+						data : 'id=' + $('#us_id').val(),
+						dataType : 'json',
+						success : function(result) {
+							console.log(result);
+							if (result == '0') {
+								$("#idchk1").show();
+								$("#idchk2").hide();
+							} else {
+								$("#idchk2").show();
+								$("#idchk1").hide();
+							}
+						},
+						error : function(a, b, c) {
+							console.log(a, b, c);
+						}
+					});
+				} else {
+					alert('아이디를 입력해주세요.');
+					$('#us_id').focus();
 				}
 			});
 		});
@@ -205,7 +219,7 @@
 
 							} else {
 								//document.getElementById("sample6_extraAddress").value = '';
-								addr +=' ';
+								addr += ' ';
 							}
 
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
@@ -213,12 +227,12 @@
 							// document.getElementById("sample6_address").value = addr;
 							$(".us_address").val(data.zonecode);
 							$(".us_address2").val(addr);
-							
+
 							// 커서를 상세주소 필드로 이동한다.
 							//document.getElementById("sample6_detailAddress").focus();
 							$(".us_address3").attr("readonly", false);
 							$(".us_address3").focus();
-							
+
 						}
 					}).open();
 		}

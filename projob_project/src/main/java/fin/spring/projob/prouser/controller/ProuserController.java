@@ -4,6 +4,8 @@ import javax.inject.Inject;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import fin.spring.projob.prouser.dao.ProuserDaoImpl;
 import fin.spring.projob.prouser.service.ProuserService;
 import fin.spring.projob.prouser.service.ProuserServiceImpl;
 import fin.spring.projob.prouser.vo.Prouser;
@@ -27,6 +30,7 @@ public class ProuserController {
 
 	@Autowired
 	private ProuserServiceImpl service;
+	private ProuserDaoImpl pdao;
 
 	// 회원가입 사용자 선택 화면(회원가입1)
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -99,18 +103,15 @@ public class ProuserController {
 	}
 
 	//회원가입 사용자>프리랜서 아이디 중복확인
-	@RequestMapping(value="/usidChk", method=RequestMethod.POST)
+	@RequestMapping(value="/usidChk", method=RequestMethod.GET)
 	@ResponseBody
-	public String usidChkPOST(String us_id) throws Exception{
-//		logger.info("usidChk() 진입");
-		int result = service.idchk(us_id);
-		logger.info("결과값 = " + result);
-		if(result != 0) {
-			return "fail";
-		}else {
-			return "success";
-		}
-		
+	public int usidChk(
+			HttpServletRequest req
+			,HttpServletResponse resp
+			,HttpSession session
+			,String us_id
+			) throws Exception{
+		return service.idchk(us_id);
 	}
 	// 사용자 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

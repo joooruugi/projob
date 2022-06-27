@@ -26,7 +26,6 @@ public class ProuserServiceImpl implements ProuserService {
 	}
 	@Override
 	public int idchk(String us_id) throws Exception{
-		int result= pdao.idchk(us_id);
-		return result;
+		return pdao.idchk(us_id);
 	}
 }
