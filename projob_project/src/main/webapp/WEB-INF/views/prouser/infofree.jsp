@@ -50,6 +50,7 @@
 				</div>
 				<div class="inforow   idchk2">
 					<p class="fonthighlight" style="color: red">사용중인 아이디입니다.</p>
+				<br>
 				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_pw">비밀번호</label><br> <br>
@@ -75,11 +76,17 @@
 				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_email" id="checkemail">이메일</label><br>
-					<br> <input type="email" class="inputinfo" name="us_email"
+					<br> <input type="email" class="inputinfo" name="us_email" 
 						required id="us_email" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
-					<button type="submit" class="inputinfobtn">중복확인</button>
-
+					<button type="button" class="inputinfobtn" id="checkemailbtn">중복확인</button>
+				</div>
+				<div class="inforow emailchk1">
+					<p class="fonthighlight  " style="color: blue">사용가능한 이메일입니다.</p>
+				</div>
+				<div class="inforow  emailchk2">
+					<p class="fonthighlight" style="color: red">사용중인 이메일입니다.</p>
+				<br>
 				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_address">주소</label><br> <br>
@@ -145,25 +152,26 @@
 		});
 		</script>
 		<script>
-		//아이디 중복확인 구현중
+		//아이디 중복확인
 		$(function() {
-			$("#idchk1").hide();
-			$("#idchk2").hide();
+			$(".idchk1").hide();
+			$(".idchk2").hide();
 			$('#checkid').click(function() {
-				if ($('#us_id').val() != '') {
+				var us_id = $("#us_id").val();
+				console.log(us_id);
+				if (us_id != '') {
 					$.ajax({
-						type : 'GET',
-						url : '/projob/usidChk',
-						data : 'id=' + $('#us_id').val(),
-						dataType : 'json',
+						type : 'post',
+						url : '/projob/idchk',
+						data : {us_id:us_id},
 						success : function(result) {
 							console.log(result);
 							if (result == '0') {
-								$("#idchk1").show();
-								$("#idchk2").hide();
+								$(".idchk1").show();
+								$(".idchk2").hide();
 							} else {
-								$("#idchk2").show();
-								$("#idchk1").hide();
+								$(".idchk2").show();
+								$(".idchk1").hide();
 							}
 						},
 						error : function(a, b, c) {
@@ -173,6 +181,40 @@
 				} else {
 					alert('아이디를 입력해주세요.');
 					$('#us_id').focus();
+				}
+			});
+		});
+		</script>
+		<script>
+		//이메일 중복확인
+		$(function() {
+			$(".emailchk1").hide();
+			$(".emailchk2").hide();
+			$('#checkemailbtn').click(function() {
+				var us_email = $("#us_email").val();
+				console.log(us_email);
+				if (us_email != '') {
+					$.ajax({
+						type : 'post',
+						url : '/projob/emailchk',
+						data : {us_email:us_email},
+						success : function(result_e) {
+							console.log(result_e);
+							if (result_e == '0') {
+								$(".emailchk1").show();
+								$(".emailchk2").hide();
+							} else {
+								$(".emailchk2").show();
+								$(".emailchk1").hide();
+							}
+						},
+						error : function(a, b, c) {
+							console.log(a, b, c);
+						}
+					});
+				} else {
+					alert('이메일를 입력해주세요.');
+					$('#us_email').focus();
 				}
 			});
 		});

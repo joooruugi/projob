@@ -12,5 +12,6 @@ public interface ProuserDao {
 	//회원가입
 	public int insertProuserfree(Prouser prouser) throws Exception;
 	public int insertProusercomp(Prouser prouser) throws Exception;
-	public int idchk(String us_id) throws Exception;
+	public int idchk(String us_id);
+	public int emailchk(String us_email);
 }

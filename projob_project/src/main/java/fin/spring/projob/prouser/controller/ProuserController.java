@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -102,16 +103,21 @@ public class ProuserController {
 		return mv;
 	}
 
-	//회원가입 사용자>프리랜서 아이디 중복확인
-	@RequestMapping(value="/usidChk", method=RequestMethod.GET)
+	//회원가입 사용자 아이디 중복확인
+	@PostMapping(value="/idchk")
 	@ResponseBody
-	public int usidChk(
-			HttpServletRequest req
-			,HttpServletResponse resp
-			,HttpSession session
-			,String us_id
-			) throws Exception{
-		return service.idchk(us_id);
+	public int idchk(@RequestParam("us_id") String us_id) throws Exception{
+//		logger.info("idchk");
+		int result = service.idchk(us_id);
+//		logger.info("Controller"+result);
+		return result;
+	}
+	//회원가입 사용자 이메일 중복확인
+	@PostMapping(value="/emailchk")
+	@ResponseBody
+	public int emailchk(@RequestParam("us_email") String us_email) throws Exception{
+		int result_e = service.emailchk(us_email);
+		return result_e;
 	}
 	// 사용자 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
