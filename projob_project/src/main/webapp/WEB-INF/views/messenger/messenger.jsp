@@ -177,7 +177,7 @@
     	});
     </script>
     
-	 <!--  <script>
+	 <script>
     	var userId = $('#sessionuserid').val();
 	    $(function(){
 	        var socket = new SockJS("<c:url value="/chat"/>");
@@ -232,9 +232,9 @@
 	    	
 	      	/* sock.close(); */
 	    }
-    </script> -->
+    </script>
     
- <script type="text/javascript">
+ <!-- <script type="text/javascript">
 $(function(){
 	//websocket을 지정한 URL로 연결
 /* 	sock= new SockJS("<c:url value="/chat"/>"); */
@@ -324,7 +324,7 @@ function onMessage(evt){  //변수 안에 function자체를 넣음.
 function onClose(evt){
 	$("#data").append("연결 끊김");
 }    
-</script>
+</script> -->
 </body>
 
 </html>
