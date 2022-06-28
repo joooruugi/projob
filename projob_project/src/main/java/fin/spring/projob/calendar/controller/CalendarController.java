@@ -13,12 +13,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class CalendarController {
+	@RequestMapping(value = "/calendar")
+	public ModelAndView calendar(ModelAndView mv) {
+		mv.setViewName("calendar/calendar");
+		return mv;
+	}
 	//달력기본화면
 //	@RequestMapping(value = "/adms/calendar/management/list.do")
 //	public String lnb04List(RedirectAttributes redirectAttributes, HttpServletRequest request, @ModelAttribute("searchVO") tbl_calendarVO searchVO, ModelMap model) throws Exception {

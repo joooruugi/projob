@@ -17,8 +17,8 @@
         margin : 0 auto;
     }
 </style> -->
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fullcalendar/fullcalendar-5.11.0/lib/main.css">
-<script src="<%=request.getContextPath() %>/resources/fullcalendar/fullcalendar-5.11.0/lib/main.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fullcalendar/main.css">
+<script src="<%=request.getContextPath() %>/resources/fullcalendar/main.js"></script>
 <!-- <script>
     jQuery(document).ready(function() {
         jQuery("#calendar").fullCalendar({
@@ -104,13 +104,13 @@
                  }
                }
                , events: [{ //이 부분이 json을 받아서 calendar에 뿌리는 공간
-            	      title: '이미나', 
+            	      title: '이미나' 
             	      , start: '2022-04-14 07:00'
             	      , end: '2022-04-14 09:00' 
-            	      , backgroundColor: "green"
+            	      , backgroundColor: "red"
             	    },
             	    {
-            	      title: '이고미', 
+            	      title: '이고미' 
             	      , start: '2022-04-15 17:00'
             	      , end: '2022-04-15 19:00' 
             	      , backgroundColor: "green"
@@ -122,6 +122,7 @@
 </script>
 </head>
 <body>
+6
 	<div id="calendar"></div>
 </body>
 </html>

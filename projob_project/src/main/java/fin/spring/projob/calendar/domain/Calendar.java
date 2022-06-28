@@ -21,142 +21,132 @@ public class Calendar {
 //	CAL_BORDERCOLOR              VARCHAR2(100)  
 //	CAL_TEXTCOLOR                VARCHAR2(100)  
 	
-	private int CAL_NO;
-	private int PRO_NO;
-	private String CAL_ID;
-	private String CAL_MEMBER_ID;
-	private String CAL_TITLE;
-	private String CAL_CONTENT;
-	private String CAL_START;
-	private String CAL_END;
-	private String CAL_ALLDAY_YN;
-	private String CAL_ALLDAY_START;
-	private String CAL_ALLDAY_END;
-	private String CAL_BACKGROUNDCOLOR;
-	private String CAL_BORDERCOLOR;
-	private String CAL_TEXTCOLOR;
+	private int cal_no;
+	private int pro_no;
+	private String cal_id;
+	private String cal_member_id;
+	private String id;
+	private String groupId;
+	private String start;
+	private String end;
+	private String title;
+	private Boolean allDay;
+	private String backgroundColor;
+	private String borderColor;
+	private String textColor;
 	
 	@Override
 	public String toString() {
-		return "Calendar [CAL_NO=" + CAL_NO + ", PRO_NO=" + PRO_NO + ", CAL_ID=" + CAL_ID + ", CAL_MEMBER_ID="
-				+ CAL_MEMBER_ID + ", CAL_TITLE=" + CAL_TITLE + ", CAL_CONTENT=" + CAL_CONTENT + ", CAL_START="
-				+ CAL_START + ", CAL_END=" + CAL_END + ", CAL_ALLDAY_YN=" + CAL_ALLDAY_YN + ", CAL_ALLDAY_START="
-				+ CAL_ALLDAY_START + ", CAL_ALLDAY_END=" + CAL_ALLDAY_END + ", CAL_BACKGROUNDCOLOR="
-				+ CAL_BACKGROUNDCOLOR + ", CAL_BORDERCOLOR=" + CAL_BORDERCOLOR + ", CAL_TEXTCOLOR=" + CAL_TEXTCOLOR
-				+ "]";
+		return "Calendar [cal_no=" + cal_no + ", pro_no=" + pro_no + ", cal_id=" + cal_id + ", cal_member_id="
+				+ cal_member_id + ", id=" + id + ", groupId=" + groupId + ", start=" + start + ", end=" + end
+				+ ", title=" + title + ", allDay=" + allDay + ", backgroundColor=" + backgroundColor + ", borderColor="
+				+ borderColor + ", textColor=" + textColor + "]";
 	}
 
-	public int getCAL_NO() {
-		return CAL_NO;
+	public int getCal_no() {
+		return cal_no;
 	}
 
-	public void setCAL_NO(int cAL_NO) {
-		CAL_NO = cAL_NO;
+	public void setCal_no(int cal_no) {
+		this.cal_no = cal_no;
 	}
 
-	public int getPRO_NO() {
-		return PRO_NO;
+	public int getPro_no() {
+		return pro_no;
 	}
 
-	public void setPRO_NO(int pRO_NO) {
-		PRO_NO = pRO_NO;
+	public void setPro_no(int pro_no) {
+		this.pro_no = pro_no;
 	}
 
-	public String getCAL_ID() {
-		return CAL_ID;
+	public String getCal_id() {
+		return cal_id;
 	}
 
-	public void setCAL_ID(String cAL_ID) {
-		CAL_ID = cAL_ID;
+	public void setCal_id(String cal_id) {
+		this.cal_id = cal_id;
 	}
 
-	public String getCAL_MEMBER_ID() {
-		return CAL_MEMBER_ID;
+	public String getCal_member_id() {
+		return cal_member_id;
 	}
 
-	public void setCAL_MEMBER_ID(String cAL_MEMBER_ID) {
-		CAL_MEMBER_ID = cAL_MEMBER_ID;
+	public void setCal_member_id(String cal_member_id) {
+		this.cal_member_id = cal_member_id;
 	}
 
-	public String getCAL_TITLE() {
-		return CAL_TITLE;
+	public String getId() {
+		return id;
 	}
 
-	public void setCAL_TITLE(String cAL_TITLE) {
-		CAL_TITLE = cAL_TITLE;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getCAL_CONTENT() {
-		return CAL_CONTENT;
+	public String getGroupId() {
+		return groupId;
 	}
 
-	public void setCAL_CONTENT(String cAL_CONTENT) {
-		CAL_CONTENT = cAL_CONTENT;
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
-	public String getCAL_START() {
-		return CAL_START;
+	public String getStart() {
+		return start;
 	}
 
-	public void setCAL_START(String cAL_START) {
-		CAL_START = cAL_START;
+	public void setStart(String start) {
+		this.start = start;
 	}
 
-	public String getCAL_END() {
-		return CAL_END;
+	public String getEnd() {
+		return end;
 	}
 
-	public void setCAL_END(String cAL_END) {
-		CAL_END = cAL_END;
+	public void setEnd(String end) {
+		this.end = end;
 	}
 
-	public String getCAL_ALLDAY_YN() {
-		return CAL_ALLDAY_YN;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setCAL_ALLDAY_YN(String cAL_ALLDAY_YN) {
-		CAL_ALLDAY_YN = cAL_ALLDAY_YN;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getCAL_ALLDAY_START() {
-		return CAL_ALLDAY_START;
+	public Boolean getAllDay() {
+		return allDay;
 	}
 
-	public void setCAL_ALLDAY_START(String cAL_ALLDAY_START) {
-		CAL_ALLDAY_START = cAL_ALLDAY_START;
+	public void setAllDay(Boolean allDay) {
+		this.allDay = allDay;
 	}
 
-	public String getCAL_ALLDAY_END() {
-		return CAL_ALLDAY_END;
+	public String getBackgroundColor() {
+		return backgroundColor;
 	}
 
-	public void setCAL_ALLDAY_END(String cAL_ALLDAY_END) {
-		CAL_ALLDAY_END = cAL_ALLDAY_END;
+	public void setBackgroundColor(String backgroundColor) {
+		this.backgroundColor = backgroundColor;
 	}
 
-	public String getCAL_BACKGROUNDCOLOR() {
-		return CAL_BACKGROUNDCOLOR;
+	public String getBorderColor() {
+		return borderColor;
 	}
 
-	public void setCAL_BACKGROUNDCOLOR(String cAL_BACKGROUNDCOLOR) {
-		CAL_BACKGROUNDCOLOR = cAL_BACKGROUNDCOLOR;
+	public void setBorderColor(String borderColor) {
+		this.borderColor = borderColor;
 	}
 
-	public String getCAL_BORDERCOLOR() {
-		return CAL_BORDERCOLOR;
+	public String getTextColor() {
+		return textColor;
 	}
 
-	public void setCAL_BORDERCOLOR(String cAL_BORDERCOLOR) {
-		CAL_BORDERCOLOR = cAL_BORDERCOLOR;
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
 	}
 
-	public String getCAL_TEXTCOLOR() {
-		return CAL_TEXTCOLOR;
-	}
-
-	public void setCAL_TEXTCOLOR(String cAL_TEXTCOLOR) {
-		CAL_TEXTCOLOR = cAL_TEXTCOLOR;
-	}
 	
 	
 	
