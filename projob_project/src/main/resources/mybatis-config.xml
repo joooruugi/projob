@@ -6,8 +6,11 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="fin.spring.projob.prouser.vo.Prouser" alias="Prouser"/>
+		<typeAlias type="fin.spring.projob.messenger.vo.Message" alias="Message"/>
+		<typeAlias type="fin.spring.projob.messenger.vo.MessageRoom" alias="MessageRoom"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/prouser-mapper.xml"/>
+		<mapper resource="mappers/messenger-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Messenger">
-
+	<select id="selectAllRooms" parameterType="String" resultType="map">
+		<!-- select mr_no, mr_name, us_id from messageroom_member left join messageroom using(mr_no) where us_id = #{userId} -->
+		 select mr_no, mr_name, us_id from messageroom left join messageroom_member using(mr_no)
+	</select>
+	
+	<select id="maxmessageroomno" parameterType="String" resultType="int">
+		select max(mr_no)+1 from messageroom
+	</select>
+	
+	<select id="insertChatRoom" parameterType="map" resultType="int">
+		insert into messageroom(mr_no, mr_name, mr_wdate) values(#{maxnum}, #{name}, systimestamp)
+	</select>
+	
+	<select id="selectRoomByRoomId" parameterType="String" resultType="map">
+		select * from messageroom left join messageroom_member using(mr_no) where mr_no =#{roomId}
+	</select>
 </mapper>

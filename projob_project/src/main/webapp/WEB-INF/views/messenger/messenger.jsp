@@ -83,36 +83,20 @@
 				</nav>
 			</div>
 			<div style="height: 630px; background-color: white; margin: 20px 30px; clear: both; overflow: auto;">
-				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
-					방1번
-				</div>
-				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
-					방2번
-				</div>
-				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
-					방3번
-				</div>
-				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
-					방4번
-				</div>
-				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
-					방5번
-				</div>
-				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
-					방6번
-				</div>
-				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
-					방7번
-				</div>
-				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
-					방8번
-				</div>
-				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
-					방9번
-				</div>
-				<div style="width:100%; height: 70px; border-bottom:1px solid silver; vertical-align: middle; cursor: pointer;">
-					방10번
-				</div>
+				<c:forEach items="${list }" var="list">
+				<c:choose>
+					<c:when test="${list.MR_NO eq roomId}">
+						<div style="width:100%; height: 70px; padding:25px 10px; font-weight:bold;  border-bottom:1px solid silver; background-color:silver; cursor: pointer;" onclick="location.href='<%=request.getContextPath() %>/chat/room?roomId=${list.MR_NO}'">
+							${list.MR_NAME} 
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div style="width:100%; height: 70px; padding:25px 10px; border-bottom:1px solid silver; cursor: pointer;" onclick="location.href='<%=request.getContextPath() %>/chat/room?roomId=${list.MR_NO}'">
+							${list.MR_NAME} 
+						</div>
+					</c:otherwise>
+				</c:choose>
+				</c:forEach>
 			</div>
 		</div>
 		<div style="float:right; width: 600px; margin: 20px 30px 0">
@@ -178,61 +162,72 @@
     </script>
     
 	 <script>
-    	var userId = $('#sessionuserid').val();
-	    $(function(){
-	        var socket = new SockJS("<c:url value="/chat"/>");
-	        stompClient = Stomp.over(socket);
-	        stompClient.connect({}, function () {
-	            stompClient.subscribe('/topic/' + userId, function (e) {
-	            	console.log(e);
-	            	console.log(e.body);
-	                showMessage(JSON.parse(e.body));
-	                alertClosing('comeMessage',2000);
-	            });
-	        });
-	    });
+  $(document).ready(function(){
+
+    var roomName = '${room[0].MR_NAME}';
+    var roomId = '${room[0].MR_NO}';
+    /* var username = prompt("ID를 입력해주세요"); */
+    var username = $('#sessionuserid').val();;
+
+    console.log(roomName + ", " + roomId + ", " + username);
+
+    var sockJs = new SockJS("/projob/chat");
+    //1. SockJS를 내부에 들고있는 stomp를 내어줌
+    var stomp = Stomp.over(sockJs);
+    console.log('여기는?');
 	
-	    function send() {
-	        data = {'chatRoomId': userId, 'sender' :userId, 'receiver': userId,'message': $("#message").val()};
-	        stompClient.send("/app/chat/send", {}, JSON.stringify(data));
-	        showMessage(data);
-	        $("#message").val('');
-	    }
-	    
-	    $("#sendBtn").click(function(){
-	    	console.log('send message...');
-	           send();
-	       });	        
-	    
-	  //엔터키 이벤트 등록
-	    function enterkey(){
-	    	if (window.event.keyCode == 13) {
-	        	// 엔터키가 눌렸을 때
-	        	console.log('enter message...');
-	        	send();
-	    	}
-	    }
-	  
-	  //evt 파라미터는 websocket이 보내준 데이터다.
-	    function showMessage(evt){  //변수 안에 function자체를 넣음.
-		  console.log(evt);
-	    	//var data = evt.message;
-	    	var data = evt.data;
-			
-	    	//나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.//
-	    		var printHTML = "<div class='well'>";
-	    		printHTML += "<div class='alert alert-info'>";
-	    		printHTML += "<strong>["+evt.sender+"] -> "+evt.message+"</strong>";
-	    		printHTML += "</div>";
-	    		printHTML += "</div>";
-	    		
-	    		$("#chatdata").append(printHTML);
-	    	
-	    	console.log('chatting data: ' + data);
-	    	
-	      	/* sock.close(); */
-	    }
-    </script>
+	    //2. connection이 맺어지면 실행
+	  	stomp.connect({}, function (){
+    	console.log("STOMP Connection");
+      //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+      	stomp.subscribe("/sub/chat/message/" + roomId, function (chat) {
+        var content = JSON.parse(chat.body);
+
+        var writer = content.msg_id;
+        var message = content.msg_content;
+        
+      //나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.//
+    	if(username == writer){
+    		var printHTML = "<div class='well'>";
+    		printHTML += "<div class='alert alert-info'>";
+    		printHTML += "<strong>["+writer+"] -> "+message+"</strong>";
+    		printHTML += "</div>";
+    		printHTML += "</div>";
+    		
+    		$("#chatdata").append(printHTML);
+    	} else{
+    		var printHTML = "<div class='well'>";
+    		printHTML += "<div class='alert alert-warning'>";
+    		printHTML += "<strong>["+writer+"] -> "+message+"</strong>";
+    		printHTML += "</div>";
+    		printHTML += "</div>";
+    		
+    		$("#chatdata").append(printHTML);
+    	}
+      });
+
+      //3. send(path, header, message)로 메세지를 보낼 수 있음
+      stomp.send('/pub/chat/enter', {}, JSON.stringify({mr_no: roomId, msg_id: username}))
+    });
+
+    $("#sendBtn").on("click", function(e){
+      var msg = document.getElementById("message");
+
+      console.log(username + ":" + msg.value);
+      stomp.send('/pub/chat/message', {}, JSON.stringify({mr_no: roomId, msg_content: msg.value, msg_id: username}));
+      msg.value = '';
+    });
+  });
+  
+//엔터키 이벤트 등록
+  function enterkey(){
+  	if (window.event.keyCode == 13) {
+      	// 엔터키가 눌렸을 때
+      	console.log('enter message...');
+      	sendMessage();
+  	}
+  }
+</script>
     
  <!-- <script type="text/javascript">
 $(function(){
