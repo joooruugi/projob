@@ -1,5 +1,8 @@
 package fin.spring.projob.prouser.vo;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 public class Prouser {
 
 	private String us_id;
@@ -14,12 +17,14 @@ public class Prouser {
 	private String us_adname;
 	private String us_adphone;
 	private String us_ademail;
+	private String us_address2;
+	private String us_address3;
 	@Override
 	public String toString() {
 		return "Prouser [us_id=" + us_id + ", us_pw=" + us_pw + ", us_name=" + us_name + ", us_phone=" + us_phone
 				+ ", us_email=" + us_email + ", us_address=" + us_address + ", us_crn=" + us_crn + ", us_info="
 				+ us_info + ", us_ok=" + us_ok + ", us_adname=" + us_adname + ", us_adphone=" + us_adphone
-				+ ", us_ademail=" + us_ademail + "]";
+				+ ", us_ademail=" + us_ademail + ", us_address2=" + us_address2 + ", us_address3=" + us_address3 + "]";
 	}
 	public String getUs_id() {
 		return us_id;
@@ -92,6 +97,18 @@ public class Prouser {
 	}
 	public void setUs_ademail(String us_ademail) {
 		this.us_ademail = us_ademail;
+	}
+	public String getUs_address2() {
+		return us_address2;
+	}
+	public void setUs_address2(String us_address2) {
+		this.us_address2 = us_address2;
+	}
+	public String getUs_address3() {
+		return us_address3;
+	}
+	public void setUs_address3(String us_address3) {
+		this.us_address3 = us_address3;
 	}
 	
 }

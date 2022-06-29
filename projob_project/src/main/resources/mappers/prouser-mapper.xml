@@ -3,8 +3,8 @@
 <mapper namespace="Prouser">
 
 	<insert id="insertProuserfree" parameterType="Prouser">
-		insert into prouser (us_id, us_pw, us_name, us_phone, us_email, us_address, us_crn, us_info, us_ok)
-		values(#{us_id}, #{us_pw}, #{us_name}, #{us_phone}, #{us_email}, #{us_address}, #{us_crn}, 0, 0)
+		insert into prouser (us_id, us_pw, us_name, us_phone, us_email, us_address, us_address2, us_address3, us_crn, us_info, us_ok)
+		values(#{us_id}, #{us_pw}, #{us_name}, #{us_phone}, #{us_email}, #{us_address},  #{us_address2},  #{us_address3},  #{us_crn}, 0, 0)
 	</insert>
 	<insert id="insertProusercomp" parameterType="Prouser">
 		insert into prouser (us_id, us_pw, us_name, us_phone, us_email, us_address, us_crn, us_info, us_ok, us_adname, us_adphone, us_ademail)
@@ -15,5 +15,8 @@
 	</select>
 	<select id="emailchk" parameterType="String" resultType="int">
 		select count(*) from prouser where us_email=#{us_email}
+	</select>
+	<select id="login" parameterType="Prouser" resultType="Prouser">
+		select * from prouser where us_id=#{us_id}
 	</select>
 </mapper>

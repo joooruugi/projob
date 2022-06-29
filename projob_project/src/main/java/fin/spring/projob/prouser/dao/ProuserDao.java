@@ -14,4 +14,5 @@ public interface ProuserDao {
 	public int insertProusercomp(Prouser prouser) throws Exception;
 	public int idchk(String us_id);
 	public int emailchk(String us_email);
+	public Prouser login(Prouser prouser) throws Exception;
 }

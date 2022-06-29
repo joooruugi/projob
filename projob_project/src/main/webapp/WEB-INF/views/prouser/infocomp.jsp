@@ -91,18 +91,18 @@
 				<div class="inforow">
 					<label class="labelinfo" for="us_address">주소</label><br> <br>
 					<input type="text" class="inputinfo us_address"
-						name="us_address memberAddr1" required id="us_address"
+						name="us_address" required id="us_address"
 						readonly="readonly" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					<br> <br> <input type="text"
-						class="inputinfo us_address2" name="us_address2 memberAddr2"
+						class="inputinfo us_address2" name="us_address2"
 						required id="us_address2" readonly="readonly" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					<br> <br>
 					<div class="inforow">
 						<label class="labelinfo" for="us_address3">상세주소</label><br> <br>
 						<input type="text" class="inputinfo us_address3"
-							name="us_address3 memberAddr3" readonly="readonly"
+							name="us_address3" readonly="readonly"
 							id="us_address3" placeholder=""
 							style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					</div>

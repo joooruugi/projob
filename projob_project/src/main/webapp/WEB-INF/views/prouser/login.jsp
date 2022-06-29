@@ -29,7 +29,7 @@
         <div class="loginname">
             <p class="fonthighlight">로그인</p>
         </div>
-        <form>
+        <form action="<%=request.getContextPath()%>/login" method="post">
             <div class="logincontent">
                 <label class="loginlabel" for="us_id"><p class="fontname">아이디</p></label>
                 <input type="text" class="inputlogin" id="us_id" placeholder="" style="font-family: 'Cafe24SsurroundAir';
