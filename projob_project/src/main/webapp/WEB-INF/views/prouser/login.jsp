@@ -44,8 +44,9 @@
             font-style: normal;">
             </div>
             <div class="logincontent2">
-                <a href="#" class="loginlink">아이디/비밀번호 찾기</a>
-                <a href="#" class="loginlink">아직 회원이 아니신가요?</a>
+                <a href="<%=request.getContextPath() %>/findid" class="loginlink">아이디 찾기</a>
+                <a href="<%=request.getContextPath() %>/findpw" class="loginlink">비밀번호 찾기</a>
+                <a href="<%=request.getContextPath() %>/join" class="loginlink">아직 회원이 아니신가요?</a>
             </div>
             <div class="loginbutton">
                 <button class="loginbtn btn4" type="submit">로 그 인</button>

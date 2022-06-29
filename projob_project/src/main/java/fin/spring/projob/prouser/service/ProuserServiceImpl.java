@@ -51,4 +51,14 @@ public class ProuserServiceImpl implements ProuserService {
 	public Prouser login(Prouser prouser) throws Exception{
 		return pdao.login(prouser);
 	}
+	//아이디 찾기
+	@Override
+	public Prouser findid(Prouser prouser) throws Exception{
+		return pdao.findid(prouser);
+	}
+	//비밀번호 찾기
+	@Override
+	public Prouser findpw(Prouser prouser) throws Exception{
+		return pdao.findpw(prouser);
+	}
 }

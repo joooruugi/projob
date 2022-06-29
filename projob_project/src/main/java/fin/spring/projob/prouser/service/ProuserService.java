@@ -9,4 +9,6 @@ public interface ProuserService {
 	public int idchk(String us_id);
 	public int emailchk(String us_email);
 	public Prouser login(Prouser prouser) throws Exception;
+	public Prouser findid(Prouser prouser) throws Exception;
+	public Prouser findpw(Prouser prouser) throws Exception;
 }

@@ -157,4 +157,65 @@ public class ProuserController {
 			return mv;
 		}
 	}
+
+	// 사용자 아이디 찾기 get
+	@RequestMapping(value = "/findid", method = RequestMethod.GET)
+	public ModelAndView findidget(ModelAndView mv) {
+		mv.setViewName("prouser/findid");
+		return mv;
+	}
+
+	// 사용자 아이디 찾기 post
+//	public ModelAndView infofreepost(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpServletRequest req)
+//			throws Exception {
+//		logger.info("join for freelancer_POST");
+//		int result = service.insertProuserfree(prouser);
+//		if (result < 1) {
+//			rttr.addFlashAttribute("msg", " 가입에 실패하였습니다.");
+//			mv.setViewName("redirect:/infofree");
+//			return mv;
+//		}
+//		mv.setViewName("redirect:/login");
+//		return mv;
+//	}
+
+	@PostMapping(value = "/findid")
+	public ModelAndView findidpost(
+			ModelAndView mv
+			, Prouser prouser
+			, RedirectAttributes rttr
+			) throws Exception {
+		logger.info("findid POST");
+		Prouser result = service.findid(prouser);
+		if(result != null) {
+			mv.setViewName("redirect:/login");
+		}else {
+			mv.setViewName("redirect:/findid");
+		}
+		return mv;
+	}
+
+	// 사용자 비밀번호 찾기 get
+	@RequestMapping(value = "/findpw", method = RequestMethod.GET)
+	public ModelAndView findpwget(ModelAndView mv) {
+		mv.setViewName("prouser/findpw");
+		return mv;
+	}
+
+	// 사용자 비밀번호 찾기 post
+	@PostMapping(value = "/findpw")
+	public ModelAndView findpwpost(
+			ModelAndView mv
+			, Prouser prouser
+			, RedirectAttributes rttr
+			) throws Exception {
+		logger.info("findpw POST");
+		Prouser result = service.findpw(prouser);
+		if(result != null) {
+			mv.setViewName("redirect:/login");
+		}else {
+			mv.setViewName("redirect:/findpw");
+		}
+		return mv;
+	}
 }

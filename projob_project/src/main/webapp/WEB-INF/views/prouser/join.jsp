@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<div class="joinbottom">
-			<a href="#">
+			<a href="<%=request.getContextPath() %>/login">
 				<p class="fontcontent2">이미 projob 회원이신가요? >> 로그인 하러가기</p>
 			</a>
 		</div>

@@ -1,22 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Prouser">
-
+	<!-- 프리랜서 회원가입 -->
 	<insert id="insertProuserfree" parameterType="Prouser">
 		insert into prouser (us_id, us_pw, us_name, us_phone, us_email, us_address, us_address2, us_address3, us_crn, us_info, us_ok)
 		values(#{us_id}, #{us_pw}, #{us_name}, #{us_phone}, #{us_email}, #{us_address},  #{us_address2},  #{us_address3},  #{us_crn}, 0, 0)
 	</insert>
+	<!-- 기업 회원가입 -->
 	<insert id="insertProusercomp" parameterType="Prouser">
 		insert into prouser (us_id, us_pw, us_name, us_phone, us_email, us_address, us_crn, us_info, us_ok, us_adname, us_adphone, us_ademail)
 		values(#{us_id}, #{us_pw}, #{us_name}, #{us_phone}, #{us_email}, #{us_address}, #{us_crn}, 1, 0, #{us_adname}, #{us_adphone}, #{us_ademail})
 	</insert>
+	<!-- 회원가입 > 아이디 중복확인 -->
 	<select id="idchk" parameterType="String" resultType="int">
 		select count(*) from prouser where us_id=#{us_id}
 	</select>
+	<!-- 회원가입 > 이메일 중복확인 -->
 	<select id="emailchk" parameterType="String" resultType="int">
 		select count(*) from prouser where us_email=#{us_email}
 	</select>
+	<!-- 로그인 -->
 	<select id="login" parameterType="Prouser" resultType="Prouser">
 		select * from prouser where us_id=#{us_id}
+	</select>
+	<!-- 아이디 찾기 -->
+	<select id="findid" parameterType="Prouser" resultType="Prouser">
+		select us_id from prouser where us_name=#{us_name} and us_email=#{us_email} and us_crn=#{us_crn}
+	</select>
+	<!-- 비밀번호 찾기 -->
+	<select id="findpw" parameterType="Prouser" resultType="Prouser">
+		select us_pw from prouser where us_name=#{us_name} and us_email=#{us_email} and us_crn=#{us_crn} and us_id=#{us_id}
 	</select>
 </mapper>

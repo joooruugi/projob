@@ -41,4 +41,14 @@ public class ProuserDaoImpl implements ProuserDao{
 		return sql.selectOne("Prouser.login", prouser);
 	}
 	
+	//아이디 찾기
+	public Prouser findid(Prouser prouser) {
+		return sql.selectOne("Prouser.findid", prouser);
+	}
+	
+	//비밀번호 찾기
+	public Prouser findpw(Prouser prouser) {
+		return sql.selectOne("Prouser.findpw", prouser);
+	}
+	
 }
