@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import fin.spring.projob.messenger.service.MessengerService;
+import fin.spring.projob.prouser.vo.Prouser;
 
 @Controller
 @RequestMapping("/chat")
@@ -24,10 +24,13 @@ public class MessengerController {
 	
 	@GetMapping("room")
 	public ModelAndView chat(ModelAndView mv,
-			@RequestParam(value = "roomId", defaultValue = "0") String roomId
+			@RequestParam(value = "roomId", defaultValue = "0") String roomId,
+			HttpSession ss
 			) {
+		System.out.println(ss.getAttribute("loginSsInfo"));
 		//임시ID
-		String userId = "jw";
+		Prouser userInfo = (Prouser) ss.getAttribute("loginSsInfo");
+		String userId = userInfo.getUs_id();
 		//채팅방 리스트
 		List<Map<String, Object>> mr = service.selectAllRooms(userId);
 		//채팅방 클릭으로 왔을때

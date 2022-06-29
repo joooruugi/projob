@@ -32,13 +32,13 @@
         <form action="<%=request.getContextPath()%>/login" method="post">
             <div class="logincontent">
                 <label class="loginlabel" for="us_id"><p class="fontname">아이디</p></label>
-                <input type="text" class="inputlogin" id="us_id" placeholder="" style="font-family: 'Cafe24SsurroundAir';
+                <input type="text" class="inputlogin" id="us_id" name="us_id" placeholder="" style="font-family: 'Cafe24SsurroundAir';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
             font-weight: normal;
             font-style: normal;">
            
                 <label class="loginlabel" for="us_pw"><p class="fontname">비밀번호</p></label>
-                <input type="password" class="inputlogin" id="us_pw" placeholder="" style="font-family: 'Cafe24SsurroundAir';
+                <input type="password" class="inputlogin" id="us_pw" name="us_pw" placeholder="" style="font-family: 'Cafe24SsurroundAir';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
             font-weight: normal;
             font-style: normal;">

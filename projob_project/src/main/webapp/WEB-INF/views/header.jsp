@@ -16,6 +16,7 @@
                 <a href="#" class="fontimportant2">ALL</a>
                 <a href="#" class="fontimportant2">PROJECT</a>
                 <a href="#" class="fontimportant2">COMMUNITY</a>
+                <a href="<%=request.getContextPath() %>/chat/room" class="fontimportant2">MESSENGER</a>
             </div>
             <div class="headerdownright">
                 <a href="#" class="fontname2">원하는 프로젝트가 없다면? 프로젝트 제안하기 >></a>

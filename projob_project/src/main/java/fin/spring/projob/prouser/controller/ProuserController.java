@@ -146,14 +146,14 @@ public class ProuserController {
 	public ModelAndView login(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpSession session)
 			throws Exception {
 		Prouser result = service.login(prouser);
-		if (result != null && passEncoder.matches(prouser.getUs_pw(), prouser.getUs_pw())) {
+		if (result != null && passEncoder.matches(prouser.getUs_pw(), result.getUs_pw())) {
 			session.setAttribute("loginSsInfo", result);
-			rttr.addFlashAttribute("msg", prouser.getUs_name() + "님 로그인되었습니다.");
-			mv.setViewName("redirect:prouser/login");
+			rttr.addFlashAttribute("msg", result.getUs_name() + "님 로그인되었습니다.");
+			mv.setViewName("redirect:/");
 			return mv;
 		} else {
 			rttr.addFlashAttribute("msg", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
-			mv.setViewName("redirect:/");
+			mv.setViewName("redirect:prouser/login/");
 			return mv;
 		}
 	}
