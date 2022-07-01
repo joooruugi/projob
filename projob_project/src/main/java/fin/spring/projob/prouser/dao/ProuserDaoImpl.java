@@ -1,5 +1,7 @@
 package fin.spring.projob.prouser.dao;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import fin.spring.projob.prouser.vo.Kakao;
 import fin.spring.projob.prouser.vo.Prouser;
 
 @Repository
@@ -40,7 +43,16 @@ public class ProuserDaoImpl implements ProuserDao{
 	public Prouser login(Prouser prouser) {
 		return sql.selectOne("Prouser.login", prouser);
 	}
-	
+	//카카오로그인 정보 저장
+	public void kakaoinsert(HashMap<String, Object> prouserinfo) {
+		sql.insert("Prouser.kakaoinsert", prouserinfo);
+	}
+	//카카오로그인 정보확인
+	public Kakao findkakao(HashMap<String, Object> prouserinfo) {
+		System.out.println("RN : "+prouserinfo.get("nickname"));
+		System.out.println("RE : "+prouserinfo.get("email"));
+		return sql.selectOne("Prouser.findkakao", prouserinfo);
+	}
 	//아이디 찾기
 	public Prouser findid(Prouser prouser) {
 		return sql.selectOne("Prouser.findid", prouser);

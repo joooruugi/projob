@@ -23,6 +23,15 @@
 	<select id="login" parameterType="Prouser" resultType="Prouser">
 		select * from prouser where us_id=#{us_id}
 	</select>
+	<!-- 카카오로그인 정보찾기 -->
+	<select id="findkakao" parameterType="java.util.HashMap" resultType="Kakao">
+		select * from kakao where kakao_name = #{us_name} and kakao_email=#{us_email}
+	</select>
+	<!-- 카카오로그인 정보 저장 -->
+	<insert id="kakaoinsert" parameterType="java.util.HashMap">
+		insert into kakao (kakao_name, kakao_email)
+			values(#{us_name}, #{us_email})
+	</insert>
 	<!-- 아이디 찾기 -->
 	<select id="findid" parameterType="Prouser" resultType="Prouser">
 		select us_id from prouser where us_name=#{us_name} and us_email=#{us_email} and us_crn=#{us_crn}

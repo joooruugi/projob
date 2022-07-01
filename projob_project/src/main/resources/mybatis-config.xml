@@ -6,6 +6,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="fin.spring.projob.prouser.vo.Prouser" alias="Prouser"/>
+		<typeAlias type="fin.spring.projob.prouser.vo.Kakao" alias="Kakao"/>
 		<typeAlias type="fin.spring.projob.messenger.vo.Message" alias="Message"/>
 		<typeAlias type="fin.spring.projob.messenger.vo.MessageRoom" alias="MessageRoom"/>
 	</typeAliases>

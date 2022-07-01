@@ -2,6 +2,7 @@ package fin.spring.projob.prouser.controller;
 
 import java.util.HashMap;
 
+
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -29,11 +30,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import fin.spring.projob.prouser.dao.ProuserDaoImpl;
 import fin.spring.projob.prouser.service.ProuserService;
 import fin.spring.projob.prouser.service.ProuserServiceImpl;
+import fin.spring.projob.prouser.vo.Kakao;
 import fin.spring.projob.prouser.vo.Prouser;
 import lombok.AllArgsConstructor;
 
 @Controller
-@AllArgsConstructor
 public class ProuserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProuserController.class);
@@ -159,11 +160,21 @@ public class ProuserController {
 	}
 	//카카오 로그인
 	@RequestMapping(value="/kakaologin", method=RequestMethod.GET)
-	public String kakaoLogin(@RequestParam(value="code", required = false)String code)throws Exception{
+	public String kakaoLogin(@RequestParam(value="code", required = false)String code
+			, HttpSession session)throws Exception{
 		System.out.println("#####"+code);
-		
 		String access_Token = service.getAccessToken(code);
+		
+		Kakao prouserinfo = service.prouserinfo(access_Token);
 		System.out.println("###access_Token### : "+ access_Token);
+		System.out.println("###nickname#### : " + prouserinfo.getKakao_name());
+		System.out.println("###email#### : " + prouserinfo.getKakao_email());
+		session.invalidate();
+		// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
+		session.setAttribute("kakaoN", prouserinfo.getKakao_name());
+		session.setAttribute("kakaoE", prouserinfo.getKakao_email());
+		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
+		// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
 		return "projob/login";
 		
 	}

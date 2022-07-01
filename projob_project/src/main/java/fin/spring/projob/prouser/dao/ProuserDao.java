@@ -1,10 +1,13 @@
 package fin.spring.projob.prouser.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import fin.spring.projob.prouser.vo.Kakao;
 import fin.spring.projob.prouser.vo.Prouser;
 
 @Repository
@@ -17,4 +20,6 @@ public interface ProuserDao {
 	public Prouser login(Prouser prouser) throws Exception;
 	public Prouser findid(Prouser prouser) throws Exception;
 	public Prouser findpw(Prouser prouser) throws Exception;
+	public void kakaoinsert(HashMap<String, Object> prouserinfo);
+	public Kakao findkakao(HashMap<String, Object> prouserinfo);
 }
