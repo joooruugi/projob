@@ -1,13 +1,22 @@
 package fin.spring.projob.prouser.service;
 
+import java.io.BufferedReader;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import javax.inject.Inject;
-
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import fin.spring.projob.prouser.dao.ProuserDao;
 import fin.spring.projob.prouser.dao.ProuserDaoImpl;
@@ -50,6 +59,57 @@ public class ProuserServiceImpl implements ProuserService {
 	@Override
 	public Prouser login(Prouser prouser) throws Exception{
 		return pdao.login(prouser);
+	}
+	//카카오 로그인 인증키z
+	public String getAccessToken(String authorize_code) throws Exception {
+		String access_Token = "";
+		String refresh_Token = "";
+		String reqURL = "https://kauth.kakao.com/oauth/token";
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			
+			//POST 요청을 위해 setDoOutput을 true로
+			conn.setRequestMethod("POST");
+			conn.setDoOutput(true);
+			
+			//POST로 보낼 정보를 파라미터에 담기
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("grant_type = autorization_code");
+			sb.append("&client_id=3ffd958b947bf62ae145517c58a31d0a"); 
+			sb.append("&redirect_uri=http://localhost:8090/projob/kakaologin");
+			sb.append("&code=" + authorize_code);
+			bw.write(sb.toString());
+			bw.flush();
+			
+			//결과코드가 200이 나와야 함
+			int responseCode = conn.getResponseCode();
+			System.out.println("responseCode : " + responseCode);
+			
+			//JSON 타입의 Response 메세지 읽어오기
+			BufferedReader bf = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line = "";
+			String result = "";
+			
+			while((line = bf.readLine()) != null) {
+				result += line;
+			}
+			System.out.println("response body: " + result);
+			
+			//Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(result);
+			
+			access_Token = element.getAsJsonObject().get("access_token").getAsString();
+			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+			
+			System.out.println("access_token : "+ access_Token );
+			System.out.println("refresh_token : "+ refresh_Token );
+			
+			bf.close();
+			bw.close();
+			
+		return access_Token;
 	}
 	//아이디 찾기
 	@Override

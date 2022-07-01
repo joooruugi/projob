@@ -157,6 +157,16 @@ public class ProuserController {
 			return mv;
 		}
 	}
+	//카카오 로그인
+	@RequestMapping(value="/kakaologin", method=RequestMethod.GET)
+	public String kakaoLogin(@RequestParam(value="code", required = false)String code)throws Exception{
+		System.out.println("#####"+code);
+		
+		String access_Token = service.getAccessToken(code);
+		System.out.println("###access_Token### : "+ access_Token);
+		return "projob/login";
+		
+	}
 
 	// 사용자 아이디 찾기 get
 	@RequestMapping(value = "/findid", method = RequestMethod.GET)
