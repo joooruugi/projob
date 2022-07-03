@@ -63,7 +63,7 @@ public class ProuserServiceImpl implements ProuserService {
 	public Prouser login(Prouser prouser) throws Exception{
 		return pdao.login(prouser);
 	}
-	//카카오 로그인 인증키z
+	//카카오 로그인 인증키
 	public String getAccessToken(String authorize_code) throws Exception {
 		String access_Token = "";
 		String refresh_Token = "";
@@ -88,6 +88,7 @@ public class ProuserServiceImpl implements ProuserService {
 			//결과코드가 200이 나와야 함
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode : " + responseCode);
+			//결과코드 200까지 잘 나옴, 이후 Controller로 돌아갔을 때 받아와지지 않음. 
 			
 			//JSON 타입의 Response 메세지 읽어오기
 			BufferedReader bf = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -115,15 +116,16 @@ public class ProuserServiceImpl implements ProuserService {
 		return access_Token;
 	}
 	//카카오로그인 > 사용자 정보 요청
-	public Kakao prouserinfo(String access_Token){
+	public Kakao prouserinfo(String access_Token) throws Exception{
 		HashMap<String, Object> prouserinfo = new HashMap<String, Object>();
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
 			URL url = new URL(reqURL);
+			System.out.println(url);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			
-			conn.setRequestProperty("Authorization", "bearer" + access_Token);
+			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode : "+responseCode);
 			
@@ -141,12 +143,17 @@ public class ProuserServiceImpl implements ProuserService {
 			
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+			System.out.println("properties : "+properties);
+			System.out.println(properties.getAsJsonObject().get("nickname"));
+			System.out.println(properties.getAsJsonObject().get("nickname").getAsString());
+//			System.out.println(properties.getAsJsonObject().get("email").getAsString());
 			
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-			String email = kakao_account.getAsJsonObject().get("email").getAsString();
+//			String email = kakao_account.getAsJsonObject().get("email").getAsString();
+			System.out.println(nickname);
 			
 			prouserinfo.put("nickname", nickname);
-			prouserinfo.put("email", email);
+//			prouserinfo.put("email", email);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -50,7 +50,7 @@ public class ProuserDaoImpl implements ProuserDao{
 	//카카오로그인 정보확인
 	public Kakao findkakao(HashMap<String, Object> prouserinfo) {
 		System.out.println("RN : "+prouserinfo.get("nickname"));
-		System.out.println("RE : "+prouserinfo.get("email"));
+//		System.out.println("RE : "+prouserinfo.get("email"));
 		return sql.selectOne("Prouser.findkakao", prouserinfo);
 	}
 	//아이디 찾기

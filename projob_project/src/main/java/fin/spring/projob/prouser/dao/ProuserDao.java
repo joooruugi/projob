@@ -20,6 +20,6 @@ public interface ProuserDao {
 	public Prouser login(Prouser prouser) throws Exception;
 	public Prouser findid(Prouser prouser) throws Exception;
 	public Prouser findpw(Prouser prouser) throws Exception;
-	public void kakaoinsert(HashMap<String, Object> prouserinfo);
-	public Kakao findkakao(HashMap<String, Object> prouserinfo);
+	public void kakaoinsert(HashMap<String, Object> prouserinfo) throws Exception;
+	public Kakao findkakao(HashMap<String, Object> prouserinfo) throws Exception;
 }

@@ -3,41 +3,58 @@
 <mapper namespace="Prouser">
 	<!-- 프리랜서 회원가입 -->
 	<insert id="insertProuserfree" parameterType="Prouser">
-		insert into prouser (us_id, us_pw, us_name, us_phone, us_email, us_address, us_address2, us_address3, us_crn, us_info, us_ok)
-		values(#{us_id}, #{us_pw}, #{us_name}, #{us_phone}, #{us_email}, #{us_address},  #{us_address2},  #{us_address3},  #{us_crn}, 0, 0)
+		insert into prouser
+		(us_id, us_pw, us_name, us_phone, us_email, us_address, us_address2,
+		us_address3, us_crn, us_info, us_ok)
+		values(#{us_id}, #{us_pw},
+		#{us_name}, #{us_phone}, #{us_email}, #{us_address}, #{us_address2},
+		#{us_address3}, #{us_crn}, 0, 0)
 	</insert>
 	<!-- 기업 회원가입 -->
 	<insert id="insertProusercomp" parameterType="Prouser">
-		insert into prouser (us_id, us_pw, us_name, us_phone, us_email, us_address, us_crn, us_info, us_ok, us_adname, us_adphone, us_ademail)
-		values(#{us_id}, #{us_pw}, #{us_name}, #{us_phone}, #{us_email}, #{us_address}, #{us_crn}, 1, 0, #{us_adname}, #{us_adphone}, #{us_ademail})
+		insert into prouser
+		(us_id, us_pw, us_name, us_phone, us_email, us_address, us_crn,
+		us_info, us_ok, us_adname, us_adphone, us_ademail)
+		values(#{us_id},
+		#{us_pw}, #{us_name}, #{us_phone}, #{us_email}, #{us_address},
+		#{us_crn}, 1, 0, #{us_adname}, #{us_adphone}, #{us_ademail})
 	</insert>
 	<!-- 회원가입 > 아이디 중복확인 -->
 	<select id="idchk" parameterType="String" resultType="int">
-		select count(*) from prouser where us_id=#{us_id}
+		select
+		count(*) from prouser where us_id=#{us_id}
 	</select>
 	<!-- 회원가입 > 이메일 중복확인 -->
 	<select id="emailchk" parameterType="String" resultType="int">
-		select count(*) from prouser where us_email=#{us_email}
+		select
+		count(*) from prouser where us_email=#{us_email}
 	</select>
 	<!-- 로그인 -->
 	<select id="login" parameterType="Prouser" resultType="Prouser">
-		select * from prouser where us_id=#{us_id}
+		select *
+		from prouser where us_id=#{us_id}
 	</select>
 	<!-- 카카오로그인 정보찾기 -->
-	<select id="findkakao" parameterType="java.util.HashMap" resultType="Kakao">
-		select * from kakao where kakao_name = #{us_name} and kakao_email=#{us_email}
+	<select id="findkakao" parameterType="java.util.HashMap"
+		resultType="Kakao">
+		select * from kakao where kakao_name = #{nickname}
 	</select>
 	<!-- 카카오로그인 정보 저장 -->
 	<insert id="kakaoinsert" parameterType="java.util.HashMap">
-		insert into kakao (kakao_name, kakao_email)
-			values(#{us_name}, #{us_email})
+		insert into kakao
+		(kakao_num, kakao_name)
+		values(tmp_kakaonum.nextval, #{nickname})
 	</insert>
 	<!-- 아이디 찾기 -->
 	<select id="findid" parameterType="Prouser" resultType="Prouser">
-		select us_id from prouser where us_name=#{us_name} and us_email=#{us_email} and us_crn=#{us_crn}
+		select
+		us_id from prouser where us_name=#{us_name} and us_email=#{us_email}
+		and us_crn=#{us_crn}
 	</select>
 	<!-- 비밀번호 찾기 -->
 	<select id="findpw" parameterType="Prouser" resultType="Prouser">
-		select us_pw from prouser where us_name=#{us_name} and us_email=#{us_email} and us_crn=#{us_crn} and us_id=#{us_id}
+		select
+		us_pw from prouser where us_name=#{us_name} and us_email=#{us_email}
+		and us_crn=#{us_crn} and us_id=#{us_id}
 	</select>
 </mapper>
