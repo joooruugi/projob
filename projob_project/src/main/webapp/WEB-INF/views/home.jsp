@@ -17,6 +17,7 @@
 <body>
 	<!--헤더-->
 	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 </body>

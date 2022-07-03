@@ -187,19 +187,6 @@ public class ProuserController {
 	}
 
 	// 사용자 아이디 찾기 post
-//	public ModelAndView infofreepost(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpServletRequest req)
-//			throws Exception {
-//		logger.info("join for freelancer_POST");
-//		int result = service.insertProuserfree(prouser);
-//		if (result < 1) {
-//			rttr.addFlashAttribute("msg", " 가입에 실패하였습니다.");
-//			mv.setViewName("redirect:/infofree");
-//			return mv;
-//		}
-//		mv.setViewName("redirect:/login");
-//		return mv;
-//	}
-
 	@PostMapping(value = "/findid")
 	public ModelAndView findidpost(
 			ModelAndView mv
@@ -208,10 +195,13 @@ public class ProuserController {
 			) throws Exception {
 		logger.info("findid POST");
 		Prouser result = service.findid(prouser);
+		System.out.println(result);
 		if(result != null) {
-			mv.setViewName("redirect:/login");
+			logger.info("findid success");
+//			mv.setViewName("prouser/findid");
 		}else {
-			mv.setViewName("redirect:/findid");
+			logger.info("findid fail");
+//			mv.setViewName("redirect:/findid");
 		}
 		return mv;
 	}
@@ -233,9 +223,11 @@ public class ProuserController {
 		logger.info("findpw POST");
 		Prouser result = service.findpw(prouser);
 		if(result != null) {
-			mv.setViewName("redirect:/login");
+			logger.info("findpw success");  
+//			mv.setViewName("redirect:/login");
 		}else {
-			mv.setViewName("redirect:/findpw");
+			logger.info("findpw fail");
+//			mv.setViewName("redirect:/findpw");
 		}
 		return mv;
 	}

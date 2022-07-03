@@ -48,7 +48,7 @@
 	<!-- 아이디 찾기 -->
 	<select id="findid" parameterType="Prouser" resultType="Prouser">
 		select
-		us_id from prouser where us_name=#{us_name} and us_email=#{us_email}
+		* from prouser where us_name=#{us_name} and us_email=#{us_email}
 		and us_crn=#{us_crn}
 	</select>
 	<!-- 비밀번호 찾기 -->
