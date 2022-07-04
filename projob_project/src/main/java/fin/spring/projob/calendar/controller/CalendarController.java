@@ -1,13 +1,18 @@
 package fin.spring.projob.calendar.controller;
 
+import java.io.Console;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.inject.Qualifier;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +22,39 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
+import fin.spring.projob.calendar.service.CalendarService;
 
 @Controller
+@RequestMapping("/calendar")
 public class CalendarController {
-	@RequestMapping(value = "/calendar")
-	public ModelAndView calendar(ModelAndView mv) {
-		mv.setViewName("calendar/calendar");
-		return mv;
+	
+	@Autowired
+	private CalendarService service;
+
+	@GetMapping("/list")
+	public String list() {
+		return "calendar/calendar";
 	}
-	//달력기본화면
+
+	@GetMapping(value="/data", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String data(Model m) {
+		//m.addAttribute("list", service.calenList());
+		//return "pageJsonReport";
+		return new Gson().toJson(service.calenList());
+	}
+
+	// @Controller
+	// public class CalendarController {
+//		@RequestMapping(value = "/calendar")
+//		public ModelAndView calendar(ModelAndView mv) {
+//			mv.setViewName("calendar/calendar");
+//			return mv;
+//		}
+
+	// 달력기본화면
 //	@RequestMapping(value = "/adms/calendar/management/list.do")
 //	public String lnb04List(RedirectAttributes redirectAttributes, HttpServletRequest request, @ModelAttribute("searchVO") tbl_calendarVO searchVO, ModelMap model) throws Exception {
 //	 

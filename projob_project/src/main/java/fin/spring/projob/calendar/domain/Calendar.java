@@ -6,49 +6,48 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Calendar {
-//	CAL_NO              NOT NULL NUMBER         
-//	PRO_NO              NOT NULL NUMBER         
-//	CAL_ID              NOT NULL VARCHAR2(20)   
-//	CAL_MEMBER_ID                VARCHAR2(300)  
-//	CAL_TITLE           NOT NULL VARCHAR2(300)  
-//	CAL_CONTENT                  VARCHAR2(1000) 
-//	CAL_START                    TIMESTAMP(6)   
-//	CAL_END                      TIMESTAMP(6)   
-//	CAL_ALLDAY_YN       NOT NULL VARCHAR2(1)    
-//	CAL_ALLDAY_START             TIMESTAMP(6)   
-//	CAL_ALLDAY_END               TIMESTAMP(6)   
-//	CAL_BACKGROUNDCOLOR          VARCHAR2(100)  
-//	CAL_BORDERCOLOR              VARCHAR2(100)  
-//	CAL_TEXTCOLOR                VARCHAR2(100)  
+//	ID              NOT NULL NUMBER         
+//	PRO_NO                   NUMBER         
+//	CAL_MEMBER_ID            VARCHAR2(300)  
+//	GROUPID                  NUMBER         
+//	TITLE                    VARCHAR2(300)  
+//	WRITER                   VARCHAR2(50)   
+//	CONTENT                  VARCHAR2(1000) 
+//	START1                   DATE           
+//	END1                     DATE           
+//	ALLDAY                   NUMBER(1)      
+//	TEXTCOLOR                VARCHAR2(50)   
+//	BACKGROUNDCOLOR          VARCHAR2(50)   
+//	BORDERCOLOR              VARCHAR2(50)  
 	
-	private int cal_no;
+	private int id;
 	private int pro_no;
-	private String cal_id;
 	private String cal_member_id;
-	private String id;
 	private String groupId;
+	private String title;
+	private String writer;
+	private String content;
 	private String start;
 	private String end;
-	private String title;
-	private Boolean allDay;
+	private boolean allday;
+	private String textColor;
 	private String backgroundColor;
 	private String borderColor;
-	private String textColor;
 	
 	@Override
 	public String toString() {
-		return "Calendar [cal_no=" + cal_no + ", pro_no=" + pro_no + ", cal_id=" + cal_id + ", cal_member_id="
-				+ cal_member_id + ", id=" + id + ", groupId=" + groupId + ", start=" + start + ", end=" + end
-				+ ", title=" + title + ", allDay=" + allDay + ", backgroundColor=" + backgroundColor + ", borderColor="
-				+ borderColor + ", textColor=" + textColor + "]";
+		return "Calendar [id=" + id + ", pro_no=" + pro_no + ", cal_member_id=" + cal_member_id + ", groupId=" + groupId
+				+ ", title=" + title + ", writer=" + writer + ", content=" + content + ", start=" + start + ", end="
+				+ end + ", allday=" + allday + ", textColor=" + textColor + ", backgroundColor=" + backgroundColor
+				+ ", borderColor=" + borderColor + "]";
 	}
 
-	public int getCal_no() {
-		return cal_no;
+	public int getId() {
+		return id;
 	}
 
-	public void setCal_no(int cal_no) {
-		this.cal_no = cal_no;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getPro_no() {
@@ -59,14 +58,6 @@ public class Calendar {
 		this.pro_no = pro_no;
 	}
 
-	public String getCal_id() {
-		return cal_id;
-	}
-
-	public void setCal_id(String cal_id) {
-		this.cal_id = cal_id;
-	}
-
 	public String getCal_member_id() {
 		return cal_member_id;
 	}
@@ -75,20 +66,36 @@ public class Calendar {
 		this.cal_member_id = cal_member_id;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getGroupId() {
 		return groupId;
 	}
 
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getStart() {
@@ -107,20 +114,20 @@ public class Calendar {
 		this.end = end;
 	}
 
-	public String getTitle() {
-		return title;
+	public boolean isAllday() {
+		return allday;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setAllday(boolean allday) {
+		this.allday = allday;
 	}
 
-	public Boolean getAllDay() {
-		return allDay;
+	public String getTextColor() {
+		return textColor;
 	}
 
-	public void setAllDay(Boolean allDay) {
-		this.allDay = allDay;
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
 	}
 
 	public String getBackgroundColor() {
@@ -137,14 +144,6 @@ public class Calendar {
 
 	public void setBorderColor(String borderColor) {
 		this.borderColor = borderColor;
-	}
-
-	public String getTextColor() {
-		return textColor;
-	}
-
-	public void setTextColor(String textColor) {
-		this.textColor = textColor;
 	}
 
 	
