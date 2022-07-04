@@ -52,9 +52,13 @@
 		and us_crn=#{us_crn}
 	</select>
 	<!-- 비밀번호 찾기 -->
-	<select id="findpw" parameterType="Prouser" resultType="Prouser">
+	<select id="findpw" parameterType="Prouser" resultType="int">
 		select
-		us_pw from prouser where us_name=#{us_name} and us_email=#{us_email}
+		count(*) from prouser where us_name=#{us_name} and us_email=#{us_email}
 		and us_crn=#{us_crn} and us_id=#{us_id}
 	</select>
+	<!-- 비밀번호 재설정 -->
+	<update id="updatepw" parameterType="Prouser">
+		update prouser set us_pw = #{us_pw} where us_id=#{us_id}
+	</update>
 </mapper>

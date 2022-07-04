@@ -3,6 +3,7 @@ package fin.spring.projob.prouser.controller;
 import java.util.HashMap;
 
 
+
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fin.spring.projob.prouser.dao.ProuserDaoImpl;
 import fin.spring.projob.prouser.service.ProuserService;
 import fin.spring.projob.prouser.service.ProuserServiceImpl;
 import fin.spring.projob.prouser.vo.Kakao;
@@ -42,7 +43,6 @@ public class ProuserController {
 
 	@Autowired
 	private ProuserServiceImpl service;
-	private ProuserDaoImpl pdao;
 	BCryptPasswordEncoder passEncoder;
 
 	// 회원가입 사용자 선택 화면(회원가입1)
@@ -183,6 +183,7 @@ public class ProuserController {
 	// 사용자 아이디 찾기 get
 	@RequestMapping(value = "/findid", method = RequestMethod.GET)
 	public ModelAndView findidget(ModelAndView mv) {
+		logger.info("findid GET");
 		mv.setViewName("prouser/findid");
 		return mv;
 	}
@@ -199,6 +200,7 @@ public class ProuserController {
 		System.out.println(result);
 		if(result != null) {
 			logger.info("findid success");
+			mv.addObject("us_id", prouser.getUs_id());
 //			mv.setViewName("prouser/findid");
 		}else {
 			logger.info("findid fail");
@@ -222,14 +224,63 @@ public class ProuserController {
 			, RedirectAttributes rttr
 			) throws Exception {
 		logger.info("findpw POST");
-		Prouser result = service.findpw(prouser);
-		if(result != null) {
+		int result = service.findpw(prouser);
+		if(result != 0) {
 			logger.info("findpw success");  
-//			mv.setViewName("redirect:/login");
+			mv.setViewName("redirect:/updatepw");
 		}else {
 			logger.info("findpw fail");
-//			mv.setViewName("redirect:/findpw");
+			mv.setViewName("redirect:/findpw");
 		}
 		return mv;
 	}
+//	@RequestMapping(value="/kakaologin", method=RequestMethod.GET)
+//	public String kakaoLogin(@RequestParam(value="code", required = false)String code
+//			, HttpSession session)throws Exception{
+//		System.out.println("#####"+code);
+//		String access_Token = service.getAccessToken(code);
+//		
+//		Kakao prouserinfo = service.prouserinfo(access_Token);
+//		System.out.println("###access_Token### : "+ access_Token);
+//		System.out.println("###nickname#### : " + prouserinfo.getKakao_name());
+//		System.out.println("###email#### : " + prouserinfo.getKakao_email());
+//		session.invalidate();
+//		// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
+//		session.setAttribute("kakaoN", prouserinfo.getKakao_name());
+//		session.setAttribute("kakaoE", prouserinfo.getKakao_email());
+//		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
+//		// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
+//		return "prouser/login";
+//		
+//	}
+	//사용자 비밀번호 재설정 get
+	@RequestMapping(value="/updatepw", method=RequestMethod.GET)
+	public ModelAndView updatepwGet(ModelAndView mv
+			,Prouser prouser) {
+		logger.info("updatepw GET");
+		mv.setViewName("prouser/updatepw");
+		return mv;
+	}
+	//사용자 비밀번호 재설정 post
+	@RequestMapping(value="/updatepw", method=RequestMethod.POST)
+	public ModelAndView updatepwPost(ModelAndView mv
+			,Prouser prouser
+			, @RequestParam(value="us_id")String us_id
+			)throws Exception{
+		logger.info("updatepw POST");
+		int result = service.updatepw(prouser);
+		if(result !=0) {
+			logger.info("updatepw success");
+			mv.setViewName("redirect:/login");
+		}else {
+			logger.info("updatepw fail");
+			mv.setViewName("redirect:/updatepw");
+		}
+		return mv;
+	}
+//	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+//	public ModelAndView findpwget(ModelAndView mv) {
+//		mv.setViewName("prouser/findpw");
+//		return mv;
+//	}
 }

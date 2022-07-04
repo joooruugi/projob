@@ -2,6 +2,7 @@ package fin.spring.projob.prouser.service;
 
 import java.io.BufferedReader;
 
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,7 +22,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import fin.spring.projob.prouser.dao.ProuserDao;
-import fin.spring.projob.prouser.dao.ProuserDaoImpl;
 import fin.spring.projob.prouser.vo.Kakao;
 import fin.spring.projob.prouser.vo.Prouser;
 
@@ -174,7 +174,15 @@ public class ProuserServiceImpl implements ProuserService {
 	}
 	//비밀번호 찾기
 	@Override
-	public Prouser findpw(Prouser prouser) throws Exception{
+	public int findpw(Prouser prouser) throws Exception{
 		return pdao.findpw(prouser);
+	}
+	//비밀번호 재설정
+	@Override
+	public int updatepw(Prouser puser) throws Exception{
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String securepw = encoder.encode(puser.getUs_pw());
+		puser.setUs_pw(securepw);
+		return pdao.updatepw(puser);
 	}
 }
