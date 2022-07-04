@@ -146,14 +146,14 @@ public class ProuserServiceImpl implements ProuserService {
 			System.out.println("properties : "+properties);
 			System.out.println(properties.getAsJsonObject().get("nickname"));
 			System.out.println(properties.getAsJsonObject().get("nickname").getAsString());
-//			System.out.println(properties.getAsJsonObject().get("email").getAsString());
+			System.out.println(properties.getAsJsonObject().get("email").getAsString());
 			
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-//			String email = kakao_account.getAsJsonObject().get("email").getAsString();
+			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 			System.out.println(nickname);
 			
 			prouserinfo.put("nickname", nickname);
-//			prouserinfo.put("email", email);
+			prouserinfo.put("email", email);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
