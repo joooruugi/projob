@@ -2,19 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Messenger">
 	<select id="selectAllRooms" parameterType="String" resultType="map">
-		<!-- select mr_no, mr_name, us_id from messageroom_member left join messageroom using(mr_no) where us_id = #{userId} -->
-		 select mr_no, mr_name, us_id from messageroom left join messageroom_member using(mr_no)
+		select mr_no, mr_name, us_id from messageroom left join messageroom_member using(mr_no) where us_id = #{userId}  order by mr_wdate desc
 	</select>
 	
 	<select id="maxmessageroomno" parameterType="String" resultType="int">
 		select max(mr_no)+1 from messageroom
 	</select>
 	
-	<select id="insertChatRoom" parameterType="map" resultType="int">
-		insert into messageroom(mr_no, mr_name, mr_wdate) values(#{maxnum}, #{name}, systimestamp)
-	</select>
+	<insert id="insertChatRoom" parameterType="map">
+		insert all
+		into messageroom(mr_no, mr_name, mr_useyn, mr_wdate) values(#{maxnum}, #{mr_name}, 'Y', systimestamp)
+		into messageroom_member values(#{maxnum}, #{cus_id})
+		<if test="us_id != null">
+			<foreach collection="us_id" item="us_id">
+				into messageroom_member values(#{maxnum}, #{us_id})
+			</foreach>
+			into message values((select nvl(max(msg_no)+1, 0) from message), #{maxnum}, 'sys', #{tus_id}, systimestamp)
+		</if>
+		select * from dual
+	</insert>
 	
 	<select id="selectRoomByRoomId" parameterType="String" resultType="map">
 		select * from messageroom left join messageroom_member using(mr_no) where mr_no =#{roomId}
 	</select>
+	
+	<select id="selectProject" parameterType="String" resultType="map">
+		select pro_title, pro_no from project left join p_member using(pro_no) where us_id=#{userId} and prom_ok=1
+	</select>
+	
+	<select id="selectPMember" resultType="map">
+		select * from p_member left join prouser using(us_id) where pro_no=#{pro_no}
+	</select>
+	
+	<select id="selectPMember2" resultType="Prouser">
+		select us_id, us_name, us_phone from prouser where us_id=#{userInfo} or us_phone=#{userInfo}
+	</select>
+	
+	<insert id="insertMessage" parameterType="Message">
+		insert into message values((select nvl(max(msg_no)+1, 0) from message), #{mr_no}, #{msg_id}, #{msg_content}, systimestamp)
+	</insert>
+	
+	<select id="selectRoomMember" resultType="map">
+		select us_id, us_name from messageroom_member left join prouser using(us_id) where mr_no = #{roomId}
+	</select>
+	
 </mapper>

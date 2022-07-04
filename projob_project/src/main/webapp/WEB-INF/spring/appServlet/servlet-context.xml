@@ -27,6 +27,8 @@
 	
 	<context:component-scan base-package="fin.spring.projob" />
 	
+	<aop:aspectj-autoproxy/>
+	
 <!-- 	 <websocket:handlers>
 		<websocket:mapping handler="echoHandler" path="/chat"/>
 		<websocket:handshake-interceptors>

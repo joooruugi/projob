@@ -22,76 +22,71 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/all.css">
     <style>
+    	#us_id{
+    	margin: 5px;
+    	}
     	#modal1{
     	position:absolute;
-    	top:0;
-    	left:0;
+    	top:25%;
+    	left:25%;
     	width:300px;
-    	height:300px;
-    	background-color:yellow;
+    	height:285px;
+    	background-color:white;
+    	border: 1px solid black;
     	display: none;
     	}
     	#modal2{
     	position:absolute;
-    	top:0;
-    	left:0;
-    	width:300px;
-    	height:300px;
-    	background-color:yellow;
+    	top:25%;
+    	left:43%;
+    	width: 150px;
+    	height:130px;
+    	background-color:white;
+    	border: 1px solid black;
     	display: none;
+    	overflow: auto;
     	}
     	#modal3{
     	position:absolute;
-    	top:0;
-    	left:0;
+    	top:25%;
+    	left:55%;
     	width:300px;
-    	height:300px;
-    	background-color:yellow;
+    	height:255px;
+    	background-color:white;
+    	border: 1px solid black;
     	display: none;
-    	}
-    	#modal4{
-    	position:absolute;
-    	top:0;
-    	left:0;
-    	width:300px;
-    	height:300px;
-    	background-color:yellow;
-    	display: none;
+    	overflow: auto;
     	}
     </style>
 </head>
 
 <body>
+	<script>
+	var msg = '${msg}';
+		if(msg != ''){
+			alert(msg);
+		};
+	</script>
     <!--헤더-->
     <jsp:include page="/WEB-INF/views/header.jsp" flush="false"/>
 	
     <!--바디 큰 배너가 들어가지 않는 한 body width : 80~90% 중앙정렬로 맞춰주세요-->
-    <h1>Chatting Page (id: ${userId})</h1>
 	<br>
 	<div style="width: 1200px; height:725px; margin: 0 auto 50px; background-color:  rgb(232, 232, 232); border-radius: 30px;">
 		<div style="float: left; width:530px;">
-			<div style="margin: 20px 30px 0; float: left;">
+			<div style="margin: 20px 30px; float: left;">
 				<input type="button" value="대화방 생성" class="btn2 createroom" style="padding: 5px 10px;"> 
-				<!-- 검색 -->
-				<nav class="navbar navbar-light" style="float:right; position: relative; top: -10px; margin-left: 10px; margin: 0;">
-					<div class="container-fluid" style="margin: 0;">
-						<form  id="frm" class="d-flex">
-							<input class="form-control me-2" type="search" name="q" placeholder="ID/전화번호 검색" aria-label="Search" >
-							<button id="s_search_btn" class="btn btn-outline-success usersearch" type="button">Search</button>
-						</form>
-					</div>
-				</nav>
 			</div>
-			<div style="height: 630px; background-color: white; margin: 20px 30px; clear: both; overflow: auto;">
+			<div style="height: 630px; background-color: white; margin: 20px 30px; clear: both; overflow: auto; border-radius: 10px;">
 				<c:forEach items="${list }" var="list">
 				<c:choose>
 					<c:when test="${list.MR_NO eq roomId}">
-						<div style="width:100%; height: 70px; padding:25px 10px; font-weight:bold;  border-bottom:1px solid silver; background-color:silver; cursor: pointer;" onclick="location.href='<%=request.getContextPath() %>/chat/room?roomId=${list.MR_NO}'">
+						<div style="width:100%; height: 70px; padding:25px 20px; font-weight:bold;  border-bottom:1px solid silver; background-color:silver;">
 							${list.MR_NAME} 
 						</div>
 					</c:when>
 					<c:otherwise>
-						<div style="width:100%; height: 70px; padding:25px 10px; border-bottom:1px solid silver; cursor: pointer;" onclick="location.href='<%=request.getContextPath() %>/chat/room?roomId=${list.MR_NO}'">
+						<div style="width:100%; height: 70px; padding:25px 20px; border-bottom:1px solid silver; cursor: pointer;" onclick="location.href='<%=request.getContextPath() %>/chat/room?roomId=${list.MR_NO}'">
 							${list.MR_NAME} 
 						</div>
 					</c:otherwise>
@@ -99,48 +94,97 @@
 				</c:forEach>
 			</div>
 		</div>
+	<c:choose>
+		<c:when test="${!empty room}">
 		<div style="float:right; width: 600px; margin: 20px 30px 0">
-	<input type="button" value="참가자" class="btn1 roommember" style="padding: 5px 10px;">
+	<input type="button" value="참가자(${rm.size()})" class="btn1 roommember" style="padding: 5px 10px;">
 	<input type="button" value="초대하기" class="btn3 roominvite" style="padding: 5px 10px;">
 	<input type="button" value="나가기" class="btn4 roomout" style="float:right; padding: 5px 10px;">
 	</div>
-	<div style="height: 600px; margin: 20px 30px 0 30px; float: right; background-color: white;">
-		<div style="width: 600px	; height: 600px; overflow: auto; margin-bottom: 10px;">
-			<div class="well" id="chatdata">
-		    		<!-- User Session Info Hidden -->
-		    		<input type="hidden" value='${userId}' id="sessionuserid">
-	    	</div>
-		</div>
-			<div >
-				<input type="text" id="message" style="width:87%" placeholder=" 내용을 입력해 주세요" onkeyup="enterkey()"/>
-	    		<input type="button" id="sendBtn" value="전송" class="btn8" style="padding: 5px 10px; width:11%; float: right"/>
-    		</div>
-	   </div>
-	</div>
-	<div style="clear: both;"></div>
+			<div style="height: 600px; margin: 20px 30px 0 30px; float: right; background-color: white;">
+				<div style="width: 600px	; height: 600px; overflow: auto; margin-bottom: 10px; ">
+					<div class="well" id="chatdata">
+				    		<!-- User Session Info Hidden -->
+				    		<input type="hidden" value='${userId}' id="sessionuserid">
+			    	</div>
+				</div>
+					<div >
+						<input type="text" id="message" style="width:87%" placeholder=" 내용을 입력해 주세요" onkeyup="enterkey()"/>
+			    		<input type="button" id="sendBtn" value="전송" class="btn8" style="padding: 5px 10px; width:11%; float: right"/>
+		    		</div>
+			   </div>
+			<div style="clear: both;"></div>
+		</c:when>
+		<c:otherwise>
+			<div style="text-align: center; padding: 250px 0">
+				<img src="https://d2v80xjmx68n4w.cloudfront.net/assets/inbox/inbox_detail_ongoing%402x.png" style="width: 150px;">
+				<div style="font-weight: bold; margin-top: 10px; color: rgb(128,128,128);">대화방을 선택해 주세요</div>
+			</div>
+			<div style="clear: both;"></div>
+		</c:otherwise>
+	</c:choose>
 	
     <!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
     
     
-    <div id="modal1">
+    <div id="modal1" class="modal">
+	    <form method="post" action="room">
+		    	<div style="margin: 5px;">
+		    		<label>대화방 이름 : </label>
+		    		<input type="text" name="mr_name" id="mr_name" placeholder="이름을 입력해 주세요" required>
+		    	</div>
+		    	<div style="padding: 0 5px">
+		    		<select name="selectProject" id="selectProject">
+		    			<option value="none">프로젝트를 선택해 주세요</option>
+		    			<c:forEach items="${project }" var="project">
+		    				<option value="${project.PRO_NO }">${project.PRO_TITLE }</option>
+		    			</c:forEach>
+		    		</select>
+		    	</div>
+		    	<div style="margin: 5px; width: 290px; height:100px; border: 1px solid black; overflow: auto"  id="projectMember">
+		    	</div>
+		    	<div style="margin: 0 5px;">
+		    		<input type="text" id="searchNP" name="searchNP" placeholder="ID/전화번호 검색">
+		    		<button type="button" class="btn8" style="width: 60px; height: 25px;"  id="crmBtn">검색</button>
+		    	</div>
+		    	<div style="margin: 5px; width: 290px; height:40px; border: 1px solid black; overflow: auto"  id="projectMember2">
+		    	</div>
+		    	<div style="float: right; margin: 0 10px">
+		    		<button type="submit" class="btn4" id="creatBtn" style="width: 80px; height: 30px;" >생성</button>
+		    	</div>
+	    </form>
+    </div>
+    <div id="modal2" class="modal">
     	<div>
-    		@@@방생성@@@
+    		<c:forEach items="${rm}" var="roomMember">
+    			<div style="margin: 5px"> - ${roomMember.US_ID } [${roomMember.US_NAME }]</div>
+    		</c:forEach>
     	</div>
     </div>
-    <div id="modal2">
+    <div id="modal3" class="modal">
     	<div>
-    		@@@참가자목록@@@
-    	</div>
-    </div>
-    <div id="modal3">
-    	<div>
-    		@@@초대하기@@@
-    	</div>
-    </div>
-    <div id="modal4">
-    	<div>
-    		@@@검색결과@@@
+    		<form method="post" action="addMember">
+		    	<div style="padding: 5px 5px 0">
+		    		<select name="selectProject" id="selectProject2">
+		    			<option value="none">프로젝트를 선택해 주세요</option>
+		    			<c:forEach items="${project }" var="project">
+		    				<option value="${project.PRO_NO }">${project.PRO_TITLE }</option>
+		    			</c:forEach>
+		    		</select>
+		    	</div>
+		    	<div style="margin: 5px; width: 290px; height:100px; border: 1px solid black; overflow: auto"  id="projectMember">
+		    	</div>
+		    	<div style="margin: 0 5px;">
+		    		<input type="text" id="searchNP2" name="searchNP" placeholder="ID/전화번호 검색">
+		    		<button type="button" class="btn8" style="width: 60px; height: 25px;"  id="crmBtn">검색</button>
+		    	</div>
+		    	<div style="margin: 5px; width: 290px; height:40px; border: 1px solid black; overflow: auto"  id="projectMember2">
+		    	</div>
+		    	<div style="float: right; margin: 0 10px">
+		    		<button type="submit" class="btn4" id="creatBtn" style="width: 80px; height: 30px;" >초대</button>
+		    	</div>
+	    </form>
     	</div>
     </div>
     
@@ -149,16 +193,114 @@
     		$("#modal1").toggle();
     		$("#modal2").hide();
     		$("#modal3").hide();
+    		$("#modal4").hide();
+    		$("#mr_name").val("");
+    		$("#selectProject").val("none");
+    		$("#projectMember").html("");
+    		$("#searchNP").val("");
+    		$("#projectMember2").html("");
     	});
     	$(".roommember").click(function(){
     		$("#modal2").toggle();
+    		$("#modal1").hide();
+    		$("#modal3").hide();
+    		$("#modal4").hide();
     	});
     	$(".roominvite").click(function(){
     		$("#modal3").toggle();
+    		$("#modal1").hide();
+    		$("#modal2").hide();
+    		$("#modal4").hide();
     	});
-    	$(".usersearch").click(function(){
-    		$("#modal4").toggle();
+    	// 모달 밖 클릭시 모달 hide
+    	$(document).mouseup(function (e){
+    		var modal = $(".modal");
+    		if(modal.has(e.target).length === 0){
+    			modal.hide();
+    		}
     	});
+    </script>
+    <!-- 초대하기 script -->
+    <script>
+	    $("#selectProject").change(function(){
+	    	var pro_no = $(this).val();
+	    	if(pro_no == 'none'){
+	    		$("#projectMember").html('');
+	    		return;
+	    	}
+	    	$.ajax({
+					type :'post' ,
+					url :'pMember' ,
+					data : {"pro_no" : pro_no},
+					dataType : "json",
+					success : function(data){
+						var html = '';
+						$.each(data, function(i, item){
+							if('${userId}' != item.US_ID){
+								html += '<input type="checkbox" id="us_id" name="us_id" value="'+item.US_ID+'"><span> '+item.US_ID + ' [' + item.US_NAME +'] '+'</span><br>'
+							}
+						})
+						$("#projectMember").html(html);
+					}
+				})
+	    });
+    </script>
+    
+    <!-- 대화방 생성 script -->
+    <script>
+    $("#selectProject").change(function(){
+    	var pro_no = $(this).val();
+    	if(pro_no == 'none'){
+    		$("#projectMember").html('');
+    		return;
+    	}
+    	$.ajax({
+				type :'post' ,
+				url :'pMember' ,
+				data : {"pro_no" : pro_no},
+				dataType : "json",
+				success : function(data){
+					var html = '';
+					$.each(data, function(i, item){
+						if('${userId}' != item.US_ID){
+							html += '<input type="checkbox" id="us_id" name="us_id" value="'+item.US_ID+'"><span> '+item.US_ID + ' [' + item.US_NAME +'] '+'</span><br>'
+						}
+					})
+					$("#projectMember").html(html);
+				}
+			})
+    });
+    function pMember2(){
+    	$.ajax({
+    		type:"post",
+    		url:"pMember2",
+    		dataType:"json",
+    		data:{"userInfo" : $("#searchNP").val()},
+    		success:function(data){
+    			if(data != ''){
+    			var html = '';
+    			$.each(data, function(i, item){
+    				if('${userId}' != item.us_id){
+    					html += '<input type="checkbox" id="us_id" name="us_id" value="'+item.us_id+'"><span> '+item.us_id + ' [' + item.us_name +']'+'</span><br>'
+    				}
+    				})
+    			$("#projectMember2").append(html);
+    			$("#searchNP").val("");
+    			$("#searchNP").focus();
+    			} else {
+    				$("#projectMember2").append("<div>검색 결과가 없습니다</div>");
+    			}
+    		}
+    	})
+    }
+    $("#crmBtn").click(function(){
+    	if($("#searchNP").val() ==''){
+    		alert('아이디 또는 전화번호 입력 후 검색해 주세요');
+    		$("#searchNP").focus();
+    	}else{
+    		pMember2();
+	   	}
+    })
     </script>
     
 	 <script>
@@ -190,7 +332,7 @@
     	if(username == writer){
     		var printHTML = "<div class='well'>";
     		printHTML += "<div class='alert alert-info'>";
-    		printHTML += "<strong>["+writer+"] -> "+message+"</strong>";
+    		printHTML += "<strong>["+writer+"] : "+message+"</strong>";
     		printHTML += "</div>";
     		printHTML += "</div>";
     		
@@ -198,7 +340,7 @@
     	} else{
     		var printHTML = "<div class='well'>";
     		printHTML += "<div class='alert alert-warning'>";
-    		printHTML += "<strong>["+writer+"] -> "+message+"</strong>";
+    		printHTML += "<strong>["+writer+"] : "+message+"</strong>";
     		printHTML += "</div>";
     		printHTML += "</div>";
     		
@@ -206,27 +348,29 @@
     	}
       });
 
-      //3. send(path, header, message)로 메세지를 보낼 수 있음
-      stomp.send('/pub/chat/enter', {}, JSON.stringify({mr_no: roomId, msg_id: username}))
+      // 채팅방 입장시 입장됬다 출력
+      // stomp.send('/pub/chat/enter', {}, JSON.stringify({mr_no: roomId, msg_id: username}))
     });
 
     $("#sendBtn").on("click", function(e){
-      var msg = document.getElementById("message");
-
-      console.log(username + ":" + msg.value);
-      stomp.send('/pub/chat/message', {}, JSON.stringify({mr_no: roomId, msg_content: msg.value, msg_id: username}));
-      msg.value = '';
+    	send();
     });
-  });
   
 //엔터키 이벤트 등록
-  function enterkey(){
-  	if (window.event.keyCode == 13) {
-      	// 엔터키가 눌렸을 때
-      	console.log('enter message...');
-      	sendMessage();
+  $("#message").keyup(function(){
+	  	if (window.event.keyCode == 13) {
+	  		 send();
+	  	}
+  	})
+  	
+  	function send(){
+  		var msg = document.getElementById("message");
+
+	      console.log(username + ":" + msg.value);
+	      stomp.send('/pub/chat/message', {}, JSON.stringify({mr_no: roomId, msg_content: msg.value, msg_id: username}));
+	      msg.value = '';
   	}
-  }
+  });
 </script>
     
  <!-- <script type="text/javascript">
