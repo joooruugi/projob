@@ -150,11 +150,14 @@ public class ProuserController {
 		Prouser result = service.login(prouser);
 		if (result != null && passEncoder.matches(prouser.getUs_pw(), result.getUs_pw())) {
 			session.setAttribute("loginSsInfo", result);
-			rttr.addFlashAttribute("msg", result.getUs_name() + "님 로그인되었습니다.");
-			mv.setViewName("redirect:/");
+			logger.info("Login POST");
+			System.out.println(session);
+			System.out.println(result);
+//			rttr.addFlashAttribute("msg", result.getUs_name() + "님 로그인되었습니다.");
+			mv.setViewName("prouser/join");
 			return mv;
 		} else {
-			rttr.addFlashAttribute("msg", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
+//			rttr.addFlashAttribute("`", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
 			mv.setViewName("redirect:prouser/login/");
 			return mv;
 		}
@@ -193,20 +196,23 @@ public class ProuserController {
 	public ModelAndView findidpost(
 			ModelAndView mv
 			, Prouser prouser
+			, HttpServletRequest request
 			, RedirectAttributes rttr
 			) throws Exception {
 		logger.info("findid POST");
 		Prouser result = service.findid(prouser);
-		System.out.println(result);
 		if(result != null) {
 			logger.info("findid success");
-			mv.addObject("us_id", prouser.getUs_id());
-//			mv.setViewName("prouser/findid");
+			logger.info(result.getUs_id());
+			mv.addObject("msg", result.getUs_name()+"님의 아이디는  "+result.getUs_id()+" 입니다.");
+			mv.setViewName("prouser/login");
+			return mv;
 		}else {
 			logger.info("findid fail");
-//			mv.setViewName("redirect:/findid");
+			request.setAttribute("msg", "일치하는 회원이 없습니다.");
+			mv.setViewName("redirect:/findid");
+			return mv;
 		}
-		return mv;
 	}
 
 	// 사용자 비밀번호 찾기 get
@@ -234,25 +240,6 @@ public class ProuserController {
 		}
 		return mv;
 	}
-//	@RequestMapping(value="/kakaologin", method=RequestMethod.GET)
-//	public String kakaoLogin(@RequestParam(value="code", required = false)String code
-//			, HttpSession session)throws Exception{
-//		System.out.println("#####"+code);
-//		String access_Token = service.getAccessToken(code);
-//		
-//		Kakao prouserinfo = service.prouserinfo(access_Token);
-//		System.out.println("###access_Token### : "+ access_Token);
-//		System.out.println("###nickname#### : " + prouserinfo.getKakao_name());
-//		System.out.println("###email#### : " + prouserinfo.getKakao_email());
-//		session.invalidate();
-//		// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
-//		session.setAttribute("kakaoN", prouserinfo.getKakao_name());
-//		session.setAttribute("kakaoE", prouserinfo.getKakao_email());
-//		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
-//		// jsp에서 ${sessionScope.kakaoN} 이런 형식으로 사용할 수 있다.
-//		return "prouser/login";
-//		
-//	}
 	//사용자 비밀번호 재설정 get
 	@RequestMapping(value="/updatepw", method=RequestMethod.GET)
 	public ModelAndView updatepwGet(ModelAndView mv
@@ -278,9 +265,28 @@ public class ProuserController {
 		}
 		return mv;
 	}
-//	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-//	public ModelAndView findpwget(ModelAndView mv) {
-//		mv.setViewName("prouser/findpw");
-//		return mv;
-//	}
+//	// 사용자 로그인(post) us_id만 가져가서 비교 > 암호화된 비밀번호와 입력한 비밀번호가 일치하는지 확인
+//	
+//	public ModelAndView login(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpSession session)
+//				throws Exception {
+//			Prouser result = service.login(prouser);
+//			if (result != null && passEncoder.matches(prouser.getUs_pw(), result.getUs_pw())) {
+//				session.setAttribute("loginSsInfo", result);
+//				rttr.addFlashAttribute("msg", result.getUs_name() + "님 로그인되었습니다.");
+//				mv.setViewName("redirect:/");
+//				return mv;
+//			} else {
+//				rttr.addFlashAttribute("`", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
+//				mv.setViewName("redirect:prouser/login/");
+//				return mv;
+//			}
+//		}
+	//로그아웃
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public ModelAndView logout(ModelAndView mv, HttpSession session, Prouser prouser) {
+		session.invalidate();
+		System.out.println(session);
+		mv.setViewName("prouser/login");
+		return mv;
+	}
 }

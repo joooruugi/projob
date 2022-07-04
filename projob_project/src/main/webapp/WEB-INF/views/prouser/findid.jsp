@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -46,17 +46,6 @@
 				<input type="text" class="inputfindid" id="us_crn" name="us_crn"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				<div class="findidlabel foundid">
-					<p class="fonthighlight foundid " style="color: blue">회원님의 아이디는
-						${us_id } 입니다.</p>
-					<a href="<%=request.getContextPath()%>/login"
-						class="findidlink foundid">로그인 하러가기</a>
-				</div>
-				<div class="findidlabel   notfoundid">
-					<p class="fonthighlight " style="color: red">조회가능한 회원정보가 없습니다.</p>
-					<a href="<%=request.getContextPath()%>/join" class="findidlink">회원가입
-						하러가기</a> <br>
-				</div>
 			</div>
 			<div class="findidcontent2">
 				<a href="<%=request.getContextPath()%>/login" class="findidlink">로그인</a>
@@ -65,48 +54,18 @@
 					회원이 아니신가요?</a>
 			</div>
 			<div class="findidbutton">
-				<button class="findidbtn btn4" type="button">아 이 디 찾 기</button>
+				<button class="findidbtn btn4" type="submit" onclick="">아 이
+					디 찾 기</button>
 			</div>
 		</form>
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
-	<script type="text/javascript">
-		//아이디 중복확인
+	<script>
 		$(function() {
-			$(".foundid").hide();
-			$(".notfoundid").hide();
 			$('.findidbtn').click(function() {
-				var us_name = $("#us_name").val();
-				var us_email = $("#us_email").val();
-				var us_crn = $("#us_crn").val();
-				console.log(us_name);
-				console.log(us_email);
-				console.log(us_crn);
-				if (us_crn != '' && us_name!='' && us_email!='') {
-					$.ajax({
-						type : 'post',
-						url : '/projob/findid',
-						data : {
-							us_name : us_name
-							us_email : us_email
-							us_crn : us_crn
-						},
-						success : function(result) {
-							console.log(result);
-							if (result == '0') {
-								$(".foundid").show();
-								$(".notfoundid").hide();
-							} else {
-								$(".idchk2").show();
-								$(".notfoundid").hide();
-							}
-						},
-						error : function(a, b, c) {
-							console.log(a, b, c);
-						}
-					});
-				} 
+				var msg = "<c:out value="${msg}" />";
+				alert(msg);
 			});
 		});
 	</script>
