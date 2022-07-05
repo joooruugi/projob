@@ -19,19 +19,16 @@
 	<!--헤더-->
 	<%
 	Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
-	%>
-	<%
-	if ("loginSsInfo" != null) {
-	%>
-	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
-	<%
-	} else {
+	if (prouser != null ) {
 	%>
 	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
 	<%
+	} else {
+	%>
+	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<%
 	}
 	%>
-
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 </body>

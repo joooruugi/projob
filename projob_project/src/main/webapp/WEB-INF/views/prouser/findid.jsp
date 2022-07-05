@@ -61,11 +61,12 @@
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
-	<script>
+	<script type="text/javascript">
 		$(function() {
 			$('.findidbtn').click(function() {
-				var msg = "<c:out value="${msg}" />";
-				alert(msg);
+				var win = window.open("", "PopupWin", "width=300,height=200");
+				//win.document.write("<p> ${requestScope.us_name} 님의 아이디는 ${us_id}  입니다.</p>");
+				win.document.write("<p>"+${us_id}+"</p>");
 			});
 		});
 	</script>
