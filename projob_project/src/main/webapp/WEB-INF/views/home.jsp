@@ -1,3 +1,4 @@
+<%@page import="fin.spring.projob.prouser.vo.Prouser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -16,8 +17,21 @@
 </head>
 <body>
 	<!--헤더-->
+	<%
+	Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
+	%>
+	<%
+	if ("loginSsInfo" != null) {
+	%>
 	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<%
+	} else {
+	%>
 	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
+	<%
+	}
+	%>
+
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 </body>

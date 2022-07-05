@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 
 
+
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -149,7 +150,7 @@ public class ProuserController {
 			throws Exception {
 		Prouser result = service.login(prouser);
 		if (result != null && passEncoder.matches(prouser.getUs_pw(), result.getUs_pw())) {
-			session.setAttribute("loginSsInfo", result);
+			session.setAttribute("loginSsInfo", prouser);
 			logger.info("Login POST");
 			System.out.println(session);
 			System.out.println(result);
@@ -175,6 +176,7 @@ public class ProuserController {
 		System.out.println("###email#### : " + prouserinfo.getKakao_email());
 		session.invalidate();
 		// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드.
+		session.setAttribute("loginSsInfo", prouserinfo);
 		session.setAttribute("kakaoN", prouserinfo.getKakao_name());
 		session.setAttribute("kakaoE", prouserinfo.getKakao_email());
 		// 위 2개의 코드는 닉네임과 이메일을 session객체에 담는 코드
