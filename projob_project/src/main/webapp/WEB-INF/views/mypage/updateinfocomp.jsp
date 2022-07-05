@@ -11,7 +11,7 @@
 <script src="http://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<title>PROJOB_JOIN</title>
+<title>PROJOB_MYPAGE</title>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/footer.css">
@@ -22,37 +22,20 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/joininfo.css">
+	href="<%=request.getContextPath()%>/resources/css/updateinfo.css">
 </head>
 
 <body>
 	<!--헤더-->
-	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
 	<div class="joininfofree">
 		<div class="infoname">
-			<p class="fonthighlight">정보 입력</p>
+			<p class="fontname2">개인정보 수정</p>
 		</div>
 		<form action="<%=request.getContextPath()%>/infocomp" method="post">
 			<div class="writeinfo">
 				<div class="inforow">
-					<br> <label class="labelinfo" for="us_name">기업명</label><br>
-					<br> <input type="text" class="inputinfo" required
-						id="us_name" name="us_name" placeholder=""
-						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
-					<br> <label class="labelinfo" for="us_id">아이디</label><br>
-					<br> <input type="text" class="inputinfo" required
-						name="us_id" id="us_id" placeholder="숫자+영어 혼합하여 6자 이상 입력"
-						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
-					<button type="button" class="inputinfobtn" id="checkid">중복확인</button>
-				</div>
-				<div class="inforow idchk1">
-					<p class="fonthighlight  " style="color: blue">사용가능한 아이디입니다.</p>
-				</div>
-				<div class="inforow   idchk2">
-					<p class="fonthighlight" style="color: red">사용중인 아이디입니다.</p>
-					<br>
-				</div>
-				<div class="inforow">
+				<br>
 					<label class="labelinfo" for="us_pw">비밀번호</label><br> <br>
 					<input type="password" class="inputinfo" required name="us_pw"
 						id="us_pw" placeholder="영문+특수문자 혼합하여 6자 이상 12자 이하">
@@ -71,13 +54,13 @@
 				<div class="inforow">
 					<label class="labelinfo" for="us_phone">연락처</label><br> <br>
 					<input type="tel" class="inputinfo" required name="us_phone"
-						id="us_phone" placeholder=""
+						id="us_phone" placeholder="${us_phone }" value='${us_phone }'
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_email" id="checkemail">이메일</label><br>
 					<br> <input type="email" class="inputinfo" name="us_email"
-						required id="us_email" placeholder=""
+						required id="us_email" placeholder="" value='${us_email }'
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
 					<button type="button" class="inputinfobtn" id="checkemailbtn">중복확인</button>
 				</div>
@@ -91,47 +74,39 @@
 				<div class="inforow">
 					<label class="labelinfo" for="us_address">주소</label><br> <br>
 					<input type="text" class="inputinfo us_address" name="us_address"
-						required id="us_address" readonly="readonly" placeholder=""
+						required id="us_address" readonly="readonly" value='${us_address }' placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					<br> <br> <input type="text"
 						class="inputinfo us_address2" name="us_address2" required
-						id="us_address2" readonly="readonly" placeholder=""
+						id="us_address2" readonly="readonly" value='${us_address2 }' placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					<br> <br>
 					<div class="inforow">
 						<label class="labelinfo" for="us_address3">상세주소</label><br> <br>
 						<input type="text" class="inputinfo us_address3"
-							name="us_address3" readonly="readonly" id="us_address3"
+							name="us_address3" value='${us_address3 }' readonly="readonly" id="us_address3"
 							placeholder=""
 							style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					</div>
 					<button type="button" class="inputinfobtn"
 						onclick="execution_daum_address()" id="addressapi">주소 검색</button>
 				</div>
-
-				<div class="inforow">
-					<label class="labelinfo" for="us_crn">사업자등록번호</label><br> <br>
-					<input type="text" class="inputinfo" required name="us_crn"
-						id="us_crn" placeholder=""
-						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				</div>
-
 				<div class="inforow">
 					<label class="labelinfo" for="us_adname">담당자 이름</label><br> <br>
-					<input type="text" class="inputinfo" name="us_adname"
-						id="us_adname" required placeholder=""
+					<input type="text" class="inputinfo" value='${us_adname }' name="us_adname" id="us_adname"
+						required placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
 				<div class="inforow">
-					<label class="labelinfo" for="us_adphone">담당자 연락처</label><br>
-					<br> <input type="tel" class="inputinfo" name="us_adphone"
-						id="us_adphone" required placeholder=""
+					<label class="labelinfo" for="us_adphone">담당자 연락처</label><br> <br>
+					<input type="tel" class="inputinfo" value='${us_adphone }' name="us_adphone" id="us_adphone"
+						required placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
 				<div class="inforow">
-					<label class="labelinfo" for="us_ademail">담당자 이메일</label><br>
-					<br> <input type="email" class="inputinfo" name="us_ademail"
-						required id="us_ademail" placeholder=""
+					<label class="labelinfo" for="us_ademail">담당자 이메일</label><br> <br>
+					<input type="email" class="inputinfo" value='${us_ademail }' name="us_ademail" required
+						id="us_ademail" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
 
@@ -169,44 +144,9 @@
 
 			});
 		});
-	</script>
-	<script>
-		//아이디 중복확인
-		$(function() {
-			$(".idchk1").hide();
-			$(".idchk2").hide();
-			$('#checkid').click(function() {
-				var us_id = $("#us_id").val();
-				console.log(us_id);
-				if (us_id != '') {
-					$.ajax({
-						type : 'post',
-						url : '/projob/idchk',
-						data : {
-							us_id : us_id
-						},
-						success : function(result) {
-							console.log(result);
-							if (result == '0') {
-								$(".idchk1").show();
-								$(".idchk2").hide();
-							} else {
-								$(".idchk2").show();
-								$(".idchk1").hide();
-							}
-						},
-						error : function(a, b, c) {
-							console.log(a, b, c);
-						}
-					});
-				} else {
-					alert('아이디를 입력해주세요.');
-					$('#us_id').focus();
-				}
-			});
-		});
-	</script>
-	<script>
+		</script>
+		<script>
+		<script>
 		//이메일 중복확인
 		$(function() {
 			$(".emailchk1").hide();
@@ -218,9 +158,7 @@
 					$.ajax({
 						type : 'post',
 						url : '/projob/emailchk',
-						data : {
-							us_email : us_email
-						},
+						data : {us_email:us_email},
 						success : function(result_e) {
 							console.log(result_e);
 							if (result_e == '0') {

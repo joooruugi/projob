@@ -11,7 +11,7 @@
 <script src="http://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<title>PROJOB_JOIN</title>
+<title>PROJOB_MYPAGE</title>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/footer.css">
@@ -22,20 +22,20 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/joininfo.css">
+	href="<%=request.getContextPath()%>/resources/css/updateinfo.css">
 </head>
 
 <body>
 	<!--헤더-->
-	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
 	<div class="joininfofree">
 		<div class="infoname">
-			<p class="fonthighlight">정보 입력</p>
+			<p class="fontname2">정보 수정</p>
 		</div>
-		<form action="<%=request.getContextPath()%>/infocomp" method="post">
+		<form action="<%=request.getContextPath()%>/infofree" method="post">
 			<div class="writeinfo">
 				<div class="inforow">
-					<br> <label class="labelinfo" for="us_name">기업명</label><br>
+					<br> <label class="labelinfo" for="us_name">이름</label><br>
 					<br> <input type="text" class="inputinfo" required
 						id="us_name" name="us_name" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
@@ -70,7 +70,7 @@
 				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_phone">연락처</label><br> <br>
-					<input type="tel" class="inputinfo" required name="us_phone"
+					<input type="tel" class="inputinfo" name="us_phone" required
 						id="us_phone" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
@@ -111,34 +111,14 @@
 
 				<div class="inforow">
 					<label class="labelinfo" for="us_crn">사업자등록번호</label><br> <br>
-					<input type="text" class="inputinfo" required name="us_crn"
+					<input type="text" class="inputinfo" name="us_crn" required
 						id="us_crn" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
-
-				<div class="inforow">
-					<label class="labelinfo" for="us_adname">담당자 이름</label><br> <br>
-					<input type="text" class="inputinfo" name="us_adname"
-						id="us_adname" required placeholder=""
-						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				</div>
-				<div class="inforow">
-					<label class="labelinfo" for="us_adphone">담당자 연락처</label><br>
-					<br> <input type="tel" class="inputinfo" name="us_adphone"
-						id="us_adphone" required placeholder=""
-						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				</div>
-				<div class="inforow">
-					<label class="labelinfo" for="us_ademail">담당자 이메일</label><br>
-					<br> <input type="email" class="inputinfo" name="us_ademail"
-						required id="us_ademail" placeholder=""
-						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				</div>
-
 				<br> <br>
 			</div>
 			<div class="infonextbtn">
-				<button type="submit" class="btn3" id="submit">
+				<button type="submit" id="submit" class="btn3">
 					<p class="fonthighlight">NEXT</p>
 				</button>
 			</div>
@@ -241,6 +221,8 @@
 				}
 			});
 		});
+		</script>
+		<script>
 		//주소 API
 		function execution_daum_address() {
 			new daum.Postcode(
@@ -288,8 +270,10 @@
 							}
 
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							// document.getElementById('sample6_postcode').value = data.zonecode;
-							// document.getElementById("sample6_address").value = addr;
+							// document.getElementById($(".us_address")).value = data.zonecode;
+							//document.getElementById(".us_address").value = data.zonecode;
+							//document.getElementById(".us_address2").value = addr;
+							//$(".us_address").val(data.zonecode) = ;
 							$(".us_address").val(data.zonecode);
 							$(".us_address2").val(addr);
 
@@ -297,7 +281,6 @@
 							//document.getElementById("sample6_detailAddress").focus();
 							$(".us_address3").attr("readonly", false);
 							$(".us_address3").focus();
-
 						}
 					}).open();
 		}

@@ -150,14 +150,8 @@ public class ProuserController {
 			throws Exception {
 		Prouser result = service.login(prouser);
 		if (result != null && passEncoder.matches(prouser.getUs_pw(), result.getUs_pw())) {
-//			session.setAttribute("loginSsInfo", result.getUs_info());
 			logger.info("Login POST");
-//			System.out.println(prouser.getUs_info());
 			System.out.println(result.getUs_info());
-			System.out.println(session);
-			System.out.println(result);
-//			System.out.println(p);
-//			rttr.addFlashAttribute("msg", result.getUs_name() + "님 로그인되었습니다.");
 			session.setAttribute("loginSsInfo", result);
 			if (result.getUs_ok() == 0) {
 				mv.setViewName("prouser/waitjoin");
@@ -293,17 +287,86 @@ public class ProuserController {
 
 	// 마이페이지 메인
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public ModelAndView mypagefreeGet(ModelAndView mv, HttpSession session,
-			@ModelAttribute("loginSsInfo") Prouser prouser) throws Exception {
+	public ModelAndView mypageGet(ModelAndView mv, HttpSession session, @ModelAttribute("loginSsInfo") Prouser prouser)
+			throws Exception {
 		session.getAttribute("loginSsInfo");
+		session.setAttribute("us_name", prouser.getUs_name());
 //		System.out.println(session);
 //		System.out.println(prouser);
 //		System.out.println("mypagemain session info: " + prouser.getUs_info());
 		if (prouser.getUs_info() == 0) {
-			mv.setViewName("prouser/mypagefree");
+			mv.setViewName("mypage/mypagefree");
 		} else {
-			mv.setViewName("prouser/mypagecomp");
+			mv.setViewName("mypage/mypagecomp");
 		}
 		return mv;
 	}
+
+	// 마이페이지 본인확인 GET
+	@RequestMapping(value = "/checkforupdate", method = RequestMethod.GET)
+	public ModelAndView checkforupdateGet(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser) throws Exception {
+		session.getAttribute("loginSsInfo");
+		System.out.println("session information of checkforupdate"+prouser);
+		logger.info("checkforupdate GET");
+		System.out.println(prouser);
+		mv.setViewName("mypage/checkforupdate");
+		return mv;
+	}
+
+//	int result = service.findpw(prouser);
+//	if (result != 0) {
+//		logger.info("findpw success");
+//		mv.setViewName("redirect:/updatepw");
+//	} else {
+//		logger.info("findpw fail");
+//		mv.setViewName("redirect:/findpw");
+//	}
+//	return mv;
+	// 마이페이지 본인확인 POST
+	@PostMapping(value = "/checkforupdate")
+	public ModelAndView checkforupdatePost(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser
+			, @RequestParam("us_pw") String us_pwchk) throws Exception {
+		session.getAttribute("loginSsInfo");
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String securepw = encoder.encode(us_pwchk);
+		System.out.println("session information of checkforupdate"+prouser);
+		if(passEncoder.matches(prouser.getUs_pw(), securepw) && prouser.getUs_info()==0) {
+			logger.info("checkforupdate for freelancer success");
+			mv.setViewName("mypage/updateinfofree");
+		}else if(passEncoder.matches(prouser.getUs_pw(), securepw) && prouser.getUs_info()==1){
+			logger.info("checkforupdate for company success");
+			mv.setViewName("mypage/updateinfocomp");
+		}else {
+			logger.info("checkforupdate for somebody fail");
+			mv.setViewName("redirect:/checkforupdate");
+		}
+		return mv;
+	}
+
+	// 마이페이지 정보수정 GET
+	@RequestMapping(value = "/updateinfo", method = RequestMethod.GET)
+	public ModelAndView updateinfo(ModelAndView mv, HttpSession session
+			, @ModelAttribute("loginSsInfo") Prouser prouser)
+			throws Exception {
+		logger.info("updateinfoGet");
+		session.getAttribute("loginSsInfo");
+		System.out.println(prouser);
+		session.setAttribute("us_phone", prouser.getUs_phone());
+		session.setAttribute("us_email", prouser.getUs_email());
+		session.setAttribute("us_address", prouser.getUs_address());
+		session.setAttribute("us_address2", prouser.getUs_address2());
+		session.setAttribute("us_address3", prouser.getUs_address3());
+		if (prouser.getUs_info() == 0) {
+			mv.setViewName("mypage/updateinfofree");
+		} else {
+			session.setAttribute("us_adname", prouser.getUs_adname());
+			session.setAttribute("us_adphone", prouser.getUs_adphone());
+			session.setAttribute("us_ademail", prouser.getUs_ademail());
+			mv.setViewName("mypage/updateinfocomp");
+		}
+		return mv;
+	}
+	//마이페이지 정보수정 POST
 }

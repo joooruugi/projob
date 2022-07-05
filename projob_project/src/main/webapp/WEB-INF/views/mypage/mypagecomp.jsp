@@ -12,7 +12,7 @@
 <script src="http://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<title>PROJOB_JOIN</title>
+<title>PROJOB_MYPAGE</title>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/footer.css">
@@ -47,10 +47,10 @@
 		<div class="mypagetop">
 			<div class="mypagetopleft">
 				<div class="mypageinfo">
-					<p class="fontname">반갑습니다 ! OOO님</p>
+					<p class="fontname">반갑습니다 ! ${us_name } 님</p>
 				</div>
 				<div class="mypageinfobtn">
-					<button type="submit" class="myinfobtn btn2">
+					<button type="submit" class="myinfobtn btn2" onclick="location.href='checkforupdate'">
 						<p class="fontcontent">기업 정보수정</p>
 					</button>
 				</div>
