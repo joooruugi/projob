@@ -82,12 +82,19 @@
 				<c:choose>
 					<c:when test="${list.MR_NO eq roomId}">
 						<div style="width:100%; height: 70px; padding:25px 20px; font-weight:bold;  border-bottom:1px solid silver; background-color:silver;">
-							${list.MR_NAME} 
+							<div>
+								${list.MR_NAME}
+							</div>
 						</div>
 					</c:when>
 					<c:otherwise>
 						<div style="width:100%; height: 70px; padding:25px 20px; border-bottom:1px solid silver; cursor: pointer;" onclick="location.href='<%=request.getContextPath() %>/chat/room?roomId=${list.MR_NO}'">
-							${list.MR_NAME} 
+							<div style="float: left; width: 30%; overflow: hidden; text-overflow: ellipsis;">
+								${list.MR_NAME}
+							</div>
+							<div style="float: right; margin-right: 10px; width: 60%; text-align: right; overflow: hidden; text-overflow: ellipsis;">
+								${list.MSG_CONTENT }
+							</div>
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -99,17 +106,42 @@
 		<div style="float:right; width: 600px; margin: 20px 30px 0">
 	<input type="button" value="참가자(${rm.size()})" class="btn1 roommember" style="padding: 5px 10px;">
 	<input type="button" value="초대하기" class="btn3 roominvite" style="padding: 5px 10px;">
-	<input type="button" value="나가기" class="btn4 roomout" style="float:right; padding: 5px 10px;">
+	<input type="button" value="나가기" class="btn4" id="roomout" style="float:right; padding: 5px 10px;">
 	</div>
 			<div style="height: 600px; margin: 20px 30px 0 30px; float: right; background-color: white;">
-				<div style="width: 600px	; height: 600px; overflow: auto; margin-bottom: 10px; ">
+				<div style="width: 600px; height: 600px; overflow: auto; margin-bottom: 10px;" id="topChat">
 					<div class="well" id="chatdata">
-				    		<!-- User Session Info Hidden -->
-				    		<input type="hidden" value='${userId}' id="sessionuserid">
+				    		<c:forEach items="${message }" var="msg">
+				    			<c:choose>
+				    				<c:when test="${msg.msg_id eq 'sys'}">
+				    					<div class='well'>
+					    					<div class='sysMessage' style="text-align: center; margin: 5px;">
+					    						<strong>${msg.msg_content }</strong>
+				    						</div>
+				    					</div>
+				    				</c:when>
+				    				<c:when test="${msg.msg_id eq userId}">
+				    					<div class='myMessageDiv' style="float: right; max-width: 500px;">
+					    					<div class='myMessage' >
+					    						<strong>[${msg.msg_id }] : ${msg.msg_content }</strong>
+				    						</div>
+				    					</div>
+				    					<small style="display: block; margin: 5px 10px 10px 0; text-align: right; clear: both;">${msg.msg_sdate }</small>
+				    				</c:when>
+				    				<c:otherwise>
+				    					<div class='well'>
+					    					<div class='otherMessage'">
+					    						<strong>[${msg.msg_id }] : ${msg.msg_content }</strong>
+				    						</div>
+				    					</div>
+				    					<small style="display: block; margin: 5px 10px 10px 0; clear: both;">${msg.msg_sdate }</small>
+				    				</c:otherwise>
+				    			</c:choose>
+				    		</c:forEach>
 			    	</div>
 				</div>
 					<div >
-						<input type="text" id="message" style="width:87%" placeholder=" 내용을 입력해 주세요" onkeyup="enterkey()"/>
+						<input type="text" id="message" style="width:87%" placeholder=" 내용을 입력해 주세요"/>
 			    		<input type="button" id="sendBtn" value="전송" class="btn8" style="padding: 5px 10px; width:11%; float: right"/>
 		    		</div>
 			   </div>
@@ -173,19 +205,21 @@
 		    			</c:forEach>
 		    		</select>
 		    	</div>
-		    	<div style="margin: 5px; width: 290px; height:100px; border: 1px solid black; overflow: auto"  id="projectMember">
+		    	<div style="margin: 5px; width: 290px; height:100px; border: 1px solid black; overflow: auto"  id="projectMember3">
 		    	</div>
 		    	<div style="margin: 0 5px;">
 		    		<input type="text" id="searchNP2" name="searchNP" placeholder="ID/전화번호 검색">
-		    		<button type="button" class="btn8" style="width: 60px; height: 25px;"  id="crmBtn">검색</button>
+		    		<button type="button" class="btn8" style="width: 60px; height: 25px;"  id="crmBtn2">검색</button>
 		    	</div>
-		    	<div style="margin: 5px; width: 290px; height:40px; border: 1px solid black; overflow: auto"  id="projectMember2">
+		    	<div style="margin: 5px; width: 290px; height:40px; border: 1px solid black; overflow: auto"  id="projectMember4">
 		    	</div>
 		    	<div style="float: right; margin: 0 10px">
+		    		<input type="hidden" name="mr_no" value="${roomId}">
 		    		<button type="submit" class="btn4" id="creatBtn" style="width: 80px; height: 30px;" >초대</button>
 		    	</div>
 	    </form>
     	</div>
+    </div>
     </div>
     
     <script>
@@ -219,31 +253,73 @@
     			modal.hide();
     		}
     	});
+		$('#topChat').scrollTop($('#topChat').prop('scrollHeight'));
     </script>
-    <!-- 초대하기 script -->
+    <!-- 초대하기, 나가기 script -->
     <script>
-	    $("#selectProject").change(function(){
-	    	var pro_no = $(this).val();
-	    	if(pro_no == 'none'){
-	    		$("#projectMember").html('');
-	    		return;
-	    	}
-	    	$.ajax({
-					type :'post' ,
-					url :'pMember' ,
-					data : {"pro_no" : pro_no},
-					dataType : "json",
-					success : function(data){
-						var html = '';
-						$.each(data, function(i, item){
-							if('${userId}' != item.US_ID){
-								html += '<input type="checkbox" id="us_id" name="us_id" value="'+item.US_ID+'"><span> '+item.US_ID + ' [' + item.US_NAME +'] '+'</span><br>'
-							}
+    var mr_no = '${roomId}';
+  	$("#selectProject2").change(function(){
+    	var pro_no = $(this).val();
+    	if(pro_no == 'none'){
+    		$("#projectMember2").html('');
+    		return;
+    	}
+    	$.ajax({
+				type :'post' ,
+				url :'pMember' ,
+				data : {"pro_no" : pro_no, "mr_no" : mr_no},
+				dataType : "json",
+				success : function(data){
+					var html = '';
+					$.each(data, function(i, item){
+						html += '<input type="checkbox" id="us_id" name="us_id" value="'+item.US_ID+'"><span> '+item.US_ID + ' [' + item.US_NAME +'] '+'</span><br>'
 						})
-						$("#projectMember").html(html);
-					}
-				})
-	    });
+					$("#projectMember3").html(html);
+				}
+			})
+    });
+    
+    $("#crmBtn2").click(function(){
+    	if($("#searchNP2").val() ==''){
+    		alert('아이디 또는 전화번호 입력 후 검색해 주세요');
+    		$("#searchNP2").focus();
+    	}else{
+    		 $.ajax({
+        		type:"post",
+        		url:"pMember2",
+        		dataType:"json",
+        		data:{"userInfo" : $("#searchNP2").val(), "mr_no" : mr_no},
+        		success:function(data){
+        			if(data != ''){
+        			var html = '';
+        			$.each(data, function(i, item){
+        					html += '<input type="checkbox" id="us_id" name="us_id" value="'+item.us_id+'"><span> '+item.us_id + ' [' + item.us_name +']'+'</span><br>'
+        				})
+        			$("#projectMember4").append(html);
+        			$("#searchNP2").val("");
+        			$("#searchNP2").focus();
+        			} else {
+        				$("#projectMember4").append("<div>초대할수 없는 사용자입니다</div>");
+        			}
+        		}
+        	}) 
+	   	}
+    })
+    $("#roomout").click(function(){
+    	var mr_no = '${roomId}';
+    	var us_id = '${userId}';
+    	if(confirm("대화방을 나가시겠습니까?") == true){
+	    	$.ajax({
+	    		url:"roomout",
+	    		type:"post",
+	    		data:{"mr_no":mr_no, "us_id":us_id},
+	    		success:function(data){
+	    			alert(data);
+	    			location.href = "<%=request.getContextPath()%>/chat/room";
+	    		}
+	    	})
+    	}
+    })
     </script>
     
     <!-- 대화방 생성 script -->
@@ -309,7 +385,7 @@
     var roomName = '${room[0].MR_NAME}';
     var roomId = '${room[0].MR_NO}';
     /* var username = prompt("ID를 입력해주세요"); */
-    var username = $('#sessionuserid').val();;
+    var username = '${userId}';
 
     console.log(roomName + ", " + roomId + ", " + username);
 
@@ -327,25 +403,34 @@
 
         var writer = content.msg_id;
         var message = content.msg_content;
+        var sdate = content.msg_sdate;
+    	console.log('writer'+writer);
         
       //나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.//
-    	if(username == writer){
-    		var printHTML = "<div class='well'>";
-    		printHTML += "<div class='alert alert-info'>";
+    	var printHTML ="";
+      if(username == writer){
+    		printHTML = "<div class='well'>";
+    		printHTML += "<div class='myMessageDiv' style='float: right; max-width: 500px;'>";
     		printHTML += "<strong>["+writer+"] : "+message+"</strong>";
     		printHTML += "</div>";
     		printHTML += "</div>";
-    		
-    		$("#chatdata").append(printHTML);
-    	} else{
-    		var printHTML = "<div class='well'>";
-    		printHTML += "<div class='alert alert-warning'>";
+    		printHTML += "<small style='display: block; margin: 5px 10px 10px 0; text-align: right; clear: both;'>"+sdate+"</small>";
+    	}else if(writer == 'sys'){
+    		printHTML = "<div class='well'>";
+    		printHTML += "<div class='sysMessage' style='text-align: center; margin: 5px;'>";
+    		printHTML += "<strong>"+message+"</strong>";
+    		printHTML += "</div>";
+    		printHTML += "</div>";
+    	}else{
+    		printHTML = "<div class='well'>";
+    		printHTML += "<class='otherMessage'>";
     		printHTML += "<strong>["+writer+"] : "+message+"</strong>";
     		printHTML += "</div>";
     		printHTML += "</div>";
-    		
-    		$("#chatdata").append(printHTML);
+    		printHTML += "<small style='display: block; margin: 5px 10px 10px 0; clear: both;'>"+sdate+"</small>";
     	}
+    		$("#chatdata").append(printHTML);
+    		$('#topChat').scrollTop($('#topChat').prop('scrollHeight'));
       });
 
       // 채팅방 입장시 입장됬다 출력
@@ -356,20 +441,25 @@
     	send();
     });
   
-//엔터키 이벤트 등록
+	//엔터키 이벤트 등록
   $("#message").keyup(function(){
 	  	if (window.event.keyCode == 13) {
 	  		 send();
 	  	}
-  	})
+  	});
   	
   	function send(){
-  		var msg = document.getElementById("message");
-
-	      console.log(username + ":" + msg.value);
-	      stomp.send('/pub/chat/message', {}, JSON.stringify({mr_no: roomId, msg_content: msg.value, msg_id: username}));
-	      msg.value = '';
-  	}
+  		if($("#message").val() == ''){
+  			alert("메시지를 입력해 주세요");
+  			$("#message").focus();
+  		}else{
+	  		var msg = document.getElementById("message");
+	
+		      console.log(username + ":" + msg.value);
+		      stomp.send('/pub/chat/message', {}, JSON.stringify({mr_no: roomId, msg_content: msg.value, msg_id: username}));
+		      msg.value = '';
+	  	}
+	  }
   });
 </script>
     

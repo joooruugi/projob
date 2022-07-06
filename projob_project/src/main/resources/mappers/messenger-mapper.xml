@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Messenger">
 	<select id="selectAllRooms" parameterType="String" resultType="map">
-		select mr_no, mr_name, us_id from messageroom left join messageroom_member using(mr_no) where us_id = #{userId}  order by mr_wdate desc
+		select mr_no, mr_name, msg_content from messageroom 
+		left join messageroom_member using(mr_no)
+		left join (select * from(
+        SELECT mr_no, msg_content, msg_sdate,
+        RANK() OVER (PARTITION BY mr_no ORDER BY msg_sdate DESC) AS RNK
+        FROM message where msg_id!='sys') where rnk = '1') using(mr_no)
+		where us_id = #{userId}  order by msg_sdate desc
 	</select>
 	
 	<select id="maxmessageroomno" parameterType="String" resultType="int">
@@ -30,20 +36,63 @@
 		select pro_title, pro_no from project left join p_member using(pro_no) where us_id=#{userId} and prom_ok=1
 	</select>
 	
+	<select id="selectMemberPick" parameterType="map" resultType="map">
+		select us_id from messageroom_member where mr_no=#{mr_no}	
+	</select>
+	
 	<select id="selectPMember" resultType="map">
 		select * from p_member left join prouser using(us_id) where pro_no=#{pro_no}
+		<if test="mr_no != null">
+			<foreach collection="list" item="list" open="and" separator="and">
+				us_id != #{list.US_ID}
+			</foreach>
+		</if>
 	</select>
 	
 	<select id="selectPMember2" resultType="Prouser">
-		select us_id, us_name, us_phone from prouser where us_id=#{userInfo} or us_phone=#{userInfo}
+		select us_id, us_name, us_phone from prouser where (us_id=#{userInfo} or us_phone=#{userInfo})
+		<if test="mr_no != null">
+			<foreach collection="list" item="list" open="and" separator="and">
+				us_id != #{list.US_ID}
+			</foreach>
+		</if>
 	</select>
 	
 	<insert id="insertMessage" parameterType="Message">
-		insert into message values((select nvl(max(msg_no)+1, 0) from message), #{mr_no}, #{msg_id}, #{msg_content}, systimestamp)
+		insert into message values(#{msg_no}, #{mr_no}, #{msg_id}, #{msg_content}, systimestamp)
 	</insert>
 	
 	<select id="selectRoomMember" resultType="map">
 		select us_id, us_name from messageroom_member left join prouser using(us_id) where mr_no = #{roomId}
+	</select>
+	
+	<insert id="insertChatRoomAdd" parameterType="map">
+		insert all
+		into message values((select nvl(max(msg_no)+1, 0) from message), #{mr_no},'sys', #{str}, systimestamp )
+		<foreach collection="us_id" item="us_id">
+		into messageroom_member values(#{mr_no}, #{us_id})
+		</foreach>
+		select * from dual
+	</insert>
+	
+	<delete id="roomout" parameterType="map">
+		delete from messageroom_member where us_id=#{us_id} and mr_no=#{mr_no}
+	</delete>
+	
+	<insert id="insertRoomoutMsg" parameterType="map">
+		insert into message values((select nvl(max(msg_no)+1, 0) from message), #{mr_no}, 'sys', #{msg}, systimestamp)
+	</insert>
+	
+	<select id="selectMessage" parameterType="Message" resultType="Message">
+		select msg_no, mr_no, msg_id, msg_content, to_char(msg_sdate, 'yyyy/mm/dd HH24:MI') msg_sdate, msg_sdate msg_rdate from message where mr_no=#{roomId} order by msg_rdate
+	</select>
+	
+	<select id="selectMaxMsgNo" resultType="String">
+		select nvl(max(msg_no)+1, 0) from message
+	</select>
+	
+	<select id="selectMsgSdate" parameterType="String" resultType="String">
+		select to_char(msg_sdate, 'yyyy/mm/dd HH24:MI') from message where msg_no=#{msg_no}
 	</select>
 	
 </mapper>

@@ -32,12 +32,12 @@ public class MessengerService {
 		return dao.selectProject(userId);
 	}
 
-	public List<Map<String, Object>> selectPMember(String pro_no) {
-		return dao.selectPMember(pro_no);
+	public List<Map<String, Object>> selectPMember(Map<String, Object> map) {
+		return dao.selectPMember(map);
 	}
 
-	public List<Prouser> selectPMember2(String userInfo) {
-		return dao.selectPMember2(userInfo);
+	public List<Prouser> selectPMember2(Map<String, Object> map) {
+		return dao.selectPMember2(map);
 	}
 
 	public void insertMessage(Message message) {
@@ -46,6 +46,30 @@ public class MessengerService {
 
 	public List<Map<String, Object>> selectRoomMember(String roomId) {
 		return dao.selectRoomMember(roomId);
+	}
+
+	public int insertChatRoomAdd(Map<String, Object> map) {
+		return dao.insertChatRoomAdd(map);
+	}
+
+	public int roomout(Map<String, Object> map) {
+		return dao.roomout(map);
+	}
+
+	public void insertRoomoutMsg(Map<String, Object> map) {
+		dao.insertRoomoutMsg(map);
+	}
+
+	public List<Message> selectMessage(String roomId) {
+		return dao.selectMessage(roomId);
+	}
+
+	public String selectMaxMsgNo() {
+		return dao.selectMaxMsgNo();
+	}
+
+	public String selectMsgSdate(String msg_no) {
+		return dao.selectMsgSdate(msg_no);
 	}
 
 }

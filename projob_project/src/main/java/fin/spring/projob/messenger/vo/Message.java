@@ -10,7 +10,5 @@ public class Message {
     private String msg_id;
     private String msg_content;
     private String msg_sdate;
-    private String msg_useyn;
-    private String msg_ddate;
     
 }

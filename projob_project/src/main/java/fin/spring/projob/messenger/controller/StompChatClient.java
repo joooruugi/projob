@@ -17,16 +17,17 @@ public class StompChatClient {
     @Autowired
     MessengerService service;
 
-    @MessageMapping(value = "/chat/enter")
-    public void enter(Message message) {
-        System.out.println("연결성공");
-        message.setMsg_content(message.getMsg_id() + "님이 채팅방에 참여하셨습니다.");
-        messagingTemplate.convertAndSend("/sub/chat/message/" + message.getMr_no(), message);
-    }
-
     @MessageMapping(value = "/chat/message")
     public void message(Message message) {
+    	String msg_no = service.selectMaxMsgNo();
+    	message.setMsg_no(msg_no);
     	service.insertMessage(message);
+    	String msg_sdate = service.selectMsgSdate(msg_no);
+    	message.setMsg_sdate(msg_sdate);
         messagingTemplate.convertAndSend("/sub/chat/message/"+message.getMr_no(),message);
+    }
+    
+    public void enter(Message message) {
+    	messagingTemplate.convertAndSend("/sub/chat/message/" + message.getMr_no(), message);
     }
 }
