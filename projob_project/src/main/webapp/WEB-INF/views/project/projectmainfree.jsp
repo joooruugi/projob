@@ -12,7 +12,7 @@
 <script src="http://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<title>PROJOB_JOIN</title>
+<title>PROJOB_PROJECT</title>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/footer.css">
@@ -122,11 +122,11 @@
         <div class="projectpaging">
 
         </div>
-        <div class="projectinsertbtn">
+       <!--  <div class="projectinsertbtn">
             <button class="projectinsertbtncomp btn3" type="button">
                 <p class="fontcontent">공고 등록하기</p>
             </button>
-        </div>
+        </div> -->
     </div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
