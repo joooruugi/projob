@@ -14,9 +14,17 @@ public class CalendarDao {
 	@Autowired
 	private SqlSession sqlsession;
 
-	public List<Calendar> calenList() {
-		return sqlsession.selectList("Calendar.calenList");
+	//일정 조회
+	public List<Calendar> calendarList() {
+		return sqlsession.selectList("Calendar.calendarList");
 	}
+	
+	//일정 추가
+	public int insertCalendar(Calendar calendar) {
+		return sqlsession.insert("Calendar.insertCalendar",calendar);
+	}
+	
+	
 }
 	
 

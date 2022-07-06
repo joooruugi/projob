@@ -4,15 +4,32 @@
 	<resultMap type="Calendar" id="calMap">
 		<result property="start" column="start1"/>
 		<result property="end" column="end1"/>
+		<result property="allday" column="allday"/>
 	</resultMap>
-	<select id="calenList" resultMap="calMap">
+	<select id="calendarList" resultMap="calMap">
 		SELECT id, title,
-		TO_char(start1, 'YYYY-MM-DD"T"HH24:MI:SS') start1,
-		TO_char(end1, 'YYYY-MM-DD"T"HH24:MI:SS') end1,
-		ALLDAY,
-		TEXTCOLOR,
-		BACKGROUNDCOLOR,
-		BORDERCOLOR 
+			start1,
+			end1,
+			allday,
+			textColor,
+			backgroundColor,
+			BORDERCOLOR
 		FROM CALENDAR
 	</select>
+	<insert id="insertCalendar">
+		insert into calendar (id, title,
+			start1,
+			end1,
+			allday,
+			textColor,
+			backgroundColor
+			)
+		values (seq_cal_no.nextval, #{title},
+			#{start},
+			#{end},
+			#{allday},
+			#{textColor},
+			#{backgroundColor}
+			)	
+	</insert>
 </mapper>
