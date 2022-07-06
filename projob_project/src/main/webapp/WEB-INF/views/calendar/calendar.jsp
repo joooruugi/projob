@@ -134,9 +134,23 @@
               }
             },
             editable: true,
-            events: //이 부분이 json을 받아서 calendar에 뿌리는 공간(ajax데이터 불러오는 곳)
+           
+            events: //이 부분이 json을 받아서 calendar에 뿌리는 공간(ajax로 데이터 불러옴(로딩))
+            	function(info, successCallback, failureCallback){
+		          	$.ajax({
+		          		 type:"get",
+		          		 url:"<%=request.getContextPath()%>/calendar/data",
+		          		dataType:"json",
+		          		success: function(data){
+		          			successCallback(data);
+		          		}
+          	  		});
+            	} 
             
             
+        	
+            
+            	/*
             	  [
             		{ 
             		title: '이미나' 
@@ -150,16 +164,8 @@
           	      	, end: '2022-07-15 19:00' 
           	      	, backgroundColor: "green" 
            		 	}
-          	    ]  
-           /*  events: function(info, successCallback, failureCallback){
-          	  // ajax 처리로 데이터를 로딩 시킨다.
-          	  $.ajax({
-          		 type:"get",
-          		 url:"${path}/calendar.do?method=data",
-          		dataType:"json"  
-          	  });
-            } */
-        	
+          	    ]   
+            	  */
         	
         	
         	
