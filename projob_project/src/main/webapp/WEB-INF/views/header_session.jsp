@@ -1,3 +1,4 @@
+<%@page import="fin.spring.projob.prouser.vo.Prouser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page session="true"%>
@@ -17,7 +18,7 @@
 	</div>
 	<div class="headerdown">
 		<div class="headerdownleft">
-			<a href="#" class="fontimportant2">PROJECT</a> <a
+			<a href="<%=request.getContextPath()%>/project" class="fontimportant2">PROJECT</a> <a
 				href="<%=request.getContextPath()%>/chat/room"
 				class="fontimportant2">MESSENGER</a>
 		</div>

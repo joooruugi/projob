@@ -20,7 +20,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/join.css">
+	href="<%=request.getContextPath()%>/resources/css/waitjoin.css">
 </head>
 
 <body>
@@ -30,7 +30,6 @@
 	if (prouser != null) {
 	%>
 	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
-
 	<%
 	} else {
 	%>
@@ -38,38 +37,24 @@
 	<%
 	}
 	%>
-	<div class="join">
-		<div class="joincontent">
-			<div class="joinleft">
-				<div class="joinleftimg">
-					<img
-						src="<%=request.getContextPath()%>/resources/images/freelancerjoin.png">
-				</div>
-				<div class="joinleftbtn">
-					<button class="btn8" type="submit"
-						onclick="location.href='termsfree'">
-						<p class="fontnothing">프리랜서 회원가입</p>
-					</button>
-				</div>
-			</div>
-			<div class="joindivision"></div>
-			<div class="joinright">
-				<div class="joinrightimg">
-					<img
-						src="<%=request.getContextPath()%>/resources/images/companyjoin.png">
-				</div>
-				<div class="joinrightbtn">
-					<button class="btn8" type="submit"
-						onclick="location.href='termscomp'">
-						<p class="fontnothing">기업 회원가입</p>
-					</button>
-				</div>
-			</div>
+	<div class="waiting">
+		<div class="waitname">
+			<p class="fonthighlight">승인 대기중</p>
 		</div>
-		<div class="joinbottom">
-			<a href="<%=request.getContextPath()%>/login">
-				<p class="fontcontent2">이미 projob 회원이신가요? >> 로그인 하러가기</p>
-			</a>
+		<div class="waitcontent">
+			<div class="waitnotice">
+				<p class="fontimportant2">현재 전문가/기업 승인 대기중입니다.</p>
+				<p class="fontimportant2 waitcontenthover">영업일 2-3일 내에 승인처리 됩니다.</p>
+			</div>
+			<div class="waitnotice2">
+				<p class="fontcontent2">기타 문의사항 : projob@projob.com</p>
+			</div>
+			<div class="waitnoticebtn">
+				<button type="button" class="btnwhite">
+					<p class="fontname2">프 로 젝 트 둘 러 보 기</p>
+				</button>
+			</div>
+
 		</div>
 	</div>
 	<!--푸터-->

@@ -10,7 +10,8 @@
                     고객센터 : 1544-1544-1544 | 사업자등록번호 : 2022-0606-0729 | projob@projob.com
                     <br><br>
                     PROJOB의 모든 저작권 및 개인정보는 법에 의해 보호 받습니다.
-                </p>
+                </p><br>
+                <a href="<%=request.getContextPath()%>/adlogin" ><p class="fontcontent">※Admin※</p></a>
             </div>
             <div class="footerend">
                 <p class="fontcontent2">
