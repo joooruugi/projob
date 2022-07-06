@@ -57,7 +57,7 @@ public class AdminController {
 	public ModelAndView adlogout(ModelAndView mv, HttpSession session) {
 		session.invalidate();
 		logger.info("Admin logout");
-		mv.setViewName("/home");
+		mv.setViewName("redirect:/login");
 		return mv;
 	}
 	

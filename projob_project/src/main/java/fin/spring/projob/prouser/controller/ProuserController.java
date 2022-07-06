@@ -369,4 +369,6 @@ public class ProuserController {
 		return mv;
 	}
 	//마이페이지 정보수정 POST
+	//마이페이지 이력서 관리 GET
+	
 }

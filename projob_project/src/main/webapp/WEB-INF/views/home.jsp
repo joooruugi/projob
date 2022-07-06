@@ -1,3 +1,4 @@
+<%@page import="fin.spring.projob.admin.vo.Admin"%>
 <%@page import="fin.spring.projob.prouser.vo.Prouser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -19,7 +20,15 @@
 	<!--헤더-->
 	<%
 	Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
-	if (prouser != null ) {
+	Admin admin = (Admin) request.getSession().getAttribute("adminloginSsInfo");
+	if (admin != null) {
+	%>
+	<jsp:include page="/WEB-INF/views/header_admin.jsp" flush="false" />
+	<%
+	} else {
+	%>
+	<%
+	if (prouser != null) {
 	%>
 	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
 	<%
@@ -27,6 +36,7 @@
 	%>
 	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
 	<%
+	}
 	}
 	%>
 	<!--푸터-->

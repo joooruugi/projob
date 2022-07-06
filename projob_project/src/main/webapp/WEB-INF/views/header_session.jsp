@@ -18,7 +18,7 @@
 	</div>
 	<div class="headerdown">
 		<div class="headerdownleft">
-			<a href="#" class="fontimportant2">PROJECT</a> <a
+			<a href="<%=request.getContextPath()%>/project" class="fontimportant2">PROJECT</a> <a
 				href="<%=request.getContextPath()%>/chat/room"
 				class="fontimportant2">MESSENGER</a>
 		</div>

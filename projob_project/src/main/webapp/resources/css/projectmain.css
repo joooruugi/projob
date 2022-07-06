@@ -1,0 +1,53 @@
+@charset "UTF-8";
+.projectmain{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+}
+.projectmainbanner{
+    width: 100%;
+}
+.projectmainbanner img{
+    width: 100%;
+    height: 400px;
+    margin: 30px auto;
+}
+.projectcontent{
+    width: 60%;
+    border: 5px solid   rgb(183, 189, 197);
+    margin: 15px auto;
+    border-style: outset;
+}
+.projectcontent a, .projectcontent p{
+    margin: 15px 20px;
+}
+.projectcontenttitle p{
+    font-size: 35px;
+}
+.projectcontenttitle p:hover{
+    color: rgb(78, 152, 242);
+}
+.projectcontentcontent p{
+    font-size: 25px;
+}
+.projectcontentdetail{
+    display: flex;
+    flex-direction: row;
+}
+.projectcontentdetail p{
+    font-size: 20px;
+}
+.projectinsertbtn{
+    width: 85%;
+    margin:50px;
+    text-align: right;
+}
+.projectinsertbtncomp{
+    width: 150px;
+    height: 60px;
+}
+.projectinsertbtncomp p{
+    font-size: 20px;
+    font-weight: 700;
+}
