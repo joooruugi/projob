@@ -14,9 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
+import fin.spring.projob.calendar.domain.Calendar;
 import fin.spring.projob.calendar.service.CalendarService;
 
 @Controller
@@ -32,7 +35,7 @@ public class CalendarController {
 	
 	@Autowired
 	private CalendarService service;
-
+	
 	@GetMapping("/list")
 	public String list() {
 		return "calendar/calendar";
@@ -43,9 +46,26 @@ public class CalendarController {
 	public String data(Model m) {
 		//m.addAttribute("list", service.calenList());
 		//return "pageJsonReport";
-		return new Gson().toJson(service.calenList());
+		return new Gson().toJson(service.calendarList());
 	}
-
+	
+	@PostMapping(value="/insert", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String insertCalendar(
+			Calendar calendar
+			) {
+//		calendar.setStart(calendar.getStart().substring(0, 16).replace('T', ' '));
+//		calendar.setEnd(calendar.getEnd().substring(0, 16).replace('T', ' '));
+//		System.out.println("^^^^^^^^^^^^^^^^"+calendar.getStart());
+		
+		int result = service.insertCalendar(calendar);
+		return String.valueOf(result);
+	}
+	
+	
+	
+	
+	
 	// @Controller
 	// public class CalendarController {
 //		@RequestMapping(value = "/calendar")
