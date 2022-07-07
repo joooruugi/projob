@@ -1,5 +1,7 @@
 package fin.spring.projob.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,19 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
 	private ProjectDao prodao;
 
-	//ÇÁ·ÎÁ§Æ® °ø°í µî·Ï
+	//í”„ë¡œì íŠ¸ ê³µê³  ë“±ë¡
 	@Override
 	public int insertProject(Project project) throws Exception{
 		return prodao.insertProject(project);
+	}
+	//í”„ë¡œì íŠ¸ ëª©ë¡ ì¡°íšŒ
+	@Override
+	public List<Project> projectList() throws Exception{
+		return prodao.projectList();
+	}
+	//í”„ë¡œì íŠ¸ ìƒì„¸ì¡°íšŒ
+	@Override
+	public Project projectDetail(int pro_no) throws Exception{
+		return prodao.projectDetail(pro_no);
 	}
 }

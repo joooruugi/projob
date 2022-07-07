@@ -40,95 +40,49 @@
 	<%
 	}
 	%>
-	  <div class="projectmain">
-        <div class="projectmainbanner">
-           <img src="<%=request.getContextPath()%>/resources/images/projectbanner.png">
-        </div>
-        <div class="projectcontent">
-            <div class="projectcontenttitle">
-                <a href="#">
-                    <p class="fontname">대기업 쇼핑몰 커머스앱 개발</p>
-                </a>
-            </div>
-            <div class="projectcontentcontent">
-                <p class="fontcontent">프로젝트 간편 정보(분류 및 인원?)</p>
-            </div>
-            <div class="projectcontentdetail">
-                <p class="fontnothing">예상 금액 : 0000000000원</p>
-                <p class="fontnothing">시작 예정일 : 2022-07-09 </p>
-                <p class="fontnothing">모집 인원 : 3명</p>
-            </div>
-        </div>
-        <div class="projectcontent">
-            <div class="projectcontenttitle">
-                <a href="#">
-                    <p class="fontname">대기업 쇼핑몰 커머스앱 개발</p>
-                </a>
-            </div>
-            <div class="projectcontentcontent">
-                <p class="fontcontent">프로젝트 간편 정보(분류 및 인원?)</p>
-            </div>
-            <div class="projectcontentdetail">
-                <p class="fontnothing">예상 금액 : 0000000000원</p>
-                <p class="fontnothing">시작 예정일 : 2022-07-09 </p>
-                <p class="fontnothing">모집 인원 : 3명</p>
-            </div>
-        </div>
-        <div class="projectcontent">
-            <div class="projectcontenttitle">
-                <a href="#">
-                    <p class="fontname">대기업 쇼핑몰 커머스앱 개발</p>
-                </a>
-            </div>
-            <div class="projectcontentcontent">
-                <p class="fontcontent">프로젝트 간편 정보(분류 및 인원?)</p>
-            </div>
-            <div class="projectcontentdetail">
-                <p class="fontnothing">예상 금액 : 0000000000원</p>
-                <p class="fontnothing">시작 예정일 : 2022-07-09 </p>
-                <p class="fontnothing">모집 인원 : 3명</p>
-            </div>
-        </div>
-        <div class="projectcontent">
-            <div class="projectcontenttitle">
-                <a href="#">
-                    <p class="fontname">대기업 쇼핑몰 커머스앱 개발</p>
-                </a>
-            </div>
-            <div class="projectcontentcontent">
-                <p class="fontcontent">프로젝트 간편 정보(분류 및 인원?)</p>
-            </div>
-            <div class="projectcontentdetail">
-                <p class="fontnothing">예상 금액 : 0000000000원</p>
-                <p class="fontnothing">시작 예정일 : 2022-07-09 </p>
-                <p class="fontnothing">모집 인원 : 3명</p>
-            </div>
-        </div>
-        <div class="projectcontent">
-            <div class="projectcontenttitle">
-                <a href="#">
-                    <p class="fontname">대기업 쇼핑몰 커머스앱 개발</p>
-                </a>
-            </div>
-            <div class="projectcontentcontent">
-                <p class="fontcontent">프로젝트 간편 정보(분류 및 인원?)</p>
-            </div>
-            <div class="projectcontentdetail">
-                <p class="fontnothing">예상 금액 : 0000000000원</p>
-                <p class="fontnothing">시작 예정일 : 2022-07-09 </p>
-                <p class="fontnothing">모집 인원 : 3명</p>
-            </div>
-        </div>
-        <div class="projectpaging">
-
-        </div>
-        <div class="projectinsertbtn">
-            <button class="projectinsertbtncomp btn3" type="button"
-            onclick="location.href='projectinsert'">
-                <p class="fontcontent">공고 등록하기</p>
-            </button>
-        </div>
-    </div>
+	<div class="projectmain">
+		<div class="projectmainbanner">
+			<img
+				src="<%=request.getContextPath()%>/resources/images/projectbanner.png">
+		</div>
+		<form method="post" action="<%=request.getContextPath()%>/projectinsert">
+		<c:forEach items="${projectlist }" var="projectlist">
+			<div class="projectcontent">
+				<div class="projectcontenttitle">
+					<a href="<%=request.getContextPath()%>/projectdetail?pro_no=${projectlist.pro_no}">
+						<p class="fontname">
+							<c:out value="${projectlist.pro_title }" /> 
+						</p>
+					</a>
+				</div>
+				<div class="projectcontentdetail">
+					<p class="fontnothing">
+						예상 금액 :
+						<c:out value="${projectlist.pro_budget }" /> 
+						원
+					</p>
+					<p class="fontnothing">
+						진행 기간 :
+						 <c:out value="${projectlist.pro_period }" /> 
+						일
+					</p>
+					<p class="fontnothing">
+						모집 인원 :
+						<c:out value="${projectlist.pro_personnel }" />
+						명
+					</p>
+				</div>
+			</div>
+		</c:forEach>
+		</form>
+		<div class="projectpaging"></div>
+		<div class="projectinsertbtn">
+			<button class="projectinsertbtncomp btn3" type="button"
+				onclick="location.href='projectinsert'">
+				<p class="fontcontent">공고 등록하기</p>
+			</button>
+		</div>
+	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 </body>

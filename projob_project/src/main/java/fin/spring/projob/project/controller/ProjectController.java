@@ -29,13 +29,15 @@ public class ProjectController {
 	@Autowired
 	private ProjectServiceImpl service;
 	
-	//ÇÁ·ÎÁ§Æ® ¸ŞÀÎ GET
+	//í”„ë¡œì íŠ¸ ë©”ì¸ GET
+	//í”„ë¡œì íŠ¸ ëª©ë¡ ì¡°íšŒ 
 	@RequestMapping(value="/project", method=RequestMethod.GET)
 	public ModelAndView projectmainGet(ModelAndView mv
 			,HttpSession session
-			,@ModelAttribute("loginSsInfo") Prouser prouser) {
+			,@ModelAttribute("loginSsInfo") Prouser prouser)throws Exception {
 		logger.info("projectmain GET");
 		session.getAttribute("loginSsInfo");
+		mv.addObject("projectlist", service.projectList());
 		if(prouser.getUs_info()==0) {
 			logger.info("projectmain for free GET");
 			mv.setViewName("project/projectmainfree");
@@ -48,7 +50,7 @@ public class ProjectController {
 		}
 		return mv;
 	}
-	//ÇÁ·ÎÁ§Æ® °ø°í ÀÛ¼º GET for company
+	//í”„ë¡œì íŠ¸ ê³µê³  ì‘ì„± GET for company
 	@RequestMapping(value="/projectinsert", method=RequestMethod.GET)
 	public ModelAndView projectinsertGet(ModelAndView mv
 			,HttpSession session
@@ -58,7 +60,7 @@ public class ProjectController {
 		mv.setViewName("project/projectinsert");
 		return mv;
 	}
-	//ÇÁ·ÎÁ§Æ® °ø°í ÀÛ¼º POST for company
+	//í”„ë¡œì íŠ¸ ê³µê³  ì‘ì„± POST for company
 	@PostMapping("/projectinsert")
 	public ModelAndView projectinsertPost(ModelAndView mv
 			, HttpSession session
@@ -66,7 +68,7 @@ public class ProjectController {
 			, @ModelAttribute("loginSsInfo")Prouser prouser)throws Exception {
 		logger.info("projectinsert POST");
 		session.getAttribute("loginSsInfo");
-//		session.setAttribute("us_name", prouser.getUs_name());
+		session.setAttribute("pro_comp", prouser.getUs_name());
 		int result = service.insertProject(project);
 		System.out.println(result);
 		if(result<1) {
@@ -74,8 +76,20 @@ public class ProjectController {
 			mv.setViewName("redirect:/projectinsert");
 		}else {
 			logger.info("insertproject success");
-			mv.setViewName("project/projectmaincomp");
+			mv.setViewName("redirect:/projectmaincomp");
 		}
+		return mv;
+	}
+	//í”„ë¡œì íŠ¸ ìƒì„¸ì¡°íšŒ GET
+	@RequestMapping(value="/projectdetail", method=RequestMethod.GET)
+	public ModelAndView projectDetailGet(ModelAndView mv
+			, @ModelAttribute("loginSsInfo")Prouser prouser
+			, HttpSession session
+			, Project project)throws Exception{
+		logger.info("projectdetail GET");
+		session.getAttribute("loginSsInfo");
+		session.setAttribute("projectdetail", service.projectDetail(project.getPro_no()));
+		mv.setViewName("project/projectdetail");
 		return mv;
 	}
 }

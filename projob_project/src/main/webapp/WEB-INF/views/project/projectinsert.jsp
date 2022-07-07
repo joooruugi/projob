@@ -84,9 +84,9 @@
 					</td>
 					<td><p class="fontcontent insertprojectp">첨부파일</p></td>
 					<td colspan="3"><input type="file" id="pro_img" name="pro_img">
+					<input type="hidden"  id="pro_comp" name="pro_comp" value="${pro_comp }"/>
 					</td>
 				</tr>
-
 			</table>
 			<div class="projectinsertbutton">
 				<button type="submit" class="projectinsertbtn btn5" id="insert_btn">프로젝트

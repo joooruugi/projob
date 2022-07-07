@@ -14,11 +14,13 @@ public class Project {
 	private int pro_field;
 	private int pro_ok;
 	private String pro_img;
+	private String pro_comp;
 	@Override
 	public String toString() {
 		return "Project [pro_no=" + pro_no + ", pro_title=" + pro_title + ", pro_content=" + pro_content
 				+ ", pro_period=" + pro_period + ", pro_budget=" + pro_budget + ", pro_personnel=" + pro_personnel
-				+ ", pro_field=" + pro_field + ", pro_ok=" + pro_ok + ", pro_img=" + pro_img + "]";
+				+ ", pro_field=" + pro_field + ", pro_ok=" + pro_ok + ", pro_img=" + pro_img + ", pro_comp=" + pro_comp
+				+ "]";
 	}
 	public int getPro_no() {
 		return pro_no;
@@ -74,4 +76,11 @@ public class Project {
 	public void setPro_img(String pro_img) {
 		this.pro_img = pro_img;
 	}
+	public String getPro_comp() {
+		return pro_comp;
+	}
+	public void setPro_comp(String pro_comp) {
+		this.pro_comp = pro_comp;
+	}
+	
 }
