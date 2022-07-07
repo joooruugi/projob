@@ -132,7 +132,7 @@
 				    				<c:otherwise>
 				    					<div class='otherMessageDiv' style="margin-left: 10px">
 				    					<div style="margin: 0 0 10px 15px">${msg.msg_id }</div>
-					    					<div class='otherMessage' style='background-color: rgb(186,219,255); padding: 20px; margin:0 0x 10px 0; border-radius: 15px; max-width: 400px;'>
+					    					<div class='otherMessage' style='background-color: rgb(186,219,255); padding: 20px; margin:0 0x 10px 0; border-radius: 15px; width:fit-content; max-width: 400px;'>
 					    						<strong>${msg.msg_content }</strong>
 				    						</div>
 				    					</div>
@@ -427,7 +427,7 @@
     	}else{
     		printHTML = "<div class='otherMessageDiv' style='margin-left: 10px'>";
     		printHTML += "<div style='margin: 0 0 10px 15px'>"+writer+"</div>";
-    		printHTML += "<div class='otherMessage' style='background-color: rgb(186,219,255); padding: 20px; margin:0 0x 10px 0; border-radius: 15px; max-width: 400px;'>";
+    		printHTML += "<div class='otherMessage' style='background-color: rgb(186,219,255); padding: 20px; margin:0 0x 10px 0; border-radius: 15px; width:fit-content; max-width: 400px;'>";
     		printHTML += "<strong>"+message+"</strong>";
     		printHTML += "</div>";
     		printHTML += "</div>";
