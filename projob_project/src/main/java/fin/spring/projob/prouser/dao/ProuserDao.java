@@ -1,15 +1,18 @@
 package fin.spring.projob.prouser.dao;
 
 import java.util.HashMap;
-
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import fin.spring.projob.prouser.vo.Career;
+import fin.spring.projob.prouser.vo.Certificate;
 import fin.spring.projob.prouser.vo.Kakao;
 import fin.spring.projob.prouser.vo.Prouser;
+import fin.spring.projob.prouser.vo.Resume;
 
 @Repository
 public class ProuserDao {
@@ -67,6 +70,21 @@ public class ProuserDao {
 	// 비밀번호 재설정
 	public int updatepw(Prouser prouser) {
 		return sql.update("Prouser.updatepw", prouser);
+	}
+	
+	//마이페이지 이력서 목록 조회
+	public List<Resume> resumelist(String us_id) throws Exception{
+		return sql.selectList("Prouser.resumelist", us_id);
+	}
+	//마이페이지 이력서 등록
+	public int resumeinsert(Resume resume) throws Exception{
+		return sql.insert("Prouser.resumeinsert", resume);
+	}
+	public int resumeinsertcareer(Career career) throws Exception{
+		return sql.insert("Prouser.resumeinsertcareer", career);
+	}
+	public int resumeinsertcerti(Certificate certi)throws Exception{
+		return sql.insert("Prouser.resumeinsertcerti", certi);
 	}
 
 }

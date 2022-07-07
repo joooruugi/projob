@@ -12,7 +12,7 @@
 <script src="http://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<title>PROJOB_MYPAGE</title>
+<title>PROJOB_RESUME</title>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/footer.css">
@@ -40,50 +40,46 @@
 	<%
 	}
 	%>
-	   <div class="resumelist">
-        <div class="resumelistname">
-            <p class="fontimportant">이 력 서 관 리</p>
-        </div>
-        <div class="resumelistcontent">
-            <div class="resumelisttable">
-                <table class="listofresume">
-                    <thead class="resumelist_thead fontimportant2">
-                        <td class="resumelist_no">NO.</td>
-                        <td class="resumelist_title">이력서 명</td>
-                        <td class="resumelist_condition">상태</td>
-                        <td class="resumelist_date">작성일</td>
-                        <td class="resumelist_openYN">공개여부</td>
-                    </thead>
-                    <tr class="resumelist_line fontcontent">
-                        <td>1</td>
-                        <td class="resumelist_titlelink"><a href="#">첫번째 이력서</a></td>
-                        <td>작성 완료</td>
-                        <td>2022.05.29</td>
-                        <td>Y</td>
-                    </tr>
-                    <tr class="resumelist_line fontcontent">
-                        <td>2</td>
-                        <td class="resumelist_titlelink"><a href="#">두번째 이력서</a></td>
-                        <td>작성중(임시저장)</td>
-                        <td>2022.05.30</td>
-                        <td>N</td>
-                    </tr>
-                    <tr class="resumelist_line fontcontent">
-                        <td>3</td>
-                        <td class="resumelist_titlelink"><a href="#">세번째 이력서</a></td>
-                        <td>작성완료</td>
-                        <td>2022.06.02</td>
-                        <td>N</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="resumelistbutton">
-            <button class="resumelistinsertbtn btn6" type="button">
-                <p class="fontcontent">이력서 등록</p>
-            </button>
-        </div>
-    </div>
+	<div class="resumelist">
+		<div class="resumelistname">
+			<p class="fontimportant">이 력 서 관 리</p>
+		</div>
+		<form method="post"
+			action="<%=request.getContextPath()%>/resumeinsert">
+
+			<div class="resumelistcontent">
+				<div class="resumelisttable">
+					<table class="listofresume">
+						<thead class="resumelist_thead fontimportant2">
+							<td class="resumelist_title">이력서 명</td>
+							<td class="resumelist_openYN">공개여부</td>
+						</thead>
+						<c:forEach items="${resumelist }" var="resumelist">
+									<tr class="resumelist_line fontcontent">
+										<td class="resumelist_titlelink"><a
+											href="<%=request.getContextPath()%>/resume?re_title=${resumelist.re_title}"><c:out
+													value="${resumelist.re_title }" /></a></td>
+										<c:choose>
+											<c:when test="${resumelist.re_openyn eq '0' }">
+												<td>비공개</td>
+											</c:when>
+											<c:when test="${resumelist.re_openyn eq '1' }">
+												<td>공개</td>
+											</c:when>
+										</c:choose>
+									</tr>
+								</c:forEach>
+					</table>
+				</div>
+			</div>
+
+		</form>
+		<div class="resumelistbutton">
+			<button class="resumelistinsertbtn btn6" type="button" onclick="location.href='resumeinsert'">
+				<p class="fontcontent">이력서 등록하기</p>
+			</button>
+		</div>
+	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 </body>

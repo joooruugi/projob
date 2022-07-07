@@ -55,7 +55,7 @@
 					</button>
 				</div>
 				<div class="mypageinfobtn">
-					<button type="submit" class="myinfobtn btn2">
+					<button type="submit" class="myinfobtn btn2" onclick="location.href='resumelist'">
 						<p class="fontcontent">이력서 관리</p>
 					</button>
 				</div>

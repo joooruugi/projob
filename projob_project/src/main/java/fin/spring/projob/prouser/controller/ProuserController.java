@@ -31,8 +31,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fin.spring.projob.prouser.service.ProuserService;
 import fin.spring.projob.prouser.service.ProuserServiceImpl;
+import fin.spring.projob.prouser.vo.Career;
+import fin.spring.projob.prouser.vo.Certificate;
 import fin.spring.projob.prouser.vo.Kakao;
 import fin.spring.projob.prouser.vo.Prouser;
+import fin.spring.projob.prouser.vo.Resume;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -80,13 +83,12 @@ public class ProuserController {
 
 	// 회원가입 사용자>프리랜서 정보입력 화면POST(회원가입3)
 	@PostMapping("/infofree")
-	// @ResponseBody
+	@ResponseBody
 	public ModelAndView infofreepost(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpServletRequest req)
 			throws Exception {
 		logger.info("join for freelancer_POST");
 		int result = service.insertProuserfree(prouser);
 		if (result < 1) {
-			rttr.addFlashAttribute("msg", " 가입에 실패하였습니다.");
 			mv.setViewName("redirect:/infofree");
 			return mv;
 		}
@@ -122,9 +124,7 @@ public class ProuserController {
 	@PostMapping(value = "/idchk")
 	@ResponseBody
 	public int idchk(@RequestParam("us_id") String us_id) throws Exception {
-//		logger.info("idchk");
 		int result = service.idchk(us_id);
-//		logger.info("Controller"+result);
 		return result;
 	}
 
@@ -162,7 +162,6 @@ public class ProuserController {
 			}
 			return mv;
 		} else {
-//			rttr.addFlashAttribute("`", "로그인에 실패했습니다. 아이디와 패스워드를 다시 확인해주세요.");
 			mv.setViewName("redirect:/login");
 			return mv;
 		}
@@ -291,9 +290,6 @@ public class ProuserController {
 			throws Exception {
 		session.getAttribute("loginSsInfo");
 		session.setAttribute("us_name", prouser.getUs_name());
-//		System.out.println(session);
-//		System.out.println(prouser);
-//		System.out.println("mypagemain session info: " + prouser.getUs_info());
 		if (prouser.getUs_info() == 0) {
 			mv.setViewName("mypage/mypagefree");
 		} else {
@@ -307,38 +303,28 @@ public class ProuserController {
 	public ModelAndView checkforupdateGet(ModelAndView mv, HttpSession session,
 			@ModelAttribute("loginSsInfo") Prouser prouser) throws Exception {
 		session.getAttribute("loginSsInfo");
-		System.out.println("session information of checkforupdate"+prouser);
+//		System.out.println("session information of checkforupdate"+prouser);
 		logger.info("checkforupdate GET");
 		System.out.println(prouser);
 		mv.setViewName("mypage/checkforupdate");
 		return mv;
 	}
 
-//	int result = service.findpw(prouser);
-//	if (result != 0) {
-//		logger.info("findpw success");
-//		mv.setViewName("redirect:/updatepw");
-//	} else {
-//		logger.info("findpw fail");
-//		mv.setViewName("redirect:/findpw");
-//	}
-//	return mv;
 	// 마이페이지 본인확인 POST
 	@PostMapping(value = "/checkforupdate")
 	public ModelAndView checkforupdatePost(ModelAndView mv, HttpSession session,
-			@ModelAttribute("loginSsInfo") Prouser prouser
-			, @RequestParam("us_pw") String us_pwchk) throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser, @RequestParam("us_pw") String us_pwchk) throws Exception {
 		session.getAttribute("loginSsInfo");
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String securepw = encoder.encode(us_pwchk);
-		System.out.println("session information of checkforupdate"+prouser);
-		if(passEncoder.matches(prouser.getUs_pw(), securepw) && prouser.getUs_info()==0) {
+		System.out.println("session information of checkforupdate" + prouser);
+		if (passEncoder.matches(prouser.getUs_pw(), securepw) && prouser.getUs_info() == 0) {
 			logger.info("checkforupdate for freelancer success");
 			mv.setViewName("mypage/updateinfofree");
-		}else if(passEncoder.matches(prouser.getUs_pw(), securepw) && prouser.getUs_info()==1){
+		} else if (passEncoder.matches(prouser.getUs_pw(), securepw) && prouser.getUs_info() == 1) {
 			logger.info("checkforupdate for company success");
 			mv.setViewName("mypage/updateinfocomp");
-		}else {
+		} else {
 			logger.info("checkforupdate for somebody fail");
 			mv.setViewName("redirect:/checkforupdate");
 		}
@@ -347,8 +333,7 @@ public class ProuserController {
 
 	// 마이페이지 정보수정 GET
 	@RequestMapping(value = "/updateinfo", method = RequestMethod.GET)
-	public ModelAndView updateinfo(ModelAndView mv, HttpSession session
-			, @ModelAttribute("loginSsInfo") Prouser prouser)
+	public ModelAndView updateinfo(ModelAndView mv, HttpSession session, @ModelAttribute("loginSsInfo") Prouser prouser)
 			throws Exception {
 		logger.info("updateinfoGet");
 		session.getAttribute("loginSsInfo");
@@ -368,7 +353,53 @@ public class ProuserController {
 		}
 		return mv;
 	}
-	//마이페이지 정보수정 POST
-	//마이페이지 이력서 관리 GET
-	
+
+	// 마이페이지 정보수정 POST
+	// 마이페이지 이력서 관리 GET
+	@RequestMapping(value = "/resumelist", method = RequestMethod.GET)
+	public ModelAndView resumelistGet(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume) throws Exception {
+		logger.info("resume list Get");
+		session.getAttribute("loginSsInfo");
+		System.out.println(prouser);
+		mv.addObject("resumelist", service.resumelist(prouser.getUs_id()));
+		System.out.println(service.resumelist(prouser.getUs_id()));
+		mv.setViewName("mypage/resumelist");
+		return mv;
+
+	}
+
+	// 마이페이지 이력서 등록하기 GET
+	@RequestMapping(value = "/resumeinsert", method = RequestMethod.GET)
+	public ModelAndView resumeinsertGet(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser) throws Exception {
+		logger.info("resumeinsert Get");
+		session.getAttribute("loginSsInfo");
+		mv.setViewName("mypage/resumeinsert");
+		return mv;
+	}
+
+	// 마이페이지 이력서 등록하기 POST
+	@PostMapping("/resumeinsert")
+	public ModelAndView resumeinsertPost(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser
+			, Resume resume, Career career, Certificate certi) throws Exception {
+		logger.info("resumeinsert POST");
+		session.getAttribute("loginSsInfo");
+		System.out.println("resume insert Session info : "+prouser);
+		resume.setUs_id(prouser.getUs_id());
+		int result = service.resumeinsert(resume);
+		System.out.println(resume);
+		int resultcar = service.resumeinsertcareer(career);
+		int resultcerti = service.resumeinsertcerti(certi);
+		if(result <1 ||resultcar <1 || resultcerti <1) {
+			logger.info("resume insert fail");
+			mv.setViewName("redirect:/resumeinsert");
+		}else {
+			logger.info("resume insert success");
+			mv.setViewName("mypage/mypagefree");
+		}
+		return mv;
+	}
+
 }

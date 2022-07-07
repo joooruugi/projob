@@ -3,6 +3,7 @@ package fin.spring.projob.prouser.service;
 import java.io.BufferedReader;
 
 
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -22,8 +24,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import fin.spring.projob.prouser.dao.ProuserDao;
+import fin.spring.projob.prouser.vo.Career;
+import fin.spring.projob.prouser.vo.Certificate;
 import fin.spring.projob.prouser.vo.Kakao;
 import fin.spring.projob.prouser.vo.Prouser;
+import fin.spring.projob.prouser.vo.Resume;
 
 @Service
 public class ProuserServiceImpl implements ProuserService {
@@ -184,5 +189,23 @@ public class ProuserServiceImpl implements ProuserService {
 		String securepw = encoder.encode(puser.getUs_pw());
 		puser.setUs_pw(securepw);
 		return pdao.updatepw(puser);
+	}
+	//마이페이지 이력서 목록 조회
+	@Override
+	public List<Resume> resumelist(String us_id) throws Exception{
+		return pdao.resumelist(us_id);
+	}
+	//마이페이지 이력서 등록
+	@Override
+	public int resumeinsert(Resume resume)throws Exception{
+		return pdao.resumeinsert(resume);
+	}
+	@Override
+	public int resumeinsertcareer(Career career) throws Exception{
+		return pdao.resumeinsertcareer(career);
+	}
+	@Override
+	public int resumeinsertcerti(Certificate certi) throws Exception{
+		return pdao.resumeinsertcerti(certi);
 	}
 }

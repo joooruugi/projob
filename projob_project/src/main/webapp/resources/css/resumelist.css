@@ -47,19 +47,15 @@
 }
 
 .resumelist_title {
-    width: 800px;
+    width: 760px;
 }
 
 .resumelist_condition {
     width: 200px;
 }
 
-.resumelist_date {
-    width: 200px;
-}
-
 .resumelist_openYN {
-    width: 100px;
+    width: 120px;
 }
 
 .resumelist_titlelink a:hover {

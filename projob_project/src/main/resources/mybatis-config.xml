@@ -8,6 +8,9 @@
 		<typeAlias type="fin.spring.projob.prouser.vo.Prouser" alias="Prouser"/>
 		<typeAlias type="fin.spring.projob.prouser.vo.Kakao" alias="Kakao"/>
 		<typeAlias type="fin.spring.projob.admin.vo.Admin" alias="Admin"/>
+		<typeAlias type="fin.spring.projob.prouser.vo.Resume" alias="Resume"/>
+		<typeAlias type="fin.spring.projob.prouser.vo.Career" alias="Career"/>
+		<typeAlias type="fin.spring.projob.prouser.vo.Certificate" alias="Certi"/>
 		<typeAlias type="fin.spring.projob.project.vo.Project" alias="Project"/>
 		<typeAlias type="fin.spring.projob.calendar.domain.Calendar" alias="Calendar"/>
 		<typeAlias type="fin.spring.projob.messenger.vo.Message" alias="Message"/>

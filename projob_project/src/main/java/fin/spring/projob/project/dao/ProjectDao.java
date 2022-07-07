@@ -14,15 +14,15 @@ public class ProjectDao {
 	@Autowired
 	private SqlSessionTemplate sql;
 	
-	//га╥на╖ф╝ ╟Ь╟М ╣Н╥о
+	//М■└К║°Л═²М┼╦ ЙЁ╣ЙЁ═ К⌠╠К║²
 	public int insertProject(Project project) throws Exception{
 		return sql.insert("Project.insertProject", project);
 	}
-	//га╥на╖ф╝ ╦Я╥о а╤х╦
+	//М■└К║°Л═²М┼╦ К╙╘К║² Л║╟М ▄
 	public List<Project> projectList() throws Exception{
 		return sql.selectList("Project.projectlist");
 	}
-	//га╥на╖ф╝ ╩С╪╪ а╤х╦
+	//М■└К║°Л═²М┼╦ Л┐│Л└╦ Л║╟М ▄
 	public Project projectDetail(int pro_no) throws Exception{
 		return sql.selectOne("Project.projectdetail", pro_no);
 	}

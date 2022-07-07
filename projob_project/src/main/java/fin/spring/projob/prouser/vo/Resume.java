@@ -16,4 +16,7 @@ public class Resume {
 	private Timestamp re_wdate;
 	private int re_openyn;
 	private String re_picture;
+	private String re_title;
+	private String re_birth;
+	private String re_name;
 }

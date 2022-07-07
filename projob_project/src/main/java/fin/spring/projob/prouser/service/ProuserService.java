@@ -1,10 +1,13 @@
 package fin.spring.projob.prouser.service;
 
 import java.util.HashMap;
+import java.util.List;
 
-
+import fin.spring.projob.prouser.vo.Career;
+import fin.spring.projob.prouser.vo.Certificate;
 import fin.spring.projob.prouser.vo.Kakao;
 import fin.spring.projob.prouser.vo.Prouser;
+import fin.spring.projob.prouser.vo.Resume;
 
 public interface ProuserService {
 	
@@ -18,4 +21,8 @@ public interface ProuserService {
 	public int updatepw(Prouser prouser) throws Exception;
 	public String getAccessToken(String authorize_code) throws Exception;
 	public Kakao prouserinfo(String access_Token)throws Exception;
+	public List<Resume> resumelist(String us_id) throws Exception;
+	public int resumeinsert(Resume resume)throws Exception;
+	public int resumeinsertcareer(Career career)throws Exception;
+	public int resumeinsertcerti(Certificate certi)throws Exception;
 }

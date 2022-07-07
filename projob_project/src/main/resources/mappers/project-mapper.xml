@@ -12,6 +12,6 @@
 	</select>
 	<!-- 공고 상세조회 -->
 	<select id="projectdetail" parameterType="int" resultType="Project">
-		select pro_no, pro_content, pro_title, pro_budget, pro_period, pro_personnel, pro_comp from project where pro_no = #{pro_no}
+		select pro_content, pro_title, pro_budget, pro_period, pro_personnel, pro_comp from project where pro_no = #{pro_no}
 	</select>
 </mapper>
