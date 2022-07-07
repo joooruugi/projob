@@ -209,7 +209,13 @@ public class MessengerController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("us_id", us_id);
 		map.put("mr_no", mr_no);
-		map.put("msg", us_id+"님이 퇴장하였습니다");
+		String str = us_id+"님이 퇴장하였습니다";
+		map.put("msg", str);
+		Message message = new Message();
+		message.setMr_no(mr_no);
+		message.setMsg_id("sys");
+		message.setMsg_content(str);
+		stompChatClient.enter(message);
 		int result = service.roomout(map);
 		String msg = "";
 		if(result > 0) {

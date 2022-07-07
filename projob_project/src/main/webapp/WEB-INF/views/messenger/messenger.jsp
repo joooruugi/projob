@@ -92,7 +92,7 @@
 							<div style="float: left; width: 30%; overflow: hidden; text-overflow: ellipsis;">
 								${list.MR_NAME}
 							</div>
-							<div style="float: right; margin-right: 10px; width: 60%; text-align: right; overflow: hidden; text-overflow: ellipsis;">
+							<div style="float: right; margin-right: 10px; width: 60%; height:16px; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 								${list.MSG_CONTENT }
 							</div>
 						</div>
@@ -121,20 +121,22 @@
 				    					</div>
 				    				</c:when>
 				    				<c:when test="${msg.msg_id eq userId}">
-				    					<div class='myMessageDiv' style="float: right; max-width: 500px;">
-					    					<div class='myMessage' >
-					    						<strong>[${msg.msg_id }] : ${msg.msg_content }</strong>
+				    					<div class='myMessageDiv' style="float: right;">
+				    						<div style="margin: 0 0 10px 15px">${msg.msg_id }</div>
+					    					<div class='myMessage' style="background-color: rgb(226,226,226); padding: 20px; margin:0 10px 10px 0; border-radius: 15px; max-width: 400px;">
+					    						<strong>${msg.msg_content }</strong>
 				    						</div>
 				    					</div>
-				    					<small style="display: block; margin: 5px 10px 10px 0; text-align: right; clear: both;">${msg.msg_sdate }</small>
+				    					<small style="display: block; margin: 5px 20px 10px 0; text-align: right; clear: both;">${msg.msg_sdate }</small>
 				    				</c:when>
 				    				<c:otherwise>
-				    					<div class='well'>
-					    					<div class='otherMessage'">
-					    						<strong>[${msg.msg_id }] : ${msg.msg_content }</strong>
+				    					<div class='otherMessageDiv' style="margin-left: 10px">
+				    					<div style="margin: 0 0 10px 15px">${msg.msg_id }</div>
+					    					<div class='otherMessage' style='background-color: rgb(186,219,255); padding: 20px; margin:0 0x 10px 0; border-radius: 15px; max-width: 400px;'>
+					    						<strong>${msg.msg_content }</strong>
 				    						</div>
 				    					</div>
-				    					<small style="display: block; margin: 5px 10px 10px 0; clear: both;">${msg.msg_sdate }</small>
+				    					<small style="display: block; margin: 5px 10px 10px 20px; clear: both;">${msg.msg_sdate }</small>
 				    				</c:otherwise>
 				    			</c:choose>
 				    		</c:forEach>
@@ -409,12 +411,13 @@
       //나와 상대방이 보낸 메세지를 구분하여 영역을 나눈다.//
     	var printHTML ="";
       if(username == writer){
-    		printHTML = "<div class='well'>";
-    		printHTML += "<div class='myMessageDiv' style='float: right; max-width: 500px;'>";
-    		printHTML += "<strong>["+writer+"] : "+message+"</strong>";
+    		printHTML = "<div class='myMessageDiv' style='float: right;'>";
+    		printHTML += "<div style='margin: 0 0 10px 15px'>"+writer+"</div>";
+    		printHTML += "<div class='myMessage' style='background-color: rgb(226,226,226); padding: 20px; margin:0 10px 10px 0; border-radius: 15px; max-width: 400px;'>";
+    		printHTML += "<strong>"+message+"</strong>";
     		printHTML += "</div>";
     		printHTML += "</div>";
-    		printHTML += "<small style='display: block; margin: 5px 10px 10px 0; text-align: right; clear: both;'>"+sdate+"</small>";
+    		printHTML += "<small style='display: block; margin: 5px 20px 10px 0; text-align: right; clear: both;'>"+sdate+"</small>";
     	}else if(writer == 'sys'){
     		printHTML = "<div class='well'>";
     		printHTML += "<div class='sysMessage' style='text-align: center; margin: 5px;'>";
@@ -422,12 +425,13 @@
     		printHTML += "</div>";
     		printHTML += "</div>";
     	}else{
-    		printHTML = "<div class='well'>";
-    		printHTML += "<class='otherMessage'>";
-    		printHTML += "<strong>["+writer+"] : "+message+"</strong>";
+    		printHTML = "<div class='otherMessageDiv' style='margin-left: 10px'>";
+    		printHTML += "<div style='margin: 0 0 10px 15px'>"+writer+"</div>";
+    		printHTML += "<div class='otherMessage' style='background-color: rgb(186,219,255); padding: 20px; margin:0 0x 10px 0; border-radius: 15px; max-width: 400px;'>";
+    		printHTML += "<strong>"+message+"</strong>";
     		printHTML += "</div>";
     		printHTML += "</div>";
-    		printHTML += "<small style='display: block; margin: 5px 10px 10px 0; clear: both;'>"+sdate+"</small>";
+    		printHTML += "<small style='display: block; margin: 5px 10px 10px 20px; clear: both;'>"+sdate+"</small>";
     	}
     		$("#chatdata").append(printHTML);
     		$('#topChat').scrollTop($('#topChat').prop('scrollHeight'));

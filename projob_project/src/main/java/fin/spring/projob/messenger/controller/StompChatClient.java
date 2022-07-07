@@ -30,4 +30,8 @@ public class StompChatClient {
     public void enter(Message message) {
     	messagingTemplate.convertAndSend("/sub/chat/message/" + message.getMr_no(), message);
     }
+    
+    public void out(Message message) {
+    	messagingTemplate.convertAndSend("/sub/chat/message/" + message.getMr_no(), message);
+    }
 }
