@@ -76,12 +76,14 @@
 		</c:forEach>
 		</form>
 		<div class="projectpaging"></div>
+		<%if(prouser.getUs_info()==1) {%>
 		<div class="projectinsertbtn">
 			<button class="projectinsertbtncomp btn3" type="button"
 				onclick="location.href='projectinsert'">
 				<p class="fontcontent">공고 등록하기</p>
 			</button>
 		</div>
+		<%} %>
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />

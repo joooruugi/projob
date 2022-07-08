@@ -208,4 +208,10 @@ public class ProuserServiceImpl implements ProuserService {
 	public int resumeinsertcerti(Certificate certi) throws Exception{
 		return pdao.resumeinsertcerti(certi);
 	}
+	
+	//프로젝트 신청 (이력서 불러오기)
+	@Override
+	public List<Resume> resumeJoin(String us_id) throws Exception{
+		return pdao.resumeJoin(us_id);
+	}
 }

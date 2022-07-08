@@ -28,4 +28,9 @@ public class ProjectServiceImpl implements ProjectService {
 	public Project projectDetail(int pro_no) throws Exception{
 		return prodao.projectDetail(pro_no);
 	}
+	//프로젝트 신청
+	@Override
+	public Project projectJoin(int pro_no) throws Exception{
+		return prodao.projectJoin(pro_no);
+	}
 }

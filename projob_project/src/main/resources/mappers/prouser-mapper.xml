@@ -63,7 +63,7 @@
 	</update>
 	<!-- 마이페이지 이력서 목록 조회 -->
 	<select id="resumelist" parameterType="String" resultType="Resume">
-		select * from resume where us_id = #{us_id} order by re_no desc
+		select * from resume where us_id = #{us_id}  order by re_no desc
 	</select>
 	<!-- 마이페이지 이력서 등록 -->
 	<insert id="resumeinsert" parameterType="Resume">
@@ -78,4 +78,8 @@
 		insert into certificate(ce_no, re_no, ce_title, ce_num, ce_cert_pub, ce_date) 
 		values(ce_seq.nextval, #{re_no}, #{ce_title}, #{ce_num}, #{ce_cert_pub}, #{ce_date})
 	</insert>
+	<!-- 프로젝트 신청 이력서 목록 -->
+	<select id="resumeJoin" parameterType="String" resultType="Resume">
+		select * from resume where us_id=#{us_id} and re_openyn=1
+	</select>
 </mapper>

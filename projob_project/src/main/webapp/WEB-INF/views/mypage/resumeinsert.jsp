@@ -48,13 +48,13 @@
 			method="post">
 			<div class="resumecontent">
 				<div class="resumepart">
-					<p class="fonthighlight">RESUME</p>
+					<p class="fonthighlight resumemiddlename">RESUME</p>
 					<label class="resumelabel" for="re_title">이력서 명</label> <input
 						type="text" class="resumeinput" id="re_title" name="re_title">
 				</div>
 				<div class="resumedivision"></div>
 				<div class="resumemyself resumepart">
-					<p class="fonthighlight">PERSONAL INFOMATION</p>
+					<p class="fonthighlight resumemiddlename">PERSONAL INFOMATION</p>
 					<label class="resumelabel" for="re_name">이름</label> <input
 						type="text" class="resumeinput" id="re_name" name="re_name">
 					<br> <br> <label class="resumelabel" for="re_picture">사진
@@ -71,18 +71,16 @@
 				</div>
 				<div class="resumedivision"></div>
 				<div class="resumeschool resumepart">
-					<p class="fonthighlight">SCHOOL</p>
+					<p class="fonthighlight resumemiddlename">SCHOOL</p>
 					<label class="resumelabel" for="re_school">최종학력(학교명) </label> <input
 						type="text" class="resumeinput" id="re_school" name="re_school">
 					<br> <br> <label class="resumelabel" for="re_graduate">졸업연도</label>
 					<input type="month" class="resumeinput" id="re_graduate"
-						name="re_graduate"> <br> <br> <label
-						class="resumelabel" for="re_birth">생년월일</label> <input type="text"
-						class="resumeinput" id="re_birth" name="re_birth">
+						name="re_graduate">
 				</div>
 				<div class="resumedivision"></div>
 				<div class="resumecerti resumepart">
-					<p class="fonthighlight">CERTIFICATION</p>
+					<p class="fonthighlight resumemiddlename">CERTIFICATION</p>
 					<label class="resumelabel" for="ce_title">자격증 명 </label> <input
 						type="text" class="resumeinput" id="ce_title" name="ce_title">
 					<br> <br> <label class="resumelabel" for="ce_num">자격번호</label>
@@ -95,7 +93,7 @@
 				</div>
 				<div class="resumedivision"></div>
 				<div class="resumecarrer resumepart">
-					<p class="fonthighlight">CAREER</p>
+					<p class="fonthighlight resumemiddlename">CAREER</p>
 					<label class="resumelabel" for="ca_title">경력사항(회사명) </label> <input
 						type="text" class="resumeinput" id="ca_title" name="ca_title">
 					<br> <br> <label class="resumelabel" for="ca_period">근무기간</label>
@@ -112,7 +110,7 @@
 				</div>
 				<div class="resumedivision"></div>
 				<div class="resumeextra resumepart">
-					<p class="fonthighlight">EXTRA INFORMATION</p>
+					<p class="fonthighlight resumemiddlename">EXTRA INFORMATION</p>
 					<label class="resumelabel" for="re_homepage">홈페이지(포트폴리오)</label> <input
 						type="text" class="resumeinput" id="re_homepage"
 						name="re_homepage"> <br> <label class="resumelabel"

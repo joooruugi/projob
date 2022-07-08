@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fin.spring.projob.project.vo.Project;
+import fin.spring.projob.prouser.vo.Resume;
 
 @Repository
 public class ProjectDao {
@@ -26,4 +27,9 @@ public class ProjectDao {
 	public Project projectDetail(int pro_no) throws Exception{
 		return sql.selectOne("Project.projectdetail", pro_no);
 	}
+	//프로젝트 신청 
+	public Project projectJoin(int pro_no)throws Exception{
+		return sql.selectOne("Project.projectJoin", pro_no);
+	}
+	
 }

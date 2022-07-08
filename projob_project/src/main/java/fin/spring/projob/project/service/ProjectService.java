@@ -9,4 +9,5 @@ public interface ProjectService {
 	public int insertProject(Project project) throws Exception;
 	public List<Project> projectList() throws Exception;
 	public Project projectDetail(int pro_no) throws Exception;
+	public Project projectJoin(int pro_no) throws Exception;
 }

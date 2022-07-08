@@ -17,7 +17,9 @@ import fin.spring.projob.admin.vo.Admin;
 import fin.spring.projob.project.service.ProjectServiceImpl;
 import fin.spring.projob.project.vo.Project;
 import fin.spring.projob.prouser.controller.ProuserController;
+import fin.spring.projob.prouser.service.ProuserServiceImpl;
 import fin.spring.projob.prouser.vo.Prouser;
+import fin.spring.projob.prouser.vo.Resume;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -28,6 +30,7 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectServiceImpl service;
+	private ProuserServiceImpl prouserservice;
 	
 	//프로젝트 메인 GET
 	//프로젝트 목록 조회 
@@ -38,16 +41,8 @@ public class ProjectController {
 		logger.info("projectmain GET");
 		session.getAttribute("loginSsInfo");
 		mv.addObject("projectlist", service.projectList());
-		if(prouser.getUs_info()==0) {
-			logger.info("projectmain for free GET");
-			mv.setViewName("project/projectmainfree");
-		}else if(prouser.getUs_info()==1){
-			logger.info("projectmain for comp GET");
-			mv.setViewName("project/projectmaincomp");
-		}else {
-			logger.info("projectmain for nosession GET");
-			mv.setViewName("project/projectmainfree");
-		}
+		logger.info("projectmain GET");
+		mv.setViewName("project/projectmain");
 		return mv;
 	}
 	//프로젝트 공고 작성 GET for company
@@ -68,7 +63,7 @@ public class ProjectController {
 			, @ModelAttribute("loginSsInfo")Prouser prouser)throws Exception {
 		logger.info("projectinsert POST");
 		session.getAttribute("loginSsInfo");
-		session.setAttribute("pro_comp", prouser.getUs_name());
+		project.setPro_comp(prouser.getUs_name());
 		int result = service.insertProject(project);
 		System.out.println(result);
 		if(result<1) {
@@ -76,7 +71,7 @@ public class ProjectController {
 			mv.setViewName("redirect:/projectinsert");
 		}else {
 			logger.info("insertproject success");
-			mv.setViewName("redirect:/projectmaincomp");
+			mv.setViewName("project/projectmain");
 		}
 		return mv;
 	}
@@ -90,6 +85,22 @@ public class ProjectController {
 		session.getAttribute("loginSsInfo");
 		session.setAttribute("projectdetail", service.projectDetail(project.getPro_no()));
 		mv.setViewName("project/projectdetail");
+		return mv;
+	}
+	//프로젝트 신청 GET
+	@RequestMapping(value="/projectjoin", method=RequestMethod.GET)
+	public ModelAndView projectjoinGet(ModelAndView mv, HttpSession session
+			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
+			, Resume resume)throws Exception{
+		logger.info("projectjoin for free GET");
+		session.getAttribute("loginSsInfo");
+		System.out.println(prouser);
+		session.setAttribute("projectjoin", service.projectDetail(project.getPro_no()));
+		System.out.println(project);
+		resume.setUs_id(prouser.getUs_id());
+		mv.addObject("projectjoin", service.projectJoin(project.getPro_no()));
+		mv.addObject("resumeJoin", prouserservice.resumeJoin(resume.getUs_id()));
+		mv.setViewName("project/projectjoin");
 		return mv;
 	}
 }

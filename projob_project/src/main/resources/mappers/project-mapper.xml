@@ -8,10 +8,13 @@
 	</insert>
 	<!-- 공고 목록 조회 -->
 	<select id="projectlist" parameterType="Project" resultType="Project">
-		select pro_no, pro_title, pro_budget, pro_period, pro_personnel from project order by pro_no desc
+		select pro_no, pro_title, pro_budget, pro_period, pro_personnel from project where pro_ok = 1 order by pro_no desc
 	</select>
 	<!-- 공고 상세조회 -->
 	<select id="projectdetail" parameterType="int" resultType="Project">
-		select pro_content, pro_title, pro_budget, pro_period, pro_personnel, pro_comp from project where pro_no = #{pro_no}
+		select pro_no, pro_content, pro_title, pro_budget, pro_period, pro_personnel, pro_comp from project where pro_no = #{pro_no}
+	</select>
+	<select id="projectJoin" parameterType="int" resultType="Project">
+		select pro_title, pro_comp from project where pro_no = #{pro_no}
 	</select>
 </mapper>

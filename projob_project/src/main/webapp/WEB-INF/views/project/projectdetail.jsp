@@ -78,10 +78,18 @@
 					${projectdetail.pro_comp}</p>
 			</div>
 			<div class="projectdetailbutton">
-				<button type="button" class="projectdetailbtn btn5" id="apply_btn">
+				<%
+				if (prouser.getUs_info() == 0) {
+				%>
+				<button type="button" class="projectdetailbtn btn5" id="apply_btn"
+					onclick="location.href='projectjoin?pro_no=${projectdetail.pro_no }'">
 					<p class="fontnothing2">프로젝트 신청하기</p>
 				</button>
-				<button type="button" class="projectdetailbtn btn5" id="return_btn" onclick="goBack()">
+				<%
+				}
+				%>
+				<button type="button" class="projectdetailbtn btn5" id="return_btn"
+					onclick="goBack()">
 					<p class="fontnothing2">목록으로</p>
 				</button>
 			</div>
@@ -90,9 +98,9 @@
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script>
-	function goBack(){
-		window.history.back();
-	};
+		function goBack() {
+			window.history.back();
+		};
 	</script>
 </body>
 

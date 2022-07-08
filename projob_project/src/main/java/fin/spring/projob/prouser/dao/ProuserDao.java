@@ -87,4 +87,8 @@ public class ProuserDao {
 		return sql.insert("Prouser.resumeinsertcerti", certi);
 	}
 
+	//프로젝트 신청 이력서 불러오기
+	public List<Resume> resumeJoin(String us_id)throws Exception{
+		return sql.selectList("Prouser.resumeJoin", us_id);
+	}
 }

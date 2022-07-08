@@ -25,4 +25,5 @@ public interface ProuserService {
 	public int resumeinsert(Resume resume)throws Exception;
 	public int resumeinsertcareer(Career career)throws Exception;
 	public int resumeinsertcerti(Certificate certi)throws Exception;
+	public List<Resume> resumeJoin(String us_id)throws Exception;
 }
