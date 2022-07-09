@@ -57,7 +57,7 @@
 						<c:forEach items="${resumelist }" var="resumelist">
 									<tr class="resumelist_line fontcontent">
 										<td class="resumelist_titlelink"><a
-											href="<%=request.getContextPath()%>/resume?re_title=${resumelist.re_title}"><c:out
+											href="<%=request.getContextPath()%>/resume?re_no=${resumelist.re_no}"><c:out
 													value="${resumelist.re_title }" /></a></td>
 										<c:choose>
 											<c:when test="${resumelist.re_openyn eq '0' }">

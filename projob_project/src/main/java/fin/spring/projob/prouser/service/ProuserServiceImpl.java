@@ -190,6 +190,19 @@ public class ProuserServiceImpl implements ProuserService {
 		puser.setUs_pw(securepw);
 		return pdao.updatepw(puser);
 	}
+	//마이페이지 내정보 불러오기
+	@Override
+	public List<Prouser> myinfo(String us_id) throws Exception{
+		return pdao.myinfo(us_id);
+	}
+	//마이페이지 정보 수정
+	@Override
+	public int updateInfo(Prouser prouser)throws Exception{
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String securepw = encoder.encode(prouser.getUs_pw());
+		prouser.setUs_pw(securepw);
+		return pdao.updateInfo(prouser);
+	}
 	//마이페이지 이력서 목록 조회
 	@Override
 	public List<Resume> resumelist(String us_id) throws Exception{

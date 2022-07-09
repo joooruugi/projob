@@ -19,6 +19,8 @@ public interface ProuserService {
 	public Prouser findid(Prouser prouser) throws Exception;
 	public int findpw(Prouser prouser) throws Exception;
 	public int updatepw(Prouser prouser) throws Exception;
+	public List<Prouser> myinfo(String us_id) throws Exception;
+	public int updateInfo(Prouser prouser)throws Exception;
 	public String getAccessToken(String authorize_code) throws Exception;
 	public Kakao prouserinfo(String access_Token)throws Exception;
 	public List<Resume> resumelist(String us_id) throws Exception;

@@ -1,3 +1,4 @@
+<%@page import="fin.spring.projob.prouser.vo.Prouser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
@@ -28,31 +29,96 @@
 <body>
 	<!--헤더-->
 	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
-	<div class="joininfofree">
+		<%
+		Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
+		if(prouser.getUs_info()==0){%>
+		<div class="joininfofree">
 		<div class="infoname">
 			<p class="fontname2">정보 수정</p>
 		</div>
-		<form action="<%=request.getContextPath()%>/infofree" method="post">
+		<form action="<%=request.getContextPath()%>/updateinfo" method="post">
+			<c:forEach items="${updatemyinfo }" var="updatemyinfo">
 			<div class="writeinfo">
 				<div class="inforow">
-					<br> <label class="labelinfo" for="us_name">이름</label><br>
-					<br> <input type="text" class="inputinfo" required
-						id="us_name" name="us_name" placeholder=""
-						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
-					<br> <label class="labelinfo" for="us_id">아이디</label><br>
-					<br> <input type="text" class="inputinfo" required
-						name="us_id" id="us_id" placeholder="숫자+영어 혼합하여 6자 이상 입력"
-						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
-					<button type="button" class="inputinfobtn" id="checkid">중복확인</button>
+				<br>
+				<input type="hidden" class="inputinfo" required name="us_id"
+						id="us_id" placeholder="" value="${updatemyinfo.us_id }">
+						<input type="hidden" class="inputinfo" required name="us_name"
+						id="us_name" placeholder="" value="${updatemyinfo.us_name }">
+					<label class="labelinfo" for="us_pw">비밀번호</label><br> <br>
+					<input type="password" class="inputinfo" required name="us_pw"
+						id="us_pw" placeholder="">
 				</div>
-				<div class="inforow idchk1">
-					<p class="fonthighlight  " style="color: blue">사용가능한 아이디입니다.</p>
+				<div class="inforow">
+					<label class="labelinfo" for="us_pwcheck">비밀번호 확인</label><br>
+					<br> <input type="password" class="inputinfo" required
+						name="us_pwcheck" id="us_pwcheck" placeholder="">
 				</div>
-				<div class="inforow   idchk2">
-					<p class="fonthighlight" style="color: red">사용중인 아이디입니다.</p>
+				<div class="inforow" id="alert-success">
+					<p class="fonthighlight" style="color: blue">비밀번호가 일치합니다.</p>
+				</div>
+				<div class="inforow" id="alert-fail">
+					<p class="fonthighlight" style="color: red">비밀번호가 일치하지 않습니다.</p>
+				</div>
+				<div class="inforow">
+					<label class="labelinfo" for="us_phone">연락처</label><br> <br>
+					<input type="tel" class="inputinfo" required name="us_phone"
+						id="us_phone" placeholder="" value="${updatemyinfo.us_phone }"
+						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
+				</div>
+				<div class="inforow">
+					<label class="labelinfo" for="us_email" id="checkemail">이메일</label><br>
+					<br> <input type="email" class="inputinfo" name="us_email"
+						required id="us_email" placeholder="" value='${updatemyinfo.us_email }'
+						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
+					<button type="button" class="inputinfobtn" id="checkemailbtn">중복확인</button>
+				</div>
+				<div class="inforow emailchk1">
+					<p class="fonthighlight  " style="color: blue">사용가능한 이메일입니다.</p>
+				</div>
+				<div class="inforow  emailchk2">
+					<p class="fonthighlight" style="color: red">사용중인 이메일입니다.</p>
 					<br>
 				</div>
 				<div class="inforow">
+					<label class="labelinfo" for="us_address">주소</label><br> <br>
+					<input type="text" class="inputinfo us_address" name="us_address"
+						required id="us_address" readonly="readonly" value='${updatemyinfo.us_address }' placeholder=""
+						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
+					<br> <br> <input type="text"
+						class="inputinfo us_address2" name="us_address2" required
+						id="us_address2" readonly="readonly" value='${updatemyinfo.us_address2 }' placeholder=""
+						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
+					<br> <br>
+					<div class="inforow">
+						<label class="labelinfo" for="us_address3">상세주소</label><br> <br>
+						<input type="text" class="inputinfo us_address3"
+							name="us_address3" value='${updatemyinfo.us_address3 }' readonly="readonly" id="us_address3"
+							placeholder=""
+							style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
+					</div>
+					<button type="button" class="inputinfobtn"
+						onclick="execution_daum_address()" id="addressapi">주소 검색</button>
+				</div>
+				<br> <br>
+			</div>
+			<div class="infonextbtn">
+				<button type="submit" id="submit" class="btn3">
+					<p class="fonthighlight">수정하기</p>
+				</button>
+			</div>
+			</c:forEach>
+		</form>
+	</div>
+	<%}else{ %>
+	<div class="joininfofree">
+		<div class="infoname">
+			<p class="fontname2">개인정보 수정</p>
+		</div>
+		<form action="<%=request.getContextPath()%>/updateinfo" method="post">
+			<div class="writeinfo">
+				<div class="inforow">
+				<br>
 					<label class="labelinfo" for="us_pw">비밀번호</label><br> <br>
 					<input type="password" class="inputinfo" required name="us_pw"
 						id="us_pw" placeholder="영문+특수문자 혼합하여 6자 이상 12자 이하">
@@ -70,14 +136,14 @@
 				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_phone">연락처</label><br> <br>
-					<input type="tel" class="inputinfo" name="us_phone" required
-						id="us_phone" placeholder=""
+					<input type="tel" class="inputinfo" required name="us_phone"
+						id="us_phone" placeholder="" value='${updatemyinfo.us_phone }'
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_email" id="checkemail">이메일</label><br>
 					<br> <input type="email" class="inputinfo" name="us_email"
-						required id="us_email" placeholder=""
+						required id="us_email" placeholder="" value='${updatemyinfo.us_email }'
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
 					<button type="button" class="inputinfobtn" id="checkemailbtn">중복확인</button>
 				</div>
@@ -91,39 +157,52 @@
 				<div class="inforow">
 					<label class="labelinfo" for="us_address">주소</label><br> <br>
 					<input type="text" class="inputinfo us_address" name="us_address"
-						required id="us_address" readonly="readonly" placeholder=""
+						required id="us_address" readonly="readonly" value='${updatemyinfo.us_address }' placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					<br> <br> <input type="text"
 						class="inputinfo us_address2" name="us_address2" required
-						id="us_address2" readonly="readonly" placeholder=""
+						id="us_address2" readonly="readonly" value='${updatemyinfo.us_address2 }' placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					<br> <br>
 					<div class="inforow">
 						<label class="labelinfo" for="us_address3">상세주소</label><br> <br>
 						<input type="text" class="inputinfo us_address3"
-							name="us_address3" readonly="readonly" id="us_address3"
+							name="us_address3" value='${updatemyinfo.us_address3 }' readonly="readonly" id="us_address3"
 							placeholder=""
 							style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					</div>
 					<button type="button" class="inputinfobtn"
 						onclick="execution_daum_address()" id="addressapi">주소 검색</button>
 				</div>
-
 				<div class="inforow">
-					<label class="labelinfo" for="us_crn">사업자등록번호</label><br> <br>
-					<input type="text" class="inputinfo" name="us_crn" required
-						id="us_crn" placeholder=""
+					<label class="labelinfo" for="us_adname">담당자 이름</label><br> <br>
+					<input type="text" class="inputinfo" value='${updatemyinfo.us_adname }' name="us_adname" id="us_adname"
+						required placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
+				<div class="inforow">
+					<label class="labelinfo" for="us_adphone">담당자 연락처</label><br> <br>
+					<input type="tel" class="inputinfo" value='${updatemyinfo.us_adphone }' name="us_adphone" id="us_adphone"
+						required placeholder=""
+						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
+				</div>
+				<div class="inforow">
+					<label class="labelinfo" for="us_ademail">담당자 이메일</label><br> <br>
+					<input type="email" class="inputinfo" value='${updatemyinfo.us_ademail }' name="us_ademail" required
+						id="us_ademail" placeholder=""
+						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
+				</div>
+
 				<br> <br>
 			</div>
 			<div class="infonextbtn">
-				<button type="submit" id="submit" class="btn3">
-					<p class="fonthighlight">NEXT</p>
+				<button type="submit" class="btn3" id="submit">
+					<p class="fonthighlight">수정하기</p>
 				</button>
 			</div>
 		</form>
 	</div>
+	<%} %>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script
@@ -149,44 +228,8 @@
 
 			});
 		});
-	</script>
-	<script>
-		//아이디 중복확인
-		$(function() {
-			$(".idchk1").hide();
-			$(".idchk2").hide();
-			$('#checkid').click(function() {
-				var us_id = $("#us_id").val();
-				console.log(us_id);
-				if (us_id != '') {
-					$.ajax({
-						type : 'post',
-						url : '/projob/idchk',
-						data : {
-							us_id : us_id
-						},
-						success : function(result) {
-							console.log(result);
-							if (result == '0') {
-								$(".idchk1").show();
-								$(".idchk2").hide();
-							} else {
-								$(".idchk2").show();
-								$(".idchk1").hide();
-							}
-						},
-						error : function(a, b, c) {
-							console.log(a, b, c);
-						}
-					});
-				} else {
-					alert('아이디를 입력해주세요.');
-					$('#us_id').focus();
-				}
-			});
-		});
-	</script>
-	<script>
+		</script>
+		<script>
 		//이메일 중복확인
 		$(function() {
 			$(".emailchk1").hide();
@@ -198,9 +241,7 @@
 					$.ajax({
 						type : 'post',
 						url : '/projob/emailchk',
-						data : {
-							us_email : us_email
-						},
+						data : {us_email:us_email},
 						success : function(result_e) {
 							console.log(result_e);
 							if (result_e == '0') {
@@ -221,8 +262,6 @@
 				}
 			});
 		});
-		</script>
-		<script>
 		//주소 API
 		function execution_daum_address() {
 			new daum.Postcode(
@@ -270,10 +309,8 @@
 							}
 
 							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							// document.getElementById($(".us_address")).value = data.zonecode;
-							//document.getElementById(".us_address").value = data.zonecode;
-							//document.getElementById(".us_address2").value = addr;
-							//$(".us_address").val(data.zonecode) = ;
+							// document.getElementById('sample6_postcode').value = data.zonecode;
+							// document.getElementById("sample6_address").value = addr;
 							$(".us_address").val(data.zonecode);
 							$(".us_address2").val(addr);
 
@@ -281,6 +318,7 @@
 							//document.getElementById("sample6_detailAddress").focus();
 							$(".us_address3").attr("readonly", false);
 							$(".us_address3").focus();
+
 						}
 					}).open();
 		}

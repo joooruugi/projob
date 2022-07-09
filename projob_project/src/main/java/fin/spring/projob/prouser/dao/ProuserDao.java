@@ -71,6 +71,14 @@ public class ProuserDao {
 	public int updatepw(Prouser prouser) {
 		return sql.update("Prouser.updatepw", prouser);
 	}
+	//마이페이지 내정보 불러오기
+	public List<Prouser> myinfo(String us_id) throws Exception{
+		return sql.selectList("Prouser.myinfo", us_id);
+	}
+	//마이페이지 개인정보 수정
+	public int updateInfo(Prouser prouser) throws Exception{
+		return sql.update("Prouser.updateInfo", prouser);
+	}
 	
 	//마이페이지 이력서 목록 조회
 	public List<Resume> resumelist(String us_id) throws Exception{

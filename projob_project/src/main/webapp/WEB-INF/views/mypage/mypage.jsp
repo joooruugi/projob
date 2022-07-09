@@ -40,6 +40,9 @@
 	<%
 	}
 	%>
+	<%
+	if (prouser.getUs_info() == 0) {
+	%>
 	<div class="mypagefree">
 		<div class="mypagefreename">
 			<p class="fontname2">마이페이지</p>
@@ -50,12 +53,14 @@
 					<p class="fontname">반갑습니다 ! '${us_name }'님</p>
 				</div>
 				<div class="mypageinfobtn">
-					<button type="submit" class="myinfobtn btn2"  onclick="location.href='checkforupdate'">
-						<p class="fontcontent">내 정보수정</p>
+					<button type="submit" class="myinfobtn btn2"
+						onclick="location.href='checkforupdate'">
+						<p class="fontcontent">내 정보조회</p>
 					</button>
 				</div>
 				<div class="mypageinfobtn">
-					<button type="submit" class="myinfobtn btn2" onclick="location.href='resumelist'">
+					<button type="submit" class="myinfobtn btn2"
+						onclick="location.href='resumelist'">
 						<p class="fontcontent">이력서 관리</p>
 					</button>
 				</div>
@@ -93,6 +98,66 @@
 			</div>
 		</div>
 	</div>
+	<%
+	} else {
+	%>
+	<div class="mypagefree">
+		<div class="mypagefreename">
+			<p class="fontname2">마이페이지</p>
+		</div>
+		<div class="mypagetop">
+			<div class="mypagetopleft">
+				<div class="mypageinfo">
+					<p class="fontname">반갑습니다 ! ${us_name } 님</p>
+				</div>
+				<div class="mypageinfobtn">
+					<button type="submit" class="myinfobtn btn2"
+						onclick="location.href='checkforupdate'">
+						<p class="fontcontent">기업 정보조회</p>
+					</button>
+				</div>
+				<div class="mypageinfobtn">
+					<button type="submit" class="myinfobtn btn2">
+						<p class="fontcontent">프로젝트 관리</p>
+					</button>
+				</div>
+			</div>
+			<div class="mypagetopright">
+				<div class="my_myproject">
+					<p class="fontcontent2">종료된 프로젝트 : OO건</p>
+					<p class="fontcontent2">진행중인 프로젝트 : OO건</p>
+				</div>
+				<div class="my_myprojectcoo">
+					<button type="submit" class="my_myprojectcoo_btn btn5">
+						<p class="fonthighlight">협업툴</p>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="mypagebottom">
+			<div class="mypagebottomleft">
+				<div class="my_project_ing_name">
+					<p class="fontimportant2">진행중인 프로젝트</p>
+				</div>
+				<div class="my_project_ing">
+					<a href="#" class="my_projecting">여기 프로젝트 정보 들어감</a> <a href="#"
+						class="my_projecting">여기 프로젝트 정보 들어감</a>
+				</div>
+			</div>
+			<div class="mypagebottomleft">
+				<div class="my_project_yet_name">
+					<p class="fontimportant2">승인대기 프로젝트</p>
+				</div>
+				<div class="my_project_yet">
+					<a href="#" class="my_projectyet">여기 프로젝트 정보 들어감</a> <a href="#"
+						class="my_projectyet">여기 프로젝트 정보 들어감</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%
+	}
+	%>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 </body>

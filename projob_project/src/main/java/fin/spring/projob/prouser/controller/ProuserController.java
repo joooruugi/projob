@@ -1,11 +1,15 @@
 package fin.spring.projob.prouser.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
-
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,10 +17,12 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -290,11 +298,7 @@ public class ProuserController {
 			throws Exception {
 		session.getAttribute("loginSsInfo");
 		session.setAttribute("us_name", prouser.getUs_name());
-		if (prouser.getUs_info() == 0) {
-			mv.setViewName("mypage/mypagefree");
-		} else {
-			mv.setViewName("mypage/mypagecomp");
-		}
+		mv.setViewName("mypage/mypage");
 		return mv;
 	}
 
@@ -303,7 +307,6 @@ public class ProuserController {
 	public ModelAndView checkforupdateGet(ModelAndView mv, HttpSession session,
 			@ModelAttribute("loginSsInfo") Prouser prouser) throws Exception {
 		session.getAttribute("loginSsInfo");
-//		System.out.println("session information of checkforupdate"+prouser);
 		logger.info("checkforupdate GET");
 		System.out.println(prouser);
 		mv.setViewName("mypage/checkforupdate");
@@ -318,14 +321,11 @@ public class ProuserController {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String securepw = encoder.encode(us_pwchk);
 		System.out.println("session information of checkforupdate" + prouser);
-		if (passEncoder.matches(prouser.getUs_pw(), securepw) && prouser.getUs_info() == 0) {
-			logger.info("checkforupdate for freelancer success");
-			mv.setViewName("mypage/updateinfofree");
-		} else if (passEncoder.matches(prouser.getUs_pw(), securepw) && prouser.getUs_info() == 1) {
-			logger.info("checkforupdate for company success");
-			mv.setViewName("mypage/updateinfocomp");
+		if (passEncoder.matches(prouser.getUs_pw(), securepw)) {
+			logger.info("checkforupdate success");
+			mv.setViewName("redirect:/updateinfo");
 		} else {
-			logger.info("checkforupdate for somebody fail");
+			logger.info("checkforupdate  fail");
 			mv.setViewName("redirect:/checkforupdate");
 		}
 		return mv;
@@ -333,28 +333,34 @@ public class ProuserController {
 
 	// 마이페이지 정보수정 GET
 	@RequestMapping(value = "/updateinfo", method = RequestMethod.GET)
-	public ModelAndView updateinfo(ModelAndView mv, HttpSession session, @ModelAttribute("loginSsInfo") Prouser prouser)
-			throws Exception {
-		logger.info("updateinfoGet");
+	public ModelAndView updateinfoGet(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser) throws Exception {
+		logger.info("updateinfo Get");
 		session.getAttribute("loginSsInfo");
-		System.out.println(prouser);
-		session.setAttribute("us_phone", prouser.getUs_phone());
-		session.setAttribute("us_email", prouser.getUs_email());
-		session.setAttribute("us_address", prouser.getUs_address());
-		session.setAttribute("us_address2", prouser.getUs_address2());
-		session.setAttribute("us_address3", prouser.getUs_address3());
-		if (prouser.getUs_info() == 0) {
-			mv.setViewName("mypage/updateinfofree");
-		} else {
-			session.setAttribute("us_adname", prouser.getUs_adname());
-			session.setAttribute("us_adphone", prouser.getUs_adphone());
-			session.setAttribute("us_ademail", prouser.getUs_ademail());
-			mv.setViewName("mypage/updateinfocomp");
-		}
+		System.out.println("session information of updateinfo" + prouser);
+		String us_id = prouser.getUs_id();
+		mv.addObject("updatemyinfo", service.myinfo(us_id));
+		mv.setViewName("mypage/updateinfo");
 		return mv;
 	}
 
 	// 마이페이지 정보수정 POST
+	@PostMapping("/updateinfo")
+	public ModelAndView updateinfoPost(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser) throws Exception {
+		logger.info("updateinfo POST");
+		session.getAttribute("loginSsInfo");
+		int result = service.updateInfo(prouser);
+		if (result < 1) {
+			logger.info("updateInfo fail");
+			mv.setViewName("redirect:/updateinfo");
+		} else {
+			logger.info("updateInfo success");
+			mv.setViewName("mypage/mypage");
+		}
+		return mv;
+	}
+
 	// 마이페이지 이력서 관리 GET
 	@RequestMapping(value = "/resumelist", method = RequestMethod.GET)
 	public ModelAndView resumelistGet(ModelAndView mv, HttpSession session,
@@ -363,12 +369,9 @@ public class ProuserController {
 		session.getAttribute("loginSsInfo");
 		System.out.println(prouser);
 		mv.addObject("resumelist", service.resumelist(prouser.getUs_id()));
-		System.out.println(service.resumelist(prouser.getUs_id()));
 		mv.setViewName("mypage/resumelist");
 		return mv;
-
 	}
-
 	// 마이페이지 이력서 등록하기 GET
 	@RequestMapping(value = "/resumeinsert", method = RequestMethod.GET)
 	public ModelAndView resumeinsertGet(ModelAndView mv, HttpSession session,
@@ -382,20 +385,22 @@ public class ProuserController {
 	// 마이페이지 이력서 등록하기 POST
 	@PostMapping("/resumeinsert")
 	public ModelAndView resumeinsertPost(ModelAndView mv, HttpSession session,
-			@ModelAttribute("loginSsInfo") Prouser prouser
-			, Resume resume, Career career, Certificate certi) throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Career career, Certificate certi,
+			HttpServletRequest req) throws Exception {
 		logger.info("resumeinsert POST");
 		session.getAttribute("loginSsInfo");
-		System.out.println("resume insert Session info : "+prouser);
+		System.out.println("resume insert Session info : " + prouser);
 		resume.setUs_id(prouser.getUs_id());
 		int result = service.resumeinsert(resume);
 		System.out.println(resume);
+		career.setRe_no(resume.getRe_no());
+		certi.setRe_no(resume.getRe_no());
 		int resultcar = service.resumeinsertcareer(career);
 		int resultcerti = service.resumeinsertcerti(certi);
-		if(result <1 ||resultcar <1 || resultcerti <1) {
+		if (result < 1 || resultcar < 1 || resultcerti < 1) {
 			logger.info("resume insert fail");
 			mv.setViewName("redirect:/resumeinsert");
-		}else {
+		} else {
 			logger.info("resume insert success");
 			mv.setViewName("mypage/mypagefree");
 		}

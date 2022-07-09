@@ -61,6 +61,15 @@
 	<update id="updatepw" parameterType="Prouser">
 		update prouser set us_pw = #{us_pw} where us_id=#{us_id}
 	</update>
+	<!-- 내정보 불러오기 -->
+	<select id="myinfo" parameterType="String" resultType="Prouser">
+		select * from prouser where us_id=#{us_id}
+	</select>
+	<!-- 마이페이지 정보 수정 -->
+	<update id="updateInfo" parameterType="Prouser">
+	update prouser set us_pw=#{us_pw}, us_phone=#{us_phone}, us_email=#{us_email}, us_address=#{us_address}, us_address2=#{us_address2}, us_address3=#{us_address3}
+	, us_adname=#{us_adname}, us_adphone=#{us_adphone}, us_ademail=#{us_ademail} where us_id=#{us_id}
+	</update>
 	<!-- 마이페이지 이력서 목록 조회 -->
 	<select id="resumelist" parameterType="String" resultType="Resume">
 		select * from resume where us_id = #{us_id}  order by re_no desc
