@@ -41,97 +41,111 @@
 	}
 	%>
 	<div class="resume">
-        <div class="resumename">
-            <p class="fontname">이력서 등록</p>
-        </div>
-        <div class="resumecontent">
-            <div class="resumepart">
-                <p class="fonthighlight resumemiddlename">RESUME</p>
-                <label class="resumelabel" for="re_title">이력서 명</label>
-                <p class="resumep" id="re_title" name="re_title"> 이력서 이름 들어가요</p>
-            </div>
-            <div class="resumedivision"></div>
-            <div class="resumemyself resumepart">
-                <p class="fonthighlight resumemiddlename">PERSONAL INFOMATION</p>
-                <label class="resumelabel" for="re_name">이름</label>
-                <p class="resumep" id="re_name" name="re_name"> 이름 들어가요 </p>
-                <br><br>
-                <label class="resumelabel" for="re_picture">사진 </label>
-                <input type="file" class="resumeinput" id="re_picture" name="re_picture">
-                <br><br>
-                <label class="resumelabel" for="re_birth">생년월일</label>
-                <p class="resumep" id="re_birth" name="re_birth"> 생년월일</p>
-                <br><br>
-                <label class="resumelabel" for="re_type">분야</label>
-                <select class="resumeinput" name="re_type" id="re_type" required>
-                    <option value="0">웹사이트 제작</option>
-                    <option value="1">웹사이트 유지·보수</option>
-                    <option value="2">퍼블리싱</option>
-                </select>
-            </div>
-            <div class="resumedivision"></div>
-            <div class="resumeschool resumepart">
-                <p class="fonthighlight resumemiddlename">SCHOOL</p>
-                <label class="resumelabel" for="re_school">최종학력(학교명) </label>
-                <p class="resumep" id="re_school" name="re_school"> 학교명 </p>
-                <br><br>
-                <label class="resumelabel" for="re_graduate">졸업연도</label>
-                <p class="resumep"  id="re_graduate" name="re_graduate"> 졸업연도 + 졸업 </p>
-            </div>
-            <div class="resumedivision"></div>
-            <div class="resumecerti resumepart">
-                <p class="fonthighlight resumemiddlename">CERTIFICATION</p>
-                <label class="resumelabel" for="ce_title">자격증</label>
-                <p class="resumep" id="ce_title" name="ce_title"> 자격증명 들어감</p>
-                <br><br>
-                <label class="resumelabel" for="ce_num">자격번호</label>
-                <p class="resumep"  id="ce_num" name="ce_num"> 자격번호 </p>
-                <br><br>
-                <label class="resumelabel" for="ce_cert_pub">발행처</label>
-                <p class="resumep" id="ce_cert_pub" name="ce_cert_pub">발행처 들어감 </p>
-                <br><br>
-                <label class="resumelabel" for="ce_date">발행일자</label>
-                <p class="resumep" id="ce_date" name="ce_date"> 발행일자 들어감 </p>
-            </div>
-            <div class="resumedivision"></div>
-            <div class="resumecarrer resumepart">
-                <p class="fonthighlight resumemiddlename">CAREER</p>
-                <label class="resumelabel" for="ca_title">경력사항(회사명) </label>
-                <p class="resumep" id="ca_title" name="ca_title">회사명 드렁감</p>
-                <br><br>
-                <label class="resumelabel" for="ca_period">근무기간</label>
-                <p class="resumep"  id="ca_period" name="ca_period"> 근무기간 </p>
-                <br><br>
-                <label class="resumelabel" for="ca_dept">근무부서</label>
-                <p class="resumep"  id="ca_dept" name="ca_dept">근무부서</p>
-                <br><br>
-                <label class="resumelabel" for="ca_jobtitle">근무직급</label>
-                <p class="resumep"  id="ca_jobtitle" name="ca_jobtitle"> 근무직급</p>
-                <br><br>
-                <label class="resumelabel" for="ca_adddetail">추가 설명</label>
-                <p class="resumep"  id="ca_adddetail" name="ca_adddetail"> 추가설명?</p>
-            </div>
-            <div class="resumedivision"></div>
-            <div class="resumeextra resumepart">
-                <p class="fonthighlight resumemiddlename">EXTRA INFORMATION</p>
-                <label class="resumelabel" for="re_homepage">홈페이지(포트폴리오)</label>
-                <p class="resumep" id="re_homepage" name="re_homepage"> 포폴</p>
-                <br>
-                <label class="resumelabel" for="re_openyn">공개여부</label>
-                <select class="resumeinput" name="re_openyn" id="re_openyn" required>
-                    <option value="0">비공개</option>
-                    <option value="1">공개</option>
-                </select>
-            </div>
-        </div>
-        <div class="resumebutton resumepart">
-            <button type="submit" class="resumbtn btn3">수정하기</button>
-            <button type="button" class="resumbtn btn3">삭제하기</button>
-            <button type="button" class="resumbtn btn3">목록으로</button>
-        </div>
-    </div>
+		<div class="resumename">
+			<p class="fontname">이력서</p>
+		</div>
+		<div class="resumecontent">
+			<c:forEach items="${resume }" var="resume">
+				<div class="resumepart">
+					<p class="fonthighlight resumemiddlename">RESUME</p>
+					<label class="resumelabel" for="re_title">이력서 명</label>
+					<p class="resumep" id="re_title" name="re_title">${resume.re_title }</p>
+				</div>
+				<div class="resumedivision"></div>
+				<div class="resumemyself resumepart">
+					<p class="fonthighlight resumemiddlename">PERSONAL INFOMATION</p>
+					<label class="resumelabel" for="re_name">이름</label>
+					<p class="resumep" id="re_name" name="re_name">${resume.re_name }</p>
+					<br> <br> <label class="resumelabel" for="re_picture">사진
+					</label> <input type="file" class="resumeinput" id="re_picture"
+						name="re_picture"> <br> <br> <label
+						class="resumelabel" for="re_birth">생년월일</label>
+					<p class="resumep" id="re_birth" name="re_birth">${resume.re_birth }</p>
+					<br> <br> <label class="resumelabel" for="re_type">분야</label>
+					<c:choose>
+						<c:when test="${resume.re_type  eq '0'}">
+							<p class="resumep" id="re_type" name="re_type">웹사이트 제작</p>
+						</c:when>
+						<c:when test="${resume.re_type  eq '1'}">
+							<p class="resumep" id="re_type" name="re_type">웹사이트 유지·보수</p>
+						</c:when>
+						<c:when test="${resume.re_type  eq '2'}">
+							<p class="resumep" id="re_type" name="re_type">퍼블리싱</p>
+						</c:when>
+					</c:choose>
+				</div>
+				<div class="resumedivision"></div>
+				<div class="resumeschool resumepart">
+					<p class="fonthighlight resumemiddlename">SCHOOL</p>
+					<label class="resumelabel" for="re_school">최종학력(학교명) </label>
+					<p class="resumep" id="re_school" name="re_school">${resume.re_school }</p>
+					<br> <br> <label class="resumelabel" for="re_graduate">졸업연도</label>
+					<p class="resumep" id="re_graduate" name="re_graduate">${resume.re_graduate }
+						졸업</p>
+				</div>
+			</c:forEach>
+			<c:forEach items="${certi }" var="certi">
+			<div class="resumedivision"></div>
+			<div class="resumecerti resumepart">
+				<p class="fonthighlight resumemiddlename">CERTIFICATION</p>
+				<label class="resumelabel" for="ce_title">자격증</label>
+				<p class="resumep" id="ce_title" name="ce_title">${certi.ce_title }</p>
+				<br> <br> <label class="resumelabel" for="ce_num">자격번호</label>
+				<p class="resumep" id="ce_num" name="ce_num">${certi.ce_num }</p>
+				<br> <br> <label class="resumelabel" for="ce_cept_pub">발행처</label>
+				<p class="resumep" id="ce_cept_pub" name="ce_cept_pub">${certi.ce_cept_pub }</p>
+				<br> <br> <label class="resumelabel" for="ce_date">발행일자</label>
+				<p class="resumep" id="ce_date" name="ce_date">${certi.ce_date }</p>
+			</div>
+			</c:forEach>
+			<c:forEach items="${career }" var="career">
+			<div class="resumedivision"></div>
+			<div class="resumecarrer resumepart">
+				<p class="fonthighlight resumemiddlename">CAREER</p>
+				<label class="resumelabel" for="ca_title">경력사항(회사명) </label>
+				<p class="resumep" id="ca_title" name="ca_title">${career.ca_title }</p>
+				<br> <br> <label class="resumelabel" for="ca_period">근무기간</label>
+				<p class="resumep" id="ca_period" name="ca_period">${career.ca_period }</p>
+				<br> <br> <label class="resumelabel" for="ca_dept">근무부서</label>
+				<p class="resumep" id="ca_dept" name="ca_dept">${career.ca_dept }</p>
+				<br> <br> <label class="resumelabel" for="ca_jobtitle">근무직급</label>
+				<p class="resumep" id="ca_jobtitle" name="ca_jobtitle">${career.ca_jobtitle }</p>
+				<br> <br> <label class="resumelabel" for="ca_adddetail">추가
+					설명</label>
+				<p class="resumep" id="ca_adddetail" name="ca_adddetail">${career.ca_adddetail }</p>
+			</div>
+			</c:forEach>
+			<c:forEach items="${resume }" var="resume">
+			<div class="resumedivision"></div>
+			<div class="resumeextra resumepart">
+				<p class="fonthighlight resumemiddlename">EXTRA INFORMATION</p>
+				<label class="resumelabel" for="re_homepage">홈페이지(포트폴리오)</label>
+				<p class="resumep" id="re_homepage" name="re_homepage">${resume.re_homepage }</p>
+				<br> <label class="resumelabel" for="re_openyn">공개여부</label> 
+				<c:choose>
+						<c:when test="${resume.re_openyn  eq '0'}">
+							<p class="resumep" id="re_openyn" name="re_openyn">비공개</p>
+						</c:when>
+						<c:when test="${resume.re_openyn  eq '1'}">
+							<p class="resumep" id="re_openyn" name="re_openyn">공개</p>
+						</c:when>
+					</c:choose>
+			</div>
+			</c:forEach>
+		</div>
+		<div class="resumebutton resumepart">
+			<button type="submit" class="resumbtn btn3">수정하기</button>
+			<button type="button" class="resumbtn btn3">삭제하기</button>
+			<button type="button" class="resumbtn btn3" onclick="goBack()">목록으로</button>
+		</div>
+	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<script>
+		function goBack() {
+			window.history.back();
+		};
+	</script>
 </body>
 
 </html>

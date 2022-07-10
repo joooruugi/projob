@@ -74,6 +74,16 @@
 	<select id="resumelist" parameterType="String" resultType="Resume">
 		select * from resume where us_id = #{us_id}  order by re_no desc
 	</select>
+	<!-- 마이페이지 이력서 조회 -->
+	<select id="resume" parameterType="int" resultType="Resume">
+		select * from resume where re_no=#{re_no}
+	</select>
+	<select id="career" parameterType="int" resultType="Career">
+		select * from career where re_no=#{re_no}	
+	</select>
+	<select id="certi" parameterType="int" resultType="Certi">
+		select * from certificate where re_no=#{re_no}
+	</select>
 	<!-- 마이페이지 이력서 등록 -->
 	<insert id="resumeinsert" parameterType="Resume">
 		insert into resume(re_no, us_id, re_school, re_graduate, re_type, re_homepage, re_openyn, re_picture, re_name, re_birth, re_title, re_wdate)

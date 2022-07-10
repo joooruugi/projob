@@ -372,6 +372,21 @@ public class ProuserController {
 		mv.setViewName("mypage/resumelist");
 		return mv;
 	}
+	//마이페이지 이력서 상세조회 GET
+	@RequestMapping(value="/resume", method=RequestMethod.GET)
+	public ModelAndView resumeGet(ModelAndView mv
+			,@ModelAttribute("loginSsInfo")Prouser prouser
+			, HttpSession session
+			, Resume resume, Career career
+			,Certificate certi )throws Exception{
+		logger.info("resume GET");
+		session.getAttribute("loginSsInfo");
+		mv.addObject("resume", service.resume(resume.getRe_no()));
+		mv.addObject("career", service.career(resume.getRe_no()));
+		mv.addObject("certi", service.certi(resume.getRe_no()));
+		mv.setViewName("mypage/resume");
+		return mv;
+	}
 	// 마이페이지 이력서 등록하기 GET
 	@RequestMapping(value = "/resumeinsert", method = RequestMethod.GET)
 	public ModelAndView resumeinsertGet(ModelAndView mv, HttpSession session,

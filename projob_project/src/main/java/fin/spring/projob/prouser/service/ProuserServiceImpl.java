@@ -208,6 +208,19 @@ public class ProuserServiceImpl implements ProuserService {
 	public List<Resume> resumelist(String us_id) throws Exception{
 		return pdao.resumelist(us_id);
 	}
+	//마이페이지 이력서 조회
+	@Override
+	public List<Resume> resume(int re_no) throws Exception{
+		return pdao.resume(re_no);
+	}
+	@Override
+	public List<Career> career(int re_no) throws Exception{
+		return pdao.career(re_no);
+	}
+	@Override
+	public List<Certificate> certi(int re_no) throws Exception{
+		return pdao.certificate(re_no);
+	}
 	//마이페이지 이력서 등록
 	@Override
 	public int resumeinsert(Resume resume)throws Exception{

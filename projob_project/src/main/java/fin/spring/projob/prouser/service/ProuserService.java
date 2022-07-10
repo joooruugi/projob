@@ -24,6 +24,9 @@ public interface ProuserService {
 	public String getAccessToken(String authorize_code) throws Exception;
 	public Kakao prouserinfo(String access_Token)throws Exception;
 	public List<Resume> resumelist(String us_id) throws Exception;
+	public List<Resume> resume(int re_no) throws Exception;
+	public List<Career> career(int re_no) throws Exception;
+	public List<Certificate> certi(int re_no) throws Exception;
 	public int resumeinsert(Resume resume)throws Exception;
 	public int resumeinsertcareer(Career career)throws Exception;
 	public int resumeinsertcerti(Certificate certi)throws Exception;

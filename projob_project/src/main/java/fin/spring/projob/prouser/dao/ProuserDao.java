@@ -84,6 +84,16 @@ public class ProuserDao {
 	public List<Resume> resumelist(String us_id) throws Exception{
 		return sql.selectList("Prouser.resumelist", us_id);
 	}
+	//마이페이지 이력서 조회
+	public List<Resume> resume(int re_no) throws Exception{
+		return sql.selectList("Prouser.resume", re_no);
+	}
+	public List<Career> career(int re_no) throws Exception{
+		return sql.selectList("Prouser.career", re_no);
+	}
+	public List<Certificate> certificate(int re_no) throws Exception{
+		return sql.selectList("Prouser.certi", re_no);
+	}
 	//마이페이지 이력서 등록
 	public int resumeinsert(Resume resume) throws Exception{
 		return sql.insert("Prouser.resumeinsert", resume);
@@ -94,7 +104,7 @@ public class ProuserDao {
 	public int resumeinsertcerti(Certificate certi)throws Exception{
 		return sql.insert("Prouser.resumeinsertcerti", certi);
 	}
-
+	
 	//프로젝트 신청 이력서 불러오기
 	public List<Resume> resumeJoin(String us_id)throws Exception{
 		return sql.selectList("Prouser.resumeJoin", us_id);
