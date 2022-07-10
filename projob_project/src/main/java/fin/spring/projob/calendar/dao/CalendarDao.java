@@ -1,11 +1,11 @@
 package fin.spring.projob.calendar.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import fin.spring.projob.calendar.domain.Calendar;
 
@@ -14,16 +14,26 @@ public class CalendarDao {
 	@Autowired
 	private SqlSession sqlsession;
 
-	//ÀÏÁ¤ Á¶È¸
+	//ì¼ì • ì¡°íšŒ
 	public List<Calendar> calendarList() {
 		return sqlsession.selectList("Calendar.calendarList");
 	}
 	
-	//ÀÏÁ¤ Ãß°¡
+	//ì¼ì • ì¶”ê°€
 	public int insertCalendar(Calendar calendar) {
 		return sqlsession.insert("Calendar.insertCalendar",calendar);
 	}
 	
+	//ì¼ì • ì‚­ì œ
+	public int deleteCalendar(Calendar calendar) {
+		return sqlsession.delete("Calendar.deleteCalendar",calendar);
+	}
+	
+	//í”„ë¡œì íŠ¸ ë¦¬ìŠ¤íŠ¸
+	public List<Map<String, Object>> selectProject(String userId) {
+		return sqlsession.selectList("Messenger.selectProject", userId);
+	}
+
 	
 }
 	

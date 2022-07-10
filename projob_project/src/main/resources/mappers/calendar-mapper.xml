@@ -32,4 +32,8 @@
 			#{backgroundColor}
 			)	
 	</insert>
+	<delete id="deleteCalendar">
+		delete from calendar
+		where id=#{id}
+	</delete>
 </mapper>

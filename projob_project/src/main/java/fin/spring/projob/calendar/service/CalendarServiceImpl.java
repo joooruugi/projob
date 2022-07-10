@@ -1,6 +1,7 @@
 package fin.spring.projob.calendar.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,18 @@ public class CalendarServiceImpl implements CalendarService {
 	public int insertCalendar(Calendar calendar) {
 		return dao.insertCalendar(calendar);
 	}
+	
+	@Override
+		public int deleteCalendar(Calendar calendar) {
+			return dao.deleteCalendar(calendar);
+	}
+	
+	@Override
+	public List<Map<String, Object>> selectProject(String userId) {
+		return dao.selectProject(userId);
+	}
+
+	
 	
 
 	

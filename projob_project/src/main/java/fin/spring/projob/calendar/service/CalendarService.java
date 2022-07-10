@@ -1,17 +1,24 @@
 package fin.spring.projob.calendar.service;
 
 import java.util.List;
+import java.util.Map;
 
 import fin.spring.projob.calendar.domain.Calendar;
 
 
 public interface CalendarService {
 
-	//ÀÏÁ¤ Á¶È¸
+	//ì¼ì • ì¡°íšŒ
 	public List<Calendar> calendarList();
 	
-	//ÀÏÁ¤ Ãß°¡
+	//ì¼ì • ì¶”ê°€
 	public int insertCalendar(Calendar calendar);
+	
+	//ì¼ì • ì‚­ì œ
+	public int deleteCalendar(Calendar calendar);
+	
+	//í”„ë¡œì íŠ¸ ë¦¬ìŠ¤íŠ¸
+	public List<Map<String, Object>> selectProject(String userId);
 	
 	
 }

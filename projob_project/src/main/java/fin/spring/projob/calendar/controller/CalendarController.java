@@ -3,10 +3,12 @@ package fin.spring.projob.calendar.controller;
 import java.io.Console;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Qualifier;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,7 @@ import com.google.gson.Gson;
 
 import fin.spring.projob.calendar.domain.Calendar;
 import fin.spring.projob.calendar.service.CalendarService;
+import fin.spring.projob.prouser.vo.Prouser;
 
 @Controller
 @RequestMapping("/calendar")
@@ -36,29 +39,62 @@ public class CalendarController {
 	@Autowired
 	private CalendarService service;
 	
+	//캘린더 기본 화면
 	@GetMapping("/list")
-	public String list() {
-		return "calendar/calendar";
-	}
+	public ModelAndView list(ModelAndView mv,
+//			@RequestParam(value="id") String id,
+			RedirectAttributes rttr,
+			HttpSession ss
+			) {
+		if(ss.getAttribute("loginSsInfo") == null) {
+			mv.setViewName("redirect:/login");
+			rttr.addFlashAttribute("msg", "로그인 먼저 해주세요");
+			return mv;
+		}
+		//세션에서 아이디 호출
+		Prouser userInfo = (Prouser) ss.getAttribute("loginSsInfo");
+		String userId = userInfo.getUs_id();
+		//프로젝트 리스트
+		List<Map<String, Object>> project = service.selectProject(userId);
+		
+		//임시ID 담기
+		mv.addObject("userId", userId);
+		//일정 번호 담기
+//		mv.addObject("id", id);
 
+		//프로젝트 리스트 담기
+		mv.addObject("project", project);
+		mv.setViewName("calendar/calendar");
+		return mv;
+	}
+		
+
+	//일정 데이터 조회
 	@GetMapping(value="/data", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String data(Model m) {
+	public String getCalData(Model m) {
 		//m.addAttribute("list", service.calenList());
 		//return "pageJsonReport";
 		return new Gson().toJson(service.calendarList());
 	}
 	
+	//일정 데이터 추가
 	@PostMapping(value="/insert", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String insertCalendar(
-			Calendar calendar
-			) {
+	public String insertCalendar(Calendar calendar) {
 //		calendar.setStart(calendar.getStart().substring(0, 16).replace('T', ' '));
 //		calendar.setEnd(calendar.getEnd().substring(0, 16).replace('T', ' '));
 //		System.out.println("^^^^^^^^^^^^^^^^"+calendar.getStart());
 		
 		int result = service.insertCalendar(calendar);
+		return String.valueOf(result);	//숫자를 String으로 변환
+	}
+	
+	//일정 데이터 삭제
+	@PostMapping(value="/delete", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String deleteCalendar(Calendar calendar) {
+		int result = service.deleteCalendar(calendar);
 		return String.valueOf(result);
 	}
 	
