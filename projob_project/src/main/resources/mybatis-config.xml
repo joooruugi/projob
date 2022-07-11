@@ -12,6 +12,7 @@
 		<typeAlias type="fin.spring.projob.prouser.vo.Career" alias="Career"/>
 		<typeAlias type="fin.spring.projob.prouser.vo.Certificate" alias="Certi"/>
 		<typeAlias type="fin.spring.projob.project.vo.Project" alias="Project"/>
+		<typeAlias type="fin.spring.projob.project.vo.PMember" alias="PMember"/>
 		<typeAlias type="fin.spring.projob.calendar.domain.Calendar" alias="Calendar"/>
 		<typeAlias type="fin.spring.projob.messenger.vo.Message" alias="Message"/>
 		<typeAlias type="fin.spring.projob.messenger.vo.MessageRoom" alias="MessageRoom"/>

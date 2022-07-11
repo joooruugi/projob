@@ -1,5 +1,6 @@
 package fin.spring.projob.project.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,11 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import fin.spring.projob.admin.vo.Admin;
+import fin.spring.projob.common.ScriptUtils;
 import fin.spring.projob.project.service.ProjectServiceImpl;
+import fin.spring.projob.project.vo.PMember;
 import fin.spring.projob.project.vo.Project;
 import fin.spring.projob.prouser.controller.ProuserController;
 import fin.spring.projob.prouser.service.ProuserServiceImpl;
@@ -83,7 +87,7 @@ public class ProjectController {
 			, Project project)throws Exception{
 		logger.info("projectdetail GET");
 		session.getAttribute("loginSsInfo");
-		session.setAttribute("projectdetail", service.projectDetail(project.getPro_no()));
+		mv.addObject("projectdetail", service.projectDetail(project.getPro_no()));
 		mv.setViewName("project/projectdetail");
 		return mv;
 	}
@@ -95,14 +99,38 @@ public class ProjectController {
 		logger.info("projectjoin for free GET");
 		session.getAttribute("loginSsInfo");
 		System.out.println(prouser);
-		session.setAttribute("projectjoin", service.projectDetail(project.getPro_no()));
-		System.out.println(project);
+		mv.addObject("projectjoin", service.projectDetail(project.getPro_no()));
+		System.out.println(service.projectDetail(project.getPro_no()));
 		resume.setUs_id(prouser.getUs_id());
-		mv.addObject("projectjoin", service.projectJoin(project.getPro_no()));
 		mv.addObject("resumeJoin", prouserservice.resumeJoin(resume.getUs_id()));
 		mv.setViewName("project/projectjoin");
 		return mv;
 	}
+	//프로젝트 신청 POST
+	@PostMapping("/projectjoin")
+	public ModelAndView projectjoinPost(ModelAndView mv
+			, HttpSession session
+			, HttpServletResponse response
+			, @ModelAttribute("loginSsInfo")Prouser prouser
+			, Project project
+			, Resume resume
+			, PMember pmember)throws Exception{
+		logger.info("projectjoin for POST");
+		session.getAttribute("loginSsInfo");
+		pmember.setUs_id(prouser.getUs_id());
+		int result = service.pmemberinsert(pmember);
+		System.out.println(result);
+		if(result <1) {
+			logger.info("pmemberinsert fail");
+			mv.setViewName("project/projectjoin");
+		}else {
+			logger.info("pmemberinsert success");
+			ScriptUtils.alert(response, "프로젝트 신청이 완료되었습니다.");
+			mv.setViewName("project/projectmain");
+		}
+		return mv;
+	}
+
 }
 
 

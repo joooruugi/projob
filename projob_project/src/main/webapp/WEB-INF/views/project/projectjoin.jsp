@@ -12,7 +12,6 @@
 <script src="http://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<script src="//cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 <title>PROJOB_PROJECT</title>
 
 <link rel="stylesheet"
@@ -42,39 +41,53 @@
 	}
 	%>
 	<div class="projectjoin">
-        <div class="projectjoinname">
-            <p class="fontname2">프로젝트 신청하기</p>
-        </div>
-        <div class="projectjoincontent">
-            <div class="projectjoin_top">
-                <p class="fontname project_title"> 프로젝트 명 : < ${projectjoin.pro_title }>
-                </p>
-                <p class="fontname project_title"> 진행 회사 명 : < ${projectjoin.pro_comp }>
-                </p>
-            </div>
-            <div class="projectjoin_division"></div>
-            <div class="projectjoin_bottom">
-                <p class="fontname projectjoin_resumelist">내 이력서 목록</p>
-                <c:forEach items="${resumeJoin }" var="resumeJoin">
-                <div class="projectjoin_resumes">
-                    <input type="checkbox" class="projectjoin_resumechoice">
-                    <p class="fontnothing projectjoin_resume"><c:out value="${resumeJoin.re_title }" /> </p>
-                </div>
-                </c:forEach>
-            </div>
-            <div class="projectjoinbutton">
-                <button type="submit" class="projectjoinbtn btn5" id="apply_btn">
-                    <p class="fontnothing2">프로젝트 신청하기</p>
-                </button>
-                <button type="button" class="projectjoinbtn btn5" id="return_btn">
-                    <p class="fontnothing2">목록으로</p>
-                </button>
-            </div>
-        </div>
-    </div>
+		<div class="projectjoinname">
+			<p class="fontname2">프로젝트 신청하기</p>
+		</div>
+		<div class="projectjoincontent">
+			<form action="<%=request.getContextPath()%>/projectjoin" method="post">
+			<div class="projectjoin_top">
+			<input type="hidden" class="projectjoin_resumechoice" id="pro_no"
+								name="pro_no" value="${projectjoin.pro_no }">
+				<p class="fontname project_title">프로젝트 명 : <
+					${projectjoin.pro_title }></p>
+				<p class="fontname project_title">진행 회사 명 : <
+					${projectjoin.pro_comp }></p>
+			</div>
+			<div class="projectjoin_division"></div>
+				
+				<div class="projectjoin_bottom">
+					<p class="fontname projectjoin_resumelist">내 이력서 목록</p>
+					<c:forEach items="${resumeJoin }" var="resumeJoin">
+						<div class="projectjoin_resumes">
+					 <input type="checkbox" class="projectjoin_resumechoice" id="re_no"
+								name="re_no" value="${resumeJoin.re_no }">
+							<p class="fontnothing projectjoin_resume">
+								<c:out value="${resumeJoin.re_title }" />
+								<c:out value="${resumeJoin.us_id }" />
+							</p>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="projectjoinbutton">
+					<button type="submit" class="projectjoinbtn btn5" id="apply_btn">
+						<p class="fontnothing2">프로젝트 신청하기</p>
+					</button>
+					<button type="button" class="projectjoinbtn btn5" id="return_btn"
+						onclick="goBack()">
+						<p class="fontnothing2">목록으로</p>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
-	
+	<script>
+		function goBack() {
+			window.history.back();
+		};
+	</script>
 </body>
 
 </html>

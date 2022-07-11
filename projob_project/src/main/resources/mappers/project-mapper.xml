@@ -12,9 +12,13 @@
 	</select>
 	<!-- 공고 상세조회 -->
 	<select id="projectdetail" parameterType="int" resultType="Project">
-		select pro_no, pro_content, pro_title, pro_budget, pro_period, pro_personnel, pro_comp from project where pro_no = #{pro_no}
+		select * from project where pro_no = #{pro_no}
 	</select>
 	<select id="projectJoin" parameterType="int" resultType="Project">
-		select pro_title, pro_comp from project where pro_no = #{pro_no}
+		select * from project where pro_no = #{pro_no}
 	</select>
+	<insert id="pmemberinsert" parameterType="PMember">
+		insert into p_member (pro_no, us_id, prom_ok, re_no)
+		values (#{pro_no}, #{us_id}, 0, #{re_no})
+	</insert>
 </mapper>

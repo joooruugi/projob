@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fin.spring.projob.project.dao.ProjectDao;
+import fin.spring.projob.project.vo.PMember;
 import fin.spring.projob.project.vo.Project;
 
 @Service
@@ -33,4 +34,10 @@ public class ProjectServiceImpl implements ProjectService {
 	public Project projectJoin(int pro_no) throws Exception{
 		return prodao.projectJoin(pro_no);
 	}
+	// 프로젝트 신청 > 이력서 선택 / pmemberinsert
+	@Override
+	public int pmemberinsert(PMember pmember) throws Exception{
+		return prodao.pmemberinsert(pmember);
+	}
+	
 }

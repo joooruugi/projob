@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import fin.spring.projob.project.vo.PMember;
 import fin.spring.projob.project.vo.Project;
 import fin.spring.projob.prouser.vo.Resume;
 
@@ -31,5 +32,9 @@ public class ProjectDao {
 	public Project projectJoin(int pro_no)throws Exception{
 		return sql.selectOne("Project.projectJoin", pro_no);
 	}
-	
+	// 프로젝트 신청 > 이력서 선택 / pmemberinsert
+	public int pmemberinsert(PMember pmember) throws Exception{
+		System.out.println(pmember.getUs_id());
+		return sql.insert("Project.pmemberinsert", pmember);
+	}
 }
