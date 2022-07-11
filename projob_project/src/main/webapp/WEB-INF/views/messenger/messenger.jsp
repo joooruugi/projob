@@ -72,7 +72,7 @@
 	
     <!--바디 큰 배너가 들어가지 않는 한 body width : 80~90% 중앙정렬로 맞춰주세요-->
 	<br>
-	<div style="width: 1200px; height:725px; margin: 0 auto 50px; background-color:  rgb(232, 232, 232); border-radius: 30px;">
+	<div style="width: 1200px; height:725px; margin: 0 auto 50px; background-color:  rgb(232, 232, 232)">
 		<div style="float: left; width:530px;">
 			<div style="margin: 20px 30px; float: left;">
 				<input type="button" value="대화방 생성" class="btn2 createroom" style="padding: 5px 10px;"> 

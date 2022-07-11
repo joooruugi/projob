@@ -16,6 +16,7 @@
                 <a href="<%=request.getContextPath()%>/project" class="fontimportant2">PROJECT</a>
                 <a href="<%=request.getContextPath() %>/chat/room" class="fontimportant2">MESSENGER</a>
                 <a href="<%=request.getContextPath() %>/calendar/list" class="fontimportant2">CALENDAR</a>
+		<a href="<%=request.getContextPath() %>/fileshare" class="fontimportant2">FILESHARE</a>
             </div>
             <div class="headerdownright">
                 <a href="#" class="fontname2">원하는 프로젝트가 없다면? 프로젝트 제안하기 >></a>
