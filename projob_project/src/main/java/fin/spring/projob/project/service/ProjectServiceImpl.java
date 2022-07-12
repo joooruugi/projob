@@ -53,6 +53,15 @@ public class ProjectServiceImpl implements ProjectService {
 	public Project projectjoininfo(int pro_no) throws Exception{
 		return prodao.projectjoininfo(pro_no);
 	}
+	@Override
+	public List<PMember> joinfree(int pro_no) throws Exception{
+		return prodao.joinfree(pro_no);
+	}
+	//프리랜서 선정
+	@Override
+	public int selectfree(PMember pm)throws Exception{
+		return prodao.selectfree(pm);
+	}
 	//
 	
 }

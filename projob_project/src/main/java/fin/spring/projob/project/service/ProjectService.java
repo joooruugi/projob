@@ -15,4 +15,6 @@ public interface ProjectService {
 	public List<PMember> projectjoinstatus(int pro_no) throws Exception;
 	public List<Project> projectstatuscomp(String pro_id) throws Exception;
 	public Project projectjoininfo(int pro_no) throws Exception;
+	public List<PMember> joinfree(int pro_no) throws Exception;
+	public int selectfree(PMember pm) throws Exception;
 }

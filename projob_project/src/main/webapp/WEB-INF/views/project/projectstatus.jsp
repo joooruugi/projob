@@ -46,12 +46,13 @@
 		</div>
 		<form method="post"
 			action="<%=request.getContextPath()%>/projectjoinstatus">
-				<div class="projectcontent">
+			<div class="projectcontent">
 				<c:forEach items="${projectstatuscomp }" var="projectstatuscomp">
 					<div class="projectcontenttitle">
 						<a
 							href="<%=request.getContextPath()%>/projectjoinstatus?pro_no=${projectstatuscomp.pro_no}">
-							<input type="hidden" name="pro_no" value="${projectstatuscomp.pro_no }">
+							<input type="hidden" name="pro_no"
+							value="${projectstatuscomp.pro_no }">
 							<p class="fontname">
 								<c:out value="${projectstatuscomp.pro_title }" />
 							</p>
@@ -60,10 +61,10 @@
 					<div class="projectcontentdetail">
 						<c:choose>
 							<c:when test="${projectstatuscomp.pro_ok eq '0' }">
-								<p class="fontname" style="color:orange;">관리자 승인 대기중</p>
+								<p class="fontname" style="color: orange;">관리자 승인 대기중</p>
 							</c:when>
 							<c:when test="${projectstatuscomp.pro_ok eq '1' }">
-								<p class="fontname" style="color:blue;">관리자 승인 완료</p>
+								<p class="fontname" style="color: blue;">관리자 승인 완료</p>
 							</c:when>
 						</c:choose>
 					</div>
@@ -73,6 +74,7 @@
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	
 </body>
 
 </html>

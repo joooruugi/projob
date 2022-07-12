@@ -24,10 +24,10 @@
 
 <body>
 	<!--헤더-->
-	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<jsp:include page="/WEB-INF/views/header_admin.jsp" flush="false" />
 	<div class="login">
 		<div class="loginname">
-			<p class="fonthighlight">관 리 자 로그인</p>
+			<p class="fontname">관리자 로그인</p>
 		</div>
 		<form action="<%=request.getContextPath()%>/adlogin" method="post">
 			<div class="logincontent">

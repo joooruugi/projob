@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Admin">
-<select id="adlogin" parameterType="Admin" resultType="Admin">
-	select * from admin where ad_id=#{ad_id} and ad_password=#{ad_password}
-</select>
+	<select id="adlogin" parameterType="Admin" resultType="Admin">
+		select * from admin where ad_id=#{ad_id} and ad_password=#{ad_password}
+	</select>
+	<select id="aduserapprove" parameterType="int" resultType="Prouser">
+		select * from prouser where us_ok = #{us_ok}
+	</select>
 </mapper>

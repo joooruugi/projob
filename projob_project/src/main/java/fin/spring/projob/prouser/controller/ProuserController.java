@@ -156,7 +156,8 @@ public class ProuserController {
 
 	// 사용자 로그인(post) us_id만 가져가서 비교 > 암호화된 비밀번호와 입력한 비밀번호가 일치하는지 확인
 	@PostMapping(value = "/login")
-	public ModelAndView login(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpSession session)
+	public ModelAndView login(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpSession session
+			,HttpServletRequest req)
 			throws Exception {
 		Prouser result = service.login(prouser);
 		if (result != null && passEncoder.matches(prouser.getUs_pw(), result.getUs_pw())) {
@@ -410,8 +411,6 @@ public class ProuserController {
 		resume.setUs_id(prouser.getUs_id());
 		int result = service.resumeinsert(resume);
 		System.out.println(resume);
-		career.setRe_no(resume.getRe_no());
-		certi.setRe_no(resume.getRe_no());
 		int resultcar = service.resumeinsertcareer(career);
 		int resultcerti = service.resumeinsertcerti(certi);
 		if (result < 1 || resultcar < 1 || resultcerti < 1) {
@@ -422,6 +421,23 @@ public class ProuserController {
 			mv.setViewName("mypage/mypagefree");
 		}
 		return mv;
+	}
+	
+	//이력서 조회(프로젝트 신청시)
+	@RequestMapping(value="/resumeview", method=RequestMethod.GET)
+	public ModelAndView resumeviewGet(ModelAndView mv,
+			HttpSession session
+			, @ModelAttribute("loginSsInfo")Prouser prouser
+			, Resume resume, Certificate certi, Career career
+			, @RequestParam("re_no")int re_no)throws Exception{
+		logger.info("resumeview GET");
+		session.getAttribute("loginSsInfo");
+		mv.addObject("resume", service.resume(re_no));
+		mv.addObject("career", service.career(re_no));
+		mv.addObject("certi", service.certi(re_no));
+		mv.setViewName("mypage/resumeview");
+		return mv;
+		
 	}
 
 }

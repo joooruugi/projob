@@ -39,17 +39,17 @@
 }
 .headerdown{
     display: flex;
+    flex-direction:row;
     width: 80%;
     margin: 8px auto;
 }
 .headerdownleft{
-    margin: 8px 0;
-    float: left;
-    width: 50%;
+    margin: 10px auto;
+    width: 80%;
 }
 .headerdownleft a{
     float: left;
-    margin: 5px 40px ;
+    margin: 0 20px ;
     font-size: x-large;
 }
 .headerdownright{

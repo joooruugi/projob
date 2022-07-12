@@ -17,17 +17,28 @@
 	<select id="projectJoin" parameterType="int" resultType="Project">
 		select * from project where pro_no = #{pro_no}
 	</select>
+	<!-- 프로젝트 신청(프리랜서) -->
 	<insert id="pmemberinsert" parameterType="PMember">
 		insert into p_member (pro_no, us_id, prom_ok, re_no, us_name, re_title)
 		values (#{pro_no}, #{us_id}, 0, #{re_no}, #{us_name}, #{re_title})
 	</insert>
+	<!-- 프로젝트 조회(기업) -->
 	<select id="projectstatuscomp" parameterType="String" resultType="Project">
 		select * from project where pro_id = #{pro_id}
 	</select>
+	<!-- 프로젝트별 신청현황 조회(기업) -->
 	<select id="projectjoinstatus" parameterType="int" resultType="PMember">
-		select * from p_member where pro_no=#{pro_no}
+		select * from p_member where pro_no=#{pro_no} and prom_ok = 0
+	</select>
+	<!-- 프로젝트별 선정된 프리랜서 조회(기업) -->
+	<select id="joinfree" parameterType="int" resultType="PMember">
+		select * from p_member where pro_no=#{pro_no} and prom_ok = 1
 	</select>
 	<select id="projectjoininfo" parameterType="int" resultType="Project">
-		select pro_title, pro_personnel from project where pro_no = #{pro_no}
+		select pro_no, pro_title, pro_personnel from project where pro_no = #{pro_no}
 	</select>
+	<!-- 프리랜서 선정(기업) -->
+	<update id="selectfree" parameterType="PMember">
+		update p_member set prom_ok = 1 where us_id=#{us_id} and pro_no=#{pro_no}
+	</update>
 </mapper>
