@@ -39,5 +39,20 @@ public class ProjectServiceImpl implements ProjectService {
 	public int pmemberinsert(PMember pmember) throws Exception{
 		return prodao.pmemberinsert(pmember);
 	}
+	//프로젝트 현황 보기(기업)
+	@Override
+	public List<Project> projectstatuscomp(String pro_id) throws Exception{
+		return prodao.projectstatuscomp(pro_id);
+	}
+	//프로젝트 신청 현황 보기(기업)
+	@Override
+	public List<PMember> projectjoinstatus(int pro_no) throws Exception{
+		return prodao.projectjoinstatus(pro_no);
+	}
+	@Override
+	public Project projectjoininfo(int pro_no) throws Exception{
+		return prodao.projectjoininfo(pro_no);
+	}
+	//
 	
 }

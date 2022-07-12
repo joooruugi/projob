@@ -37,6 +37,7 @@ import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import fin.spring.projob.common.ScriptUtils;
 import fin.spring.projob.prouser.service.ProuserService;
 import fin.spring.projob.prouser.service.ProuserServiceImpl;
 import fin.spring.projob.prouser.vo.Career;
@@ -115,15 +116,16 @@ public class ProuserController {
 //	// 회원가입 사용자>기업 정보입력 화면POST1(회원가입3)
 	@PostMapping("/infocomp")
 	// @ResponseBody
-	public ModelAndView infocomppost(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpServletRequest req)
+	public ModelAndView infocomppost(ModelAndView mv, Prouser prouser, HttpServletResponse response, RedirectAttributes rttr, HttpServletRequest req)
 			throws Exception {
 		logger.info("join for company_POST");
 		int result = service.insertProusercomp(prouser);
 		if (result < 1) {
-			rttr.addFlashAttribute("msg", " 가입에 실패하였습니다.");
+			ScriptUtils.alert(response, "가입에 실패하였습니다. 정보를 다시 입력해주세요.");
 			mv.setViewName("redirect:/infofree");
 			return mv;
 		}
+		ScriptUtils.alert(response, "환영합니다!");
 		mv.setViewName("redirect:/login");
 		return mv;
 	}
@@ -210,7 +212,7 @@ public class ProuserController {
 	// 사용자 아이디 찾기 post
 	@ResponseBody
 	@PostMapping(value = "/findid")
-	public ModelAndView findidpost(ModelAndView mv, Prouser prouser, HttpServletRequest request,
+	public ModelAndView findidpost(ModelAndView mv, HttpServletResponse response, Prouser prouser, HttpServletRequest request,
 			RedirectAttributes rttr) throws Exception {
 		logger.info("findid POST");
 		Prouser result = service.findid(prouser);
@@ -218,13 +220,12 @@ public class ProuserController {
 			logger.info("findid success");
 			logger.info(result.getUs_id());
 //			mv.addObject("msg", result.getUs_name()+"님의 아이디는  "+result.getUs_id()+" 입니다.");
-			mv.addObject("us_name", result.getUs_name());
-			mv.addObject("us_id", result.getUs_id());
-			mv.setViewName("prouser/home");
+			ScriptUtils.alert(response, result.getUs_name()+"님의 아이디는 "+result.getUs_id()+" 입니다.");
+			mv.setViewName("prouser/login");
 			return mv;
 		} else {
 			logger.info("findid fail");
-			request.setAttribute("msg", "일치하는 회원이 없습니다.");
+			ScriptUtils.alert(response, "등록된 회원정보가 없습니다.");
 			mv.setViewName("redirect:/findid");
 			return mv;
 		}
@@ -278,9 +279,10 @@ public class ProuserController {
 
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logout(ModelAndView mv, HttpSession session) {
+	public ModelAndView logout(ModelAndView mv, HttpServletResponse response, HttpSession session)throws Exception {
 		session.invalidate();
 		logger.info("Prouser logout");
+		ScriptUtils.alert(response, "로그아웃 되었습니다.");
 		mv.setViewName("prouser/login");
 		return mv;
 	}

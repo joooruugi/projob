@@ -62,9 +62,10 @@
 						<div class="projectjoin_resumes">
 					 <input type="checkbox" class="projectjoin_resumechoice" id="re_no"
 								name="re_no" value="${resumeJoin.re_no }">
+					 <input type="hidden" class="projectjoin_resumechoice" id="re_title"
+								name="re_title" value="${resumeJoin.re_title }">
 							<p class="fontnothing projectjoin_resume">
 								<c:out value="${resumeJoin.re_title }" />
-								<c:out value="${resumeJoin.us_id }" />
 							</p>
 						</div>
 					</c:forEach>

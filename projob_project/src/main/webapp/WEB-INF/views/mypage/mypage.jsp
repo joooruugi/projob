@@ -117,8 +117,9 @@
 					</button>
 				</div>
 				<div class="mypageinfobtn">
-					<button type="submit" class="myinfobtn btn2">
-						<p class="fontcontent">프로젝트 관리</p>
+					<button type="submit" class="myinfobtn btn2"
+					onclick="location.href='projectstatus'">
+						<p class="fontcontent" >프로젝트 관리</p>
 					</button>
 				</div>
 			</div>

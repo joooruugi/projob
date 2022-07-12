@@ -5,6 +5,17 @@
     flex-direction: column;
     cursor: default;
 }
+.projectjoinname{
+    font-size: xx-large;
+    background-color: rgb(63, 114, 175);
+    height: 45px;
+    color:white;
+      width: 80%;
+    margin: 30px auto;
+    cursor: default;
+    text-align: center;
+    line-height: 45px;
+}
 .projectmainbanner{
     width: 100%;
 }

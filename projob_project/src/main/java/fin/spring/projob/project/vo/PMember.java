@@ -9,4 +9,6 @@ public class PMember {
 	private String us_id;
 	private int prom_ok;
 	private int re_no;
+	public String us_name;
+	public String re_title;
 }

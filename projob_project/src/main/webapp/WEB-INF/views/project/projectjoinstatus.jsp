@@ -47,27 +47,19 @@
         </div>
         <div class="projectjoincontent">
             <div class="projectjoin_top">
-                <p class="fontname project_title"> 프로젝트 명 : < 제목들어갈 공간이지롱 ></p>
-                <p class="fontname project_title"> 모집인원 : < '몇' 명 ></p>
+                <p class="fontname project_title"> 프로젝트 명 : < ${projectjoininfo.pro_title }></p>
+                <p class="fontname project_title"> 모집인원 : < ${projectjoininfo.pro_personnel } 명 ></p>
             </div>
             <div class="projectjoin_division"></div>
             <div class="projectjoin_bottom">
                 <p class="fontname projectjoin_resumelist">신청 현황</p>
-                <div class="projectjoin_resumes">
-                    <input type="checkbox" class="projectjoin_resumechoice">
-                    <p class="fontnothing projectjoin_name">[ 신청인 이름 ]</p>
-                    <p class="fontnothing projectjoin_resume">[ 이력서 이름 들어갈 자리 ]</p>
+                	<c:forEach items="${projectjoinstatus }" var="projectjoinstatus">
+                <div class="projectjoin_resumes projectjoinstatus">
+                    <input type="checkbox" class="projectjoin_resumechoice" value="${projectjoinstatus.us_id}">
+                    <p class="fontnothing projectjoin_name"><c:out value="${projectjoinstatus.us_name}" /></p>
+                    <a href="<%=request.getContextPath() %>/resume?re_no=${projectjoinstatus.re_no}" class="fontnothing projectjoinstatusresume"><c:out value="${projectjoinstatus.re_title}" /></a>
                 </div>
-                <div class="projectjoin_resumes">
-                    <input type="checkbox" class="projectjoin_resumechoice">
-                    <p class="fontnothing projectjoin_name">[ 신청인 이름 ]</p>
-                    <p class="fontnothing projectjoin_resume">[ 이력서 이름 들어갈 자리 ]</p>
-                </div>
-                <div class="projectjoin_resumes">
-                    <input type="checkbox" class="projectjoin_resumechoice">
-                    <p class="fontnothing projectjoin_name">[ 신청인 이름 ]</p>
-                    <p class="fontnothing projectjoin_resume">[ 이력서 이름 들어갈 자리 ]</p>
-                </div>
+                </c:forEach>
             </div>
             <div class="projectjoinbutton">
                 <button type="submit" class="projectjoinbtn btn5" id="apply_btn">

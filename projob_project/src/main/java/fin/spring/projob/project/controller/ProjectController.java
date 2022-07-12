@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,6 @@ public class ProjectController {
 		logger.info("projectmain GET");
 		session.getAttribute("loginSsInfo");
 		mv.addObject("projectlist", service.projectList());
-		logger.info("projectmain GET");
 		mv.setViewName("project/projectmain");
 		return mv;
 	}
@@ -68,6 +68,7 @@ public class ProjectController {
 		logger.info("projectinsert POST");
 		session.getAttribute("loginSsInfo");
 		project.setPro_comp(prouser.getUs_name());
+		project.setPro_id(prouser.getUs_id());
 		int result = service.insertProject(project);
 		System.out.println(result);
 		if(result<1) {
@@ -118,6 +119,7 @@ public class ProjectController {
 		logger.info("projectjoin for POST");
 		session.getAttribute("loginSsInfo");
 		pmember.setUs_id(prouser.getUs_id());
+		pmember.setUs_name(prouser.getUs_name());
 		int result = service.pmemberinsert(pmember);
 		System.out.println(result);
 		if(result <1) {
@@ -130,6 +132,48 @@ public class ProjectController {
 		}
 		return mv;
 	}
+	//(기업) 본인 프로젝트 목록 GET
+	@RequestMapping(value="/projectstatus", method=RequestMethod.GET)
+	public ModelAndView projectstatusGet(ModelAndView mv, HttpSession session
+			, HttpServletResponse response, @ModelAttribute("loginSsInfo")Prouser prouser
+			, Project project) throws Exception{
+		logger.info("projectstatus GET");
+		session.getAttribute("loginSsInfo");
+		String pro_id = prouser.getUs_id();
+		System.out.println(pro_id);
+		mv.addObject("projectstatuscomp", service.projectstatuscomp(pro_id));
+		System.out.println(service.projectstatuscomp(pro_id));
+		mv.setViewName("project/projectstatus");
+		return mv;
+	}
+	//(기업) 프로젝트 신청현황 GET
+	@RequestMapping(value="/projectjoinstatus", method=RequestMethod.GET)
+	public ModelAndView projectjoinstatusGet(ModelAndView mv, HttpSession session
+			, HttpServletResponse response, @ModelAttribute("loginSsInfo")Prouser prouser
+			, Project project, Resume resume
+			,@RequestParam("pro_no") int pro_no) throws Exception{
+		logger.info("projectjoinstatusGet for company");
+		session.getAttribute("loginSsInfo");
+		mv.addObject("projectjoininfo", service.projectjoininfo(pro_no));
+		mv.addObject("projectjoinstatus", service.projectjoinstatus(pro_no));
+		System.out.println(service.projectjoinstatus(pro_no));
+		mv.setViewName("project/projectjoinstatus");
+		return mv;
+	}
+//	@RequestMapping(value="/projectjoin", method=RequestMethod.GET)
+//	public ModelAndView projectjoinGet(ModelAndView mv, HttpSession session
+//			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
+//			, Resume resume)throws Exception{
+//		logger.info("projectjoin for free GET");
+//		session.getAttribute("loginSsInfo");
+//		System.out.println(prouser);
+//		mv.addObject("projectjoin", service.projectDetail(project.getPro_no()));
+//		System.out.println(service.projectDetail(project.getPro_no()));
+//		resume.setUs_id(prouser.getUs_id());
+//		mv.addObject("resumeJoin", prouserservice.resumeJoin(resume.getUs_id()));
+//		mv.setViewName("project/projectjoin");
+//		return mv;
+//	}
 
 }
 

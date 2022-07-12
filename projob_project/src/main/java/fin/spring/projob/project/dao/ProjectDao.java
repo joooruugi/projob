@@ -37,4 +37,15 @@ public class ProjectDao {
 		System.out.println(pmember.getUs_id());
 		return sql.insert("Project.pmemberinsert", pmember);
 	}
+	//프로젝트 현황보기(기업)
+	public List<Project> projectstatuscomp(String pro_id)throws Exception{
+		return sql.selectList("Project.projectstatuscomp", pro_id);
+	}
+	//프로젝트 신청 현황 보기(기업)
+		public List<PMember> projectjoinstatus(int pro_no)throws Exception{
+			return sql.selectList("Project.projectjoinstatus", pro_no);
+	}
+		public Project projectjoininfo(int pro_no) throws Exception{
+			return sql.selectOne("Project.projectjoininfo", pro_no);
+		}
 }
