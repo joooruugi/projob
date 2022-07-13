@@ -48,57 +48,125 @@
 	<!-- 아이디 찾기 -->
 	<select id="findid" parameterType="Prouser" resultType="Prouser">
 		select
-		* from prouser where us_name=#{us_name} and us_email=#{us_email}
-		and us_crn=#{us_crn}
+		*
+		from prouser where us_name=#{us_name} and us_email=#{us_email}
+		and
+		us_crn=#{us_crn}
 	</select>
 	<!-- 비밀번호 찾기 -->
 	<select id="findpw" parameterType="Prouser" resultType="int">
 		select
-		count(*) from prouser where us_name=#{us_name} and us_email=#{us_email}
+		count(*) from prouser where us_name=#{us_name} and
+		us_email=#{us_email}
 		and us_crn=#{us_crn} and us_id=#{us_id}
 	</select>
 	<!-- 비밀번호 재설정 -->
 	<update id="updatepw" parameterType="Prouser">
-		update prouser set us_pw = #{us_pw} where us_id=#{us_id}
+		update prouser set us_pw =
+		#{us_pw} where us_id=#{us_id}
 	</update>
 	<!-- 내정보 불러오기 -->
 	<select id="myinfo" parameterType="String" resultType="Prouser">
-		select * from prouser where us_id=#{us_id}
+		select *
+		from prouser where us_id=#{us_id}
 	</select>
 	<!-- 마이페이지 정보 수정 -->
 	<update id="updateInfo" parameterType="Prouser">
-	update prouser set us_pw=#{us_pw}, us_phone=#{us_phone}, us_email=#{us_email}, us_address=#{us_address}, us_address2=#{us_address2}, us_address3=#{us_address3}
-	, us_adname=#{us_adname}, us_adphone=#{us_adphone}, us_ademail=#{us_ademail} where us_id=#{us_id}
+		update prouser set us_pw=#{us_pw}, us_phone=#{us_phone},
+		us_email=#{us_email}, us_address=#{us_address},
+		us_address2=#{us_address2}, us_address3=#{us_address3}
+		, us_adname=#{us_adname}, us_adphone=#{us_adphone},
+		us_ademail=#{us_ademail} where us_id=#{us_id}
 	</update>
 	<!-- 마이페이지 이력서 목록 조회 -->
-	<select id="resumelist" parameterType="String" resultType="Resume">
-		select * from resume where us_id = #{us_id}  order by re_no desc
+	<select id="resumelist" parameterType="String"
+		resultType="Resume">
+		select * from resume where us_id = #{us_id} order by re_no
+		desc
 	</select>
 	<!-- 마이페이지 이력서 조회 -->
 	<select id="resume" parameterType="int" resultType="Resume">
-		select * from resume where re_no=#{re_no}
+		select * from
+		resume where re_no=#{re_no}
 	</select>
 	<select id="career" parameterType="int" resultType="Career">
-		select * from career where ca_no=#{re_no}	
+		select * from
+		career where ca_no=#{re_no}
 	</select>
 	<select id="certi" parameterType="int" resultType="Certi">
-		select * from certificate where ce_no=#{re_no}
+		select * from
+		certificate where ce_no=#{re_no}
 	</select>
 	<!-- 마이페이지 이력서 등록 -->
 	<insert id="resumeinsert" parameterType="Resume">
-		insert into resume(re_no, us_id, re_school, re_graduate, re_type, re_homepage, re_openyn, re_picture, re_name, re_birth, re_title, re_wdate)
-			values (re_seq.nextval, #{us_id}, #{re_school}, #{re_graduate}, #{re_type}, #{re_homepage}, #{re_openyn}, #{re_picture}, #{re_name}, #{re_birth}, #{re_title}, current_timestamp)
+		insert into
+		resume(re_no, us_id, re_school, re_graduate, re_type, re_homepage,
+		re_openyn, re_picture, re_name, re_birth, re_title, re_wdate)
+		values (re_seq.nextval, #{us_id}, #{re_school}, #{re_graduate}, #{re_type},
+		#{re_homepage}, #{re_openyn}, #{re_picture}, #{re_name}, #{re_birth},
+		#{re_title}, current_timestamp)
 	</insert>
 	<insert id="resumeinsertcareer" parameterType="Career">
-		insert into career(ca_no, ca_title, ca_dept, ca_jobtitle, ca_adddetail, ca_period)
-		values(re_seq.currval, #{ca_title}, #{ca_dept}, #{ca_jobtitle}, #{ca_adddetail} ,#{ca_period})
+		insert into
+		career(ca_no, ca_title, ca_dept, ca_jobtitle, ca_adddetail, ca_period)
+		values(re_seq.currval, #{ca_title}, #{ca_dept}, #{ca_jobtitle},
+		#{ca_adddetail} ,#{ca_period})
 	</insert>
 	<insert id="resumeinsertcerti" parameterType="Certi">
-		insert into certificate(ce_no, ce_title, ce_num, ce_cert_pub, ce_date) 
-		values(re_seq.currval, #{ce_title}, #{ce_num}, #{ce_cert_pub}, #{ce_date})
+		insert into
+		certificate(ce_no, ce_title, ce_num, ce_cert_pub, ce_date)
+		values(re_seq.currval, #{ce_title}, #{ce_num}, #{ce_cert_pub},
+		#{ce_date})
 	</insert>
 	<!-- 프로젝트 신청 이력서 목록 -->
-	<select id="resumeJoin" parameterType="String" resultType="Resume">
+	<select id="resumeJoin" parameterType="String"
+		resultType="Resume">
 		select * from resume where us_id=#{us_id} and re_openyn=1
+	</select>
+	<!-- 마이페이지 프리랜서 승인 대기중인 프로젝트 정보 불러오기(건수) -->
+	<select id="freeprojectyetcnt" parameterType="String"
+		resultType="int">
+		select count(*) from p_member where us_id=#{us_id} and
+		prom_ok = 0
+	</select>
+	<!-- 마이페이지 프리랜서 승인 대기중인 프로젝트 정보 불러오기(이름, 번호) -->
+	<select id="freeprojectyetinfo" parameterType="String"
+		resultType="Project">
+		select project.pro_no, project.pro_title
+		from p_member inner join project
+		on p_member.pro_no = project.pro_no where us_id=#{us_id} and
+		p_member.prom_ok =0
+	</select>
+	<!-- 마이페이지 프리랜서 진행중인 프로젝트 정보 불러오기(건수) -->
+	<select id="freeprojectcnt" parameterType="String"
+		resultType="int">
+		select count(*) from p_member where us_id=#{us_id} and
+		prom_ok = 1
+	</select>
+	<!-- 마이페이지 프리랜서 진행중인 프로젝트 정보 불러오기(이름, 번호) -->
+	<select id="freeprojectinfo" parameterType="String"
+		resultType="Project">
+		select project.pro_no, project.pro_title
+		from p_member inner join project
+		on p_member.pro_no = project.pro_no where us_id=#{us_id} and
+		p_member.prom_ok =1
+	</select>
+	<!-- 마이페이지 기업 승인 대기중인 프로젝트 정보 불러오기(건수) -->
+	<select id="compprojectyetcnt" parameterType="String"
+		resultType="int">
+		select count(*) from project where pro_id=#{us_id} and pro_ok = 0
+	</select>
+	<!-- 마이페이지  기업 승인 대기중인 프로젝트 정보 불러오기(이름, 번호)-->
+	<select id="compprojectyetinfo" parameterType="String" resultType="Project">
+		select pro_no, pro_title from project where pro_id=#{us_id} and pro_ok=0
+	</select>
+	<!-- 마이페이지 기업 진행중인 프로젝트 정보 불러오기(건수) -->
+	<select id="compprojectcnt" parameterType="String"
+		resultType="int">
+		select count(*) from project where pro_id=#{us_id} and pro_ok = 1
+	</select>
+	<!-- 마이페이지  기업 진행중인 프로젝트 정보 불러오기(이름, 번호)-->
+	<select id="compprojectinfo" parameterType="String" resultType="Project">
+		select pro_no, pro_title from project where pro_id=#{us_id} and pro_ok=1
 	</select>
 </mapper>

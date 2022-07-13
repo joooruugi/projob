@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Project">
+
 	<!-- 프로젝트 공고 등록 -->
 	<insert id="insertProject" parameterType="Project">
 		insert into project (pro_no, pro_comp, pro_id, pro_title, pro_content, pro_period, pro_budget, pro_personnel, pro_field, pro_ok, pro_img)

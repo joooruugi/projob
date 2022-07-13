@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import fin.spring.projob.project.vo.Project;
 import fin.spring.projob.prouser.vo.Career;
 import fin.spring.projob.prouser.vo.Certificate;
 import fin.spring.projob.prouser.vo.Kakao;
@@ -71,43 +72,91 @@ public class ProuserDao {
 	public int updatepw(Prouser prouser) {
 		return sql.update("Prouser.updatepw", prouser);
 	}
-	//마이페이지 내정보 불러오기
-	public List<Prouser> myinfo(String us_id) throws Exception{
+
+	// 마이페이지 내정보 불러오기
+	public List<Prouser> myinfo(String us_id) throws Exception {
 		return sql.selectList("Prouser.myinfo", us_id);
 	}
-	//마이페이지 개인정보 수정
-	public int updateInfo(Prouser prouser) throws Exception{
+
+	// 마이페이지 개인정보 수정
+	public int updateInfo(Prouser prouser) throws Exception {
 		return sql.update("Prouser.updateInfo", prouser);
 	}
-	
-	//마이페이지 이력서 목록 조회
-	public List<Resume> resumelist(String us_id) throws Exception{
+
+	// 마이페이지 이력서 목록 조회
+	public List<Resume> resumelist(String us_id) throws Exception {
 		return sql.selectList("Prouser.resumelist", us_id);
 	}
-	//마이페이지 이력서 조회
-	public List<Resume> resume(int re_no) throws Exception{
+
+	// 마이페이지 이력서 조회
+	public List<Resume> resume(int re_no) throws Exception {
 		return sql.selectList("Prouser.resume", re_no);
 	}
-	public List<Career> career(int re_no) throws Exception{
+
+	public List<Career> career(int re_no) throws Exception {
 		return sql.selectList("Prouser.career", re_no);
 	}
-	public List<Certificate> certificate(int re_no) throws Exception{
+
+	public List<Certificate> certificate(int re_no) throws Exception {
 		return sql.selectList("Prouser.certi", re_no);
 	}
-	//마이페이지 이력서 등록
-	public int resumeinsert(Resume resume) throws Exception{
+
+	// 마이페이지 이력서 등록
+	public int resumeinsert(Resume resume) throws Exception {
 		return sql.insert("Prouser.resumeinsert", resume);
 	}
-	public int resumeinsertcareer(Career career) throws Exception{
+
+	public int resumeinsertcareer(Career career) throws Exception {
 		return sql.insert("Prouser.resumeinsertcareer", career);
 	}
-	public int resumeinsertcerti(Certificate certi)throws Exception{
+
+	public int resumeinsertcerti(Certificate certi) throws Exception {
 		return sql.insert("Prouser.resumeinsertcerti", certi);
 	}
-	
-	//프로젝트 신청 이력서 불러오기 (프리랜서)
-	public List<Resume> resumeJoin(String us_id)throws Exception{
+
+	// 프로젝트 신청 이력서 불러오기 (프리랜서)
+	public List<Resume> resumeJoin(String us_id) throws Exception {
 		return sql.selectList("Prouser.resumeJoin", us_id);
 	}
-	
+
+	// 마이페이지 프리랜서 승인 대기중인 프로젝트 정보 불러오기(건수)
+	public int freeprojectyetcnt(String us_id) throws Exception {
+		return sql.selectOne("Prouser.freeprojectyetcnt", us_id);
+	}
+
+	// 마이페이지 프리랜서 승인 대기중인 프로젝트 정보 불러오기(이름, 번호)
+	public List<Project> freeprojectyetinfo(String us_id) throws Exception {
+		return sql.selectList("Prouser.freeprojectyetinfo", us_id);
+	}
+
+	// 마이페이지 프리랜서 진행중인 프로젝트 정보 불러오기(건수)
+	public int freeprojectcnt(String us_id) throws Exception {
+		return sql.selectOne("Prouser.freeprojectcnt", us_id);
+	}
+
+	// 마이페이지 프리랜서 진행중인 프로젝트 정보 불러오기(이름, 번호)
+	public List<Project> freeprojectinfo(String us_id) throws Exception {
+		return sql.selectList("Prouser.freeprojectinfo", us_id);
+	}
+
+	// 마이페이지 기업 승인 대기중인 프로젝트 정보 불러오기(건수)
+	public int compprojectyetcnt(String us_id) throws Exception {
+		return sql.selectOne("Prouser.compprojectyetcnt", us_id);
+	}
+
+	// 마이페이지 기업 승인 대기중인 프로젝트 정보 불러오기(이름, 번호)
+	public List<Project> compprojectyetinfo(String us_id) throws Exception {
+		return sql.selectList("Prouser.compprojectyetinfo", us_id);
+	}
+
+	// 마이페이지 기업 진행중인 프로젝트 정보 불러오기(건수)
+	public int compprojectcnt(String us_id) throws Exception {
+		return sql.selectOne("Prouser.compprojectcnt", us_id);
+	}
+
+	// 마이페이지 기업 진행중인 프로젝트 정보 불러오기(이름, 번호)
+	public List<Project> compprojectinfo(String us_id) throws Exception {
+		return sql.selectList("Prouser.compprojectinfo", us_id);
+	}
+
 }

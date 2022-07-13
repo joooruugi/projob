@@ -85,6 +85,19 @@
     width: 45%;
     margin: 20px 20px;
 }
+.my_project_yet, .my_project_ing{
+	display:flex;
+	flex-direction:column;	
+	cursor:pointer;
+}
+.my_project_yet a:hover{
+	font-weight: 700;
+	text-decoration:underline;
+}
+.my_project_ing a:hover{
+	font-weight: 700;
+	text-decoration:underline;
+}
 .my_project_yet_name{
     margin: 10px;
 }

@@ -283,6 +283,19 @@ public class ProuserController {
 			throws Exception {
 		session.getAttribute("loginSsInfo");
 		session.setAttribute("us_name", prouser.getUs_name());
+		//진행중인 프로젝트 조회 (기업, 프리랜서)
+		if(prouser.getUs_info()==0) {
+			mv.addObject("freeprojectyetcnt", service.freeprojectyetcnt(prouser.getUs_id()));
+			mv.addObject("freeprojectcnt", service.freeprojectcnt(prouser.getUs_id()));
+			mv.addObject("freeprojectyetinfo", service.freeprojectyetinfo(prouser.getUs_id()));
+			mv.addObject("freeprojectinfo", service.freeprojectinfo(prouser.getUs_id()));
+		}else {
+			mv.addObject("compprojectyetcnt", service.compprojectyetcnt(prouser.getUs_id()));
+			mv.addObject("compprojectcnt", service.compprojectcnt(prouser.getUs_id()));
+			mv.addObject("compprojectyetinfo", service.compprojectyetinfo(prouser.getUs_id()));
+			mv.addObject("compprojectinfo", service.compprojectinfo(prouser.getUs_id()));
+			
+		}
 		mv.setViewName("mypage/mypage");
 		return mv;
 	}
@@ -407,7 +420,7 @@ public class ProuserController {
 		return mv;
 	}
 	
-	//이력서 조회(프로젝트 신청시)
+	//개별 이력서 조회(이력서 번호 가져옴)
 	@RequestMapping(value="/resumeview", method=RequestMethod.GET)
 	public ModelAndView resumeviewGet(ModelAndView mv,
 			HttpSession session
@@ -421,7 +434,6 @@ public class ProuserController {
 		mv.addObject("certi", service.certi(re_no));
 		mv.setViewName("mypage/resumeview");
 		return mv;
-		
 	}
 
 }

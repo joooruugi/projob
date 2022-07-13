@@ -2,7 +2,6 @@ package fin.spring.projob.project.dao;
 
 import java.util.List;
 
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -59,8 +58,11 @@ public class ProjectDao {
 	public List<PMember> joinfree(int pro_no) throws Exception {
 		return sql.selectList("Project.joinfree", pro_no);
 	}
-	//프리랜서 선정(기업)
-	public int selectfree(PMember pm)throws Exception{
+
+	// 프리랜서 선정(기업)
+	public int selectfree(PMember pm) throws Exception {
 		return sql.update("Project.selectfree", pm);
 	}
+
+	
 }

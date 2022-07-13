@@ -3,6 +3,7 @@ package fin.spring.projob.prouser.service;
 
 import java.util.List;
 
+import fin.spring.projob.project.vo.Project;
 import fin.spring.projob.prouser.vo.Career;
 import fin.spring.projob.prouser.vo.Certificate;
 import fin.spring.projob.prouser.vo.Kakao;
@@ -31,5 +32,13 @@ public interface ProuserService {
 	public int resumeinsertcareer(Career career)throws Exception;
 	public int resumeinsertcerti(Certificate certi)throws Exception;
 	public List<Resume> resumeJoin(String us_id)throws Exception;
+	public List<Project> freeprojectyetinfo(String us_id)throws Exception;
+	public List<Project> freeprojectinfo(String us_id)throws Exception;
+	public List<Project> compprojectyetinfo(String us_id)throws Exception;
+	public List<Project> compprojectinfo(String us_id)throws Exception;
+	public int freeprojectyetcnt(String us_id)throws Exception;
+	public int freeprojectcnt(String us_id)throws Exception;
+	public int compprojectyetcnt(String us_id)throws Exception;
+	public int compprojectcnt(String us_id)throws Exception;
 	
 }

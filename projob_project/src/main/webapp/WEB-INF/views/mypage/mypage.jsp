@@ -67,8 +67,8 @@
 			</div>
 			<div class="mypagetopright">
 				<div class="my_myproject">
-					<p class="fontcontent2">종료된 프로젝트 : OO건</p>
-					<p class="fontcontent2">진행중인 프로젝트 : OO건</p>
+					<p class="fontcontent2">진행중인 프로젝트 : ${freeprojectcnt }건</p>
+					<p class="fontcontent2">신청중인 프로젝트 : ${freeprojectyetcnt }건</p>
 				</div>
 				<div class="my_myprojectcoo">
 					<button type="submit" class="my_myprojectcoo_btn btn5">
@@ -82,18 +82,25 @@
 				<div class="my_project_ing_name">
 					<p class="fontimportant2">진행중인 프로젝트</p>
 				</div>
-				<div class="my_project_ing">
-					<a href="#" class="my_projecting">여기 프로젝트 정보 들어감</a> <a href="#"
-						class="my_projecting">여기 프로젝트 정보 들어감</a>
-				</div>
+
+				<c:forEach items="${freeprojectinfo }" var="freeprojectinfo">
+					<div class="my_project_ing">
+						<a
+							href="<%=request.getContextPath()%>/projectdetail?pro_no=${freeprojectinfo.pro_no}"
+							class="my_projecting fontnothing"><c:out
+								value="${freeprojectinfo.pro_title }" /></a>
+					</div>
+				</c:forEach>
 			</div>
 			<div class="mypagebottomright">
 				<div class="my_project_yet_name">
 					<p class="fontimportant2">신청중인 프로젝트</p>
 				</div>
 				<div class="my_project_yet">
-					<a href="#" class="my_projectyet">여기 프로젝트 정보 들어감</a> <a href="#"
-						class="my_projectyet">여기 프로젝트 정보 들어감</a>
+					<c:forEach items="${freeprojectyetinfo }" var="freeprojectyetinfo">
+					<a href="<%=request.getContextPath()%>/projectdetail?pro_no=${freeprojectyetinfo.pro_no}" class="my_projecting fontnothing"><c:out
+													value="${freeprojectyetinfo.pro_title }" /></a>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -125,8 +132,8 @@
 			</div>
 			<div class="mypagetopright">
 				<div class="my_myproject">
-					<p class="fontcontent2">종료된 프로젝트 : OO건</p>
-					<p class="fontcontent2">진행중인 프로젝트 : OO건</p>
+					<p class="fontcontent2">진행중인 프로젝트 : ${compprojectcnt }건</p>
+					<p class="fontcontent2">승인대기 프로젝트 : ${compprojectyetcnt }건</p>
 				</div>
 				<div class="my_myprojectcoo">
 					<button type="submit" class="my_myprojectcoo_btn btn5">
@@ -140,19 +147,27 @@
 				<div class="my_project_ing_name">
 					<p class="fontimportant2">진행중인 프로젝트</p>
 				</div>
-				<div class="my_project_ing">
-					<a href="#" class="my_projecting">여기 프로젝트 정보 들어감</a> <a href="#"
-						class="my_projecting">여기 프로젝트 정보 들어감</a>
-				</div>
+					<c:forEach items="${compprojectinfo }" var="compprojectinfo">
+					<div class="my_project_ing">
+						<a
+							href="<%=request.getContextPath()%>/projectdetail?pro_no=${compprojectinfo.pro_no}"
+							class="my_projecting fontnothing"><c:out
+								value="${compprojectinfo.pro_title }" /></a>
+					</div>
+				</c:forEach>
 			</div>
 			<div class="mypagebottomleft">
 				<div class="my_project_yet_name">
 					<p class="fontimportant2">승인대기 프로젝트</p>
 				</div>
-				<div class="my_project_yet">
-					<a href="#" class="my_projectyet">여기 프로젝트 정보 들어감</a> <a href="#"
-						class="my_projectyet">여기 프로젝트 정보 들어감</a>
-				</div>
+				<c:forEach items="${compprojectyetinfo }" var="compprojectyetinfo">
+					<div class="my_project_ing">
+						<a
+							href="<%=request.getContextPath()%>/projectdetail?pro_no=${compprojectyetinfo.pro_no}"
+							class="my_projecting fontnothing"><c:out
+								value="${compprojectyetinfo.pro_title }" /></a>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
