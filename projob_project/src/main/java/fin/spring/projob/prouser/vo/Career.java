@@ -6,7 +6,6 @@ import lombok.Data;
 public class Career {
 
 	private int ca_no;
-	private int re_no;
 	private String ca_title;
 	private String ca_period;
 	private String ca_dept;

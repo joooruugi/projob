@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 
 
 
+
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -13,7 +13,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -147,7 +146,7 @@ public class ProuserServiceImpl implements ProuserService {
 			JsonElement element = parser.parse(result);
 			
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+//			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 			System.out.println("properties : "+properties);
 			System.out.println(properties.getAsJsonObject().get("nickname"));
 			System.out.println(properties.getAsJsonObject().get("nickname").getAsString());

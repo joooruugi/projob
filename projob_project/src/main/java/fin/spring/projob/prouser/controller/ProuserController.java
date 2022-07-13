@@ -1,15 +1,6 @@
 package fin.spring.projob.prouser.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,28 +8,19 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fin.spring.projob.common.ScriptUtils;
-import fin.spring.projob.prouser.service.ProuserService;
 import fin.spring.projob.prouser.service.ProuserServiceImpl;
 import fin.spring.projob.prouser.vo.Career;
 import fin.spring.projob.prouser.vo.Certificate;
@@ -404,19 +386,21 @@ public class ProuserController {
 	@PostMapping("/resumeinsert")
 	public ModelAndView resumeinsertPost(ModelAndView mv, HttpSession session,
 			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Career career, Certificate certi,
-			HttpServletRequest req) throws Exception {
+			HttpServletRequest req, HttpServletResponse response) throws Exception {
 		logger.info("resumeinsert POST");
 		session.getAttribute("loginSsInfo");
 		System.out.println("resume insert Session info : " + prouser);
 		resume.setUs_id(prouser.getUs_id());
 		int result = service.resumeinsert(resume);
-		System.out.println(resume);
+		System.out.println("이력서에 들어간 값 조회:"+resume);
+		System.out.println(resume.getRe_no());
 		int resultcar = service.resumeinsertcareer(career);
 		int resultcerti = service.resumeinsertcerti(certi);
 		if (result < 1 || resultcar < 1 || resultcerti < 1) {
 			logger.info("resume insert fail");
 			mv.setViewName("redirect:/resumeinsert");
 		} else {
+			ScriptUtils.alert(response, "이력서 등록 완료. 공개처리 하셔야 기업에 공개됩니다.");
 			logger.info("resume insert success");
 			mv.setViewName("mypage/mypagefree");
 		}

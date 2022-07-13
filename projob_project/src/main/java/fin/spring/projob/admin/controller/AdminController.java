@@ -1,12 +1,12 @@
 package fin.spring.projob.admin.controller;
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,13 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fin.spring.projob.admin.service.AdminServiceImpl;
 import fin.spring.projob.admin.vo.Admin;
 import fin.spring.projob.prouser.controller.ProuserController;
-import fin.spring.projob.prouser.service.ProuserServiceImpl;
-import fin.spring.projob.prouser.vo.Prouser;
 import lombok.AllArgsConstructor;
 
 @Controller

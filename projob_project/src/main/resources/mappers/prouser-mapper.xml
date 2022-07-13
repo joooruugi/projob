@@ -79,10 +79,10 @@
 		select * from resume where re_no=#{re_no}
 	</select>
 	<select id="career" parameterType="int" resultType="Career">
-		select * from career where re_no=#{re_no}	
+		select * from career where ca_no=#{re_no}	
 	</select>
 	<select id="certi" parameterType="int" resultType="Certi">
-		select * from certificate where re_no=#{re_no}
+		select * from certificate where ce_no=#{re_no}
 	</select>
 	<!-- 마이페이지 이력서 등록 -->
 	<insert id="resumeinsert" parameterType="Resume">
@@ -90,12 +90,12 @@
 			values (re_seq.nextval, #{us_id}, #{re_school}, #{re_graduate}, #{re_type}, #{re_homepage}, #{re_openyn}, #{re_picture}, #{re_name}, #{re_birth}, #{re_title}, current_timestamp)
 	</insert>
 	<insert id="resumeinsertcareer" parameterType="Career">
-		insert into career(ca_no, re_no, ca_title, ca_dept, ca_jobtitle, ca_adddetail, ca_period)
-		values(ca_seq.nextval, #{re_no}, #{ca_title}, #{ca_dept}, #{ca_jobtitle}, #{ca_adddetail} ,#{ca_period})
+		insert into career(ca_no, ca_title, ca_dept, ca_jobtitle, ca_adddetail, ca_period)
+		values(re_seq.currval, #{ca_title}, #{ca_dept}, #{ca_jobtitle}, #{ca_adddetail} ,#{ca_period})
 	</insert>
 	<insert id="resumeinsertcerti" parameterType="Certi">
-		insert into certificate(ce_no, re_no, ce_title, ce_num, ce_cert_pub, ce_date) 
-		values(ce_seq.nextval, #{re_no}, #{ce_title}, #{ce_num}, #{ce_cert_pub}, #{ce_date})
+		insert into certificate(ce_no, ce_title, ce_num, ce_cert_pub, ce_date) 
+		values(re_seq.currval, #{ce_title}, #{ce_num}, #{ce_cert_pub}, #{ce_date})
 	</insert>
 	<!-- 프로젝트 신청 이력서 목록 -->
 	<select id="resumeJoin" parameterType="String" resultType="Resume">

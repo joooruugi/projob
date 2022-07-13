@@ -19,7 +19,7 @@ public class AdminServiceImpl implements AdminService{
 	public Admin adlogin(Admin admin) throws Exception{
 		return adao.adlogin(admin);
 	}
-	//°ü¸®ÀÚ È¸¿ø½ÂÀÎ Á¶È¸
+	//ê´€ë¦¬ì íšŒì›ìŠ¹ì¸ ì¡°íšŒ
 	@Override
 	public List<Prouser> aduserapprove(int us_ok)throws Exception{
 		return adao.aduserapprove(us_ok);
