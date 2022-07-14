@@ -6,8 +6,8 @@
 		<result property="end" column="end1"/>
 		<result property="allday" column="allday"/>
 	</resultMap>
-	<select id="calendarList" resultMap="calMap">
-		SELECT id, title,
+<!-- 	<select id="calendarList" resultMap="calMap">
+		SELECT id, pro_no, title,
 			start1,
 			end1,
 			allday,
@@ -15,25 +15,60 @@
 			backgroundColor,
 			BORDERCOLOR
 		FROM CALENDAR
+	</select> -->
+	<!-- 일정 조회 -->
+	<select id="calendarList" resultMap="calMap" parameterType="hashmap">
+		select ID, PRO_NO, TITLE, WRITER, 
+		START1, 
+		END1, 
+		ALLDAY, 
+		TEXTCOLOR, 
+		backgroundColor,
+		borderColor
+			FROM CALENDAR 
+		<choose>
+		<when test="pro_no == '0'.toString() ">
+        where writer = #{writer}
+        </when>
+        <otherwise>
+        where pro_no = #{pro_no}
+        </otherwise>
+		</choose>
+		
 	</select>
-	<insert id="insertCalendar">
+	
+	<!-- 일정 추가 -->
+	<insert id="insertCalendar" parameterType="Calendar">
 		insert into calendar (id, title,
+			writer,
+			pro_no,
 			start1,
 			end1,
 			allday,
 			textColor,
-			backgroundColor
+			backgroundColor,
+			borderColor
 			)
 		values (seq_cal_no.nextval, #{title},
+			#{writer},
+			#{pro_no},
 			#{start},
 			#{end},
 			#{allday},
 			#{textColor},
-			#{backgroundColor}
+			(select color_code from color_sample cs join p_member pm using (color_no) where pm.us_id = #{writer}),
+			#{borderColor}
 			)	
 	</insert>
+	
+	<!-- 일정 삭제 -->
 	<delete id="deleteCalendar">
 		delete from calendar
 		where id=#{id}
 	</delete>
+	
+	<!-- 색깔 조회 -->
+	<select id="selectColor" parameterType="String" resultType="String">
+		select color_code from color_sample cs join p_member pm using (color_no) where pm.us_id = #{userId}
+	</select>
 </mapper>

@@ -16,8 +16,8 @@ public class CalendarServiceImpl implements CalendarService {
 	private CalendarDao dao;
 
 	@Override
-	public List<Calendar> calendarList() {
-		return dao.calendarList();
+	public List<Calendar> calendarList(String pro_no, String writer) {
+		return dao.calendarList(pro_no, writer);
 	}
 
 	@Override
@@ -33,6 +33,11 @@ public class CalendarServiceImpl implements CalendarService {
 	@Override
 	public List<Map<String, Object>> selectProject(String userId) {
 		return dao.selectProject(userId);
+	}
+	
+	@Override
+	public String selectColor(String userId) {
+		return dao.selectColor(userId);
 	}
 
 	

@@ -8,8 +8,8 @@ import fin.spring.projob.calendar.domain.Calendar;
 
 public interface CalendarService {
 
-	//일정 조회
-	public List<Calendar> calendarList();
+	//일정 조회 (작성자별, 프로젝트별)
+	public List<Calendar> calendarList(String pro_no, String writer);
 	
 	//일정 추가
 	public int insertCalendar(Calendar calendar);
@@ -19,6 +19,9 @@ public interface CalendarService {
 	
 	//프로젝트 리스트
 	public List<Map<String, Object>> selectProject(String userId);
+
+	//색깔 조회
+	public String selectColor(String userId);
 	
 	
 }

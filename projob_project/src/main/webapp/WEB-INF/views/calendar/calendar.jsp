@@ -13,7 +13,7 @@
 	<script src="<%=request.getContextPath() %>/resources/fullcalendar/main.js"></script>
 	<!-- fullcalendar 언어 설정관련 script -->
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.js"></script>
-	<script src="http://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 	 <style>
 		#calendar{
 		   width:60%;
@@ -41,7 +41,13 @@
                   //textColor: 'black' 
                 },
             ],
-            select: function(arg) {
+            select:  
+            /*
+            	function(info) {
+                alert('textColor: ' + info.event.textColor + '; backgroundColor: ' + info.event.backgroundColor);
+           		}, 
+            */
+            function(arg) {
           	  console.log(arg);
           	console.log(arg.start.getFullYear());
    			console.log(arg.start.getMonth());
@@ -62,8 +68,12 @@
                         start: arg.startStr,
                         end: arg.endStr,
                         allday: arg.allDay,
-                        backgroundColor:"#3788d8",
-                        textColor:"white"
+                        /* backgroundColor:"#3788d8", //color_code가져오기 */
+                        backgroundColor:"${color}",
+                        textColor:"white",
+                        borderColor: "#00ff0000",
+    					writer: "${loginSsInfo.us_id}",
+    					pro_no: $("#pro_no").val()
                       };
                 calendar.addEvent(insertData);
                 $.ajax({
@@ -79,6 +89,7 @@
               }
               calendar.unselect()
             },
+           
             eventClick: function(arg) {
           	  // 있는 일정 클릭시 삭제
           	  console.log("#등록된 일정 클릭#");
@@ -104,39 +115,24 @@
                 }) 
               }
             },
+            
             events: //이 부분이 json을 받아서 calendar에 뿌리는 공간(ajax로 데이터 불러옴(로딩))
             	function(info, successCallback, failureCallback){
+	            	var link=document.location.href;
+	            	var lastUrl = link.split("/").pop(); // /를 기준으로 맨 끝 값 꺼내기
+	            	var selectedProNo = lastUrl.split("#").pop(); // #을 기준으로 맨 끝 값 꺼내기
+	            	if(lastUrl != selectedProNo) // 상세조회 처음 들어갔을 때 스토리 탭 클릭을 위해 필요
+	                    $("#pro_no option[value="+selectedProNo+"]").prop('selected', true);
 		          	$.ajax({
 		          		type:"get",
 		          		url:"<%=request.getContextPath()%>/calendar/data",
+		          		data: {pro_no:$("#pro_no").val(), writer:"${loginSsInfo.us_id}"},
 		          		dataType:"json",
 		          		success: function(data){
-		          			successCallback(data);
+	          				successCallback(data);
 		          		}
           	  		});
             	} 
-            
-            
-        	
-            
-            	/*
-            	  [
-            		{ 
-            		title: '이미나' 
-          	      	, start: '2022-04-14 07:00'
-          	      	, end: '2022-04-14 09:00' 
-          	      	, backgroundColor: "red"
-          	    	},
-          	    	{
-          	      	title: '이고미' 
-          	      	, start: '2022-07-15 17:00'
-          	      	, end: '2022-07-15 19:00' 
-          	      	, backgroundColor: "green" 
-           		 	}
-          	    ]   
-            	  */
-        	
-        	
         	
             , initialView: "dayGridMonth"	// 초기 로드될때 보이는 캘린더화면(기본설정: 달)
         	, selectable: true //날짜 드래그해서 지정가능
@@ -179,42 +175,36 @@
 	
 	<br>
 	<div id="modal_selectp" class="modal">
-	    <form method="post" action="project">
-		    	<div style="padding: 0 5px">
-		    		<select name="selectProject" id="selectProject">
-		    			<option value="none">프로젝트를 선택해 주세요</option>
-		    			<c:forEach items="${project }" var="project">
-		    				<option value="${project.PRO_NO }">${project.PRO_TITLE }</option>
-		    			</c:forEach>
-		    		</select>
-		    	</div>
-		    	<div style="margin: 5px; width: 290px; height:100px; border: 1px solid black; overflow: auto"  id="projectMember">
-		    	</div>
-		    	<div style="float: right; margin: 0 10px">
-		    		<button type="submit" class="btn4" id="btn_select" style="width: 80px; height: 30px;" >선택</button>
-		    	</div>
-	    </form>
+    	<div style="padding: 0 5px">
+    		<select name="pro_no" id="pro_no" onchange="myFunction()">
+    			<option value="0">프로젝트 전체</option>
+    			<c:forEach items="${project }" var="project">
+    				<option value="${project.PRO_NO }">${project.PRO_TITLE }</option>
+    			</c:forEach>
+    		</select>
+    	</div>
+    	<p id="selectname"></p>	
     </div>
     <div id="calendar"></div>
 	<!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
 	
+	<script>
+		function myFunction(){
+			var pro_no = $("#pro_no").val();
+			/* var pro_title = $("#pro_no option:checked").text(); 
+			$("#selectname").html("선택한 프로젝트: "+ pro_title);  */
+            location.href="#"+pro_no;
+            location.reload();
+		}
+		var link=document.location.href;
+    	var lastUrl = link.split("/").pop(); // /를 기준으로 맨 끝 값 꺼내기
+    	var selectedProNo = lastUrl.split("#").pop(); // #을 기준으로 맨 끝 값 꺼내기
+		
+    	var pro_title = $("#pro_no option[value="+selectedProNo+"]").text();
+		$("#selectname").html("선택한 프로젝트: "+ pro_title); 
+	</script>
 	
     
-    <script>
-    	$(".btn_selectproject").click(function(){
-    		$("#modal_selectp").toggle();
-    		$("#selectProject").val("none");
-    		$("#projectMember").html("");
-    	});
-    	
-    	// 모달 밖 클릭시 모달 hide
-    	/* $(document).mouseup(function (e){
-    		var modal = $(".modal");
-    		if(modal.has(e.target).length === 0){
-    			modal.hide();
-    		}
-    	}); */
-    </script>
 </body>
 </html>

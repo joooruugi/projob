@@ -1,6 +1,5 @@
 package fin.spring.projob.calendar.domain;
 
-import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
@@ -18,15 +17,13 @@ public class Calendar {
 //	ALLDAY                   VARCHAR2(5)    
 //	TEXTCOLOR                VARCHAR2(50)   
 //	BACKGROUNDCOLOR          VARCHAR2(50)   
-//	BORDERCOLOR              VARCHAR2(50) 
+//	BORDERCOLOR              VARCHAR2(50)  
 	
 	private int id;
 	private int pro_no;
 	private String cal_member_id;
-	private String groupId;
 	private String title;
 	private String writer;
-	private String content;
 	private String start;
 	private String end;
 	private String allday;
@@ -35,10 +32,9 @@ public class Calendar {
 	private String borderColor;
 	@Override
 	public String toString() {
-		return "Calendar [id=" + id + ", pro_no=" + pro_no + ", cal_member_id=" + cal_member_id + ", groupId=" + groupId
-				+ ", title=" + title + ", writer=" + writer + ", content=" + content + ", start=" + start + ", end="
-				+ end + ", allday=" + allday + ", textColor=" + textColor + ", backgroundColor=" + backgroundColor
-				+ ", borderColor=" + borderColor + "]";
+		return "Calendar [id=" + id + ", pro_no=" + pro_no + ", cal_member_id=" + cal_member_id + ", title=" + title
+				+ ", writer=" + writer + ", start=" + start + ", end=" + end + ", allday=" + allday + ", textColor="
+				+ textColor + ", backgroundColor=" + backgroundColor + ", borderColor=" + borderColor + "]";
 	}
 	public int getId() {
 		return id;
@@ -58,12 +54,6 @@ public class Calendar {
 	public void setCal_member_id(String cal_member_id) {
 		this.cal_member_id = cal_member_id;
 	}
-	public String getGroupId() {
-		return groupId;
-	}
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -75,12 +65,6 @@ public class Calendar {
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
 	}
 	public String getStart() {
 		return start;
@@ -118,6 +102,8 @@ public class Calendar {
 	public void setBorderColor(String borderColor) {
 		this.borderColor = borderColor;
 	}
+	
+	
 	
 	
 

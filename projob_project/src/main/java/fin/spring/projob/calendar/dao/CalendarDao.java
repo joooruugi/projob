@@ -1,5 +1,6 @@
 package fin.spring.projob.calendar.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +15,12 @@ public class CalendarDao {
 	@Autowired
 	private SqlSession sqlsession;
 
-	//일정 조회
-	public List<Calendar> calendarList() {
-		return sqlsession.selectList("Calendar.calendarList");
+	//프로젝트별, 작성자별 일정 조회
+	public List<Calendar> calendarList(String pro_no, String writer) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("pro_no", pro_no);
+		map.put("writer", writer);
+		return sqlsession.selectList("Calendar.calendarList", map);
 	}
 	
 	//일정 추가
@@ -32,6 +36,11 @@ public class CalendarDao {
 	//프로젝트 리스트
 	public List<Map<String, Object>> selectProject(String userId) {
 		return sqlsession.selectList("Messenger.selectProject", userId);
+	}
+	
+	//색깔 조회
+	public String selectColor(String userId) {
+		return sqlsession.selectOne("Calendar.selectColor", userId);
 	}
 
 	
