@@ -16,6 +16,7 @@
 		<typeAlias type="fin.spring.projob.calendar.domain.Calendar" alias="Calendar"/>
 		<typeAlias type="fin.spring.projob.messenger.vo.Message" alias="Message"/>
 		<typeAlias type="fin.spring.projob.messenger.vo.MessageRoom" alias="MessageRoom"/>
+		<typeAlias type="fin.spring.projob.fileshare.vo.FIleshare" alias="Fileshare"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/prouser-mapper.xml"/>
@@ -23,5 +24,6 @@
 		<mapper resource="mappers/project-mapper.xml"/>
 		<mapper resource="mappers/calendar-mapper.xml"/>
 		<mapper resource="mappers/messenger-mapper.xml"/>
+		<mapper resource="mappers/fileshare-mapper.xml"/>
 	</mappers>
 </configuration>

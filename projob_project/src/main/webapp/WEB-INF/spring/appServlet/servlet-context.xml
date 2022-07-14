@@ -25,6 +25,17 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="utf-8"></beans:property>
+		<beans:property name="maxUploadSize" value="999999999"></beans:property>
+		<beans:property name="uploadTempDir" value="fileSystemResource"></beans:property>
+		<beans:property name="maxInMemorySize" value="999999999"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="fileSystemResource" class="org.springframework.core.io.FileSystemResource">
+		<beans:constructor-arg value="/resources/files" />
+	</beans:bean>
+
 	<context:component-scan base-package="fin.spring.projob" />
 	
 	<aop:aspectj-autoproxy/>

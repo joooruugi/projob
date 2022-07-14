@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,22 +10,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/footer.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/footer.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header1.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/all.css">
     <title>Fileshare</title>
     <style>
         #fileShare{
-            width: 70%;
+            width: 80%;
             height: 880px;
             margin: 0 auto;
-            margin-top: 10px;
+            margin-top: 15px;
             background-color: rgb(232, 232, 232);
             border-radius: 30px;
         }
         #fs_title{
             padding: 40px 70px 20px;
+            text-align: center;
         }
         #fs_menu{
             width: 90%;
@@ -74,6 +78,13 @@
             height: 40px;
             font-size: 15px;
         }
+        h1{
+	        font-size: 30px;
+	        font-weight: bold;
+        }
+        .td_writer, .td_wdate{
+        	text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -85,11 +96,13 @@
         </div>
         <div id="fs_menu">
             <div id="fs_menu_select">
-                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                    <option selected>프로젝트를 선택해주세요</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select class="form-select form-select-lg mb-3" id="project_select" aria-label=".form-select-lg example">
+                    <option value="none">프로젝트를 선택해주세요</option>
+                    <c:if test="${!empty project }">
+	                    <c:forEach items="${project }" var="project">
+	                    	<option value="${project.pro_no }">${project.pro_title }</option>
+	                    </c:forEach>
+	                </c:if>
                 </select>
             </div>
             <div id="fs_menu_search">
@@ -126,39 +139,34 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row"><input type="checkbox" name="sh_no"></th>
-                    <td class="td_title">요구사항명세서요구사항명세서</td>
-                    <td class="td_writer">작성자작성자작성</td>
-                    <td>2022-07-08 02:47</td>
-                    <td>
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            파일목록
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><input type="checkbox" name="sh_no"></th>
-                    <td>와이어프레임</td>
-                    <td>작성자2</td>
-                    <td>2022-07-08 04:30</td>
-                    <td>
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            파일목록
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><input type="checkbox" name="sh_no"></th>
-                    <td>백업파일</td>
-                    <td>작성자3</td>
-                    <td>2022-07-09 01:17</td>
-                    <td>
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            파일목록
-                        </button>
-                    </td>
-                </tr>
+                <c:choose>
+                <c:when test="${pro_no eq '0'}">
+							<tr>
+			                    <th scope="row" colspan="5">프로젝트를 선택해주세요</th>
+			                </tr>
+	                </c:when>
+                	<c:when test="${!empty list }">
+		                <c:forEach items="${list }" var="list">
+							<tr>
+			                    <th scope="row"><input type="checkbox" name="sh_no"></th>
+			                    <td class="td_title">${list.SH_TITLE }</td>
+			                    <td class="td_writer">${list.SH_CONTENT }</td>
+			                    <td class="td_wdate">${list.SH_WDATE }</td>
+			                    <td>
+			                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			                            파일목록
+			                        </button>
+			                        <input type="hidden" value="${sh_no }">
+			                    </td>
+			                </tr>
+		                </c:forEach>
+	                </c:when>
+	                <c:otherwise>
+	                	<tr>
+		                    <th scope="row" colspan="5">파일을 등록해주세요</th>
+		                </tr>
+	                </c:otherwise>
+                </c:choose>
                 </tbody>
             </table>
         </div>
@@ -197,5 +205,25 @@
     </div>
         <!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
+    <script>
+    $(document).ready(function(){
+    	$("#project_select").children().each(function(){
+    		var option = $(this);
+    		$(this).prop("selected", false);
+    		if(option.val() == '${pro_no}'){
+    			option.prop("selected", true);
+    			console.log(option.val());
+    		}
+    	});
+    })
+    </script>
+    <!-- 프로젝트 선택 시 -->
+    <script>
+    	$("#project_select").change(function(){
+    		if($(this).val() != 'none'){
+    			location.href = "<%=request.getContextPath()%>/fileshare?pro_no="+$(this).val();
+    		}
+    	})
+    </script>
 </body>
 </html>
