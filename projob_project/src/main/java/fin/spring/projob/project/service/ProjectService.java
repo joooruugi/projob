@@ -17,41 +17,41 @@ public class ProjectService {
 	@Autowired
 	private ProjectDao prodao;
 
-	// ÇÁ·ÎÁ§Æ® °ø°í µî·Ï
+	// í”„ë¡œì íŠ¸ ê³µê³  ë“±ë¡
 	public int insertProject(Project project) throws Exception {
 		return prodao.insertProject(project);
 	}
 
-	// ÇÁ·ÎÁ§Æ® ¸ñ·Ï Á¶È¸
+	// í”„ë¡œì íŠ¸ ëª©ë¡ ì¡°íšŒ
 	public List<Project> projectList() throws Exception {
 		return prodao.projectList();
 	}
 
-	// ÇÁ·ÎÁ§Æ® »ó¼¼Á¶È¸
+	// í”„ë¡œì íŠ¸ ìƒì„¸ì¡°íšŒ
 	public Project projectDetail(int pro_no) throws Exception {
 		return prodao.projectDetail(pro_no);
 	}
 
-	// ÇÁ·ÎÁ§Æ® ½ÅÃ»
+	// í”„ë¡œì íŠ¸ ì‹ ì²­
 	public Project projectJoin(int pro_no) throws Exception {
 		return prodao.projectJoin(pro_no);
 	}
-	//ÇÁ·ÎÁ§Æ® ½ÅÃ»½Ã ±â½ÅÃ»ÇÑ ÇÁ¸®·£¼­ ½ÅÃ» ±İÁö½ÃÅ°±â
+	//í”„ë¡œì íŠ¸ ì‹ ì²­ì‹œ ê¸°ì‹ ì²­í•œ í”„ë¦¬ëœì„œ ì‹ ì²­ ê¸ˆì§€ì‹œí‚¤ê¸°
 	public int alreadyjoinproject(PMember pmember) throws Exception{
 		return prodao.alreadyjoinproject(pmember);
 	}
 
-	// ÇÁ·ÎÁ§Æ® ½ÅÃ» > ÀÌ·Â¼­ ¼±ÅÃ / pmemberinsert
+	// í”„ë¡œì íŠ¸ ì‹ ì²­ > ì´ë ¥ì„œ ì„ íƒ / pmemberinsert
 	public int pmemberinsert(PMember pmember) throws Exception {
 		return prodao.pmemberinsert(pmember);
 	}
 
-	// ÇÁ·ÎÁ§Æ® ÇöÈ² º¸±â(±â¾÷)
+	// í”„ë¡œì íŠ¸ í˜„í™© ë³´ê¸°(ê¸°ì—…)
 	public List<Project> projectstatuscomp(String pro_id) throws Exception {
 		return prodao.projectstatuscomp(pro_id);
 	}
 
-	// ÇÁ·ÎÁ§Æ® ½ÅÃ» ÇöÈ² º¸±â(±â¾÷)
+	// í”„ë¡œì íŠ¸ ì‹ ì²­ í˜„í™© ë³´ê¸°(ê¸°ì—…)
 	public List<PMember> projectjoinstatus(int pro_no) throws Exception {
 		return prodao.projectjoinstatus(pro_no);
 	}
@@ -64,11 +64,11 @@ public class ProjectService {
 		return prodao.joinfree(pro_no);
 	}
 
-	// ÇÁ¸®·£¼­ ¼±Á¤
+	// í”„ë¦¬ëœì„œ ì„ ì •
 	public int selectfree(PMember pm) throws Exception {
 		return prodao.selectfree(pm);
 	}
-	//±â¼±Á¤µÈ ÇÁ¸®·£¼­ ¼ö Á¶È¸
+	//ê¸°ì„ ì •ëœ í”„ë¦¬ëœì„œ ìˆ˜ ì¡°íšŒ
 	public int selectedfree(PMember pm)throws Exception{
 		return prodao.selectedfree(pm);
 	}

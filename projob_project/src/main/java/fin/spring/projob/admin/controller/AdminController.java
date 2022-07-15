@@ -1,7 +1,7 @@
 package fin.spring.projob.admin.controller;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import fin.spring.projob.admin.service.AdminServiceImpl;
+import fin.spring.projob.admin.service.AdminService;
 import fin.spring.projob.admin.vo.Admin;
 import fin.spring.projob.prouser.controller.ProuserController;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(ProuserController.class);
 
 	@Autowired
-	private AdminServiceImpl service;
+	private AdminService service;
 
 	// 관리자 로그인 get
 	@RequestMapping(value = "/adlogin", method = RequestMethod.GET)
@@ -81,6 +81,16 @@ public class AdminController {
 		int us_ok = 0;
 		mv.addObject("aduserapprovelist", service.aduserapprove(us_ok));
 		mv.setViewName("admin/aduserapprovelist");
+		return mv;
+	}
+	//관리자 프로젝트 공고 승인 페이지 Get
+	@RequestMapping(value="/adprojectapprove", method=RequestMethod.GET)
+	public ModelAndView adprojectapproveGet(ModelAndView mv, HttpSession session, Admin admin, HttpServletResponse response) throws Exception{
+		logger.info("adprojectapprove GET");
+		session.getAttribute("adminloginSsInfo");
+		int pro_ok = 0;
+		mv.addObject("adprojectapprove", service.adprojectapprove(pro_ok));
+		mv.setViewName("admin/adprojectapprove");
 		return mv;
 	}
 	

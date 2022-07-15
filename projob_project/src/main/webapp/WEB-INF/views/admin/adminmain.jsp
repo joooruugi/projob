@@ -41,7 +41,7 @@
                 <a href="<%=request.getContextPath()%>/aduserapprovelist" class="fontcontent2 aduserapprovea">회원가입 승인</a>
             </div>
             <div class="adprojectapprove">
-                <a href="#" class="fontcontent2 adprojectapprovea">프로젝트 승인</a>
+                <a href="<%=request.getContextPath()%>/adprojectapprove" class="fontcontent2 adprojectapprovea">프로젝트 승인</a>
             </div>
         </div>
     </div>

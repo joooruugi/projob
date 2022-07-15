@@ -36,20 +36,16 @@
 			<table class="listofaduserapprove">
 				<thead class="aduserapprovelist fontimportant2">
 					<tr class="aduserapprovelist_title">
-						<td>회원 아이디</td>
-						<td>회원 이름</td>
-						<td>사업자등록번호</td>
-						<td>사업자등록진위여부</td>
-						<td>회원가입 수락</td>
-						<td>회원가입 반려</td>
+						<td>기업명</td>
+						<td>프로젝트명</td>
+						<td>공고 수락</td>
+						<td>공고 반려</td>
 					</tr>
 				</thead>
-				<c:forEach items="${aduserapprovelist }" var="aduserapprovelist">
+				<c:forEach items="${adprojectapprove }" var="adprojectapprove">
 					<tr class="aduserapprovelist_line fontcontent">
-						<td><c:out value="${aduserapprovelist.us_id }" /></td>
-						<td><c:out value="${aduserapprovelist.us_name }" /></td>
-						<td><c:out value="${aduserapprovelist.us_crn }" /></td>
-						<td><button type="button" class="aduserapprovelistbtn btn3">진위여부</button></td>
+						<td><c:out value="${adprojectapprove.pro_comp }"/></td>
+						<td><a href="<%=request.getContextPath()%>/projectdetail?pro_no=${adprojectapprove.pro_no}">${adprojectapprove.pro_title }</a></td>
 						<td><button type="button" class="aduserapprovelistbtn btn6">수락</button></td>
 						<td><button type="button" class="aduserapprovelistbtn btn6">반려</button></td>
 					</tr>

@@ -7,10 +7,19 @@
 	<select id="aduserapprove" parameterType="int" resultType="Prouser">
 		select * from prouser where us_ok = #{us_ok}
 	</select>
+	<select id="adprojectapprove" parameterType="int" resultType="Project">
+		select * from project where pro_ok = #{pro_ok}
+	</select>
 	<update id="updateuserok" parameterType="String">
 		update prouser set us_ok = 1 where us_id=#{us_id}
 	</update>
 	<update id="updateusernok" parameterType="String">
 		update prouser set us_ok = 2 where us_id=#{us_id}
+	</update>
+	<update id="updateprojectok" parameterType="int">
+		update project set pro_ok = 1 where pro_no=#{pro_no}
+	</update>
+	<update id="updateprojectnok" parameterType="int">
+		update project set pro_ok = 2 where pro_no=#{pro_no}
 	</update>
 </mapper>

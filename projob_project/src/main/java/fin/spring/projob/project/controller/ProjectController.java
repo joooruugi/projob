@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import fin.spring.projob.admin.vo.Admin;
 import fin.spring.projob.common.ScriptUtils;
 import fin.spring.projob.project.service.ProjectService;
 import fin.spring.projob.project.vo.PMember;
@@ -30,7 +31,7 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
-@SessionAttributes("loginSsInfo")
+@SessionAttributes({"loginSsInfo", "adminloginSsInfo"})
 public class ProjectController {
 	private static final Logger logger = LoggerFactory.getLogger(ProuserController.class);
 
@@ -83,7 +84,8 @@ public class ProjectController {
 	// 프로젝트 상세조회 GET
 	@RequestMapping(value = "/projectdetail", method = RequestMethod.GET)
 	public ModelAndView projectDetailGet(ModelAndView mv, @ModelAttribute("loginSsInfo") Prouser prouser,
-			HttpSession session, Project project) throws Exception {
+			HttpSession session, Project project
+			,@ModelAttribute("adminloginSsInfo") Admin admin) throws Exception {
 		logger.info("projectdetail GET");
 		session.getAttribute("loginSsInfo");
 		mv.addObject("projectdetail", service.projectDetail(project.getPro_no()));
