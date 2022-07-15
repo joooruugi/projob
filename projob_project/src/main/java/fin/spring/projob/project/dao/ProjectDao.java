@@ -34,6 +34,10 @@ public class ProjectDao {
 	public Project projectJoin(int pro_no) throws Exception {
 		return sql.selectOne("Project.projectJoin", pro_no);
 	}
+	//기신청 프로젝트 식별
+	public int alreadyjoinproject(PMember pmember) throws Exception{
+		return sql.selectOne("Project.alreadyjoinproject", pmember);
+	}
 
 	// 프로젝트 신청 > 이력서 선택 / pmemberinsert
 	public int pmemberinsert(PMember pmember) throws Exception {
@@ -62,6 +66,10 @@ public class ProjectDao {
 	// 프리랜서 선정(기업)
 	public int selectfree(PMember pm) throws Exception {
 		return sql.update("Project.selectfree", pm);
+	}
+	// 기선정된 프리랜서 수 조회
+	public int selectedfree(PMember pm)throws Exception{
+		return sql.selectOne("Project.selectedfree", pm);
 	}
 
 	

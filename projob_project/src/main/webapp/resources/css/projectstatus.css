@@ -33,10 +33,10 @@
 .projectcontent a, .projectcontent p{
     margin: 15px 20px;
 }
-.projectcontenttitle a{
-    font-size: 30px;
+.projectcontenttitle{
+    font-size: 35px;
 }
-.projectcontenttitle  a:hover{
+.projectcontenttitle:hover{
     color: rgb(78, 152, 242);
 }
 .projectcontentcontent p{

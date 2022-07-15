@@ -58,10 +58,11 @@
 					<br> <br> 
 					<label class="resumelabel" for="re_picture">사진
 					</label> 
-					<input type="file" class="resumeinput" id="re_picture"
-						name="re_picture" multiple="multiple" accept=".jpg, .png">
-						<img id="resumeimg"><br><hr>
-						<div id="div-preview"></div> <br> <br> 
+					<input type="file" class="resumeinput" 
+						name="f" multiple="multiple" accept=".jpg, .png">
+						<img id="profileImg"><br><hr>
+						<div id="div-preview"></div> 
+						<br> <br> 
 						<label
 						class="resumelabel" for="re_birth">생년월일</label> <input type="date"
 						class="resumeinput" id="re_birth" name="re_birth"> <br>
@@ -134,7 +135,7 @@
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script type="text/javascript">
 	
-		let fileTag = document.querySelector("input[name=re_picture]");
+		let fileTag = document.querySelector("input[name=f]");
 		let divPreview = document.querySelector("#div-preview");
 		
 		fileTag.onchange = function(){
@@ -152,8 +153,8 @@
 						
 						//2. 이미지 태그 속성들 세팅하기
 						imgTag.setAttribute('src', src);
-						imgTag.setAttribute('width', '300');
-						imgTag.setAttribute('height', '400');
+						imgTag.setAttribute('width', '200');
+						imgTag.setAttribute('height', '300');
 						
 						//3. 이미지 태그 div안에 넣기
 						divPreview.appendChild(imgTag);

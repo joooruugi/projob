@@ -17,9 +17,11 @@ public class Resume {
 	private String re_homepage;
 	private Timestamp re_wdate;
 	private int re_openyn;
-	private MultipartFile re_picture;
-	private String changeName;
+	private MultipartFile f;
 	private String re_title;
 	private String re_birth;
 	private String re_name;
+	//////////////////////////////
+	private int reimg_no;
+	private String changeName;
 }

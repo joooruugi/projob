@@ -23,6 +23,10 @@
 		insert into p_member (pro_no, us_id, prom_ok, re_no, us_name, re_title)
 		values (#{pro_no}, #{us_id}, 0, #{re_no}, #{us_name}, #{re_title})
 	</insert>
+	<!-- 프리랜서별 기신청 프로젝트인지 식별 -->
+	<select id="alreadyjoinproject" parameterType="PMember" resultType="int">
+		select count(*) from p_member where us_id=#{us_id} and pro_no=#{pro_no}
+	</select>
 	<!-- 프로젝트 조회(기업) -->
 	<select id="projectstatuscomp" parameterType="String" resultType="Project">
 		select * from project where pro_id = #{pro_id}
@@ -42,4 +46,8 @@
 	<update id="selectfree" parameterType="PMember">
 		update p_member set prom_ok = 1 where us_id=#{us_id} and pro_no=#{pro_no}
 	</update>
+	<!-- 프리랜서 선정시 기입력한 필요인원보다 넘지 않도록(기업) -->
+	<select id="selectedfree" parameterType="PMember" resultType="int">
+		select count(*) from p_member where us_id=#{us_id} and pro_no=#{pro_no}
+	</select>
 </mapper>

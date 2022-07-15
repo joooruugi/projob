@@ -381,6 +381,8 @@ public class ProuserController {
 		logger.info("resume GET");
 		session.getAttribute("loginSsInfo");
 		mv.addObject("resume", service.resume(resume.getRe_no()));
+		mv.addObject("resumeimg", service.resumeimg(resume.getRe_no()));
+		System.out.println(resume);
 		mv.addObject("career", service.career(resume.getRe_no()));
 		mv.addObject("certi", service.certi(resume.getRe_no()));
 		mv.setViewName("mypage/resume");
@@ -403,9 +405,8 @@ public class ProuserController {
 			HttpServletRequest req, HttpServletResponse response
 			) throws Exception {
 		logger.info("resumeinsert POST");
-		session.getAttribute("loginSsInfo");
-		System.out.println("resume insert Session info : " + prouser);
-		resume.setUs_id(prouser.getUs_id());
+		session.getAttribute("loginSsInfo"); //로그인된 정보 불러오기
+		resume.setUs_id(prouser.getUs_id()); //이력서us_id에 세션아이디값 넣어주기
 		int result = service.resumeinsert(resume, req);
 		System.out.println("이력서에 들어간 값 조회:"+resume);
 		int resultcar = service.resumeinsertcareer(career);

@@ -36,7 +36,7 @@ import fin.spring.projob.prouser.vo.Resume;
 public class ProuserService {
 
 	@Autowired
-	ProuserDao pdao;
+	private ProuserDao pdao;
 
 	// 회원가입 프리랜서
 	public int insertProuserfree(Prouser puser) throws Exception {
@@ -216,6 +216,9 @@ public class ProuserService {
 	public List<Resume> resume(int re_no) throws Exception {
 		return pdao.resume(re_no);
 	}
+	public List<Resume> resumeimg(int re_no)throws Exception{
+		return pdao.resumeimg(re_no);
+	}
 
 	public List<Career> career(int re_no) throws Exception {
 		return pdao.career(re_no);
@@ -227,21 +230,23 @@ public class ProuserService {
 
 	// 마이페이지 이력서 등록
 	public int resumeinsert(Resume resume, HttpServletRequest req) throws Exception {
-		int result = pdao.resumeinsert(resume);
-		MultipartFile re_picture = resume.getRe_picture();
-		if(!re_picture.isEmpty()) {
-			String changeName = System.currentTimeMillis()+"_"+re_picture.getOriginalFilename();
+		int result = pdao.resumeinsert(resume, req);
+		MultipartFile f = resume.getF();
+		if(!f.isEmpty()) {
+			String changeName = System.currentTimeMillis()+"_"+f.getOriginalFilename();
 			resume.setChangeName(changeName);
 			System.out.println("==========");
-			System.out.println(re_picture.getOriginalFilename());
-			System.out.println(re_picture.getSize());
-			System.out.println(re_picture.getContentType());
+			System.out.println(f.getOriginalFilename());
+			System.out.println(f.getSize());
+			System.out.println(f.getContentType());
 			System.out.println("==========");
 			
-			String path = req.getServletContext().getRealPath("resources/resume");
-			File file = new File(path+changeName);
-			re_picture.transferTo(file);
-			
+			String path = req.getSession().getServletContext().getRealPath("");
+			String savePath = "resources\\resume";
+//			File file = new File("C:\z_workspace\z_spring\projob_project\src\main\webapp\resources\resume/"+changeName);
+			File file = new File(path+savePath+changeName);
+			f.transferTo(file);
+			System.out.println(file);
 			pdao.uploadReimg(resume);
 		}
 		return result;

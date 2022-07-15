@@ -87,6 +87,16 @@
 		function goBack() {
 			window.history.back();
 		};
+		//이력서 개수제한 (jquery이용하여 checkbox개수 제한하기)
+		$('input:checkbox[class=projectjoin_resumechoice]').click(function(){ 
+			  
+			  var cntEPT = $('input:checkbox[class=projectjoin_resumechoice]:checked').length;   //체크갯수 확인
+			 
+			  if(cntEPT>1){
+			   alert('이력서는 하나만 선택가능합니다.')
+			   $(this).prop('checked', false);
+			  }
+			 });
 	</script>
 </body>
 

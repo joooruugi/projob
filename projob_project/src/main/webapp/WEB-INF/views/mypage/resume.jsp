@@ -43,6 +43,12 @@
 			<p class="fontname">이력서</p>
 		</div>
 		<div class="resumecontent">
+			<c:forEach items="${resumeimg }" var="resumeimg">
+				<div class="resumepart">
+					<label class="resumelabel" for="re_picture">사진 </label> <img width=200px;
+						src="<%=request.getContextPath() %>/resources/resume/${resumeimg.changeName}"> <br> <br>
+				</div>
+			</c:forEach>
 			<c:forEach items="${resume }" var="resume">
 				<div class="resumepart">
 					<p class="fonthighlight resumemiddlename">RESUME</p>
@@ -53,12 +59,8 @@
 				<div class="resumemyself resumepart">
 					<p class="fonthighlight resumemiddlename">PERSONAL INFOMATION</p>
 					<label class="resumelabel" for="re_name">이름</label>
-					<p class="resumep" id="re_name" >${resume.re_name }</p>
-					<br> <br> <label class="resumelabel" for="re_picture">사진
-					</label>
-					<img src="<%=request.getContextPath()%>/resources/resume/${resume.changeName}"> 
-					<br> <br> <label
-						class="resumelabel" for="re_birth">생년월일</label>
+					<p class="resumep" id="re_name">${resume.re_name }</p>
+					<br> <br> <label class="resumelabel" for="re_birth">생년월일</label>
 					<p class="resumep" id="re_birth">${resume.re_birth }</p>
 					<br> <br> <label class="resumelabel" for="re_type">분야</label>
 					<c:choose>
@@ -77,59 +79,58 @@
 				<div class="resumeschool resumepart">
 					<p class="fonthighlight resumemiddlename">SCHOOL</p>
 					<label class="resumelabel" for="re_school">최종학력(학교명) </label>
-					<p class="resumep" id="re_school" >${resume.re_school }</p>
+					<p class="resumep" id="re_school">${resume.re_school }</p>
 					<br> <br> <label class="resumelabel" for="re_graduate">졸업연도</label>
-					<p class="resumep" id="re_graduate" >${resume.re_graduate }
-						졸업</p>
+					<p class="resumep" id="re_graduate">${resume.re_graduate }졸업</p>
 				</div>
 			</c:forEach>
 			<c:forEach items="${certi }" var="certi">
-			<div class="resumedivision"></div>
-			<div class="resumecerti resumepart">
-				<p class="fonthighlight resumemiddlename">CERTIFICATION</p>
-				<label class="resumelabel" for="ce_title">자격증</label>
-				<p class="resumep" id="ce_title">${certi.ce_title }</p>
-				<br> <br> <label class="resumelabel" for="ce_num">자격번호</label>
-				<p class="resumep" id="ce_num" >${certi.ce_num }</p>
-				<br> <br> <label class="resumelabel" for="ce_cert_pub">발행처</label>
-				<p class="resumep" id="ce_cert_pub">${certi.ce_cert_pub }</p>
-				<br> <br> <label class="resumelabel" for="ce_date">발행일자</label>
-				<p class="resumep" id="ce_date">${certi.ce_date }</p>
-			</div>
+				<div class="resumedivision"></div>
+				<div class="resumecerti resumepart">
+					<p class="fonthighlight resumemiddlename">CERTIFICATION</p>
+					<label class="resumelabel" for="ce_title">자격증</label>
+					<p class="resumep" id="ce_title">${certi.ce_title }</p>
+					<br> <br> <label class="resumelabel" for="ce_num">자격번호</label>
+					<p class="resumep" id="ce_num">${certi.ce_num }</p>
+					<br> <br> <label class="resumelabel" for="ce_cert_pub">발행처</label>
+					<p class="resumep" id="ce_cert_pub">${certi.ce_cert_pub }</p>
+					<br> <br> <label class="resumelabel" for="ce_date">발행일자</label>
+					<p class="resumep" id="ce_date">${certi.ce_date }</p>
+				</div>
 			</c:forEach>
 			<c:forEach items="${career }" var="career">
-			<div class="resumedivision"></div>
-			<div class="resumecarrer resumepart">
-				<p class="fonthighlight resumemiddlename">CAREER</p>
-				<label class="resumelabel" for="ca_title">경력사항(회사명) </label>
-				<p class="resumep" id="ca_title">${career.ca_title }</p>
-				<br> <br> <label class="resumelabel" for="ca_period">근무기간</label>
-				<p class="resumep" id="ca_period" >${career.ca_period }</p>
-				<br> <br> <label class="resumelabel" for="ca_dept">근무부서</label>
-				<p class="resumep" id="ca_dept">${career.ca_dept }</p>
-				<br> <br> <label class="resumelabel" for="ca_jobtitle">근무직급</label>
-				<p class="resumep" id="ca_jobtitle">${career.ca_jobtitle }</p>
-				<br> <br> <label class="resumelabel" for="ca_adddetail">추가
-					설명</label>
-				<p class="resumep" id="ca_adddetail">${career.ca_adddetail }</p>
-			</div>
+				<div class="resumedivision"></div>
+				<div class="resumecarrer resumepart">
+					<p class="fonthighlight resumemiddlename">CAREER</p>
+					<label class="resumelabel" for="ca_title">경력사항(회사명) </label>
+					<p class="resumep" id="ca_title">${career.ca_title }</p>
+					<br> <br> <label class="resumelabel" for="ca_period">근무기간</label>
+					<p class="resumep" id="ca_period">${career.ca_period }</p>
+					<br> <br> <label class="resumelabel" for="ca_dept">근무부서</label>
+					<p class="resumep" id="ca_dept">${career.ca_dept }</p>
+					<br> <br> <label class="resumelabel" for="ca_jobtitle">근무직급</label>
+					<p class="resumep" id="ca_jobtitle">${career.ca_jobtitle }</p>
+					<br> <br> <label class="resumelabel" for="ca_adddetail">추가
+						설명</label>
+					<p class="resumep" id="ca_adddetail">${career.ca_adddetail }</p>
+				</div>
 			</c:forEach>
 			<c:forEach items="${resume }" var="resume">
-			<div class="resumedivision"></div>
-			<div class="resumeextra resumepart">
-				<p class="fonthighlight resumemiddlename">EXTRA INFORMATION</p>
-				<label class="resumelabel" for="re_homepage">홈페이지(포트폴리오)</label>
-				<p class="resumep" id="re_homepage">${resume.re_homepage }</p>
-				<br> <label class="resumelabel" for="re_openyn">공개여부</label> 
-				<c:choose>
+				<div class="resumedivision"></div>
+				<div class="resumeextra resumepart">
+					<p class="fonthighlight resumemiddlename">EXTRA INFORMATION</p>
+					<label class="resumelabel" for="re_homepage">홈페이지(포트폴리오)</label>
+					<p class="resumep" id="re_homepage">${resume.re_homepage }</p>
+					<br> <label class="resumelabel" for="re_openyn">공개여부</label>
+					<c:choose>
 						<c:when test="${resume.re_openyn  eq '0'}">
-							<p class="resumep" id="re_openyn" >비공개</p>
+							<p class="resumep" id="re_openyn">비공개</p>
 						</c:when>
 						<c:when test="${resume.re_openyn  eq '1'}">
 							<p class="resumep" id="re_openyn">공개</p>
 						</c:when>
 					</c:choose>
-			</div>
+				</div>
 			</c:forEach>
 		</div>
 		<div class="resumebutton resumepart">

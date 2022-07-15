@@ -3,6 +3,8 @@ package fin.spring.projob.prouser.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +94,9 @@ public class ProuserDao {
 	public List<Resume> resume(int re_no) throws Exception {
 		return sql.selectList("Prouser.resume", re_no);
 	}
-
+	public List<Resume> resumeimg(int re_no) throws Exception{
+		return sql.selectList("Prouser.resumeimg", re_no);
+	}
 	public List<Career> career(int re_no) throws Exception {
 		return sql.selectList("Prouser.career", re_no);
 	}
@@ -102,13 +106,13 @@ public class ProuserDao {
 	}
 
 	// 마이페이지 이력서 등록
-	public int resumeinsert(Resume resume) throws Exception {
+	public int resumeinsert(Resume resume, HttpServletRequest req) throws Exception {
 		System.out.println("Dao============"+resume);
 		return sql.insert("Prouser.resumeinsert", resume);
 	}
 	public void uploadReimg(Resume resume) throws Exception{
 		System.out.println("Dao============"+resume);
-		sql.update("Prouser.uploadReimg", resume);
+		sql.insert("Prouser.uploadReimg", resume);
 	}
 
 	public int resumeinsertcareer(Career career) throws Exception {
@@ -123,6 +127,7 @@ public class ProuserDao {
 	public List<Resume> resumeJoin(String us_id) throws Exception {
 		return sql.selectList("Prouser.resumeJoin", us_id);
 	}
+	
 
 	// 마이페이지 프리랜서 승인 대기중인 프로젝트 정보 불러오기(건수)
 	public int freeprojectyetcnt(String us_id) throws Exception {

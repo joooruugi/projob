@@ -21,7 +21,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/projectmain.css">
+	href="<%=request.getContextPath()%>/resources/css/projectstatus.css">
 </head>
 
 <body>
@@ -47,7 +47,7 @@
 			<div class="projectcontent">
 				<c:forEach items="${projectstatuscomp }" var="projectstatuscomp">
 					<div class="projectcontenttitle">
-						<a
+						<a class="fontcontent " style="font-size:20px;"
 							href="<%=request.getContextPath()%>/projectjoinstatus?pro_no=${projectstatuscomp.pro_no}">
 							<input type="hidden" name="pro_no"
 							value="${projectstatuscomp.pro_no }" class="fontname">

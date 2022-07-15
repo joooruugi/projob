@@ -1,7 +1,5 @@
 package fin.spring.projob.project.controller;
 
-
-
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fin.spring.projob.common.ScriptUtils;
-import fin.spring.projob.project.service.ProjectServiceImpl;
+import fin.spring.projob.project.service.ProjectService;
 import fin.spring.projob.project.vo.PMember;
 import fin.spring.projob.project.vo.Project;
 import fin.spring.projob.prouser.controller.ProuserController;
@@ -37,7 +35,7 @@ public class ProjectController {
 	private static final Logger logger = LoggerFactory.getLogger(ProuserController.class);
 
 	@Autowired
-	private ProjectServiceImpl service;
+	private ProjectService service;
 	private ProuserService prouserservice;
 
 	// 프로젝트 메인 GET
@@ -111,29 +109,39 @@ public class ProjectController {
 	// 프로젝트 신청 POST
 	@PostMapping("/projectjoin")
 	public ModelAndView projectjoinPost(ModelAndView mv, HttpSession session, HttpServletResponse response,
-			@ModelAttribute("loginSsInfo") Prouser prouser, Project project, Resume resume, PMember pmember)
-			throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser, Project project, Resume resume, PMember pmember,
+			@RequestParam("pro_no") int pro_no) throws Exception {
 		logger.info("projectjoin for POST");
 		session.getAttribute("loginSsInfo");
 		pmember.setUs_id(prouser.getUs_id());
-		pmember.setUs_name(prouser.getUs_name());
-		int result = service.pmemberinsert(pmember);
-		System.out.println(result);
-		if (result < 1) {
-			logger.info("pmemberinsert fail");
-			mv.setViewName("project/projectjoin");
+		pmember.setPro_no(pro_no);
+		int alreadyjoin = service.alreadyjoinproject(pmember);
+		if (alreadyjoin != 0) {
+			logger.info("User has session already join this project.");
+			ScriptUtils.alertAndBackPage(response, "기신청한 프로젝트 입니다.");
 		} else {
-			logger.info("pmemberinsert success");
-			ScriptUtils.alert(response, "프로젝트 신청이 완료되었습니다.");
-			mv.setViewName("project/projectmain");
+			pmember.setUs_name(prouser.getUs_name());
+			int result = service.pmemberinsert(pmember);
+			System.out.println(result);
+			if (result < 1) {
+				logger.info("pmemberinsert fail");
+				ScriptUtils.alertAndBackPage(response, "신청에 실패했습니다. 재시도해주세요.");
+			} else {
+				logger.info("pmemberinsert success");
+				ScriptUtils.alert(response, "프로젝트 신청이 완료되었습니다.");
+				mv.setViewName("project/projectmain");
+
+			}
 		}
 		return mv;
+
 	}
 
 	// (기업) 본인 프로젝트 목록 GET
 	@RequestMapping(value = "/projectstatus", method = RequestMethod.GET)
-	public ModelAndView projectstatusGet(ModelAndView mv, HttpSession session, HttpServletRequest req, HttpServletResponse response,
-			@ModelAttribute("loginSsInfo") Prouser prouser, Project project) throws Exception {
+	public ModelAndView projectstatusGet(ModelAndView mv, HttpSession session, HttpServletRequest req,
+			HttpServletResponse response, @ModelAttribute("loginSsInfo") Prouser prouser, Project project)
+			throws Exception {
 		logger.info("projectstatus GET");
 		session.getAttribute("loginSsInfo");
 		System.out.println(prouser);
@@ -160,27 +168,29 @@ public class ProjectController {
 		return mv;
 	}
 
-	 //(기업) 프로젝트 프리랜서 선정 (신청 및 선정현황에서 POST)
+	// (기업) 프로젝트 프리랜서 선정 (신청 및 선정현황에서 POST)
 	@PostMapping("/projectjoinstatus")
 	public ModelAndView projectjoinstatusPost(ModelAndView mv, HttpSession session, HttpServletResponse response,
-			@ModelAttribute("loginSsInfo") Prouser prouser, Project project
-			,@RequestParam("pro_no") int pro_no
-			,@RequestParam("free_id") String free_id
-			, PMember pm
-			, RedirectAttributes rttr) throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser, Project project, @RequestParam("pro_no") int pro_no,
+			@RequestParam("free_id") String free_id, PMember pm, RedirectAttributes rttr) throws Exception {
 		logger.info("projectjoinstatusPOST for company");
 		session.getAttribute("loginSsInfo");
-		System.out.println(prouser);
 		pm.setPro_no(pro_no);
 		pm.setUs_id(free_id);
-		int result = service.selectfree(pm);
-		rttr.addFlashAttribute("result", pm);
-		if(result == 0) {
-			ScriptUtils.alert(response, "프리랜서 선정 실패. 재시도해주세요.");
-		}else {
-			ScriptUtils.alert(response, "프리랜서 선정되었습니다.");
+		int selected = service.selectedfree(pm);
+		if (selected >= project.getPro_personnel()) {
+			ScriptUtils.alertAndBackPage(response, "이미 필요인원을 다 선정하였습니다. 프로젝트를 마감해주세요.");
+		} else {
+			int result = service.selectfree(pm);
+			rttr.addFlashAttribute("result", pm);
+			if (result == 0) {
+				ScriptUtils.alert(response, "프리랜서 선정 실패. 재시도해주세요.");
+			} else {
+				ScriptUtils.alert(response, "프리랜서 선정되었습니다.");
+			}
+			mv.setViewName("project/projectjoinstatus");
 		}
-		mv.setViewName("project/projectjoinstatus");
+
 		return mv;
 	}
 

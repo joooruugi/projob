@@ -89,6 +89,10 @@
 		select * from
 		resume where re_no=#{re_no}
 	</select>
+	<select id="resumeimg" parameterType="int" resultType="Resume">
+		select * from
+		re_img where re_no=#{re_no}
+	</select>
 	<select id="career" parameterType="int" resultType="Career">
 		select * from
 		career where ca_no=#{re_no}
@@ -101,12 +105,15 @@
 	<insert id="resumeinsert" parameterType="Resume">
 		insert into
 		resume(re_no, us_id, re_school, re_graduate, re_type, re_homepage,
-		re_openyn, re_name, re_birth, re_title, re_wdate, changeName)
+		re_openyn, re_name, re_birth, re_title, re_wdate)
 		values (re_seq.nextval, #{us_id}, #{re_school}, #{re_graduate}, #{re_type},
 		#{re_homepage}, #{re_openyn},  #{re_name}, #{re_birth},
-		#{re_title}, current_timestamp, #{changeName})
+		#{re_title}, current_timestamp)
 	</insert>
-	
+	<insert id="uploadReimg" parameterType="Resume">
+		insert into re_img(reimg_no, us_id, re_no, changeName) values
+		(re_imgseq.nextval, #{us_id}, re_seq.currval, #{changeName})
+	</insert>
 	<insert id="resumeinsertcareer" parameterType="Career">
 		insert into
 		career(ca_no, ca_title, ca_dept, ca_jobtitle, ca_adddetail, ca_period)

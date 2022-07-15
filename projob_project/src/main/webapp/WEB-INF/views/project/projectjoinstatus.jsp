@@ -109,6 +109,15 @@
 		function goBack() {
 			window.history.back();
 		};
+		$('input:checkbox[class=projectjoin_resumechoice]').click(function(){ 
+			  
+			  var cntEPT = $('input:checkbox[class=projectjoin_resumechoice]:checked').length;   //체크갯수 확인
+			 
+			  if(cntEPT>1){
+			   alert('한명씩 선정 가능합니다.')
+			   $(this).prop('checked', false);
+			  }
+			 });
 	</script>
 </body>
 
