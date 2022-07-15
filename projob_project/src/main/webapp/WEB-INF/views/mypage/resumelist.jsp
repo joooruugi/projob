@@ -9,9 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="http://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 <title>PROJOB_RESUME</title>
 
 <link rel="stylesheet"
@@ -51,31 +49,34 @@
 				<div class="resumelisttable">
 					<table class="listofresume">
 						<thead class="resumelist_thead fontimportant2">
-							<td class="resumelist_title">이력서 명</td>
-							<td class="resumelist_openYN">공개여부</td>
+							<tr>
+								<td class="resumelist_title">이력서 명</td>
+								<td class="resumelist_openYN">공개여부</td>
+							</tr>
 						</thead>
 						<c:forEach items="${resumelist }" var="resumelist">
-									<tr class="resumelist_line fontcontent">
-										<td class="resumelist_titlelink"><a
-											href="<%=request.getContextPath()%>/resume?re_no=${resumelist.re_no}"><c:out
-													value="${resumelist.re_title }" /></a></td>
-										<c:choose>
-											<c:when test="${resumelist.re_openyn eq '0' }">
-												<td>비공개</td>
-											</c:when>
-											<c:when test="${resumelist.re_openyn eq '1' }">
-												<td>공개</td>
-											</c:when>
-										</c:choose>
-									</tr>
-								</c:forEach>
+							<tr class="resumelist_line fontcontent">
+								<td class="resumelist_titlelink"><a
+									href="<%=request.getContextPath()%>/resume?re_no=${resumelist.re_no}"><c:out
+											value="${resumelist.re_title }" /></a></td>
+								<c:choose>
+									<c:when test="${resumelist.re_openyn eq '0' }">
+										<td>비공개</td>
+									</c:when>
+									<c:when test="${resumelist.re_openyn eq '1' }">
+										<td>공개</td>
+									</c:when>
+								</c:choose>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 			</div>
 
 		</form>
 		<div class="resumelistbutton">
-			<button class="resumelistinsertbtn btn6" type="button" onclick="location.href='resumeinsert'">
+			<button class="resumelistinsertbtn btn6" type="button"
+				onclick="location.href='resumeinsert'">
 				<p class="fontcontent">이력서 등록하기</p>
 			</button>
 		</div>

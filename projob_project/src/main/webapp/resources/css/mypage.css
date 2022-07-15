@@ -85,17 +85,24 @@
     width: 45%;
     margin: 20px 20px;
 }
+.my_project_cancel{
+	background-color:gray;
+	
+	width:50%;
+}
+.cancela{
+	color:white;
+}
 .my_project_yet, .my_project_ing{
 	display:flex;
 	flex-direction:column;	
 	cursor:pointer;
+	margin:20px;
 }
 .my_project_yet a:hover{
-	font-weight: 700;
 	text-decoration:underline;
 }
 .my_project_ing a:hover{
-	font-weight: 700;
 	text-decoration:underline;
 }
 .my_project_yet_name{

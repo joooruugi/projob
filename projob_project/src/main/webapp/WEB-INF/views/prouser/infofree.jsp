@@ -8,9 +8,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="http://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 <title>PROJOB_JOIN</title>
 
 <link rel="stylesheet"
@@ -29,11 +27,11 @@
 	<!--헤더-->
 	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
 	<div class="joininfofree">
-		<div class="infoname">
-			<p class="fonthighlight">정보 입력</p>
-		</div>
-		<div class="writeinfo">
-			<form action="<%=request.getContextPath()%>/infofree" method="post">
+		<form action="<%=request.getContextPath()%>/infofree" method="post">
+			<div class="infoname">
+				<p class="fonthighlight">정보 입력</p>
+			</div>
+			<div class="writeinfo">
 				<div class="inforow">
 					<br> <label class="labelinfo" for="us_name">이름</label><br>
 					<br> <input type="text" class="inputinfo" required
@@ -90,20 +88,19 @@
 				</div>
 				<div class="inforow">
 					<label class="labelinfo" for="us_address">주소</label><br> <br>
-					<input type="text" class="inputinfo us_address"
-						name="us_address" required id="us_address"
-						readonly="readonly" placeholder=""
+					<input type="text" class="inputinfo us_address" name="us_address"
+						required id="us_address" readonly="readonly" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					<br> <br> <input type="text"
-						class="inputinfo us_address2" name="us_address2"
-						required id="us_address2" readonly="readonly" placeholder=""
+						class="inputinfo us_address2" name="us_address2" required
+						id="us_address2" readonly="readonly" placeholder=""
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					<br> <br>
 					<div class="inforow">
 						<label class="labelinfo" for="us_address3">상세주소</label><br> <br>
 						<input type="text" class="inputinfo us_address3"
-							name="us_address3" readonly="readonly"
-							id="us_address3" placeholder=""
+							name="us_address3" readonly="readonly" id="us_address3"
+							placeholder=""
 							style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 					</div>
 					<button type="button" class="inputinfobtn"
@@ -117,12 +114,12 @@
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
 				<br> <br>
-		</div>
-		<div class="infonextbtn">
-			<button type="submit" id="submit" class="btn3">
-				<p class="fonthighlight">NEXT</p>
-			</button>
-		</div>
+			</div>
+			<div class="infonextbtn">
+				<button type="submit" id="submit" class="btn3">
+					<p class="fonthighlight">NEXT</p>
+				</button>
+			</div>
 		</form>
 	</div>
 	<!--푸터-->
@@ -222,8 +219,8 @@
 				}
 			});
 		});
-		</script>
-		<script>
+	</script>
+	<script>
 		//주소 API
 		function execution_daum_address() {
 			new daum.Postcode(

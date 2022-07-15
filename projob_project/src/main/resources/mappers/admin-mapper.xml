@@ -7,4 +7,10 @@
 	<select id="aduserapprove" parameterType="int" resultType="Prouser">
 		select * from prouser where us_ok = #{us_ok}
 	</select>
+	<update id="updateuserok" parameterType="String">
+		update prouser set us_ok = 1 where us_id=#{us_id}
+	</update>
+	<update id="updateusernok" parameterType="String">
+		update prouser set us_ok = 2 where us_id=#{us_id}
+	</update>
 </mapper>

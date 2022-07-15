@@ -9,9 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="http://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 <title>PROJOB_PROJECT</title>
 
 <link rel="stylesheet"
@@ -49,10 +47,8 @@
 		<c:forEach items="${projectlist }" var="projectlist">
 			<div class="projectcontent">
 				<div class="projectcontenttitle">
-					<a href="<%=request.getContextPath()%>/projectdetail?pro_no=${projectlist.pro_no}">
-						<p class="fontname">
+					<a class="fontname" href="<%=request.getContextPath()%>/projectdetail?pro_no=${projectlist.pro_no}">
 							<c:out value="${projectlist.pro_title }" /> 
-						</p>
 					</a>
 				</div>
 				<div class="projectcontentdetail">

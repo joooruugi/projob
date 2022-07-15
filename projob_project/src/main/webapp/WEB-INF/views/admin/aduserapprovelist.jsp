@@ -36,29 +36,27 @@
 			<div class="aduserapprovelisttable">
 				<table class="listofaduserapprove">
 					<thead class="aduserapprovelist fontimportant2">
-						<td class="aduserapprovelist_title">회원 아이디</td>
+						<td>회원 아이디</td>
 						<td class="aduserapprovelist_title">회원 이름</td>
 						<td class="aduserapprovelist_title">사업자등록번호</td>
 						<td class="aduserapprovelist_title">회원가입 수락</td>
 					</thead>
 					<c:forEach items="${aduserapprovelist }" var="aduserapprovelist">
 						<tr class="aduserapprovelist_line fontcontent">
-							<td class="aduserapprovelist_content"><c:out value="${aduserapprovelist.us_id }" /></td>
-							<td class="aduserapprovelist_content"><c:out value="${aduserapprovelist.us_name }" /></td>
-							<td class="aduserapprovelist_content"><c:out value="${aduserapprovelist.us_crn }" /></td>
-							<td class="aduserapprovelist_content"><button type="button" class="aduserapprovelistbtn btn6">수락</button></td>
+							<td class="aduserapprovelist_content"><c:out
+									value="${aduserapprovelist.us_id }" /></td>
+							<td class="aduserapprovelist_content"><c:out
+									value="${aduserapprovelist.us_name }" /></td>
+							<td class="aduserapprovelist_content"><c:out
+									value="${aduserapprovelist.us_crn }" /></td>
+							<td class="aduserapprovelist_content"><button type="button"
+									class="aduserapprovelistbtn btn6">수락</button></td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 		</div>
 
-		<div class="resumelistbutton">
-			<button class="resumelistinsertbtn btn6" type="button"
-				onclick="location.href='resumeinsert'">
-				<p class="fontcontent">이력서 등록하기</p>
-			</button>
-		</div>
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />

@@ -101,11 +101,12 @@
 	<insert id="resumeinsert" parameterType="Resume">
 		insert into
 		resume(re_no, us_id, re_school, re_graduate, re_type, re_homepage,
-		re_openyn, re_picture, re_name, re_birth, re_title, re_wdate)
+		re_openyn, re_name, re_birth, re_title, re_wdate, changeName)
 		values (re_seq.nextval, #{us_id}, #{re_school}, #{re_graduate}, #{re_type},
-		#{re_homepage}, #{re_openyn}, #{re_picture}, #{re_name}, #{re_birth},
-		#{re_title}, current_timestamp)
+		#{re_homepage}, #{re_openyn},  #{re_name}, #{re_birth},
+		#{re_title}, current_timestamp, #{changeName})
 	</insert>
+	
 	<insert id="resumeinsertcareer" parameterType="Career">
 		insert into
 		career(ca_no, ca_title, ca_dept, ca_jobtitle, ca_adddetail, ca_period)

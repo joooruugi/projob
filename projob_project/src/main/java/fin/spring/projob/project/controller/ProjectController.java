@@ -3,6 +3,7 @@ package fin.spring.projob.project.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +25,7 @@ import fin.spring.projob.project.service.ProjectServiceImpl;
 import fin.spring.projob.project.vo.PMember;
 import fin.spring.projob.project.vo.Project;
 import fin.spring.projob.prouser.controller.ProuserController;
-import fin.spring.projob.prouser.service.ProuserServiceImpl;
+import fin.spring.projob.prouser.service.ProuserService;
 import fin.spring.projob.prouser.vo.Prouser;
 import fin.spring.projob.prouser.vo.Resume;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,7 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectServiceImpl service;
-	private ProuserServiceImpl prouserservice;
+	private ProuserService prouserservice;
 
 	// 프로젝트 메인 GET
 	// 프로젝트 목록 조회

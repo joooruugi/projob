@@ -1,6 +1,7 @@
 package fin.spring.projob.prouser.controller;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fin.spring.projob.common.ScriptUtils;
-import fin.spring.projob.prouser.service.ProuserServiceImpl;
+import fin.spring.projob.prouser.service.ProuserService;
 import fin.spring.projob.prouser.vo.Career;
 import fin.spring.projob.prouser.vo.Certificate;
 import fin.spring.projob.prouser.vo.Kakao;
@@ -37,7 +38,7 @@ public class ProuserController {
 	private static final Logger logger = LoggerFactory.getLogger(ProuserController.class);
 
 	@Autowired
-	private ProuserServiceImpl service;
+	private ProuserService service;
 	BCryptPasswordEncoder passEncoder;
 
 	// 회원가입 사용자 선택 화면(회원가입1)
@@ -263,10 +264,10 @@ public class ProuserController {
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logout(ModelAndView mv, HttpServletResponse response, HttpSession session)throws Exception {
-		session.invalidate();
 		logger.info("Prouser logout");
 		ScriptUtils.alert(response, "로그아웃 되었습니다.");
-		mv.setViewName("prouser/login");
+		mv.setViewName("redirect:/");
+		session.invalidate();
 		return mv;
 	}
 
@@ -399,14 +400,14 @@ public class ProuserController {
 	@PostMapping("/resumeinsert")
 	public ModelAndView resumeinsertPost(ModelAndView mv, HttpSession session,
 			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Career career, Certificate certi,
-			HttpServletRequest req, HttpServletResponse response) throws Exception {
+			HttpServletRequest req, HttpServletResponse response
+			) throws Exception {
 		logger.info("resumeinsert POST");
 		session.getAttribute("loginSsInfo");
 		System.out.println("resume insert Session info : " + prouser);
 		resume.setUs_id(prouser.getUs_id());
-		int result = service.resumeinsert(resume);
+		int result = service.resumeinsert(resume, req);
 		System.out.println("이력서에 들어간 값 조회:"+resume);
-		System.out.println(resume.getRe_no());
 		int resultcar = service.resumeinsertcareer(career);
 		int resultcerti = service.resumeinsertcerti(certi);
 		if (result < 1 || resultcar < 1 || resultcerti < 1) {
@@ -415,7 +416,7 @@ public class ProuserController {
 		} else {
 			ScriptUtils.alert(response, "이력서 등록 완료. 공개처리 하셔야 기업에 공개됩니다.");
 			logger.info("resume insert success");
-			mv.setViewName("mypage/mypagefree");
+			mv.setViewName("mypage/mypage");
 		}
 		return mv;
 	}

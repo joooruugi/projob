@@ -9,9 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="http://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 <title>PROJOB_RESUME</title>
 
 <link rel="stylesheet"
@@ -45,7 +43,7 @@
 			<p class="fontname">이력서 등록</p>
 		</div>
 		<form action="<%=request.getContextPath()%>/resumeinsert"
-			method="post">
+			method="post" enctype="multipart/form-data">
 			<div class="resumecontent">
 				<div class="resumepart">
 					<p class="fonthighlight resumemiddlename">RESUME</p>
@@ -57,9 +55,14 @@
 					<p class="fonthighlight resumemiddlename">PERSONAL INFOMATION</p>
 					<label class="resumelabel" for="re_name">이름</label> <input
 						type="text" class="resumeinput" id="re_name" name="re_name">
-					<br> <br> <label class="resumelabel" for="re_picture">사진
-					</label> <input type="file" class="resumeinput" id="re_picture"
-						name="re_picture"> <br> <br> <label
+					<br> <br> 
+					<label class="resumelabel" for="re_picture">사진
+					</label> 
+					<input type="file" class="resumeinput" id="re_picture"
+						name="re_picture" multiple="multiple" accept=".jpg, .png">
+						<img id="resumeimg"><br><hr>
+						<div id="div-preview"></div> <br> <br> 
+						<label
 						class="resumelabel" for="re_birth">생년월일</label> <input type="date"
 						class="resumeinput" id="re_birth" name="re_birth"> <br>
 					<br> <label class="resumelabel" for="re_type">분야</label> <select
@@ -129,6 +132,44 @@
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<script type="text/javascript">
+	
+		let fileTag = document.querySelector("input[name=re_picture]");
+		let divPreview = document.querySelector("#div-preview");
+		
+		fileTag.onchange = function(){
+			
+			//파일 올렸을 때 : fileTag.files.length > 0
+			if(fileTag.files.length>0){
+				//이미지 src에 들어갈 데이터 구하기
+				for(let i=0; i<fileTag.files.length; i++){
+					let reader = new FileReader();
+					reader.onload = function(data){
+						let src = data.target.result;
+						//이미지 태그를 만들어서 넣어줄거임
+						//1. 이미지 태그 만들기
+						let imgTag = document.createElement('img');
+						
+						//2. 이미지 태그 속성들 세팅하기
+						imgTag.setAttribute('src', src);
+						imgTag.setAttribute('width', '300');
+						imgTag.setAttribute('height', '400');
+						
+						//3. 이미지 태그 div안에 넣기
+						divPreview.appendChild(imgTag);
+					}
+					reader.readAsDataURL(fileTag.files[i]);
+					
+				}//for end
+				
+			}else{
+			//취소 버튼을 눌렀을 때
+				//div 안에 싹 다 비우기
+				divPreview.innerHTML = "";
+			}
+		}
+	
+	</script>
 </body>
 
 </html>

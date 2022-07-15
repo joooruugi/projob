@@ -9,9 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="http://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 <title>PROJOB_MYPAGE</title>
 
 <link rel="stylesheet"
@@ -89,6 +87,11 @@
 							href="<%=request.getContextPath()%>/projectdetail?pro_no=${freeprojectinfo.pro_no}"
 							class="my_projecting fontnothing"><c:out
 								value="${freeprojectinfo.pro_title }" /></a>
+						<div class="my_project_cancel">
+							<a
+								href="<%=request.getContextPath() %>/projectcancel?pro_no=${freeprojectinfo.pro_no}"
+								class="myprojecting fontnothing2 cancela ">철회하기</a>
+						</div>
 					</div>
 				</c:forEach>
 			</div>
@@ -98,8 +101,10 @@
 				</div>
 				<div class="my_project_yet">
 					<c:forEach items="${freeprojectyetinfo }" var="freeprojectyetinfo">
-					<a href="<%=request.getContextPath()%>/projectdetail?pro_no=${freeprojectyetinfo.pro_no}" class="my_projecting fontnothing"><c:out
-													value="${freeprojectyetinfo.pro_title }" /></a>
+						<a
+							href="<%=request.getContextPath()%>/projectdetail?pro_no=${freeprojectyetinfo.pro_no}"
+							class="my_projecting fontnothing"><c:out
+								value="${freeprojectyetinfo.pro_title }" /></a>
 					</c:forEach>
 				</div>
 			</div>
@@ -125,8 +130,8 @@
 				</div>
 				<div class="mypageinfobtn">
 					<button type="submit" class="myinfobtn btn2"
-					onclick="location.href='projectstatus'">
-						<p class="fontcontent" >프로젝트 관리</p>
+						onclick="location.href='projectstatus'">
+						<p class="fontcontent">프로젝트 관리</p>
 					</button>
 				</div>
 			</div>
@@ -147,7 +152,7 @@
 				<div class="my_project_ing_name">
 					<p class="fontimportant2">진행중인 프로젝트</p>
 				</div>
-					<c:forEach items="${compprojectinfo }" var="compprojectinfo">
+				<c:forEach items="${compprojectinfo }" var="compprojectinfo">
 					<div class="my_project_ing">
 						<a
 							href="<%=request.getContextPath()%>/projectdetail?pro_no=${compprojectinfo.pro_no}"

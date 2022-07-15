@@ -9,9 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="http://code.jquery.com/jquery-3.5.1.js"
-	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-	crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 <title>PROJOB_PROJECT</title>
 
 <link rel="stylesheet"
@@ -52,10 +50,8 @@
 						<a
 							href="<%=request.getContextPath()%>/projectjoinstatus?pro_no=${projectstatuscomp.pro_no}">
 							<input type="hidden" name="pro_no"
-							value="${projectstatuscomp.pro_no }">
-							<p class="fontname">
+							value="${projectstatuscomp.pro_no }" class="fontname">
 								<c:out value="${projectstatuscomp.pro_title }" />
-							</p>
 						</a>
 					</div>
 					<div class="projectcontentdetail">

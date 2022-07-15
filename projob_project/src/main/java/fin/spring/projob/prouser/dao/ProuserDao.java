@@ -103,7 +103,12 @@ public class ProuserDao {
 
 	// 마이페이지 이력서 등록
 	public int resumeinsert(Resume resume) throws Exception {
+		System.out.println("Dao============"+resume);
 		return sql.insert("Prouser.resumeinsert", resume);
+	}
+	public void uploadReimg(Resume resume) throws Exception{
+		System.out.println("Dao============"+resume);
+		sql.update("Prouser.uploadReimg", resume);
 	}
 
 	public int resumeinsertcareer(Career career) throws Exception {

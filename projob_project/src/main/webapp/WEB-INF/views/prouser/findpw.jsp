@@ -31,19 +31,17 @@
 		</div>
 		<form action="<%=request.getContextPath()%>/findpw" method="post">
 			<div class="findpwdcontent">
-				<label class="findpwdlabel" for="us_name"><p
-						class="fontname">이름</p></label> <input type="text" class="inputfindpwd"
+				<label class="findpwdlabel fontname" for="us_name">이름</label> <input type="text" class="inputfindpwd"
 					id="us_name" placeholder="" name="us_name"
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				<label class="findpwdlabel" for="us_id"><p class="fontname">아이디</p></label>
+				<label class="findpwdlabel fontname" for="us_id">아이디</label>
 				<input type="text" class="inputfindpwd" name="us_id" id="us_id"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				<label class="findpwdlabel" for="us_email"><p
-						class="fontname">이메일</p></label> <input type="email" class="inputfindpwd"
+				<label class="findpwdlabel fontname" for="us_email">이메일</label> <input type="email" class="inputfindpwd"
 					id="us_email" name="us_email" placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				<label class="findpwdlabel" for="us_crn"><p class="fontname">사업자등록번호</p></label>
+				<label class="findpwdlabel fontname" for="us_crn">사업자등록번호</label>
 				<input type="text" class="inputfindpwd" name="us_crn" id="us_crn"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
