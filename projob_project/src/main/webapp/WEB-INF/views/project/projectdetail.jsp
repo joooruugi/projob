@@ -76,6 +76,10 @@
 				<p class="fontnothing pro_detail_personnel">회사명 :
 					${projectdetail.pro_comp}</p>
 			</div>
+			<c:forEach var="file" items="${file }">
+					<a href="#"> <c:out value="${file.originname }"/></a>
+					<c:out value="${file.originname }"/>
+			</c:forEach>
 			<div class="projectdetailbutton">
 				<%
 				if (prouser.getUs_info() == 0) {

@@ -20,27 +20,27 @@ public class AdminService {
 	public Admin adlogin(Admin admin) throws Exception{
 		return adao.adlogin(admin);
 	}
-	//°ü¸®ÀÚ È¸¿ø½ÂÀÎ Á¶È¸
+	//ê´€ë¦¬ì íšŒì›ìŠ¹ì¸ ì¡°íšŒ
 	public List<Prouser> aduserapprove(int us_ok)throws Exception{
 		return adao.aduserapprove(us_ok);
 	}
-	//°ü¸®ÀÚ È¸¿ø ½ÂÀÎ
+	//ê´€ë¦¬ì íšŒì› ìŠ¹ì¸
 	public int updateuserok(String us_id)throws Exception{
 		return adao.updateuserok(us_id);
 	}
-	//°ü¸®ÀÚ È¸¿ø ¹İ·Á
+	//ê´€ë¦¬ì íšŒì› ë°˜ë ¤
 	public int updateusernok(String us_id)throws Exception{
 		return adao.updateusernok(us_id);
 	}
-	//°ü¸®ÀÚ ÇÁ·ÎÁ§Æ® °ø°í ½ÂÀÎ Á¶È¸
+	//ê´€ë¦¬ì í”„ë¡œì íŠ¸ ê³µê³  ìŠ¹ì¸ ì¡°íšŒ
 	public List<Project> adprojectapprove(int pro_ok)throws Exception{
 		return adao.adprojectapprove(pro_ok);
 	}
-	//°ü¸®ÀÚ ÇÁ·ÎÁ§Æ® ½ÂÀÎ
+	//ê´€ë¦¬ì í”„ë¡œì íŠ¸ ìŠ¹ì¸
 	public int updateprojectok(int pro_no)throws Exception{
 		return adao.updateprojectok(pro_no);
 	}
-	//°ü¸®ÀÚ ÇÁ·ÎÁ§Æ® ¹İ·Á
+	//ê´€ë¦¬ì í”„ë¡œì íŠ¸ ë°˜ë ¤
 	public int updateprojectnok(int pro_no)throws Exception{
 		return adao.updateprojectnok(pro_no);
 	}

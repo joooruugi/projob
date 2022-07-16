@@ -1,6 +1,7 @@
 package fin.spring.projob.project.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class ProjectDao {
 	public int insertProject(Project project) throws Exception {
 		return sql.insert("Project.insertProject", project);
 	}
+	public void insertFile(Map<String, Object>map)throws Exception{
+		sql.insert("Project.insertFile", map);
+	}
 
 	// 프로젝트 목록 조회
 	public List<Project> projectList() throws Exception {
@@ -29,7 +33,9 @@ public class ProjectDao {
 	public Project projectDetail(int pro_no) throws Exception {
 		return sql.selectOne("Project.projectdetail", pro_no);
 	}
-
+	public List<Map<String, Object>> selectFileList(int pro_no)throws Exception{
+		return sql.selectList("Project.selectFileList", pro_no);
+	}
 	// 프로젝트 신청
 	public Project projectJoin(int pro_no) throws Exception {
 		return sql.selectOne("Project.projectJoin", pro_no);

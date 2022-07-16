@@ -1,5 +1,8 @@
 package fin.spring.projob.project.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,7 +35,7 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
-@SessionAttributes({"loginSsInfo", "adminloginSsInfo"})
+@SessionAttributes("loginSsInfo")
 public class ProjectController {
 	private static final Logger logger = LoggerFactory.getLogger(ProuserController.class);
 
@@ -64,20 +68,22 @@ public class ProjectController {
 	// 프로젝트 공고 작성 POST for company
 	@PostMapping("/projectinsert")
 	public ModelAndView projectinsertPost(ModelAndView mv, HttpSession session, Project project,
-			@ModelAttribute("loginSsInfo") Prouser prouser) throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser
+			, MultipartHttpServletRequest mreq) throws Exception {
 		logger.info("projectinsert POST");
 		session.getAttribute("loginSsInfo");
 		project.setPro_comp(prouser.getUs_name());
 		project.setPro_id(prouser.getUs_id());
-		int result = service.insertProject(project);
-		System.out.println(result);
-		if (result < 1) {
-			logger.info("insertproject fail");
-			mv.setViewName("redirect:/projectinsert");
-		} else {
-			logger.info("insertproject success");
-			mv.setViewName("project/projectmain");
-		}
+		service.insertProject(project, mreq);
+//		System.out.println(result);
+//		if (result < 1) {
+//			logger.info("insertproject fail");
+//			mv.setViewName("redirect:/projectinsert");
+//		} else {
+//			logger.info("insertproject success");
+//			mv.setViewName("project/projectmain");
+//		}
+		mv.setViewName("project/projectmain");
 		return mv;
 	}
 
@@ -85,10 +91,14 @@ public class ProjectController {
 	@RequestMapping(value = "/projectdetail", method = RequestMethod.GET)
 	public ModelAndView projectDetailGet(ModelAndView mv, @ModelAttribute("loginSsInfo") Prouser prouser,
 			HttpSession session, Project project
-			,@ModelAttribute("adminloginSsInfo") Admin admin) throws Exception {
+		) throws Exception {
 		logger.info("projectdetail GET");
 		session.getAttribute("loginSsInfo");
-		mv.addObject("projectdetail", service.projectDetail(project.getPro_no()));
+		int prono = project.getPro_no();
+		mv.addObject("projectdetail", service.projectDetail(prono));
+		List<Map<String, Object>> fileList = service.selectFileList(prono);
+		mv.addObject("file", fileList);
+		System.out.println(fileList);
 		mv.setViewName("project/projectdetail");
 		return mv;
 	}

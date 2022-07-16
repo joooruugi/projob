@@ -16,5 +16,9 @@ public class Project {
 	private String pro_img;
 	private String pro_comp;
 	private String pro_id;
+	///////////////////////////////
+	private int profile_no;
+	private String originName;
+	private String chageNamepro;
 	
 }

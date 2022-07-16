@@ -1,11 +1,14 @@
 package fin.spring.projob.project.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import fin.spring.projob.project.controller.FileUtils;
 import fin.spring.projob.project.dao.ProjectDao;
 import fin.spring.projob.project.vo.PMember;
 import fin.spring.projob.project.vo.Project;
@@ -14,12 +17,21 @@ import fin.spring.projob.project.vo.Project;
 @Transactional
 public class ProjectService {
 	
+	
 	@Autowired
 	private ProjectDao prodao;
-
+	@Autowired
+	private FileUtils fileUtils;
+	
 	// 프로젝트 공고 등록
-	public int insertProject(Project project) throws Exception {
-		return prodao.insertProject(project);
+	public void insertProject(Project project, MultipartHttpServletRequest mreq) throws Exception {
+		 prodao.insertProject(project);
+		 System.out.println("insertProject 에 들어가는 project : >>>>>>>>>>>>"+project);
+		 List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(project, mreq);
+		 int size = list.size();
+		 for(int i = 0; i<size; i++) {
+			 prodao.insertFile(list.get(i));
+		 }
 	}
 
 	// 프로젝트 목록 조회
@@ -30,6 +42,9 @@ public class ProjectService {
 	// 프로젝트 상세조회
 	public Project projectDetail(int pro_no) throws Exception {
 		return prodao.projectDetail(pro_no);
+	}
+	public List<Map<String, Object>> selectFileList(int pro_no) throws Exception{
+		return prodao.selectFileList(pro_no);
 	}
 
 	// 프로젝트 신청

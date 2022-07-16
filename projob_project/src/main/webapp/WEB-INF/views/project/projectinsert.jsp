@@ -43,7 +43,7 @@
 		<div class="insertprojectname">
 			<p class="fontname2">프로젝트 등록</p>
 		</div>
-		<form action="<%=request.getContextPath()%>/projectinsert" method="post">
+		<form action="<%=request.getContextPath()%>/projectinsert" method="post" enctype="multipart/form-data">
 			<table class="project_insert">
 				<tr class="project_inserttr">
 					<td><p class="fontcontent insertprojectp">카테고리</p></td>
@@ -81,7 +81,7 @@
 						name="pro_budget" placeholder="예산을 '원'단위로 입력해주세요" required>
 					</td>
 					<td><p class="fontcontent insertprojectp">첨부파일</p></td>
-					<td colspan="3"><input type="file" id="pro_img" name="pro_img">
+					<td colspan="3"><input type="file" id="file" name="file">
 					<input type="hidden"  id="pro_comp" name="pro_comp" value="${pro_comp }"/>
 					</td>
 				</tr>
