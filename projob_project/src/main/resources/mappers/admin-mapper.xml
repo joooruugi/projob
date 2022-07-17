@@ -10,6 +10,13 @@
 	<select id="adprojectapprove" parameterType="int" resultType="Project">
 		select * from project where pro_ok = #{pro_ok}
 	</select>
+	<!-- 미승인건 확인 -->
+	<select id="adusercnt" resultType="int">
+		select count(*) from prouser where us_ok = 0
+	</select>
+	<select id="adprojectcnt" resultType="int">
+		select count(*) from project where pro_ok = 0
+	</select>
 	<update id="updateuserok" parameterType="String">
 		update prouser set us_ok = 1 where us_id=#{us_id}
 	</update>

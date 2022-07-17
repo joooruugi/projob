@@ -19,7 +19,7 @@
 		select * from project where pro_no = #{pro_no}
 	</select>
 	<select id="selectFileList" parameterType="int" resultType="hashMap">
-		select profile_no, originname from projectfile where pro_no=#{pro_no} order by profile_no asc
+		select * from projectfile where pro_no=#{pro_no} order by profile_no asc
 	</select>
 	<select id="projectJoin" parameterType="int" resultType="Project">
 		select * from project where pro_no = #{pro_no}

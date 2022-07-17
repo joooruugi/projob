@@ -21,7 +21,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/resume.css">
+	href="<%=request.getContextPath()%>/resources/css/resumeinsert.css">
 </head>
 
 <body>
@@ -55,18 +55,16 @@
 					<p class="fonthighlight resumemiddlename">PERSONAL INFOMATION</p>
 					<label class="resumelabel" for="re_name">이름</label> <input
 						type="text" class="resumeinput" id="re_name" name="re_name">
-					<br> <br> 
-					<label class="resumelabel" for="re_picture">사진
-					</label> 
-					<input type="file" class="resumeinput" 
-						name="f" multiple="multiple" accept=".jpg, .png">
-						<img id="profileImg"><br><hr>
-						<div id="div-preview"></div> 
-						<br> <br> 
-						<label
-						class="resumelabel" for="re_birth">생년월일</label> <input type="date"
-						class="resumeinput" id="re_birth" name="re_birth"> <br>
-					<br> <label class="resumelabel" for="re_type">분야</label> <select
+					<br> <br> <label class="resumelabel" for="re_picture">사진
+					</label> <input type="file" class="resumeinput" name="f"
+						multiple="multiple" accept=".jpg, .png"> <img
+						id="profileImg"><br>
+					<hr>
+					<div id="div-preview"></div>
+					<br> <br> <label class="resumelabel" for="re_birth">생년월일</label>
+					<input type="date" class="resumeinput" id="re_birth"
+						name="re_birth"> <br> <br> <label
+						class="resumelabel" for="re_type">분야</label> <select
 						class="resumeinput" name="re_type" id="re_type" required>
 						<option value="0">웹사이트 제작</option>
 						<option value="1">웹사이트 유지·보수</option>
@@ -85,6 +83,7 @@
 				<div class="resumedivision"></div>
 				<div class="resumecerti resumepart">
 					<p class="fonthighlight resumemiddlename">CERTIFICATION</p>
+					
 					<label class="resumelabel" for="ce_title">자격증 명 </label> <input
 						type="text" class="resumeinput" id="ce_title" name="ce_title">
 					<br> <br> <label class="resumelabel" for="ce_num">자격번호</label>
@@ -93,7 +92,43 @@
 					<input type="text" class="resumeinput" id="ce_cert_pub"
 						name="ce_cert_pub"> <br> <br> <label
 						class="resumelabel" for="ce_date">발행일자</label> <input type="date"
-						class="resumeinput" id="ce_date" name="ce_date">
+						class="resumeinput" id="ce_date" name="ce_date"><br>
+					<button type="button" class="btn2" id="pluscerti" onclick='toggleBtn1()'>항목
+						추가</button>
+				</div>
+				<div class="resumecerti resumepart" id="re_certi_hidden1">
+				<div class="resumedivision"></div>
+					<p class="fonthighlight resumemiddlename">CERTIFICATION 2</p>
+					
+					<label class="resumelabel" for="ce_title2">자격증 명 </label> <input
+						type="text" class="resumeinput" id="ce_title2" name="ce_title2">
+					<br> <br> <label class="resumelabel" for="ce_num2">자격번호</label>
+					<input type="text" class="resumeinput" id="ce_num2" name="ce_num2">
+					<br> <br> <label class="resumelabel" for="ce_cert_pub2">발행처</label>
+					<input type="text" class="resumeinput" id="ce_cert_pub2"
+						name="ce_cert_pub2"> <br> <br> <label
+						class="resumelabel" for="ce_date2">발행일자</label> <input type="date"
+						class="resumeinput" id="ce_date2" name="ce_date2"><br>
+					<button type="button" class="btn2" id="pluscerti" onclick='toggleBtn2()'>항목
+						추가</button>
+						<button type="button" class="btn2" id="minuscerti" onclick='toggleBtn5()'>항목
+						삭제</button>
+				</div>
+				<div class="resumecerti resumepart" id="re_certi_hidden2">
+				<div class="resumedivision"></div>
+					<p class="fonthighlight resumemiddlename">CERTIFICATION 3</p>
+					<label class="resumelabel" for="ce_title3">자격증 명 </label> <input
+						type="text" class="resumeinput" id="ce_title3" name="ce_title3">
+					<br> <br> <label class="resumelabel" for="ce_num3">자격번호</label>
+					<input type="text" class="resumeinput" id="ce_num3" name="ce_num3">
+					<br> <br> <label class="resumelabel" for="ce_cert_pub3">발행처</label>
+					<input type="text" class="resumeinput" id="ce_cert_pub3"
+						name="ce_cert_pub3"> <br> <br> <label
+						class="resumelabel" for="ce_date3">발행일자</label> <input type="date"
+						class="resumeinput" id="ce_date3" name="ce_date3"><br>
+						<button type="button" class="btn2" id="minuscerti" onclick='toggleBtn6()'>항목
+						삭제</button>
+						<p class="fontnothing" style="text-align:center;">최대 3개까지 입력 가능합니다.</p>
 				</div>
 				<div class="resumedivision"></div>
 				<div class="resumecarrer resumepart">
@@ -110,7 +145,51 @@
 						name="ca_jobtitle"> <br> <br> <label
 						class="resumelabel" for="ca_adddetail">추가 설명</label> <input
 						type="text" class="resumeinput" id="ca_adddetail"
-						name="ca_adddetail">
+						name="ca_adddetail"><br>
+						<button type="button" class="btn2" id="pluscareer" onclick='toggleBtn3()'>항목
+						추가</button>
+				</div>
+				<div class="resumecarrer resumepart" id="re_career_hidden1">
+				<div class="resumedivision"></div>
+					<p class="fonthighlight resumemiddlename">CAREER 2</p>
+					<label class="resumelabel" for="ca_title2">경력사항(회사명) </label> <input
+						type="text" class="resumeinput" id="ca_title2" name="ca_title2">
+					<br> <br> <label class="resumelabel" for="ca_period2">근무기간</label>
+					<input type="date" class="resumeinput" id="ca_period2"
+						name="ca_period2"> <br> <br> <label
+						class="resumelabel" for="ca_dept2">근무부서</label> <input type="text"
+						class="resumeinput" id="ca_dept2" name="ca_dept2"> <br>
+					<br> <label class="resumelabel" for="ca_jobtitle2">근무직급</label>
+					<input type="text" class="resumeinput" id="ca_jobtitle2"
+						name="ca_jobtitle2"> <br> <br> <label
+						class="resumelabel" for="ca_adddetail2">추가 설명</label> <input
+						type="text" class="resumeinput" id="ca_adddetail2"
+						name="ca_adddetail2"><br>
+						<button type="button" class="btn2" id="pluscareer" onclick='toggleBtn4()'>항목
+						추가</button>
+						<button type="button" class="btn2" id="minuscareer" onclick='toggleBtn7()'>항목
+						삭제</button>
+				</div>
+				<div class="resumecarrer resumepart" id="re_career_hidden2">
+				<div class="resumedivision"></div>
+					<p class="fonthighlight resumemiddlename">CAREER 3</p>
+					<label class="resumelabel" for="ca_title3">경력사항(회사명) </label> <input
+						type="text" class="resumeinput" id="ca_title3" name="ca_title3">
+					<br> <br> <label class="resumelabel" for="ca_period3">근무기간</label>
+					<input type="date" class="resumeinput" id="ca_period3"
+						name="ca_period3"> <br> <br> <label
+						class="resumelabel" for="ca_dept3">근무부서</label> <input type="text"
+						class="resumeinput" id="ca_dept3" name="ca_dept3"> <br>
+					<br> <label class="resumelabel" for="ca_jobtitle3">근무직급</label>
+					<input type="text" class="resumeinput" id="ca_jobtitle3"
+						name="ca_jobtitle3"> <br> <br> <label
+						class="resumelabel" for="ca_adddetail3">추가 설명</label> <input
+						type="text" class="resumeinput" id="ca_adddetail3"
+						name="ca_adddetail3">
+						<br>
+						<button type="button" class="btn2" id="minuscareer" onclick='toggleBtn8()'>항목
+						삭제</button>
+						<p class="fontnothing" style="text-align:center;">최대 3개까지 입력 가능합니다.</p>
 				</div>
 				<div class="resumedivision"></div>
 				<div class="resumeextra resumepart">
@@ -134,42 +213,72 @@
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script type="text/javascript">
-	
 		let fileTag = document.querySelector("input[name=f]");
 		let divPreview = document.querySelector("#div-preview");
-		
-		fileTag.onchange = function(){
-			
+
+		fileTag.onchange = function() {
+
 			//파일 올렸을 때 : fileTag.files.length > 0
-			if(fileTag.files.length>0){
+			if (fileTag.files.length > 0) {
 				//이미지 src에 들어갈 데이터 구하기
-				for(let i=0; i<fileTag.files.length; i++){
+				for (let i = 0; i < fileTag.files.length; i++) {
 					let reader = new FileReader();
-					reader.onload = function(data){
+					reader.onload = function(data) {
 						let src = data.target.result;
 						//이미지 태그를 만들어서 넣어줄거임
 						//1. 이미지 태그 만들기
 						let imgTag = document.createElement('img');
-						
+
 						//2. 이미지 태그 속성들 세팅하기
 						imgTag.setAttribute('src', src);
 						imgTag.setAttribute('width', '200');
 						imgTag.setAttribute('height', '300');
-						
+
 						//3. 이미지 태그 div안에 넣기
 						divPreview.appendChild(imgTag);
 					}
 					reader.readAsDataURL(fileTag.files[i]);
-					
+
 				}//for end
-				
-			}else{
-			//취소 버튼을 눌렀을 때
+
+			} else {
+				//취소 버튼을 눌렀을 때
 				//div 안에 싹 다 비우기
 				divPreview.innerHTML = "";
 			}
 		}
-	
+		function toggleBtn1() {
+			const btn1 = document.getElementById('re_certi_hidden1');
+			btn1.style.display = 'block';
+		}
+		function toggleBtn2() {
+			const btn2 = document.getElementById('re_certi_hidden2');
+			btn2.style.display = 'block';
+		}
+		function toggleBtn3() {
+			const btn3 = document.getElementById('re_career_hidden1');
+			btn3.style.display = 'block';
+		}
+		function toggleBtn4() {
+			const btn4 = document.getElementById('re_career_hidden2');
+			btn4.style.display = 'block';
+		}
+		function toggleBtn5() {
+			const btn5 = document.getElementById('re_certi_hidden1');
+			btn5.style.display = 'none';
+		}
+		function toggleBtn6() {
+			const btn6 = document.getElementById('re_certi_hidden2');
+			btn6.style.display = 'none';
+		}
+		function toggleBtn7() {
+			const btn7 = document.getElementById('re_career_hidden1');
+			btn7.style.display = 'none';
+		}
+		function toggleBtn8() {
+			const btn8 = document.getElementById('re_career_hidden2');
+			btn8.style.display = 'none';
+		}
 	</script>
 </body>
 

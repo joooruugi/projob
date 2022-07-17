@@ -346,15 +346,16 @@ public class ProuserController {
 	// 마이페이지 정보수정 POST
 	@PostMapping("/updateinfo")
 	public ModelAndView updateinfoPost(ModelAndView mv, HttpSession session,
-			@ModelAttribute("loginSsInfo") Prouser prouser) throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser, HttpServletResponse response) throws Exception {
 		logger.info("updateinfo POST");
 		session.getAttribute("loginSsInfo");
 		int result = service.updateInfo(prouser);
 		if (result < 1) {
 			logger.info("updateInfo fail");
-			mv.setViewName("redirect:/updateinfo");
+			ScriptUtils.alertAndBackPage(response, "정보수정에 실패했습니다. 재시도해주세요.");
 		} else {
 			logger.info("updateInfo success");
+			ScriptUtils.alert(response, "정보수정이 완료되었습니다.");
 			mv.setViewName("mypage/mypage");
 		}
 		return mv;
@@ -410,6 +411,7 @@ public class ProuserController {
 		int result = service.resumeinsert(resume, req);
 		System.out.println("이력서에 들어간 값 조회:"+resume);
 		int resultcar = service.resumeinsertcareer(career);
+		
 		int resultcerti = service.resumeinsertcerti(certi);
 		if (result < 1 || resultcar < 1 || resultcerti < 1) {
 			logger.info("resume insert fail");

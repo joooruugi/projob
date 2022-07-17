@@ -255,9 +255,21 @@ public class ProuserService {
 	public int resumeinsertcareer(Career career) throws Exception {
 		return pdao.resumeinsertcareer(career);
 	}
+	public int resumeinsertcareer2(Career career) throws Exception {
+		return pdao.resumeinsertcareer2(career);
+	}
+	public int resumeinsertcareer3(Career career) throws Exception {
+		return pdao.resumeinsertcareer3(career);
+	}
 
 	public int resumeinsertcerti(Certificate certi) throws Exception {
 		return pdao.resumeinsertcerti(certi);
+	}
+	public int resumeinsertcerti2(Certificate certi) throws Exception {
+		return pdao.resumeinsertcerti2(certi);
+	}
+	public int resumeinsertcerti3(Certificate certi) throws Exception {
+		return pdao.resumeinsertcerti3(certi);
 	}
 
 	// 프로젝트 신청 (이력서 불러오기)

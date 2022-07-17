@@ -102,6 +102,17 @@ public class ProjectController {
 		mv.setViewName("project/projectdetail");
 		return mv;
 	}
+	//(관리자) 프로젝트 승인시 조회 GET
+	@RequestMapping(value="/adprojectdetail", method=RequestMethod.GET)
+	public ModelAndView adprojectdetail(ModelAndView mv, Project project)throws Exception{
+		logger.info("adprojectdetail GET");
+		int prono = project.getPro_no();
+		mv.addObject("projectdetail", service.projectDetail(prono));
+		List<Map<String, Object>> fileList = service.selectFileList(prono);
+		mv.addObject("file", fileList);
+		mv.setViewName("project/adprojectdetail");
+		return mv;
+	}
 
 	// 프로젝트 신청 GET
 	@RequestMapping(value = "/projectjoin", method = RequestMethod.GET)

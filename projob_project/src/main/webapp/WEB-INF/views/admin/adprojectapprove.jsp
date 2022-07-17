@@ -33,28 +33,45 @@
 		</div>
 
 		<div class="aduserapprovelistcontent">
-			<table class="listofaduserapprove">
-				<thead class="aduserapprovelist fontimportant2">
-					<tr class="aduserapprovelist_title">
-						<td>기업명</td>
-						<td>프로젝트명</td>
-						<td>공고 수락</td>
-						<td>공고 반려</td>
-					</tr>
-				</thead>
-				<c:forEach items="${adprojectapprove }" var="adprojectapprove">
-					<tr class="aduserapprovelist_line fontcontent">
-						<td><c:out value="${adprojectapprove.pro_comp }"/></td>
-						<td><a href="<%=request.getContextPath()%>/projectdetail?pro_no=${adprojectapprove.pro_no}">${adprojectapprove.pro_title }</a></td>
-						<td><button type="button" class="aduserapprovelistbtn btn6">수락</button></td>
-						<td><button type="button" class="aduserapprovelistbtn btn6">반려</button></td>
-					</tr>
-				</c:forEach>
-			</table>
+			<form action="<%=request.getContextPath()%>/adprojectok"
+				method="post">
+				<table class="listofaduserapprove">
+					<thead class="aduserapprovelist fontimportant2">
+						<tr class="aduserapprovelist_title">
+							<td>프로젝트 No</td>
+							<td>기업명</td>
+							<td>프로젝트명</td>
+						</tr>
+					</thead>
+					<c:forEach items="${adprojectapprove }" var="adprojectapprove">
+						<tr class="aduserapprovelist_line fontcontent">
+						<td><input type="checkbox" value="${adprojectapprove.pro_no }"
+							name="pro_no" class="projectapprovecheckbox"></td>
+							<td><c:out value="${adprojectapprove.pro_comp }" /></td>
+							<td><a
+								onclick="window.open(this.href, '_blank', 'width=1200, height=1000'); return false;"
+								href="<%=request.getContextPath()%>/adprojectdetail?pro_no=${adprojectapprove.pro_no}">${adprojectapprove.pro_title }</a></td>
+						</tr>
+					</c:forEach>
+				</table>
+				<button type="submit"
+									class="aduserapprovelistbtn aduserapprovename aduserok btn6">수락</button>
+			</form>
 		</div>
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<script>
+		$('input:checkbox[class=projectapprovecheckbox]').click(function(){ 
+			  
+			  var cntEPT = $('input:checkbox[class=projectapprovecheckbox]:checked').length;   //체크갯수 확인
+			 
+			  if(cntEPT>1){
+			   alert('1개의 프로젝트씩 승인 가능합니다.')
+			   $(this).prop('checked', false);
+			  }
+			 });
+	</script>
 </body>
 
 </html>

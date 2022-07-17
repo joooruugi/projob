@@ -50,7 +50,7 @@
                 <p class="fontcontent2">기타 문의사항 : projob@projob.com</p>
             </div>
             <div class="waitnoticebtn">
-              <button type="button" class="btnwhite"><p class="fontname2">뒤로가기</p></button>
+              <button type="button" onclick="location.href='projectmain'" class="btnwhite"><p class="fontname2">프로젝트 메인으로</p></button>
             </div>
 
         </div>

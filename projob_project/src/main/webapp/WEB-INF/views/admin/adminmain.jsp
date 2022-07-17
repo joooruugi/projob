@@ -28,8 +28,8 @@
 	 <div class="adminmain">
         <div class="admininfo">
             <p class="fontimportant2 adminname">관리자님 환영합니다.</p>
-            <p class="fontnothing adminmanage">새로운 회원가입 요청 OO건 </p>
-            <p class="fontnothing adminmanage">새로운 프로젝트 공고 요청 OO건 </p>
+            <p class="fontnothing adminmanage">회원가입 미승인 ${adusercnt}건 </p>
+            <p class="fontnothing adminmanage">프로젝트 미승인 ${adprojectcnt }건 </p>
         </div>
         <div class="adminmanagement">
             <div class="adsearchuser">

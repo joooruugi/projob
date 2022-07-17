@@ -118,9 +118,21 @@ public class ProuserDao {
 	public int resumeinsertcareer(Career career) throws Exception {
 		return sql.insert("Prouser.resumeinsertcareer", career);
 	}
+	public int resumeinsertcareer2(Career career) throws Exception {
+		return sql.insert("Prouser.resumeinsertcareer2", career);
+	}
+	public int resumeinsertcareer3(Career career) throws Exception {
+		return sql.insert("Prouser.resumeinsertcareer3", career);
+	}
 
 	public int resumeinsertcerti(Certificate certi) throws Exception {
 		return sql.insert("Prouser.resumeinsertcerti", certi);
+	}
+	public int resumeinsertcerti2(Certificate certi) throws Exception {
+		return sql.insert("Prouser.resumeinsertcerti2", certi);
+	}
+	public int resumeinsertcerti3(Certificate certi) throws Exception {
+		return sql.insert("Prouser.resumeinsertcerti3", certi);
 	}
 
 	// 프로젝트 신청 이력서 불러오기 (프리랜서)

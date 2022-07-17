@@ -27,19 +27,6 @@
 </head>
 
 <body>
-	<!--헤더-->
-	<%
-	Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
-	if (prouser != null) {
-	%>
-	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
-	<%
-	} else {
-	%>
-	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
-	<%
-	}
-	%>
 	<div class="projectdeatil">
 		<div class="projectdeatilname">
 			<p class="fontname2">프로젝트 상세</p>
@@ -81,31 +68,8 @@
 					<a href="#" style="color:blue;" onclick="fn_fileDown('${file.FILE_NO}'); return false;"> <c:out value="${file.ORIGINNAME }" /></a>
 				</c:forEach>
 			</div>
-			<div class="projectdetailbutton">
-				<%
-				if (prouser.getUs_info() == 0) {
-				%>
-				<button type="button" class="projectdetailbtn btn5" id="apply_btn"
-					onclick="location.href='projectjoin?pro_no=${projectdetail.pro_no }'">
-					<p class="fontnothing2">프로젝트 신청하기</p>
-				</button>
-				<%
-				}
-				%>
-				<button type="button" class="projectdetailbtn btn5" id="return_btn"
-					onclick="goBack()">
-					<p class="fontnothing2">목록으로</p>
-				</button>
-			</div>
 		</div>
 	</div>
-	<!--푸터-->
-	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
-	<script>
-		function goBack() {
-			window.history.back();
-		};
-	</script>
 </body>
 
 </html>

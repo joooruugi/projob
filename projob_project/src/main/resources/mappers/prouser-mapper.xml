@@ -120,11 +120,35 @@
 		values(re_seq.currval, #{ca_title}, #{ca_dept}, #{ca_jobtitle},
 		#{ca_adddetail} ,#{ca_period})
 	</insert>
+	<insert id="resumeinsertcareer2" parameterType="Career">
+		insert into
+		career(ca_no, ca_title, ca_dept, ca_jobtitle, ca_adddetail, ca_period)
+		values(re_seq.currval, #{ca_title2}, #{ca_dept2}, #{ca_jobtitle2},
+		#{ca_adddetail2} ,#{ca_period2})
+	</insert>
+	<insert id="resumeinsertcareer3" parameterType="Career">
+		insert into
+		career(ca_no, ca_title, ca_dept, ca_jobtitle, ca_adddetail, ca_period)
+		values(re_seq.currval, #{ca_title3}, #{ca_dept3}, #{ca_jobtitle3},
+		#{ca_adddetail3} ,#{ca_period3})
+	</insert>
 	<insert id="resumeinsertcerti" parameterType="Certi">
 		insert into
 		certificate(ce_no, ce_title, ce_num, ce_cert_pub, ce_date)
 		values(re_seq.currval, #{ce_title}, #{ce_num}, #{ce_cert_pub},
 		#{ce_date})
+	</insert>
+	<insert id="resumeinsertcerti2" parameterType="Certi">
+		insert into
+		certificate(ce_no, ce_title, ce_num, ce_cert_pub, ce_date)
+		values(re_seq.currval, #{ce_title2}, #{ce_num2}, #{ce_cert_pub2},
+		#{ce_date2})
+	</insert>
+	<insert id="resumeinsertcerti3" parameterType="Certi">
+		insert into
+		certificate(ce_no, ce_title, ce_num, ce_cert_pub, ce_date)
+		values(re_seq.currval, #{ce_title3}, #{ce_num3}, #{ce_cert_pub3},
+		#{ce_date3})
 	</insert>
 	<!-- 프로젝트 신청 이력서 목록 -->
 	<select id="resumeJoin" parameterType="String"
