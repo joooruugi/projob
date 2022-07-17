@@ -124,8 +124,10 @@
             </div>
         </div>
         <div id="fs_menu_botton">
-            <button type="button" class="btn btn-danger">삭제하기</button>
-            <button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/fileshare/write'">등록하기</button>
+        	<c:if test="${pro_no ne '0' }">
+            <button type="button" class="btn btn-danger" id="delete_btn">삭제하기</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/fileshare/write?pro_no=${pro_no }'">등록하기</button>
+			</c:if>
         </div>
         <div id="fs_table">
             <table class="table">
@@ -148,15 +150,15 @@
                 	<c:when test="${!empty list }">
 		                <c:forEach items="${list }" var="list">
 							<tr>
-			                    <th scope="row"><input type="checkbox" name="sh_no"></th>
+			                    <th scope="row"><input type="checkbox" name="sh_no" value="${list.SH_NO}"></th>
 			                    <td class="td_title">${list.SH_TITLE }</td>
 			                    <td class="td_writer">${list.SH_CONTENT }</td>
 			                    <td class="td_wdate">${list.SH_WDATE }</td>
 			                    <td>
-			                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			                        <button type="button" class="btn btn-secondary file_list"data-bs-toggle="modal" data-bs-target="#exampleModal">
 			                            파일목록
 			                        </button>
-			                        <input type="hidden" value="${sh_no }">
+			                        <input type="hidden" value="${list.SH_NO }">
 			                    </td>
 			                </tr>
 		                </c:forEach>
@@ -190,13 +192,14 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <span> 내용자리입니당 @@@@ </span>
+                        <span id="contnet_modal"> 내용자리입니당 @@@@ </span>
                     </div>
+                    <br>
                     <div>
-                        <dl>
-                            <li class="modal_li"><a href="#">1.html</a> / 2022-07-08</li>
-                            <li class="modal_li"><a href="#">2.html</a> / 2022-07-08</li>
-                            <li class="modal_li"><a href="#">3.html</a> / 2022-07-08</li>
+                        <dl id="file_download_list">
+                            <li class="modal_li">- <a href="<%=request.getContextPath() %>/resources/uploadFiles/1657861464080_KH정보교육원 2차 입사지원서 작성법 (자바.P오전).pdf" download>다운로드</a></li>
+                            <li class="modal_li">- <a href="#">2.html</a></li>
+                            <li class="modal_li">- <a href="#">3.html</a></li>
                         </dl>
                     </div>
                 </div>
@@ -215,7 +218,47 @@
     			console.log(option.val());
     		}
     	});
-    })
+    });
+    </script>
+    <script>
+    $(".file_list").click(function(){
+		$.ajax({
+			url:"fileshare/fileListCheck",
+			type:"post",
+			data:{sh_no : $(this).next().val()},
+			dataType:"json",
+			success:function(data){
+				$("#exampleModalLabel").html(data[0].SH_TITLE);
+				$("#contnet_modal").html(data[0].SH_CONTENT);
+				var html="";
+				$.each(data, function(i, item){
+					console.log(i+", "+item)
+					html += "<li class='modal_li'>"
+					html += "- <a href='<%=request.getContextPath() %>"
+					html += item.SHF_PATH+item.SHF_NEWNAME+"' download>"
+					html += item.SHF_REALNAME+"</a></li>"
+				})
+					$("#file_download_list").html(html);
+			}
+		})
+	})
+	$("#delete_btn").click(function(){
+		var lists = new Array();
+		  $("input[name='sh_no']:checked").each(function(i){   //jQuery로 for문 돌면서 check 된값 배열에 담는다
+		   lists.push($(this).val());
+		  });
+		  $.ajax({
+			  url:"fileshare/deleteList",
+			  type:"post",
+			  traditional : true,
+			  dataType:"json",
+			  data:{sh_no:lists},
+			  success:function(data){
+				  alert(data);
+				  location.href = "<%=request.getContextPath()%>/fileshare?pro_no="+${pro_no};
+			  }
+		  })
+	})
     </script>
     <!-- 프로젝트 선택 시 -->
     <script>

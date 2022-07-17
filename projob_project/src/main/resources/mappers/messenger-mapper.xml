@@ -41,7 +41,7 @@
 	</select>
 	
 	<select id="selectPMember" resultType="map">
-		select * from p_member left join prouser using(us_id) where pro_no=#{pro_no}
+		select * from prouser left join p_member using(us_id) where pro_no=#{pro_no}
 		<if test="mr_no != null">
 			<foreach collection="list" item="list" open="and" separator="and">
 				us_id != #{list.US_ID}

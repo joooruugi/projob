@@ -1,8 +1,11 @@
 package fin.spring.projob.fileshare.vo;
 
+import org.springframework.stereotype.Component;
+
 import lombok.Data;
 
 @Data
+@Component
 public class FIleshare {
 	
 	private String sh_no;

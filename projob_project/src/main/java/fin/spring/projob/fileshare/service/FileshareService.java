@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import fin.spring.projob.fileshare.dao.FileshareDao;
 import fin.spring.projob.fileshare.vo.FIleshare;
+import fin.spring.projob.fileshare.vo.FileshareFile;
 import fin.spring.projob.project.vo.Project;
 
 @Service
@@ -22,6 +23,30 @@ public class FileshareService {
 
 	public List<Map<String, Object>> selectFileshareList(String pro_no) {
 		return dao.selectFileshareList(pro_no);
+	}
+
+	public String selectMaxShNo() {
+		return dao.selectMaxShNo();
+	}
+
+	public int insertShare(FIleshare fileshare) {
+		return dao.insertShare(fileshare);
+	}
+
+	public int insertShareFile(FileshareFile fileshareFile) {
+		return dao.insertShareFile(fileshareFile);
+	}
+
+	public String selectCheckNo(FIleshare fileshare) {
+		return dao.selectCheckNo( fileshare);
+	}
+
+	public List<Map<String, Object>> selectFileListCheck(String sh_no) {
+		return dao.selectFileListCheck(sh_no);
+	}
+
+	public int deleteList(String sh_no) {
+		return dao.deleteList(sh_no);
 	}
 
 }

@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,7 +23,7 @@
     <style>
         #fileShare{
             width: 70%;
-            height: 750px;
+            height: 840px;
             margin: 0 auto;
             margin-top:10px;
             background-color: rgb(232, 232, 232);
@@ -38,49 +39,65 @@
         #fs_fileInfo textarea{
             height: 300px;
         }
-        #fs_fileUpload{
-            margin: 0 auto;
-        }
-        .form-control{
+        .cnt-input{
+       		margin-top:10px;
             display: inline-block;
-            width: 800px;
+            width: 300%;
+        }
+        .cnt_textarea{
+        	margin-top:10px;
+            display: inline-block;
+            width: 315%;
         }
         #fs_dropzone{
-            width: 70%;
-            margin-left: 13.5%;
-            height: 210px;
+            width: 65%;
+            margin-left:10%;
+            margin-bottom:30px;
+            height: 250px;
             overflow: auto;
+        }
+        label{
+        margin-bottom: 10px;
         }
         .dz-progress{
         display: none;
+        }
+        #fs_button{
+        margin: 0 auto;
+        width: 10%;
         }
     </style>
 </head>
 <body>
     <!--헤더-->
     <jsp:include page="/WEB-INF/views/header.jsp" flush="false"/>
-    
     <div id="fileShare">
         <div id="fs_title_div">
         </div>
             <div id="fs_fileInfo">
-                <label>제목 : <input class="form-control" type="text" placeholder="10글자 이내" id="sh_title"></label><br><br>
-                <label>내용 : <textarea class="form-control" placeholder="50글자 이내" id="sh_content"></textarea></label><br><br>
+                <label>제목 : <input class="form-control cnt-input" type="text" placeholder="20자 이내" id="sh_title"></label><br><br>
+                <label>내용 : <textarea class="form-control cnt_textarea" placeholder="100자 이내" id="sh_content"></textarea></label><br><br>
             </div>
            <div id="fs_dropzone">
+           <label>파일 : </label>
 			      <div class="dropzone" id="my-dropzone"></div>
 			</div>
-			<button type="button" id="insert_btn">등록</button>
+			<div id="fs_fileList">
+			</div>
+			<div id="fs_button">
+				<button type="button" class="btn btn-primary" id="insert_btn">등록하기</buttion>
+			</div>
+			<br><br>
+			<input type="hidden" id="sh_no">
     </div>
         <!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
-	    <script>        
+	    <script>      
 		    Dropzone.autoDiscover = false; // deprecated 된 옵션. false로 해놓는걸 공식문서에서 명시
 		    const dropzone = new Dropzone('div#my-dropzone', {
 		      
 		       url: '<%=request.getContextPath()%>/fileshare/fileupload',
 		       method: 'post', // 기본 post로 request 감. put으로도 할수있음
-		     
 		       autoProcessQueue: false, // 자동으로 보내기. true : 파일 업로드 되자마자 서버로 요청, false : 서버에는 올라가지 않은 상태. 따로 this.processQueue() 호출시 전송
 		       clickable: true, // 클릭 가능 여부
 		       createImageThumbnails: true, //파일 업로드 썸네일 생성
@@ -94,24 +111,97 @@
 		     
 		       addRemoveLinks: true, // 업로드 후 파일 삭제버튼 표시 여부
 		       dictRemoveFile: '삭제', // 삭제버튼 표시 텍스트
-		     
-		       init: function () {
-		          // 최초 dropzone 설정시 init을 통해 호출
-		          console.log('최초 실행');
-		          let myDropzone = this; // closure 변수 (화살표 함수 쓰지않게 주의)
-		     
-		          // 서버에 제출 submit 버튼 이벤트 등록
-		          $("#insert_btn").click(function () {
-		             console.log('업로드');
-		             myDropzone.processQueue(); // autoProcessQueue: false로 해주었기 때문에, 메소드 api로 파일을 서버로 제출
-		          });
+		       successmultiple:function(file, res){
+		    	   $.ajax({
+	    			   url:"checkshno",
+		    		   type:"post",
+		    		   dataType:"json",
+		    		   data:{
+		    			   pro_no : '${pro_no}',
+		    			   sh_id : '${us_id}',
+		    			   sh_title : $("#sh_title").val(),
+		    			   sh_content : $("#sh_content").val()
+		    		   },
+		    		   success:function(data){
+		    			   console.log(data.sh_no);
+		    			   $("#sh_no").val(data.sh_no);
+		    			   
+		    			   var shf_realname = new Array();
+		    			   var shf_newname = new Array();
+		    			   var shf_path = new Array();
+		    			   
+		    			   $.each(res, function(i, item){
+				    		   shf_realname.push(item.shf_realname)
+				    		   shf_newname.push(item.shf_newname)
+				    		   shf_path.push(item.shf_path)
+				    	   })
+				    	   
+					    	   $.ajax({
+					    		   url:"insertFileshare",
+					    		   type:"post",
+					    		   traditional : true,
+					    		   data:{
+					    			   sh_no : $("#sh_no").val(),
+					    			   shf_realname : shf_realname,
+					    			   shf_newname : shf_newname,
+					    			   shf_path : shf_path
+					    		   },
+					    		   success:function(msg){
+					    			   location.href="<%=request.getContextPath()%>/fileshare?pro_no=${pro_no}";
+					    		   }
+					    	   })
+				    	   
+		    		   }
+	    		   })
+		    	  
 		       },
-		       success:function(file, response){
-		    	   console.log(response);
-		    	   location.href="<%=request.getContextPath()%>/"
-		    	   alert('sdasdsadsadsa');
+		       init:function(file){
+		    	   console.log('최신');
+		    	   //var filename = dropzone.files;
+		    	   $("#insert_btn").click(function(){
+		    		  if($("#sh_title").val()=="" || $("#sh_content").val()==""){
+		    			  alert("제목 또는 내용을 입력해주세요");
+		    			  return;
+		    		  }
+		    		  if(dropzone.files.length == 0){
+		    			  alert("파일을 등록해주세요");
+		    			  return;
+		    		  } else {
+		    			 
+				   	   dropzone.processQueue();
+		    		  }
+		   	    })
+		       },
+		       maxfilesexceeded:function(file){
+		    	   alert("5개 이상 등록할수 없습니다");
+		    	   this.removeFile(file);
 		       }
 		    });
+		    
+		    $('#sh_title').keyup(function (e) {
+		    	let content = $(this).val();
+		        
+		        // 글자수 제한
+		        if (content.length > 20) {
+		        	// 200자 부터는 타이핑 되지 않도록
+		            $(this).val($(this).val().substring(0, 20));
+		            // 200자 넘으면 알림창 뜨도록
+		            alert('제목은 20자까지 입력 가능합니다.');
+		        };
+		    });
+		    
+		    $('#sh_content').keyup(function (e) {
+		    	let content = $(this).val();
+		        
+		        // 글자수 제한
+		        if (content.length > 200) {
+		        	// 200자 부터는 타이핑 되지 않도록
+		            $(this).val($(this).val().substring(0, 200));
+		            // 200자 넘으면 알림창 뜨도록
+		            alert('제목은 200자까지 입력 가능합니다.');
+		        };
+		    });
+	    
 	    </script>
 </body>
 </html>

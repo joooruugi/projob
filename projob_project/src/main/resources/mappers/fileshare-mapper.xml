@@ -11,4 +11,31 @@
 		select sh_no, pro_no, pro_title, sh_id, sh_title, sh_content, to_char(sh_wdate, 'yyyy/mm/dd HH24:MI') sh_wdate from sharee left join project using(pro_no) where pro_no=#{pro_no} and sh_useyn='Y' order by sh_wdate
 	]]>
 	</select>
+	
+	<select id="selectMaxShNo" resultType="String">
+		select nvl(max(sh_no), 0)+1 from sharee
+	</select>
+	
+	<insert id="insertShare" parameterType="Fileshare">
+		insert into sharee values(#{sh_no}, #{pro_no}, #{sh_id}, #{sh_title}, #{sh_content}, systimestamp, 'Y', null)
+	</insert>
+	
+	<insert id="insertShareFile" parameterType="FileshareFile">
+		insert all
+		into sharefile values((select nvl(max(shf_no), 0)+1 from sharefile), #{shf_realname},#{shf_newname},#{shf_path})
+		into share_sharefile values(#{sh_no}, (select nvl(max(shf_no), 0)+1 from sharefile))
+		select * from dual
+	</insert>
+	
+	<select id="selectCheckNo" parameterType="Fileshare" resultType="String">
+		select sh_no from sharee where pro_no=#{pro_no} and sh_id=#{sh_id} and sh_title=#{sh_title} and sh_content=#{sh_content}
+	</select>
+	
+	<select id="selectFileListCheck" resultType="map">
+		select sh_title, sh_content, shf_realname, shf_newname, shf_path from sharefile left join share_sharefile using(shf_no) left join sharee using(sh_no) where sh_no=#{sh_no}
+	</select>
+	
+	<update id="deleteList">
+		update sharee set sh_useyn='N' where sh_no=#{sh_no}
+	</update>
 </mapper>
