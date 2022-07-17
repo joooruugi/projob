@@ -33,7 +33,14 @@ public class ProjectService {
 			 prodao.insertFile(list.get(i));
 		 }
 	}
-
+	//승인 전 프로젝트 수정
+	public int updateproject(Project project)throws Exception{
+		return prodao.updateproject(project);
+	}
+	//승인 전 프로젝트 삭제
+	public int deleteproject(int pro_no)throws Exception{
+		return prodao.deleteproject(pro_no);
+	}
 	// 프로젝트 목록 조회
 	public List<Project> projectList() throws Exception {
 		return prodao.projectList();

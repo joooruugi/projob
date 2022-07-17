@@ -168,7 +168,7 @@
 				<c:forEach items="${compprojectyetinfo }" var="compprojectyetinfo">
 					<div class="my_project_ing">
 						<a
-							href="<%=request.getContextPath()%>/projectdetail?pro_no=${compprojectyetinfo.pro_no}"
+							href="<%=request.getContextPath()%>/projectdetailforcomp?pro_no=${compprojectyetinfo.pro_no}"
 							class="my_projecting fontnothing"><c:out
 								value="${compprojectyetinfo.pro_title }" /></a>
 					</div>

@@ -118,6 +118,16 @@
 			   $(this).prop('checked', false);
 			  }
 			 });
+		
+	/* 	$.ajax({
+			url:"projectjoinstatus",
+			type:"post",
+			data:{
+				pro_no : '${pro_no}',
+				us_id : '${us_id}'
+			},
+			success:function()
+		}) */
 	</script>
 </body>
 

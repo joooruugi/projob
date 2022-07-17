@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fin.spring.projob.admin.vo.Admin;
 import fin.spring.projob.common.ScriptUtils;
 import fin.spring.projob.project.service.ProjectService;
 import fin.spring.projob.project.vo.PMember;
@@ -175,7 +174,61 @@ public class ProjectController {
 		mv.setViewName("project/projectstatus");
 		return mv;
 	}
-
+	// (기업) 승인 대기중인 프로젝트 GET
+	@RequestMapping(value="/projectdetailforcomp", method=RequestMethod.GET)
+	public ModelAndView projectdetailforcompGet(ModelAndView mv, HttpSession session, HttpServletResponse response
+			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
+			,@RequestParam("pro_no")int prono)throws Exception{
+		logger.info("projectdetailforcomp GET");
+		session.getAttribute("loginSsInfo");
+		mv.addObject("projectdetail", service.projectDetail(prono));
+		mv.setViewName("project/projectdetailforcomp");
+		return mv;
+	}
+	//(기업) 승인 전 프로젝트 수정 GET
+	@RequestMapping(value="/updateproject", method=RequestMethod.GET)
+	public ModelAndView updateprojectGet(ModelAndView mv, HttpSession session, HttpServletResponse response
+			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
+			,@RequestParam("pro_no")int prono)throws Exception{
+		logger.info("updateproject GET");
+		session.getAttribute("loginSsInfo");
+		mv.addObject("projectdetail", service.projectDetail(prono));
+		mv.setViewName("project/updateproject");
+		return mv;
+	}
+	// (기업) 승인 전 프로젝트 수정 POST
+	@PostMapping("/updateproject")
+	public ModelAndView updateprojectPost(ModelAndView mv, HttpSession session, HttpServletResponse response
+			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
+			, @RequestParam("pro_no")int prono) throws Exception{
+		logger.info("updateproject POST");
+		session.getAttribute("loginSsInfo");
+		int result = service.updateproject(project);
+		if(result == 0) {
+			ScriptUtils.alertAndBackPage(response, "정보수정 실패.");
+			
+		}else {
+			ScriptUtils.alert(response, "정보수정 완료되었습니다.");
+			mv.setViewName("mypage/mypage");
+		}
+		return mv;
+	}
+	// (기업) 승인 전 프로젝트 삭제
+	@RequestMapping(value="/deleteproject", method=RequestMethod.GET)
+	public ModelAndView deleteproject(ModelAndView mv, HttpSession session, HttpServletResponse response
+			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
+			,@RequestParam("pro_no")int prono)throws Exception{
+		logger.info("deleteproject GET");
+		session.getAttribute("loginSsInfo");
+		int result =  service.deleteproject(prono);
+		if(result == 0) {
+			ScriptUtils.alertAndBackPage(response, "공고 삭제에 실패하였습니다.");
+		}else {
+			ScriptUtils.alert(response, "공고가 삭제되었습니다.");
+			mv.setViewName("mypage/mypage");
+		}
+		return mv;
+	}
 	// (기업) 프로젝트 신청 및 선정현황 GET
 	@RequestMapping(value = "/projectjoinstatus", method = RequestMethod.GET)
 	public ModelAndView projectjoinstatusGet(ModelAndView mv, HttpSession session, HttpServletResponse response,

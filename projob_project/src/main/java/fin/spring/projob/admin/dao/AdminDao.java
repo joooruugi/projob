@@ -25,7 +25,7 @@ public class AdminDao {
 	public List<Project> adprojectapprove(int pro_ok){
 		return sql.selectList("Admin.adprojectapprove", pro_ok);
 	}
-	//¹Ì½ÂÀÎ°Ç È®ÀÎ
+	//ë¯¸ìŠ¹ì¸ê±´ í™•ì¸
 	public int adusercnt() {
 		return sql.selectOne("Admin.adusercnt");
 	}

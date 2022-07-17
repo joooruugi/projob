@@ -10,6 +10,15 @@
 	<insert id="insertFile" parameterType="map">
 		insert into projectfile(profile_no, pro_no, originname, changenamepro) values(profile_seq.nextval, prono_seq.currval, #{originName}, #{changeNamepro})
 	</insert>
+	<!-- 프로젝트 공고 수정 -->
+	<update id="updateproject" parameterType="Project">
+		update project set pro_title=#{pro_title}, pro_content=#{pro_content}, pro_peride=#{pro_period}, pro_budget=#{pro_budget}
+		, pro_personnel = #{pro_personnel}, pro_field = #{pro_field} where pro_no = #{pro_no}
+	</update>
+	<!-- 프로젝트 공고 삭제 -->
+	<delete id="deleteproject" parameterType="int">
+		delete * from project where pro_no = #{pro_no}
+	</delete>
 	<!-- 공고 목록 조회 -->
 	<select id="projectlist" parameterType="Project" resultType="Project">
 		select pro_no, pro_title, pro_budget, pro_period, pro_personnel from project where pro_ok = 1 order by pro_no desc
