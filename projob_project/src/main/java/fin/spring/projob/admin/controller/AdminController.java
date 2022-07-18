@@ -20,6 +20,7 @@ import fin.spring.projob.admin.service.AdminService;
 import fin.spring.projob.admin.vo.Admin;
 import fin.spring.projob.common.ScriptUtils;
 import fin.spring.projob.prouser.controller.ProuserController;
+import fin.spring.projob.prouser.vo.Prouser;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -128,5 +129,21 @@ public class AdminController {
 		ScriptUtils.alertAndBackPage(response, "승인되었습니다.");
 		return mv;
 	}
-
+	//관리자 회원 검색
+	@RequestMapping(value="/adsearchuser", method=RequestMethod.GET)
+	public ModelAndView adsearchuser(ModelAndView mv, 
+			@ModelAttribute("adminloginSsInfo")Admin admin, HttpSession session
+			, @RequestParam("searchuser")String searchuser, HttpServletResponse response, Prouser prouser)throws Exception{
+		logger.info("Admin search user");
+		session.getAttribute("adminloginSsInfo");
+		Prouser result = service.adsearchuser(searchuser);
+		if(result != null) {
+			logger.info("searchuser success");
+			mv.addObject("adsearchuser", service.adsearchuser(searchuser));
+		}else {
+			logger.info("searchuser fail");
+			ScriptUtils.alertAndBackPage(response, "일치하는 회원이 없습니다");
+		}
+		return mv;
+	}
 }

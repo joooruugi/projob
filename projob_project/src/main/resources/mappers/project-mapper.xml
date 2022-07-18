@@ -7,8 +7,9 @@
 		insert into project (pro_no, pro_comp, pro_id, pro_title, pro_content, pro_period, pro_budget, pro_personnel, pro_field, pro_ok)
 		values(prono_seq.nextval, #{pro_comp}, #{pro_id}, #{pro_title}, #{pro_content}, #{pro_period}, #{pro_budget}, #{pro_personnel}, #{pro_field}, 0)
 	</insert>
-	<insert id="insertFile" parameterType="map">
-		insert into projectfile(profile_no, pro_no, originname, changenamepro) values(profile_seq.nextval, prono_seq.currval, #{originName}, #{changeNamepro})
+	<insert id="insertFile" parameterType="Project">
+		insert into projectimg(proimg_no, pro_no, us_id, changenamepro) values
+		(proimgseq.nextval, prono_seq.currval, #{pro_id}, #{changenamepro} )
 	</insert>
 	<!-- 프로젝트 공고 수정 -->
 	<update id="updateproject" parameterType="Project">
@@ -27,8 +28,8 @@
 	<select id="projectdetail" parameterType="int" resultType="Project">
 		select * from project where pro_no = #{pro_no}
 	</select>
-	<select id="selectFileList" parameterType="int" resultType="hashMap">
-		select * from projectfile where pro_no=#{pro_no} order by profile_no asc
+	<select id="selectimgpro" parameterType="int" resultType="Project">
+		select * from projectimg where pro_no=#{pro_no}
 	</select>
 	<select id="projectJoin" parameterType="int" resultType="Project">
 		select * from project where pro_no = #{pro_no}

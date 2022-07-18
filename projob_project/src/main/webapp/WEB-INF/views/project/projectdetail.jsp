@@ -77,8 +77,9 @@
 					${projectdetail.pro_comp}</p>
 			</div>
 			<div class="pro_detail_bottom fontnothing2">
-				<c:forEach var="file" items="${file }">
-					<a href="#" style="color:blue;" onclick="fn_fileDown('${file.FILE_NO}'); return false;"> <c:out value="${file.ORIGINNAME }" /></a>
+				<c:forEach var="selectimgpro" items="${selectimgpro }">
+				<img width=200px;
+						src="<%=request.getContextPath() %>/resources/project/${selectimgpro.changenamepro}">
 				</c:forEach>
 			</div>
 			<div class="projectdetailbutton">

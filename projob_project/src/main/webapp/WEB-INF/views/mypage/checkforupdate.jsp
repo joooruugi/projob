@@ -34,9 +34,9 @@
 			<div class="writeinfo">
 				<br>
 				<div class="inforow">
-					<label class="labelinfo" for="us_pw">비밀번호</label><br> <br>
-					<input type="password" class="inputinfo" required name="us_pw"
-						id="us_pw" placeholder=""> <br>
+					<label class="labelinfo" for="us_pwchk">비밀번호</label><br> <br>
+					<input type="password" class="inputinfo" required name="us_pwchk"
+						id="us_pwchk" placeholder=""> <br>
 				</div>
 				<br>
 			</div>

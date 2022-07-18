@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
-<title>PROJOB_JOIN</title>
+<title>PROJOB_LOGIN</title>
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/footer.css">
@@ -33,15 +33,17 @@
 		<form action="<%=request.getContextPath()%>/findid" method="post">
 			<div class="findidcontent">
 				<label class="findidlabel fontname" for="us_name">이름</label>
-				<input type="text" class="inputfindid" id="us_name" name="us_name"
+				<input type="text" required class="inputfindid" id="us_name" name="us_name"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
+				<br>
 				<label class="findidlabel fontname" for="us_id">이메일</label>
-				<input type="email" class="inputfindid" id="us_email"
+				<input type="email" required  class="inputfindid" id="us_email"
 					name="us_email" placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
+				<br>
 				<label class="findidlabel fontname" for="us_crn">사업자등록번호</label>
-				<input type="text" class="inputfindid" id="us_crn" name="us_crn"
+				<input type="text" required class="inputfindid" id="us_crn" name="us_crn"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 			</div>

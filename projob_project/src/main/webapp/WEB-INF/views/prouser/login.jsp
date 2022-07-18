@@ -31,13 +31,13 @@
 		</div>
 		<form action="<%=request.getContextPath()%>/login" method="post">
 			<div class="logincontent">
-				<label class="loginlabel fontname" for="us_id">아이디</label>
-				<input type="text" class="inputlogin" id="us_id" name="us_id"
+				<label class="loginlabel fontname" for="us_id">아이디</label> <input
+					type="text" class="inputlogin" id="us_id" name="us_id"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-
-				<label class="loginlabel fontname" for="us_pw">비밀번호</label>
-				<input type="password" class="inputlogin" id="us_pw" name="us_pw"
+					<br>
+				<label class="loginlabel fontname" for="us_pw">비밀번호</label> <input
+					type="password" class="inputlogin" id="us_pw" name="us_pw"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 			</div>
@@ -52,15 +52,6 @@
 			</div>
 		</form>
 		<div class="logindivision"></div>
-		<div class="apilogin">
-			<a
-				href="https://kauth.kakao.com/oauth/authorize?client_id=3ffd958b947bf62ae145517c58a31d0a&redirect_uri=	
-http://localhost:8090/projob/kakaologin&response_type=code">
-				<img
-				src="<%=request.getContextPath()%>/resources/images/kakao_login.png"
-				class="kakaoimg">
-			</a>
-		</div>
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />

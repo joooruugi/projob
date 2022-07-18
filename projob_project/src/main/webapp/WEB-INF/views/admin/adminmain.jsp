@@ -25,26 +25,29 @@
 <body>
 	<!--헤더-->
 	<jsp:include page="/WEB-INF/views/header_admin.jsp" flush="false" />
-	 <div class="adminmain">
-        <div class="admininfo">
-            <p class="fontimportant2 adminname">관리자님 환영합니다.</p>
-            <p class="fontnothing adminmanage">회원가입 미승인 ${adusercnt}건 </p>
-            <p class="fontnothing adminmanage">프로젝트 미승인 ${adprojectcnt }건 </p>
-        </div>
-        <div class="adminmanagement">
-            <div class="adsearchuser">
-                <label for="searchuser" class="fontcontent2 searchuserp">회원 검색</label>
-                <input type="text" class="searchuserinput fontcontent">
-                <button type="button" class="searchuserbtn fontcontent2 btn1">검색</button>
-            </div>
-            <div class="aduserapprove">
-                <a href="<%=request.getContextPath()%>/aduserapprovelist" class="fontcontent2 aduserapprovea">회원가입 승인</a>
-            </div>
-            <div class="adprojectapprove">
-                <a href="<%=request.getContextPath()%>/adprojectapprove" class="fontcontent2 adprojectapprovea">프로젝트 승인</a>
-            </div>
-        </div>
-    </div>
+	<div class="adminmain">
+		<div class="admininfo">
+			<p class="fontimportant2 adminname">관리자님 환영합니다.</p>
+			<p class="fontnothing adminmanage">회원가입 미승인 ${adusercnt}건</p>
+			<p class="fontnothing adminmanage">프로젝트 미승인 ${adprojectcnt }건</p>
+		</div>
+		<div class="adminmanagement">
+				<div class="adsearchuser">
+					<label for="searchuser" class="fontcontent2 searchuserp">회원
+						검색</label> <input type="text" class="searchuserinput fontcontent"
+						name="searchuser">
+					<button type="button" class="searchuserbtn fontcontent2 btn1">검색</button>
+				</div>
+			<div class="aduserapprove">
+				<a href="<%=request.getContextPath()%>/aduserapprovelist"
+					class="fontcontent2 aduserapprovea">회원가입 승인</a>
+			</div>
+			<div class="adprojectapprove">
+				<a href="<%=request.getContextPath()%>/adprojectapprove"
+					class="fontcontent2 adprojectapprovea">프로젝트 승인</a>
+			</div>
+		</div>
+	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 </body>

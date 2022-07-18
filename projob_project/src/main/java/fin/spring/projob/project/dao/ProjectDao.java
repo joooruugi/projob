@@ -1,7 +1,9 @@
 package fin.spring.projob.project.dao;
 
 import java.util.List;
-import java.util.Map;
+
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,11 @@ public class ProjectDao {
 	private SqlSessionTemplate sql;
 
 	// 프로젝트 공고 등록
-	public int insertProject(Project project) throws Exception {
+	public int insertProject(Project project, HttpServletRequest req) throws Exception {
 		return sql.insert("Project.insertProject", project);
 	}
-	public void insertFile(Map<String, Object>map)throws Exception{
-		sql.insert("Project.insertFile", map);
+	public void insertFile(Project project)throws Exception{
+		sql.insert("Project.insertFile", project);
 	}
 	//승인 전 프로젝트 수정
 	public int updateproject(Project project)throws Exception{
@@ -40,8 +42,8 @@ public class ProjectDao {
 	public Project projectDetail(int pro_no) throws Exception {
 		return sql.selectOne("Project.projectdetail", pro_no);
 	}
-	public List<Map<String, Object>> selectFileList(int pro_no)throws Exception{
-		return sql.selectList("Project.selectFileList", pro_no);
+	public List<Project> selectimgpro(int pro_no)throws Exception{
+		return sql.selectList("Project.selectimgpro", pro_no);
 	}
 	// 프로젝트 신청
 	public Project projectJoin(int pro_no) throws Exception {

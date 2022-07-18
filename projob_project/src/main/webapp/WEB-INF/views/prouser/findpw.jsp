@@ -31,18 +31,23 @@
 		</div>
 		<form action="<%=request.getContextPath()%>/findpw" method="post">
 			<div class="findpwdcontent">
-				<label class="findpwdlabel fontname" for="us_name">이름</label> <input type="text" class="inputfindpwd"
-					id="us_name" placeholder="" name="us_name"
+				<label class="findpwdlabel fontname" for="us_name">이름</label> <input
+					type="text" class="inputfindpwd" id="us_name" placeholder=""
+					name="us_name" required
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				<label class="findpwdlabel fontname" for="us_id">아이디</label>
-				<input type="text" class="inputfindpwd" name="us_id" id="us_id"
-					placeholder=""
+				<br>
+				<label class="findpwdlabel fontname" for="us_id">아이디</label> <input
+					type="text" class="inputfindpwd" name="us_id" id="us_id"
+					placeholder="" required
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				<label class="findpwdlabel fontname" for="us_email">이메일</label> <input type="email" class="inputfindpwd"
-					id="us_email" name="us_email" placeholder=""
+				<br>
+				<label class="findpwdlabel fontname" for="us_email">이메일</label> <input
+					type="email" class="inputfindpwd" id="us_email" name="us_email"
+					placeholder="" required
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				<label class="findpwdlabel fontname" for="us_crn">사업자등록번호</label>
-				<input type="text" class="inputfindpwd" name="us_crn" id="us_crn"
+				<br>
+				<label class="findpwdlabel fontname" for="us_crn">사업자등록번호</label> <input
+					type="text" required class="inputfindpwd" name="us_crn" id="us_crn"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 			</div>

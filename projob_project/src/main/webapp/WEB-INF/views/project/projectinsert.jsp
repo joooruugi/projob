@@ -43,7 +43,8 @@
 		<div class="insertprojectname">
 			<p class="fontname2">프로젝트 등록</p>
 		</div>
-		<form action="<%=request.getContextPath()%>/projectinsert" method="post" enctype="multipart/form-data">
+		<form action="<%=request.getContextPath()%>/projectinsert"
+			method="post" enctype="multipart/form-data">
 			<table class="project_insert">
 				<tr class="project_inserttr">
 					<td><p class="fontcontent insertprojectp">카테고리</p></td>
@@ -58,6 +59,7 @@
 					<td colspan="10"><input type="text" id="pro_title"
 						name="pro_title" placeholder="공고 제목을 입력해주세요" required></td>
 				</tr>
+
 				<tr>
 					<td><p class="fontcontent insertprojectp">내용</p></td>
 					<td colspan="100"><textarea id="pro_content"
@@ -81,11 +83,13 @@
 						name="pro_budget" placeholder="예산을 '원'단위로 입력해주세요" required>
 					</td>
 					<td><p class="fontcontent insertprojectp">첨부파일</p></td>
-					<td colspan="3"><input type="file" id="file" name="file">
-					<input type="hidden"  id="pro_comp" name="pro_comp" value="${pro_comp }"/>
+					<td colspan="3"><input type="file" id="projectImg"
+						multiple="multiple" accept=".jpg, .png" name="f"> <input
+						type="hidden" id="pro_comp" name="pro_comp" value="${pro_comp }" />
 					</td>
 				</tr>
 			</table>
+			<div id="div-preview"></div>
 			<div class="projectinsertbutton">
 				<button type="submit" class="projectinsertbtn btn5" id="insert_btn">프로젝트
 					등록</button>
@@ -100,6 +104,42 @@
 		CKEDITOR.replace('pro_content', {
 			height : 500
 		});
+	</script>
+	<script type="text/javascript">
+		let fileTag = document.querySelector("input[name=f]");
+		let divPreview = document.querySelector("#div-preview");
+
+		fileTag.onchange = function() {
+
+			//파일 올렸을 때 : fileTag.files.length > 0
+			if (fileTag.files.length > 0) {
+				//이미지 src에 들어갈 데이터 구하기
+				for (let i = 0; i < fileTag.files.length; i++) {
+					let reader = new FileReader();
+					reader.onload = function(data) {
+						let src = data.target.result;
+						//이미지 태그를 만들어서 넣어줄거임
+						//1. 이미지 태그 만들기
+						let imgTag = document.createElement('img');
+
+						//2. 이미지 태그 속성들 세팅하기
+						imgTag.setAttribute('src', src);
+						imgTag.setAttribute('width', '1200');
+						imgTag.setAttribute('height', '500');
+
+						//3. 이미지 태그 div안에 넣기
+						divPreview.appendChild(imgTag);
+					}
+					reader.readAsDataURL(fileTag.files[i]);
+
+				}//for end
+
+			} else {
+				//취소 버튼을 눌렀을 때
+				//div 안에 싹 다 비우기
+				divPreview.innerHTML = "";
+			}
+		}
 	</script>
 </body>
 

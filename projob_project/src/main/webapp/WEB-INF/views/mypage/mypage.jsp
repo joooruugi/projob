@@ -68,11 +68,6 @@
 					<p class="fontcontent2">진행중인 프로젝트 : ${freeprojectcnt }건</p>
 					<p class="fontcontent2">신청중인 프로젝트 : ${freeprojectyetcnt }건</p>
 				</div>
-				<div class="my_myprojectcoo">
-					<button type="submit" class="my_myprojectcoo_btn btn5">
-						<p class="fonthighlight">협업툴</p>
-					</button>
-				</div>
 			</div>
 		</div>
 		<div class="mypagebottom">
@@ -87,11 +82,6 @@
 							href="<%=request.getContextPath()%>/projectdetail?pro_no=${freeprojectinfo.pro_no}"
 							class="my_projecting fontnothing"><c:out
 								value="${freeprojectinfo.pro_title }" /></a>
-						<div class="my_project_cancel">
-							<a
-								href="<%=request.getContextPath() %>/projectcancel?pro_no=${freeprojectinfo.pro_no}"
-								class="myprojecting fontnothing2 cancela ">철회하기</a>
-						</div>
 					</div>
 				</c:forEach>
 			</div>
@@ -139,11 +129,6 @@
 				<div class="my_myproject">
 					<p class="fontcontent2">진행중인 프로젝트 : ${compprojectcnt }건</p>
 					<p class="fontcontent2">승인대기 프로젝트 : ${compprojectyetcnt }건</p>
-				</div>
-				<div class="my_myprojectcoo">
-					<button type="submit" class="my_myprojectcoo_btn btn5">
-						<p class="fonthighlight">협업툴</p>
-					</button>
 				</div>
 			</div>
 		</div>

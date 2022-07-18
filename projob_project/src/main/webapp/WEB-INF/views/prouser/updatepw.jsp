@@ -32,10 +32,7 @@
 		</div>
 		<form action="<%=request.getContextPath()%>/updatepw" method="post">
 			<div class="findpwdcontent">
-			<label class="findpwdlabel" for="us_id">아이디</label><br>
-					<br> <input type="text" class="inputfindpwd" required
-						name="us_id" id="us_id" placeholder="숫자+영어 혼합하여 6자 이상 입력"
-						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;"><br>
+			<input type="hidden" name="us_id" value="${us_id }">
 				<label class="findpwdlabel" for="us_pw">비밀번호</label><br> <br>
 				<input type="password" class="inputfindpwd" required name="us_pw"
 					id="us_pw" placeholder="영문+특수문자 혼합하여 6자 이상 12자 이하"> <br><label

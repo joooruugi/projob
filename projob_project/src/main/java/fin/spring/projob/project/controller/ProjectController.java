@@ -1,7 +1,6 @@
 package fin.spring.projob.project.controller;
 
-import java.util.List;
-import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -73,16 +72,16 @@ public class ProjectController {
 		session.getAttribute("loginSsInfo");
 		project.setPro_comp(prouser.getUs_name());
 		project.setPro_id(prouser.getUs_id());
-		service.insertProject(project, mreq);
-//		System.out.println(result);
-//		if (result < 1) {
-//			logger.info("insertproject fail");
-//			mv.setViewName("redirect:/projectinsert");
-//		} else {
-//			logger.info("insertproject success");
-//			mv.setViewName("project/projectmain");
-//		}
-		mv.setViewName("project/projectmain");
+		int result = service.insertProject(project, mreq);
+		System.out.println(result);
+		if (result < 1) {
+			logger.info("insertproject fail");
+			mv.setViewName("redirect:/projectinsert");
+		} else {
+			logger.info("insertproject success");
+			mv.setViewName("project/projectmain");
+		}
+		mv.setViewName("redirect:/project");
 		return mv;
 	}
 
@@ -95,9 +94,7 @@ public class ProjectController {
 		session.getAttribute("loginSsInfo");
 		int prono = project.getPro_no();
 		mv.addObject("projectdetail", service.projectDetail(prono));
-		List<Map<String, Object>> fileList = service.selectFileList(prono);
-		mv.addObject("file", fileList);
-		System.out.println(fileList);
+		mv.addObject("selectimgpro", service.selectimgpro(prono));
 		mv.setViewName("project/projectdetail");
 		return mv;
 	}
@@ -107,8 +104,7 @@ public class ProjectController {
 		logger.info("adprojectdetail GET");
 		int prono = project.getPro_no();
 		mv.addObject("projectdetail", service.projectDetail(prono));
-		List<Map<String, Object>> fileList = service.selectFileList(prono);
-		mv.addObject("file", fileList);
+		mv.addObject("selectimgpro", service.selectimgpro(prono));
 		mv.setViewName("project/adprojectdetail");
 		return mv;
 	}

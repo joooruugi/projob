@@ -140,13 +140,14 @@ public class ProuserController {
 	// 사용자 로그인(post) us_id만 가져가서 비교 > 암호화된 비밀번호와 입력한 비밀번호가 일치하는지 확인
 	@PostMapping(value = "/login")
 	public ModelAndView login(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpSession session
-			,HttpServletRequest req)
+			,HttpServletRequest req, HttpServletResponse response)
 			throws Exception {
 		Prouser result = service.login(prouser);
 		if (result != null && passEncoder.matches(prouser.getUs_pw(), result.getUs_pw())) {
 			logger.info("Login POST");
 			System.out.println(result.getUs_info());
 			session.setAttribute("loginSsInfo", result);
+			ScriptUtils.alert(response, "로그인 성공. 환영합니다!");
 			if (result.getUs_ok() == 0) {
 				mv.setViewName("prouser/waitjoin");
 			} else if (result.getUs_ok() == 1) {
@@ -156,6 +157,7 @@ public class ProuserController {
 			}
 			return mv;
 		} else {
+			ScriptUtils.alert(response, "로그인 실패. 재시도해주세요.");
 			mv.setViewName("redirect:/login");
 			return mv;
 		}
@@ -224,11 +226,12 @@ public class ProuserController {
 
 	// 사용자 비밀번호 찾기 post
 	@PostMapping(value = "/findpw")
-	public ModelAndView findpwpost(ModelAndView mv, Prouser prouser, RedirectAttributes rttr) throws Exception {
+	public ModelAndView findpwpost(ModelAndView mv, Prouser prouser, @RequestParam("us_id") String usId) throws Exception {
 		logger.info("findpw POST");
 		int result = service.findpw(prouser);
 		if (result != 0) {
 			logger.info("findpw success");
+			mv.addObject("us_id", usId);
 			mv.setViewName("redirect:/updatepw");
 		} else {
 			logger.info("findpw fail");
@@ -239,36 +242,37 @@ public class ProuserController {
 
 	// 사용자 비밀번호 재설정 get
 	@RequestMapping(value = "/updatepw", method = RequestMethod.GET)
-	public ModelAndView updatepwGet(ModelAndView mv, Prouser prouser) {
+	public ModelAndView updatepwGet(ModelAndView mv, Prouser prouser, @RequestParam("us_id") String usId) {
 		logger.info("updatepw GET");
+		mv.addObject("us_id", usId);
 		mv.setViewName("prouser/updatepw");
 		return mv;
 	}
 
 	// 사용자 비밀번호 재설정 post
 	@RequestMapping(value = "/updatepw", method = RequestMethod.POST)
-	public ModelAndView updatepwPost(ModelAndView mv, Prouser prouser, @RequestParam(value = "us_id") String us_id)
+	public ModelAndView updatepwPost(ModelAndView mv, Prouser prouser, HttpServletResponse response, @RequestParam(value="us_id", required =false)String usId )
 			throws Exception {
 		logger.info("updatepw POST");
+		prouser.setUs_id(usId);
 		int result = service.updatepw(prouser);
 		if (result != 0) {
 			logger.info("updatepw success");
-			mv.setViewName("redirect:/login");
+			ScriptUtils.alert(response, "비밀번호 재설정 완료.");
+			mv.setViewName("prouser/login");
 		} else {
 			logger.info("updatepw fail");
-			mv.setViewName("redirect:/updatepw");
+			ScriptUtils.alertAndBackPage(response, "재설정 실패. 정보를 다시 입력해주세요.");
 		}
 		return mv;
 	}
 
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logout(ModelAndView mv, HttpServletResponse response, HttpSession session)throws Exception {
+	public String logout(ModelAndView mv, HttpServletResponse response, HttpSession session)throws Exception {
 		logger.info("Prouser logout");
-		ScriptUtils.alert(response, "로그아웃 되었습니다.");
-		mv.setViewName("redirect:/");
 		session.invalidate();
-		return mv;
+		return "home";
 	}
 
 	// 관리자 승인 전 대기화면
@@ -315,17 +319,17 @@ public class ProuserController {
 	// 마이페이지 본인확인 POST
 	@PostMapping(value = "/checkforupdate")
 	public ModelAndView checkforupdatePost(ModelAndView mv, HttpSession session,
-			@ModelAttribute("loginSsInfo") Prouser prouser, @RequestParam("us_pw") String us_pwchk) throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser, HttpServletResponse response, @RequestParam("us_pwchk") String uspwchk) throws Exception {
 		session.getAttribute("loginSsInfo");
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String securepw = encoder.encode(us_pwchk);
-		System.out.println("session information of checkforupdate" + prouser);
-		if (passEncoder.matches(prouser.getUs_pw(), securepw)) {
+		String securepw = encoder.encode(uspwchk);
+		if (passEncoder.matches(uspwchk, prouser.getUs_pw())) {
 			logger.info("checkforupdate success");
 			mv.setViewName("redirect:/updateinfo");
 		} else {
 			logger.info("checkforupdate  fail");
-			mv.setViewName("redirect:/checkforupdate");
+			ScriptUtils.alert(response, "비밀번호가 틀렸습니다.");
+			mv.setViewName("mypage/checkforupdate");
 		}
 		return mv;
 	}
@@ -355,8 +359,7 @@ public class ProuserController {
 			ScriptUtils.alertAndBackPage(response, "정보수정에 실패했습니다. 재시도해주세요.");
 		} else {
 			logger.info("updateInfo success");
-			ScriptUtils.alert(response, "정보수정이 완료되었습니다.");
-			mv.setViewName("mypage/mypage");
+			mv.setViewName("redirect:/updateinfo");
 		}
 		return mv;
 	}

@@ -51,4 +51,8 @@ public class AdminService {
 	public int updateprojectnok(int pro_no)throws Exception{
 		return adao.updateprojectnok(pro_no);
 	}
+	//관리자 회원 검색
+	public Prouser adsearchuser(String searchuser)throws Exception{
+		return adao.adsearchuser(searchuser);
+	}
 }
