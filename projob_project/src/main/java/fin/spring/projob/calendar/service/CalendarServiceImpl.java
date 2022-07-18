@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import fin.spring.projob.calendar.dao.CalendarDao;
 import fin.spring.projob.calendar.domain.Calendar;
-import fin.spring.projob.calendar.domain.Color_sample;
-import fin.spring.projob.project.vo.PMember;
-import fin.spring.projob.project.vo.Project;
 
 @Service
 public class CalendarServiceImpl implements CalendarService {
@@ -39,25 +36,16 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 	
 
-//	@Override
-//	public String selectColor(String userId, String pro_no) {
-//		return dao.selectColor(userId, pro_no);
-//	}
-	
 	@Override
-	public String selectColor(Map<String, Object> map) {
-		return dao.selectColor(map);
+	public String selectColor(String userId, String pro_no) {
+		return dao.selectColor(userId, pro_no);
 	}
 	
-//	@Override
-//	public String selectColor(String userId) {
-//		return dao.selectColor(userId);
-//	}
 	
-	@Override
-	public List<PMember> selectPMember(String pro_no) {
-		return dao.selectPMember(pro_no);
-	}
+//	@Override
+//	public List<PMember> selectPMember(String pro_no) {
+//		return dao.selectPMember(pro_no);
+//	}
 
 	
 	

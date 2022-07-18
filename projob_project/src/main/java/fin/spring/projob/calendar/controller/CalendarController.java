@@ -55,26 +55,62 @@ public class CalendarController {
 		 
 		//프로젝트 리스트
 		List<Map<String, Object>> project = service.selectProject(userId);
+		
 		//색상 호출
-		//String color = service.selectColor(userId, pro_no);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
-		map.put("pro_no", pro_no);
-		String color = service.selectColor(map);
+		String mycolor = "#3788d8";
+		if(!pro_no.equals("0")) {
+			mycolor = service.selectColor(userId, pro_no);
+		}
+		System.out.println("sjk pro_no:"+pro_no);
+		System.out.println("sjk mycolor:"+mycolor);
 
 		//
 		
 		//유저 ID 담기
 		mv.addObject("userId", userId);
 		//프로젝트 리스트 담기
-		mv.addObject("project", project);
-		mv.setViewName("calendar/calendar");
+		mv.addObject("projectlist", project);
 		//색상 담기
-		mv.addObject("color", color);
+		mv.addObject("mycolor", mycolor);
+		mv.setViewName("calendar/calendar");
 		return mv;
 	}
-	
+	@PostMapping("/list")
+	public ModelAndView listPost(ModelAndView mv,
+			RedirectAttributes rttr,
+			HttpSession ss,
+			@RequestParam(name="pro_no", defaultValue ="0") String pro_no
+			) {
 		
+		if(ss.getAttribute("loginSsInfo") == null) {
+			mv.setViewName("redirect:/login");
+			rttr.addFlashAttribute("msg", "로그인 먼저 해주세요");
+			return mv;
+		}
+		//세션에서 아이디 호출
+		Prouser userInfo = (Prouser) ss.getAttribute("loginSsInfo");
+		String userId = userInfo.getUs_id();
+		 
+		//프로젝트 리스트
+		List<Map<String, Object>> project = service.selectProject(userId);
+		
+		//색상 호출
+		String mycolor = "#3788d8";
+		if(!pro_no.equals("0")) {
+			mycolor = service.selectColor(userId, pro_no);
+		}
+		System.out.println("sjk pro_no:"+pro_no);
+		System.out.println("sjk mycolor:"+mycolor);
+		
+		//유저 ID 담기
+		mv.addObject("userId", userId);
+		//프로젝트 리스트 담기
+		mv.addObject("projectlist", project);
+		//색상 담기
+		mv.addObject("mycolor", mycolor);
+		mv.setViewName("calendar/calendar");
+		return mv;
+	}
 
 	//일정 데이터 조회 (writer별)
 	@GetMapping(value="/data", produces = "text/plain;charset=UTF-8")

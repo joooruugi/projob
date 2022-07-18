@@ -56,8 +56,8 @@
 			#{end},
 			#{allday},
 			#{textColor},
-			(select color_code from color_sample cs join p_member pm using (color_no) where pm.us_id = #{writer}),
-			#{borderColor}
+			(select color_code from color_sample cs join p_member pm using (color_no) where pm.us_id = #{writer}and pro_no=#{pro_no}),
+			(select color_code from color_sample cs join p_member pm using (color_no) where pm.us_id = #{writer} and pro_no=#{pro_no})
 			)	
 	</insert>
 	
@@ -68,7 +68,18 @@
 	</delete>
 	
 	<!-- 색깔 조회 -->
-	<select id="selectColor" parameterType="String" resultType="String">
-		select color_code from color_sample cs join p_member pm using (color_no) where pm.us_id = #{userId}
+	<select id="selectColor" parameterType="string" resultType="string">
+		select color_code from color_sample cs join p_member pm using (color_no) where pm.us_id = #{userId} and pro_no=#{pro_no}		
 	</select>
+	
+	<!-- 프로젝트 조회-->
+	<select id="selectProject" parameterType="string" resultType="hashmap">
+		select pro_title, pro_no from project left join p_member using(pro_no) where us_id=#{userId} and prom_ok=1
+	</select>
+	
+	<!-- 프로젝트 멤버 조회 -->
+	<!-- <select id="selectPMemberlist" parameterType="string" resultType="PMember">
+		select * from prouser left join p_member using(us_id) where pro_no=#{pro_no}
+	</select> -->
+	
 </mapper>

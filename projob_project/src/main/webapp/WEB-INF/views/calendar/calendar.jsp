@@ -16,9 +16,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.js"></script>
 	<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 	<!-- ColorPicker codes -->
+	<!-- 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror-colorpicker@1.7.3/addon/codemirror-colorpicker.css" />
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/codemirror-colorpicker@1.7.3/addon/codemirror-colorpicker.js" ></script>
-	 <style>
+ 	-->
+ 	 <style>
 		#calendar{
 		   width:60%;
 		   margin:20px auto;
@@ -84,9 +86,9 @@
                         end: arg.endStr,
                         allday: arg.allDay,
                         /* backgroundColor:"#3788d8", //color_code가져오기 */
-                        backgroundColor:"${color}",	//color_code 가져오기
+                        backgroundColor:mycolor,	//color_code 가져오기
                         textColor:"white",
-                        borderColor: "${color}",
+                        borderColor: mycolor,
     					writer: "${loginSsInfo.us_id}",	//유저 아이디 가져오기
     					pro_no: $("#pro_no").val()	//선택한 프로젝트 번호 가져오기
                       };
@@ -148,14 +150,6 @@
 		          		}
           	  		});
             	}
-            	<%-- function pMember(){
-            		$.ajax({
-                		type:"get",
-                		url:"<%=request.getContextPath()%>/calendar/pMember",
-                		data:{"userInfo" : $("#searchNP").val()},
-                		dataType:"json",
-                		success:function(data){
-            	}, --%>
         	
             , initialView: "dayGridMonth"	// 초기 로드될때 보이는 캘린더화면(기본설정: 달)
         	, selectable: true //날짜 드래그해서 지정가능
@@ -210,18 +204,20 @@
 	<br>
 	<div id="modal_selectp" class="modal">
     	<div style="padding: 0 5px">
+    	<form id="frmProject">
     		<select name="pro_no" id="pro_no" onchange="myFunction()">
     			<option value="0">프로젝트 전체</option>
-    			<c:forEach items="${project }" var="project">
-    				<option value="${project.PRO_NO }">${project.PRO_TITLE }</option>
+    			<c:forEach items="${projectlist }" var="pj">
+    				<option value="${pj.PRO_NO }">${pj.PRO_TITLE }</option>
     			</c:forEach>
     		</select>
+    	</form>
     	</div>
     	<div id="projectMember"></div>
     	<p id="selectname"></p>	
     </div>
     <div id="calendar"></div>
-    [[[[[[[${color }]]]]]]]
+    [[[[[[[${mycolor }]]]]]]]
 	<!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
 	
@@ -229,8 +225,13 @@
 	<script>
 		function myFunction(){
 			var pro_no = $("#pro_no").val();
-            location.href="#"+pro_no;
-            location.reload();
+			
+            //location.href="#"+pro_no;
+            //location.reload();
+            
+			frmProject.action = "#"+pro_no;
+			frmProject.method="post"
+			frmProject.submit();
 		}
 	</script>
 	
@@ -241,6 +242,8 @@
 		var selectedProNo = lastUrl.split("#").pop(); // #을 기준으로 맨 끝 값 꺼내기
 		var pro_title = $("#pro_no option[value="+selectedProNo+"]").text();
 		$("#selectname").html("선택한 프로젝트: "+ pro_title); 
+		let mycolor = "${mycolor}";
+		console.log(mycolor);
 		<%-- function list(){
 			$.ajax({
 	      		type:"post",
