@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fin.spring.projob.calendar.domain.Calendar;
+import fin.spring.projob.calendar.domain.Color_sample;
+import fin.spring.projob.project.vo.PMember;
+import fin.spring.projob.project.vo.Project;
 
 @Repository
 public class CalendarDao {
@@ -35,12 +38,26 @@ public class CalendarDao {
 	
 	//프로젝트 리스트
 	public List<Map<String, Object>> selectProject(String userId) {
-		return sqlsession.selectList("Messenger.selectProject", userId);
+		return sqlsession.selectList("Calendar.selectProject", userId);
 	}
 	
 	//색깔 조회
-	public String selectColor(String userId) {
-		return sqlsession.selectOne("Calendar.selectColor", userId);
+//	public String selectColor(String userId, String pro_no) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("userId", userId);
+//		map.put("pro_no", pro_no);
+//		return sqlsession.selectOne("Calendar.selectColor", map);
+//	}
+	public String selectColor(Map<String, Object> map) {
+		return sqlsession.selectOne("Calendar.selectColor", map);
+	}
+//	public String selectColor(String userId) {
+//		return sqlsession.selectOne("Calendar.selectColor", userId);
+//	}
+	
+	//프로젝트 멤퍼 조회
+	public List<PMember> selectPMember(String pro_no) {
+		return sqlsession.selectList("Calendar.selectPMember", pro_no);
 	}
 
 	

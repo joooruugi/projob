@@ -11,4 +11,5 @@ public class PMember {
 	private int re_no;
 	public String us_name;
 	public String re_title;
+	public int color_no;
 }
