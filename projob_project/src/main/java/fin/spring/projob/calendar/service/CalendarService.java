@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import fin.spring.projob.calendar.domain.Calendar;
+import fin.spring.projob.project.vo.PMember;
 
 
 public interface CalendarService {
@@ -24,5 +25,5 @@ public interface CalendarService {
 	public String selectColor(String userId, String pro_no);
 	
 	//프로젝트 멤버 조회
-	//public List<PMember> selectPMember(String pro_no);
+	public List<PMember> selectPMemberList(String pro_no);
 }

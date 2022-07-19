@@ -78,8 +78,8 @@
 	</select>
 	
 	<!-- 프로젝트 멤버 조회 -->
-	<!-- <select id="selectPMemberlist" parameterType="string" resultType="PMember">
-		select * from prouser left join p_member using(us_id) where pro_no=#{pro_no}
-	</select> -->
+	<select id="selectPMemberList" parameterType="string" resultType="hashmap">
+		select us_id, color_code from p_member join color_sample using (color_no) where pro_no = #{pro_no} and prom_ok=1
+	</select>
 	
 </mapper>

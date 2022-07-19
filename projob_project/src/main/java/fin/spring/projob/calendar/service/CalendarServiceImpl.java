@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import fin.spring.projob.calendar.dao.CalendarDao;
 import fin.spring.projob.calendar.domain.Calendar;
+import fin.spring.projob.project.vo.PMember;
 
 @Service
 public class CalendarServiceImpl implements CalendarService {
@@ -42,10 +43,10 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 	
 	
-//	@Override
-//	public List<PMember> selectPMember(String pro_no) {
-//		return dao.selectPMember(pro_no);
-//	}
+	@Override
+	public List<PMember> selectPMemberList(String pro_no) {
+		return dao.selectPMemberList(pro_no);
+	}
 
 	
 	

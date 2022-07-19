@@ -102,12 +102,17 @@ public class CalendarController {
 		System.out.println("sjk pro_no:"+pro_no);
 		System.out.println("sjk mycolor:"+mycolor);
 		
+		//프로젝트 멤버 호출
+		List<PMember> pmlist = service.selectPMemberList(pro_no);
+		
 		//유저 ID 담기
 		mv.addObject("userId", userId);
 		//프로젝트 리스트 담기
 		mv.addObject("projectlist", project);
 		//색상 담기
 		mv.addObject("mycolor", mycolor);
+		//프로젝트 멤버 담기
+		mv.addObject("pmlist", pmlist);
 		mv.setViewName("calendar/calendar");
 		return mv;
 	}
@@ -147,19 +152,6 @@ public class CalendarController {
 	public String deleteCalendar(Calendar calendar) {
 		int result = service.deleteCalendar(calendar);
 		return String.valueOf(result);
-	}
-	
-	//프로젝트 멤버리스트 조회
-	@PostMapping("pMember")
-	@ResponseBody
-	public String selectPMember(
-			@RequestParam("pro_no") String pro_no) {
-		List<PMember> pmlist = service.selectPMember(pro_no);
-		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String data = gson.toJson(pmlist);
-		return data;
-		
 	}
 	
 	

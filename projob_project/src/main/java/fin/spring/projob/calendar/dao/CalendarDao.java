@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fin.spring.projob.calendar.domain.Calendar;
+import fin.spring.projob.project.vo.PMember;
 
 @Repository
 public class CalendarDao {
@@ -46,10 +47,10 @@ public class CalendarDao {
 		return sqlsession.selectOne("Calendar.selectColor", map);
 	}
 	
-	//프로젝트 멤퍼 조회
-//	public List<PMember> selectPMemberlist(String pro_no) {
-//		return sqlsession.selectList("Calendar.selectPMember", pro_no);
-//	}
+	//프로젝트 멤버 리스트 조회
+	public List<PMember> selectPMemberList(String pro_no) {
+		return sqlsession.selectList("Calendar.selectPMemberList", pro_no);
+	}
 
 	
 }

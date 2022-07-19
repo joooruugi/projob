@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/all.css">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fullcalendar/main.css">
 	<script src="<%=request.getContextPath() %>/resources/fullcalendar/main.js"></script>
+	<!-- 아이콘 -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<!-- fullcalendar 언어 설정관련 script -->
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.js"></script>
 	<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
@@ -218,6 +220,9 @@
     </div>
     <div id="calendar"></div>
     [[[[[[[${mycolor }]]]]]]]
+    [[[[[[[${pmlist} ]]]]]]]
+    [[[[[[[${pmlist[2].COLOR_CODE}]]]]]]]
+    <i class="xi-full-moon" style="color:#3788d8;"></i>
 	<!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
 	
@@ -257,7 +262,8 @@
 	    		$("#projectMember").html('');
 	    		return;
 	    	} */
-	    	function pMember(){
+	   <%--  
+    	function pMember(){
 	    	$.ajax({
 				type :'post' ,
 				url : "<%=request.getContextPath()%>/calendar/pMember",
@@ -272,8 +278,9 @@
 					})
 					$("#projectMember").html(html);
 				}
-			})
-		};
+			});
+		}
+	     --%>
 	</script>
 	
     
