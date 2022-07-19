@@ -150,6 +150,26 @@
 		values(re_seq.currval, #{ce_title3}, #{ce_num3}, #{ce_cert_pub3},
 		#{ce_date3})
 	</insert>
+	<!-- 이력서 수정 -->
+	<update id="updateresume" parameterType="Resume">
+		update resume set re_school=#{re_school}, re_graduate=#{re_graduate}, re_type=#{re_type}
+		, re_homepage=#{re_homepage}, re_openyn=#{re_openyn}, re_birth=#{re_birth}, re_title=#{re_title}
+		where re_no = #{re_no}
+	</update>
+	<!-- 이력서 삭제 -->
+	<delete id="deleteresume" parameterType="int">
+		delete from resume where re_no=#{re_no}
+	</delete>
+	<delete id="deletecerti" parameterType="int">
+		delete from certificate where ce_no=#{re_no}
+	</delete>
+	<delete id="deletecareer" parameterType="int">
+		delete from career where ca_no=#{re_no}
+	</delete>
+	<!-- 프로젝트에 제출한 이력서인지 조회  -->
+	<select id="resumepmember" parameterType="int" resultType="int">
+		select count(*) from p_member where re_no=#{re_no}
+	</select>
 	<!-- 프로젝트 신청 이력서 목록 -->
 	<select id="resumeJoin" parameterType="String"
 		resultType="Resume">
@@ -201,4 +221,5 @@
 	<select id="compprojectinfo" parameterType="String" resultType="Project">
 		select pro_no, pro_title from project where pro_id=#{us_id} and pro_ok=1
 	</select>
+	
 </mapper>

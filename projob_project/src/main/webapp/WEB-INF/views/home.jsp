@@ -25,10 +25,7 @@
 	%>
 	<jsp:include page="/WEB-INF/views/header_admin.jsp" flush="false" />
 	<%
-	} else {
-	%>
-	<%
-	if (prouser != null) {
+	} else if (prouser != null) {
 	%>
 	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
 	<%
@@ -36,7 +33,6 @@
 	%>
 	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
 	<%
-	}
 	}
 	%>
 	<!--푸터-->

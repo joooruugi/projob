@@ -79,7 +79,7 @@
 			<div class="pro_detail_bottom fontnothing2">
 				<c:forEach var="selectimgpro" items="${selectimgpro }">
 				<img width=200px;
-						src="<%=request.getContextPath() %>/resources/project/${selectimgpro.changenamepro}">
+						src="<%=request.getContextPath() %>/resources//project${selectimgpro.changenamepro}">
 				</c:forEach>
 			</div>
 			<div class="projectdetailbutton">

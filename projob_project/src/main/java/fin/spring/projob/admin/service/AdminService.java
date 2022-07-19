@@ -21,11 +21,11 @@ public class AdminService {
 		return adao.adlogin(admin);
 	}
 	//미승인건 확인
-	public int adusercnt()throws Exception{
-		return adao.adusercnt();
+	public int adusercnt(int us_ok)throws Exception{
+		return adao.adusercnt(us_ok);
 	}
-	public int adprojectcnt()throws Exception{
-		return adao.adprojectcnt();
+	public int adprojectcnt(int pro_ok)throws Exception{
+		return adao.adprojectcnt(pro_ok);
 	}
 	//관리자 회원승인 조회
 	public List<Prouser> aduserapprove(int us_ok)throws Exception{

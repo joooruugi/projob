@@ -1,7 +1,5 @@
 package fin.spring.projob.prouser.controller;
 
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -99,8 +97,8 @@ public class ProuserController {
 //	// 회원가입 사용자>기업 정보입력 화면POST1(회원가입3)
 	@PostMapping("/infocomp")
 	// @ResponseBody
-	public ModelAndView infocomppost(ModelAndView mv, Prouser prouser, HttpServletResponse response, RedirectAttributes rttr, HttpServletRequest req)
-			throws Exception {
+	public ModelAndView infocomppost(ModelAndView mv, Prouser prouser, HttpServletResponse response,
+			RedirectAttributes rttr, HttpServletRequest req) throws Exception {
 		logger.info("join for company_POST");
 		int result = service.insertProusercomp(prouser);
 		if (result < 1) {
@@ -139,9 +137,8 @@ public class ProuserController {
 
 	// 사용자 로그인(post) us_id만 가져가서 비교 > 암호화된 비밀번호와 입력한 비밀번호가 일치하는지 확인
 	@PostMapping(value = "/login")
-	public ModelAndView login(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpSession session
-			,HttpServletRequest req, HttpServletResponse response)
-			throws Exception {
+	public ModelAndView login(ModelAndView mv, Prouser prouser, RedirectAttributes rttr, HttpSession session,
+			HttpServletRequest req, HttpServletResponse response) throws Exception {
 		Prouser result = service.login(prouser);
 		if (result != null && passEncoder.matches(prouser.getUs_pw(), result.getUs_pw())) {
 			logger.info("Login POST");
@@ -158,7 +155,7 @@ public class ProuserController {
 			return mv;
 		} else {
 			ScriptUtils.alert(response, "로그인 실패. 재시도해주세요.");
-			mv.setViewName("redirect:/login");
+			mv.setViewName("prouser/login");
 			return mv;
 		}
 	}
@@ -198,15 +195,15 @@ public class ProuserController {
 	// 사용자 아이디 찾기 post
 	@ResponseBody
 	@PostMapping(value = "/findid")
-	public ModelAndView findidpost(ModelAndView mv, HttpServletResponse response, Prouser prouser, HttpServletRequest request,
-			RedirectAttributes rttr) throws Exception {
+	public ModelAndView findidpost(ModelAndView mv, HttpServletResponse response, Prouser prouser,
+			HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		logger.info("findid POST");
 		Prouser result = service.findid(prouser);
 		if (result != null) {
 			logger.info("findid success");
 			logger.info(result.getUs_id());
 //			mv.addObject("msg", result.getUs_name()+"님의 아이디는  "+result.getUs_id()+" 입니다.");
-			ScriptUtils.alert(response, result.getUs_name()+"님의 아이디는 "+result.getUs_id()+" 입니다.");
+			ScriptUtils.alert(response, result.getUs_name() + "님의 아이디는 " + result.getUs_id() + " 입니다.");
 			mv.setViewName("prouser/login");
 			return mv;
 		} else {
@@ -226,7 +223,8 @@ public class ProuserController {
 
 	// 사용자 비밀번호 찾기 post
 	@PostMapping(value = "/findpw")
-	public ModelAndView findpwpost(ModelAndView mv, Prouser prouser, @RequestParam("us_id") String usId) throws Exception {
+	public ModelAndView findpwpost(ModelAndView mv, Prouser prouser, @RequestParam("us_id") String usId)
+			throws Exception {
 		logger.info("findpw POST");
 		int result = service.findpw(prouser);
 		if (result != 0) {
@@ -251,8 +249,8 @@ public class ProuserController {
 
 	// 사용자 비밀번호 재설정 post
 	@RequestMapping(value = "/updatepw", method = RequestMethod.POST)
-	public ModelAndView updatepwPost(ModelAndView mv, Prouser prouser, HttpServletResponse response, @RequestParam(value="us_id", required =false)String usId )
-			throws Exception {
+	public ModelAndView updatepwPost(ModelAndView mv, Prouser prouser, HttpServletResponse response,
+			@RequestParam(value = "us_id", required = false) String usId) throws Exception {
 		logger.info("updatepw POST");
 		prouser.setUs_id(usId);
 		int result = service.updatepw(prouser);
@@ -269,10 +267,11 @@ public class ProuserController {
 
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(ModelAndView mv, HttpServletResponse response, HttpSession session)throws Exception {
+	public ModelAndView logout(ModelAndView mv, HttpServletResponse response, HttpSession session) throws Exception {
 		logger.info("Prouser logout");
+		mv.setViewName("home");
 		session.invalidate();
-		return "home";
+		return mv;
 	}
 
 	// 관리자 승인 전 대기화면
@@ -288,18 +287,18 @@ public class ProuserController {
 			throws Exception {
 		session.getAttribute("loginSsInfo");
 		session.setAttribute("us_name", prouser.getUs_name());
-		//진행중인 프로젝트 조회 (기업, 프리랜서)
-		if(prouser.getUs_info()==0) {
+		// 진행중인 프로젝트 조회 (기업, 프리랜서)
+		if (prouser.getUs_info() == 0) {
 			mv.addObject("freeprojectyetcnt", service.freeprojectyetcnt(prouser.getUs_id()));
 			mv.addObject("freeprojectcnt", service.freeprojectcnt(prouser.getUs_id()));
 			mv.addObject("freeprojectyetinfo", service.freeprojectyetinfo(prouser.getUs_id()));
 			mv.addObject("freeprojectinfo", service.freeprojectinfo(prouser.getUs_id()));
-		}else {
+		} else {
 			mv.addObject("compprojectyetcnt", service.compprojectyetcnt(prouser.getUs_id()));
 			mv.addObject("compprojectcnt", service.compprojectcnt(prouser.getUs_id()));
 			mv.addObject("compprojectyetinfo", service.compprojectyetinfo(prouser.getUs_id()));
 			mv.addObject("compprojectinfo", service.compprojectinfo(prouser.getUs_id()));
-			
+
 		}
 		mv.setViewName("mypage/mypage");
 		return mv;
@@ -319,10 +318,9 @@ public class ProuserController {
 	// 마이페이지 본인확인 POST
 	@PostMapping(value = "/checkforupdate")
 	public ModelAndView checkforupdatePost(ModelAndView mv, HttpSession session,
-			@ModelAttribute("loginSsInfo") Prouser prouser, HttpServletResponse response, @RequestParam("us_pwchk") String uspwchk) throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser, HttpServletResponse response,
+			@RequestParam("us_pwchk") String uspwchk) throws Exception {
 		session.getAttribute("loginSsInfo");
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String securepw = encoder.encode(uspwchk);
 		if (passEncoder.matches(uspwchk, prouser.getUs_pw())) {
 			logger.info("checkforupdate success");
 			mv.setViewName("redirect:/updateinfo");
@@ -370,28 +368,25 @@ public class ProuserController {
 			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume) throws Exception {
 		logger.info("resume list Get");
 		session.getAttribute("loginSsInfo");
-		System.out.println(prouser);
 		mv.addObject("resumelist", service.resumelist(prouser.getUs_id()));
 		mv.setViewName("mypage/resumelist");
 		return mv;
 	}
-	//마이페이지 이력서 상세조회 GET
-	@RequestMapping(value="/resume", method=RequestMethod.GET)
-	public ModelAndView resumeGet(ModelAndView mv
-			,@ModelAttribute("loginSsInfo")Prouser prouser
-			, HttpSession session
-			, Resume resume, Career career
-			,Certificate certi )throws Exception{
+
+	// 마이페이지 이력서 상세조회 GET
+	@RequestMapping(value = "/resume", method = RequestMethod.GET)
+	public ModelAndView resumeGet(ModelAndView mv, @ModelAttribute("loginSsInfo") Prouser prouser, HttpSession session,
+			Resume resume, Career career, Certificate certi) throws Exception {
 		logger.info("resume GET");
 		session.getAttribute("loginSsInfo");
 		mv.addObject("resume", service.resume(resume.getRe_no()));
 		mv.addObject("resumeimg", service.resumeimg(resume.getRe_no()));
-		System.out.println(resume);
 		mv.addObject("career", service.career(resume.getRe_no()));
 		mv.addObject("certi", service.certi(resume.getRe_no()));
 		mv.setViewName("mypage/resume");
 		return mv;
 	}
+
 	// 마이페이지 이력서 등록하기 GET
 	@RequestMapping(value = "/resumeinsert", method = RequestMethod.GET)
 	public ModelAndView resumeinsertGet(ModelAndView mv, HttpSession session,
@@ -406,34 +401,77 @@ public class ProuserController {
 	@PostMapping("/resumeinsert")
 	public ModelAndView resumeinsertPost(ModelAndView mv, HttpSession session,
 			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Career career, Certificate certi,
-			HttpServletRequest req, HttpServletResponse response
-			) throws Exception {
+			HttpServletRequest req, HttpServletResponse response) throws Exception {
 		logger.info("resumeinsert POST");
-		session.getAttribute("loginSsInfo"); //로그인된 정보 불러오기
-		resume.setUs_id(prouser.getUs_id()); //이력서us_id에 세션아이디값 넣어주기
+		session.getAttribute("loginSsInfo"); // 로그인된 정보 불러오기
+		resume.setUs_id(prouser.getUs_id()); // 이력서us_id에 세션아이디값 넣어주기
 		int result = service.resumeinsert(resume, req);
-		System.out.println("이력서에 들어간 값 조회:"+resume);
+		System.out.println("이력서에 들어간 값 조회:" + resume);
 		int resultcar = service.resumeinsertcareer(career);
-		
+		int resultcar2 = service.resumeinsertcareer2(career);
+		int resultcar3 = service.resumeinsertcareer3(career);
 		int resultcerti = service.resumeinsertcerti(certi);
-		if (result < 1 || resultcar < 1 || resultcerti < 1) {
+		int resultcerti2 = service.resumeinsertcerti2(certi);
+		int resultcerti3 = service.resumeinsertcerti3(certi);
+		if (result < 1 || resultcar < 1 || resultcar2 < 1 || resultcar3 < 1 || resultcerti < 1 || resultcerti2 < 1
+				|| resultcerti3 < 1) {
 			logger.info("resume insert fail");
 			mv.setViewName("redirect:/resumeinsert");
 		} else {
-			ScriptUtils.alert(response, "이력서 등록 완료. 공개처리 하셔야 기업에 공개됩니다.");
 			logger.info("resume insert success");
-			mv.setViewName("mypage/mypage");
+			mv.setViewName("redirect:/mypage");
 		}
 		return mv;
 	}
-	
-	//개별 이력서 조회(이력서 번호 가져옴)
-	@RequestMapping(value="/resumeview", method=RequestMethod.GET)
-	public ModelAndView resumeviewGet(ModelAndView mv,
-			HttpSession session
-			, @ModelAttribute("loginSsInfo")Prouser prouser
-			, Resume resume, Certificate certi, Career career
-			, @RequestParam("re_no")int re_no)throws Exception{
+
+	// 마이페이지 이력서 수정 GET(p_member에 제출되지 않은 것만 수정 가능)
+	@RequestMapping(value = "/updateresume", method = RequestMethod.GET)
+	public ModelAndView updateresumeGet(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Certificate certi, Career career,
+			@RequestParam("re_no") int re_no) throws Exception {
+		logger.info("updateresume GET");
+		session.getAttribute("loginSsInfo");
+		mv.addObject("resume", service.resume(re_no));
+		mv.addObject("career", service.career(re_no));
+		mv.addObject("certi", service.certi(re_no));
+		mv.setViewName("mypage/updateresume");
+		return mv;
+	}
+
+	// 마이페이지 이력서 수정 POST
+	// TODO 수정 구현하고, jsp파일에서도 re_openyn받아와서 버튼 없애는거 기능 구현하기 ..
+	@PostMapping("/updateresume")
+	public ModelAndView updateresumePost(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Certificate certi, Career career,
+			@RequestParam("re_no") int re_no) throws Exception {
+		logger.info("updateresume POST");
+		session.getAttribute("loginSsInfo");
+		return mv;
+	}
+
+	// 마이페이지 이력서 삭제 (p_member에 제출되지 않은 것만 수정 가능)
+	@RequestMapping(value = "deleteresume", method = RequestMethod.GET)
+	public ModelAndView deleteresume(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser, @RequestParam("re_no") int reno, Resume resume,
+			Certificate certi, Career career, HttpServletResponse response) throws Exception {
+		logger.info("deleteresume");
+		session.getAttribute("loginSsInfo");
+		if (service.resumepmember(reno) != 0) {
+			ScriptUtils.alertAndBackPage(response, "프로젝트 신청한 이력서는 삭제 불가합니다.");
+		} else {
+			service.deleteresume(reno);
+			service.deletecerti(reno);
+			service.deletecareer(reno);
+			mv.setViewName("redirect:/resumelist");
+		}
+		return mv;
+	}
+
+	// 개별 이력서 조회(이력서 번호 가져옴)
+	@RequestMapping(value = "/resumeview", method = RequestMethod.GET)
+	public ModelAndView resumeviewGet(ModelAndView mv, HttpSession session,
+			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Certificate certi, Career career,
+			@RequestParam("re_no") int re_no) throws Exception {
 		logger.info("resumeview GET");
 		session.getAttribute("loginSsInfo");
 		mv.addObject("resume", service.resume(re_no));

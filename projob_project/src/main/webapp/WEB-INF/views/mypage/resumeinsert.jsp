@@ -135,9 +135,9 @@
 					<p class="fonthighlight resumemiddlename">CAREER</p>
 					<label class="resumelabel" for="ca_title">경력사항(회사명) </label> <input
 						type="text" class="resumeinput" id="ca_title" name="ca_title">
-					<br> <br> <label class="resumelabel" for="ca_period">근무기간</label>
-					<input type="date" class="resumeinput" id="ca_period"
-						name="ca_period"> <br> <br> <label
+					<br> <br> <label class="resumelabel" for="ca_period">근무개월</label>
+					<input type="text" class="resumeinput" id="ca_period"
+						name="ca_period"> 개월<br> <br> <label
 						class="resumelabel" for="ca_dept">근무부서</label> <input type="text"
 						class="resumeinput" id="ca_dept" name="ca_dept"> <br>
 					<br> <label class="resumelabel" for="ca_jobtitle">근무직급</label>
@@ -154,9 +154,9 @@
 					<p class="fonthighlight resumemiddlename">CAREER 2</p>
 					<label class="resumelabel" for="ca_title2">경력사항(회사명) </label> <input
 						type="text" class="resumeinput" id="ca_title2" name="ca_title2">
-					<br> <br> <label class="resumelabel" for="ca_period2">근무기간</label>
-					<input type="date" class="resumeinput" id="ca_period2"
-						name="ca_period2"> <br> <br> <label
+					<br> <br> <label class="resumelabel" for="ca_period2">근무개월</label>
+					<input type="text" class="resumeinput" id="ca_period2"
+						name="ca_period2"> 개월<br> <br> <label
 						class="resumelabel" for="ca_dept2">근무부서</label> <input type="text"
 						class="resumeinput" id="ca_dept2" name="ca_dept2"> <br>
 					<br> <label class="resumelabel" for="ca_jobtitle2">근무직급</label>
@@ -175,9 +175,9 @@
 					<p class="fonthighlight resumemiddlename">CAREER 3</p>
 					<label class="resumelabel" for="ca_title3">경력사항(회사명) </label> <input
 						type="text" class="resumeinput" id="ca_title3" name="ca_title3">
-					<br> <br> <label class="resumelabel" for="ca_period3">근무기간</label>
-					<input type="date" class="resumeinput" id="ca_period3"
-						name="ca_period3"> <br> <br> <label
+					<br> <br> <label class="resumelabel" for="ca_period3">근무개월</label>
+					<input type="text" class="resumeinput" id="ca_period3"
+						name="ca_period3"> 개월<br> <br> <label
 						class="resumelabel" for="ca_dept3">근무부서</label> <input type="text"
 						class="resumeinput" id="ca_dept3" name="ca_dept3"> <br>
 					<br> <label class="resumelabel" for="ca_jobtitle3">근무직급</label>

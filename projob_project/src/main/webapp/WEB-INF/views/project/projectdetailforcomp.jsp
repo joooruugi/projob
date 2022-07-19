@@ -83,10 +83,6 @@
 			</div>
 			<div class="projectdetailbutton">
 				<button type="button" class="projectdetailbtn btn5" id="apply_btn"
-					onclick="location.href='updateproject?pro_no=${projectdetail.pro_no }'">
-					<p class="fontnothing2">프로젝트 수정하기</p>
-				</button>
-				<button type="button" class="projectdetailbtn btn5" id="apply_btn"
 					onclick="location.href='deleteproject?pro_no=${projectdetail.pro_no }'">
 					<p class="fontnothing2">프로젝트 삭제하기</p>
 				</button>

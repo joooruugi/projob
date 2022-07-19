@@ -134,6 +134,19 @@ public class ProuserDao {
 	public int resumeinsertcerti3(Certificate certi) throws Exception {
 		return sql.insert("Prouser.resumeinsertcerti3", certi);
 	}
+	//이력서 삭제
+	public int deleteresume(int re_no)throws Exception{
+		return sql.delete("Prouser.deleteresume", re_no);
+	}
+	public int deletecerti(int re_no)throws Exception{
+		return sql.delete("Prouser.deletecerti", re_no);
+	}
+	public int deletecareer(int re_no)throws Exception{
+		return sql.delete("Prouser.deletecareer", re_no);
+	}
+	public int resumepmember(int re_no)throws Exception{
+		return sql.selectOne("Prouser.resumepmember", re_no);
+	}
 
 	// 프로젝트 신청 이력서 불러오기 (프리랜서)
 	public List<Resume> resumeJoin(String us_id) throws Exception {

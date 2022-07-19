@@ -16,13 +16,13 @@
 		select * from project where pro_ok = #{pro_ok}
 	</select>
 	<!-- 미승인건 확인 -->
-	<select id="adusercnt" resultType="int">
+	<select id="adusercnt" parameterType="int" resultType="int">
 		select count(*) from prouser
-		where us_ok = 0
+		where us_ok = #{us_ok}
 	</select>
-	<select id="adprojectcnt" resultType="int">
+	<select id="adprojectcnt" parameterType="int" resultType="int">
 		select count(*) from
-		project where pro_ok = 0
+		project where pro_ok = #{pro_ok}
 	</select>
 	<!-- 관리자 회원, 프로젝트 승인 -->
 	<update id="updateuserok" parameterType="String">
@@ -43,7 +43,7 @@
 	</update>
 	<!-- 관리자 회원목록 조회 -->
 	<select id="adsearchuser" parameterType="String" resultType="Prouser">
-		select (us_name, us_id, us_phone, us_email, us_address, us_address2, us_address3, us_crn, us_info, us_ok, us_adname, us_adphone, us_ademail)
+		select us_name, us_id, us_phone, us_email, us_address, us_address2, us_address3, us_crn, us_info, us_ok, us_adname, us_adphone, us_ademail
 		from prouser where us_name=#{searchuser} or us_id=#{searchuser}
 	</select>
 </mapper>

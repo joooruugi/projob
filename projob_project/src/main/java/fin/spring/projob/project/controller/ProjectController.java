@@ -220,8 +220,7 @@ public class ProjectController {
 		if(result == 0) {
 			ScriptUtils.alertAndBackPage(response, "공고 삭제에 실패하였습니다.");
 		}else {
-			ScriptUtils.alert(response, "공고가 삭제되었습니다.");
-			mv.setViewName("mypage/mypage");
+			mv.setViewName("redirect:/mypage");
 		}
 		return mv;
 	}

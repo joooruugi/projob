@@ -272,6 +272,19 @@ public class ProuserService {
 		return pdao.resumeinsertcerti3(certi);
 	}
 
+	//이력서 삭제
+	public int deleteresume(int re_no) throws Exception{
+		return pdao.deleteresume(re_no);
+	}
+	public int deletecerti(int re_no) throws Exception{
+		return pdao.deletecerti(re_no);
+	}
+	public int deletecareer(int re_no)throws Exception{
+		return pdao.deletecareer(re_no);
+	}
+	public int resumepmember(int re_no)throws Exception{
+		return pdao.resumepmember(re_no);
+	}
 	// 프로젝트 신청 (이력서 불러오기)
 	public List<Resume> resumeJoin(String us_id) throws Exception {
 		return pdao.resumeJoin(us_id);

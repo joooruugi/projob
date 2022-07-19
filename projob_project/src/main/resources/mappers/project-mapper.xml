@@ -18,7 +18,7 @@
 	</update>
 	<!-- 프로젝트 공고 삭제 -->
 	<delete id="deleteproject" parameterType="int">
-		delete * from project where pro_no = #{pro_no}
+		delete from project where pro_no = #{pro_no}
 	</delete>
 	<!-- 공고 목록 조회 -->
 	<select id="projectlist" parameterType="Project" resultType="Project">

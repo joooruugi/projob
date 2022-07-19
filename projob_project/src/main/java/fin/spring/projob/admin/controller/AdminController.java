@@ -48,7 +48,7 @@ public class AdminController {
 		if (result != null) {
 			session.setAttribute("adminloginSsInfo", admin);
 			logger.info("AdminLogin POST");
-			mv.setViewName("admin/adminmain");
+			mv.setViewName("home");
 		} else {
 			mv.setViewName("redirect:/adlogin");
 		}
@@ -62,7 +62,7 @@ public class AdminController {
 		session.getAttribute("adminloginSsInfo");
 		logger.info("Admin logout");
 		session.invalidate();
-		mv.setViewName("prouser/login");
+		mv.setViewName("home");
 		return mv;
 	}
 
@@ -73,8 +73,12 @@ public class AdminController {
 			, @ModelAttribute("adminloginSsInfo")Admin admin)
 			throws Exception {
 		session.getAttribute("adminloginSsInfo");
-		mv.addObject("adusercnt", service.adusercnt());
-		mv.addObject("adprojectcnt", service.adprojectcnt());
+		int usok = 0;
+		int prook = 0;
+		System.out.println(service.adusercnt(usok));
+		System.out.println(service.adprojectcnt(prook));
+		mv.addObject("adusercnt", service.adusercnt(usok));
+		mv.addObject("adprojectcnt", service.adprojectcnt(prook));
 		System.out.println(admin);
 		logger.info("adminMain GET");
 		mv.setViewName("admin/adminmain");

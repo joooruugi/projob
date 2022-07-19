@@ -31,7 +31,7 @@ public class ProjectDao {
 	}
 	//승인 전 프로젝트 삭제
 	public int deleteproject(int pro_no) throws Exception{
-		return sql.delete("Project.deleteproject");
+		return sql.delete("Project.deleteproject", pro_no);
 	}
 	// 프로젝트 목록 조회
 	public List<Project> projectList() throws Exception {

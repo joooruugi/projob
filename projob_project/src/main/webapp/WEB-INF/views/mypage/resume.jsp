@@ -45,8 +45,10 @@
 		<div class="resumecontent">
 			<c:forEach items="${resumeimg }" var="resumeimg">
 				<div class="resumepart">
-					<label class="resumelabel" for="re_picture">사진 </label> <img width=200px;
-						src="<%=request.getContextPath() %>/resources/resume/${resumeimg.changeName}"> <br> <br>
+					<label class="resumelabel" for="re_picture">사진 </label> <img
+						width=200px;
+						src="<%=request.getContextPath() %>/resources//resume${resumeimg.changeName }">
+					<br> <br>
 				</div>
 			</c:forEach>
 			<c:forEach items="${resume }" var="resume">
@@ -104,8 +106,9 @@
 					<p class="fonthighlight resumemiddlename">CAREER</p>
 					<label class="resumelabel" for="ca_title">경력사항(회사명) </label>
 					<p class="resumep" id="ca_title">${career.ca_title }</p>
-					<br> <br> <label class="resumelabel" for="ca_period">근무기간</label>
-					<p class="resumep" id="ca_period">${career.ca_period }</p>
+					<br> <br> <label class="resumelabel" for="ca_period">근무
+						개월</label>
+					<p class="resumep" id="ca_period">${career.ca_period }개월</p>
 					<br> <br> <label class="resumelabel" for="ca_dept">근무부서</label>
 					<p class="resumep" id="ca_dept">${career.ca_dept }</p>
 					<br> <br> <label class="resumelabel" for="ca_jobtitle">근무직급</label>
@@ -131,12 +134,15 @@
 						</c:when>
 					</c:choose>
 				</div>
+				<div class="resumebutton resumepart">
+					<button type="button"
+						onclick="location.href='updateresume?re_no=${resume.re_no}'"
+						class="resumbtn btn3">수정하기</button>
+					<button type="button" onclick="location.href='deleteresume?re_no=${resume.re_no}'"
+						class="resumbtn btn3">삭제하기</button>
+					<button type="button" class="resumbtn btn3" onclick="goBack()">목록으로</button>
+				</div>
 			</c:forEach>
-		</div>
-		<div class="resumebutton resumepart">
-			<button type="submit" class="resumbtn btn3">수정하기</button>
-			<button type="button" class="resumbtn btn3">삭제하기</button>
-			<button type="button" class="resumbtn btn3" onclick="goBack()">목록으로</button>
 		</div>
 	</div>
 	<!--푸터-->
@@ -145,6 +151,14 @@
 		function goBack() {
 			window.history.back();
 		};
+		<%-- var reno = "<c:out value="${resume.re_no}"/>";
+		function deleteResume() {
+			if(confirm('삭제하시겠습니까?')){
+				location.replace("<%=request.getContextPath()%>/deleteresume?re_no=reno");
+			}else{
+				window.close();
+			}
+		}; --%>
 	</script>
 </body>
 

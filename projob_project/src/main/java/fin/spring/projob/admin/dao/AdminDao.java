@@ -27,11 +27,11 @@ public class AdminDao {
 		return sql.selectList("Admin.adprojectapprove", pro_ok);
 	}
 	//미승인건 확인
-	public int adusercnt() {
-		return sql.selectOne("Admin.adusercnt");
+	public int adusercnt(int us_ok) {
+		return sql.selectOne("Admin.adusercnt", us_ok);
 	}
-	public int adprojectcnt() {
-		return sql.selectOne("Admin.adprojectcnt");
+	public int adprojectcnt(int pro_ok) {
+		return sql.selectOne("Admin.adprojectcnt", pro_ok);
 	}
 	// 관리자 회원, 프로젝트 승인
 	public int updateuserok(String us_id) {
