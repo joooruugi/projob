@@ -116,7 +116,7 @@
                             <option value="2">내용</option>
                             <option value="3">작성자</option>
                         </select> 
-                        <input class="form-control me-2" type="search" id="q" aria-label="Search" value="" style="width:250px;">
+                        <input class="form-control me-2" type="search" id="q" aria-label="Search" value="${q} " style="width:250px;">
                         <button id="s_search_btn" class="btn btn-outline-success" type="button">Search</button>
                 </div>
             </div>
@@ -170,28 +170,28 @@
                 </tbody>
             </table>
         </div>
-        <div id="pagingBox" style="margin-top: 30px;">
+                <div id="pagingBox" style="margin-top: 30px;">
             <ul class="pagination">
                 <c:if test="${startPage > 1 }">
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/fileshare?p=${startPage-1}&pro_no=${pro_no}">Previous</a></li>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/fileshare/search?p=${startPage-1}&pro_no=${pro_no}&f=${f}&q=${q}">Previous</a></li>
 					</c:if>
 					<c:if test="${startPage <= 1 }">
-						<li class="page-item disabled"><a class="page-link" href="<%=request.getContextPath() %>/fileshare?p=${startPage-1 }&pro_no=${pro_no}">Previous</a></li>
+						<li class="page-item disabled"><a class="page-link" href="<%=request.getContextPath() %>/fileshare/search?p=${startPage-1 }&pro_no=${pro_no}&f=${f}&q=${q}">Previous</a></li>
 					</c:if>
 					<c:forEach step="1" begin="${startPage }" end="${endPage }" var="idx">
 						<c:if test="${idx eq currentPage }">
-						<li class="page-item active"><a class="page-link" href="<%=request.getContextPath() %>/fileshare?p=${idx }&pro_no=${pro_no}">${idx }</a></li>
+						<li class="page-item active"><a class="page-link" href="<%=request.getContextPath() %>/fileshare/search?p=${idx }&pro_no=${pro_no}&f=${f}&q=${q}">${idx }</a></li>
 						</c:if>
 						<c:if test="${idx ne currentPage }">
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/fileshare?p=${idx }&pro_no=${pro_no}">${idx }</a></li>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/fileshare/search?p=${idx }&pro_no=${pro_no}&f=${f}&q=${q}">${idx }</a></li>
 						</c:if>
 					</c:forEach>
 					<!-- endPage에서 +1일 때 -->
 					<c:if test="${endPage < pageCnt }">
-						<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/fileshare?p=${endPage+1 }&pro_no=${pro_no}">Next</a></li>
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/fileshare/search?p=${endPage+1 }&pro_no=${pro_no}&f=${f}&q=${q}">Next</a></li>
 					</c:if>
 					<c:if test="${endPage >= pageCnt }">
-						<li class="page-item disabled"><a class="page-link" href="<%=request.getContextPath() %>/fileshare?p=${endPage+1 }&pro_no=${pro_no}">Next</a></li>
+						<li class="page-item disabled"><a class="page-link" href="<%=request.getContextPath() %>/fileshare/search?p=${endPage+1 }&pro_no=${pro_no}&f=${f}&q=${q}">Next</a></li>
 					</c:if>
             </ul>
         </div>
@@ -225,6 +225,14 @@
     		var option = $(this);
     		$(this).prop("selected", false);
     		if(option.val() == '${pro_no}'){
+    			option.prop("selected", true);
+    			console.log(option.val());
+    		}
+    	});
+    	$("#f").children().each(function(){
+    		var option = $(this);
+    		$(this).prop("selected", false);
+    		if(option.val() == '${f}'){
     			option.prop("selected", true);
     			console.log(option.val());
     		}

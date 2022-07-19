@@ -6,9 +6,12 @@
 		select pro_no, pro_title, pro_content from project left join p_member using(pro_no) where us_id=#{us_id}
 	</select>
 	
-	<select id="selectFileshareList" parameterType="String" resultType="map">
+	<select id="selectFileshareList" parameterType="map" resultType="map">
 	<![CDATA[
-		select sh_no, pro_no, pro_title, sh_id, sh_title, sh_content, to_char(sh_wdate, 'yyyy/mm/dd HH24:MI') sh_wdate from sharee left join project using(pro_no) where pro_no=#{pro_no} and sh_useyn='Y' order by sh_wdate
+		select * from(
+		select rownum rnum, a.* from(
+		select sh_no, pro_no, pro_title, sh_id, sh_title, sh_content, to_char(sh_wdate, 'yyyy/mm/dd HH24:MI') sh_wdate from sharee left join project using(pro_no) where pro_no=#{pro_no} and sh_useyn='Y' order by sh_wdate desc) a)
+		where rnum between #{startPage} and #{endPage}
 	]]>
 	</select>
 	
@@ -38,4 +41,48 @@
 	<update id="deleteList">
 		update sharee set sh_useyn='N' where sh_no=#{sh_no}
 	</update>
+	
+	<select id="selectFileshareListSearchTitle" parameterType="map" resultType="map">
+		<![CDATA[
+			select * from(
+			select rownum rnum, a.* from(
+			select sh_no, pro_no, pro_title, sh_id, sh_title, sh_content, to_char(sh_wdate, 'yyyy/mm/dd HH24:MI') sh_wdate from sharee left join project using(pro_no) where pro_no=#{pro_no} and sh_useyn='Y' and sh_title like '%'||#{content}||'%' order by sh_wdate desc) a)
+			where rnum between #{startPage} and #{endPage}
+		]]>
+	</select>
+	
+	<select id="selectFileshareListSearchContent" parameterType="map" resultType="map">
+		<![CDATA[
+			select * from(
+			select rownum rnum, a.* from(
+			select sh_no, pro_no, pro_title, sh_id, sh_title, sh_content, to_char(sh_wdate, 'yyyy/mm/dd HH24:MI') sh_wdate from sharee left join project using(pro_no) where pro_no=#{pro_no} and sh_useyn='Y' and sh_content like '%'||#{content}||'%' order by sh_wdate desc) a)
+			where rnum between #{startPage} and #{endPage}
+		]]>
+	</select>
+	
+	<select id="selectFileshareListSearchId" parameterType="map" resultType="map">
+		<![CDATA[
+			select * from(
+			select rownum rnum, a.* from(
+			select sh_no, pro_no, pro_title, sh_id, sh_title, sh_content, to_char(sh_wdate, 'yyyy/mm/dd HH24:MI') sh_wdate from sharee left join project using(pro_no) where pro_no=#{pro_no} and sh_useyn='Y' and sh_id like '%'||#{content}||'%' order by sh_wdate desc) a)
+			where rnum between #{startPage} and #{endPage}
+		]]>
+	</select>
+	
+	<select id="selectCountShareList" resultType="_int">
+		select count(*) from sharee where pro_no=#{pro_no}
+	</select>
+	
+	<select id="selectCounthareListSearchTitle" parameterType="map" resultType="_int">
+	
+		select count(*) from sharee where pro_no=#{pro_no} and sh_title like '%'||#{content}||'%' 
+	</select>
+	
+	<select id="selectCounthareListSearchContent" parameterType="map" resultType="_int">
+		select count(*) from sharee where pro_no=#{pro_no} and sh_content like '%'||#{content}||'%' 
+	</select>
+	
+	<select id="selectCounthareListSearchId" parameterType="map" resultType="_int">
+		select count(*) from sharee where pro_no=#{pro_no} and sh_id like '%'||#{content}||'%' 
+	</select>
 </mapper>

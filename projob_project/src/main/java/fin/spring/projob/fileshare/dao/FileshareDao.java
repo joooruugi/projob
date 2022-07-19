@@ -21,8 +21,8 @@ public class FileshareDao {
 		return sqlsession.selectList("Fileshare.selectProject", us_id);
 	}
 
-	public List<Map<String, Object>> selectFileshareList(String pro_no) {
-		return sqlsession.selectList("Fileshare.selectFileshareList", pro_no);
+	public List<Map<String, Object>> selectFileshareList(Map<String, Object> map) {
+		return sqlsession.selectList("Fileshare.selectFileshareList", map);
 	}
 
 	public String selectMaxShNo() {
@@ -47,6 +47,34 @@ public class FileshareDao {
 
 	public int deleteList(String sh_no) {
 		return sqlsession.update("Fileshare.deleteList", sh_no);
+	}
+
+	public List<Map<String, Object>> selectFileshareListSearchTitle(Map<String, Object> map) {
+		return sqlsession.selectList("Fileshare.selectFileshareListSearchTitle", map);
+	}
+	
+	public List<Map<String, Object>> selectFileshareListSearchContent(Map<String, Object> map) {
+		return sqlsession.selectList("Fileshare.selectFileshareListSearchContent", map);
+	}
+	
+	public List<Map<String, Object>> selectFileshareListSearchId(Map<String, Object> map) {
+		return sqlsession.selectList("Fileshare.selectFileshareListSearchId", map);
+	}
+
+	public int selectCountShareList(String pro_no) {
+		return sqlsession.selectOne("Fileshare.selectCountShareList", pro_no);
+	}
+
+	public int selectCounthareListSearchTitle(Map<String, Object> map) {
+		return sqlsession.selectOne("Fileshare.selectCounthareListSearchTitle", map);
+	}
+	
+	public int selectCounthareListSearchContent(Map<String, Object> map) {
+		return sqlsession.selectOne("Fileshare.selectCounthareListSearchContent", map);
+	}
+
+	public int selectCounthareListSearchId(Map<String, Object> map) {
+		return sqlsession.selectOne("Fileshare.selectCounthareListSearchId", map);
 	}
 
 }
