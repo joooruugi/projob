@@ -335,3 +335,47 @@ REFERENCES "PROUSER" (
 );
 
 COMMIT;
+
+
+
+-- 프로젝트별 멤버들끼리 같은 색깔 겹치지 않게 하는 프로시져 생성 (07/20 권소정)
+
+create or replace PROCEDURE color_input_query (
+    q_us_id         IN p_member.us_id%TYPE
+    ,q_pro_no        IN p_member.pro_no%TYPE
+    ,q_color_no      OUT color_sample.color_no%TYPE
+    ,q_color_code      OUT color_sample.color_code%TYPE
+)
+IS
+    isfind      number;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('q_us_id        : ' || q_us_id);
+    DBMS_OUTPUT.PUT_LINE('q_pro_no       : ' || q_pro_no);
+    FOR j IN (select color_no, color_code from color_sample) LOOP
+        DBMS_OUTPUT.PUT_LINE('j c no '|| j.color_no);
+        isfind := 0;
+        select count(*) into isfind from dual where j.color_no in (select color_no from p_member where  pro_no = q_pro_no and prom_ok=1);
+--        FOR k IN (select color_no from p_member where  pro_no = q_pro_no and prom_ok=1) LOOP
+--            IF (j.color_no = k.color_no)
+--                THEN isfind := 1; EXIT;
+--            END IF;
+--        END LOOP;
+        DBMS_OUTPUT.PUT_LINE('isfind '|| isfind);
+        IF (isfind = 0)
+            THEN 
+                isfind := 2;
+                q_color_no := j.color_no;  
+                q_color_code := j.color_code; 
+                DBMS_OUTPUT.PUT_LINE('find q_color_no '|| q_color_no);
+                DBMS_OUTPUT.PUT_LINE('find q_color_code '|| q_color_code);
+                update p_member set color_no = q_color_no where us_id=q_us_id and pro_no=q_pro_no;
+                commit;
+                EXIT;
+        END IF;
+    END LOOP;
+    IF (isfind != 2)
+        THEN 
+            DBMS_OUTPUT.PUT_LINE('모두 사용중');
+            -- 한 프로젝트 당 최대인원 20명
+    END IF;
+END;

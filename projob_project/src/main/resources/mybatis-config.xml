@@ -18,6 +18,7 @@
 		<typeAlias type="fin.spring.projob.messenger.vo.MessageRoom" alias="MessageRoom"/>
 		<typeAlias type="fin.spring.projob.fileshare.vo.FIleshare" alias="Fileshare"/>
 		<typeAlias type="fin.spring.projob.fileshare.vo.FileshareFile" alias="FileshareFile"/>
+		<typeAlias type="fin.spring.projob.calendar.domain.Color_sample" alias="Color_sample"/>		
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/prouser-mapper.xml"/>

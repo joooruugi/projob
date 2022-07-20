@@ -216,13 +216,28 @@
     	</form>
     	</div>
     	<div id="projectMember"></div>
+    	 
+    		<%-- 
+    		<c:forEach items="${pmlist}" var="pl" >
+    			<c:out value="${pmlist.COLOR_CODE} }"/>
+    		 	
+    			<ul>
+    				<li value="${pl.PRO_NO }">${pl.US_ID} + ${pl.COLOR_CODE}</li>
+    			</ul>
+    		 
+    		</c:forEach> 
+    		 --%>
+    	 
     	<p id="selectname"></p>	
     </div>
     <div id="calendar"></div>
     [[[[[[[${mycolor }]]]]]]]
     [[[[[[[${pmlist} ]]]]]]]
     [[[[[[[${pmlist[2].COLOR_CODE}]]]]]]]
+    
+    [[[[[[[${colorInput}]]]]]]]
     <i class="xi-full-moon" style="color:#3788d8;"></i>
+    <i class="xi-full-moon" style="color:${pmlist[2].COLOR_CODE};"></i>
 	<!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
 	
@@ -249,38 +264,6 @@
 		$("#selectname").html("선택한 프로젝트: "+ pro_title); 
 		let mycolor = "${mycolor}";
 		console.log(mycolor);
-		<%-- function list(){
-			$.ajax({
-	      		type:"post",
-	      		url:"<%=request.getContextPath()%>/calendar/list",
-	      		data: {"pro_no" : $("#pro_no").val()}, 
-			});
-		}; --%>
-		/* $("#selectProject").change(function(){
-	    	var pro_no = $(this).val();
-	        if(pro_no == 'none'){
-	    		$("#projectMember").html('');
-	    		return;
-	    	} */
-	   <%--  
-    	function pMember(){
-	    	$.ajax({
-				type :'post' ,
-				url : "<%=request.getContextPath()%>/calendar/pMember",
-				data : {"pro_no" : selectedProNo},
-				dataType : "json",
-				success : function(data){
-					var html = '';
-					$.each(data, function(i, item){
-						if('${userId}' != item.US_ID){
-							html += '<input type="checkbox" id="us_id" name="us_id" value="'+item.us_id+'"><span> '+item.us_id + ' [' + item.us_name +']'+'</span><br>'
-						}
-					})
-					$("#projectMember").html(html);
-				}
-			});
-		}
-	     --%>
 	</script>
 	
     

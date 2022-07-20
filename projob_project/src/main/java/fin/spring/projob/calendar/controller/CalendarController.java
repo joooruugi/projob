@@ -1,10 +1,8 @@
 package fin.spring.projob.calendar.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import fin.spring.projob.calendar.domain.Calendar;
-import fin.spring.projob.calendar.domain.Color_sample;
 import fin.spring.projob.calendar.service.CalendarService;
 import fin.spring.projob.project.vo.PMember;
-import fin.spring.projob.project.vo.Project;
 import fin.spring.projob.prouser.vo.Prouser;
 
 @Controller
@@ -55,23 +50,11 @@ public class CalendarController {
 		 
 		//프로젝트 리스트
 		List<Map<String, Object>> project = service.selectProject(userId);
-		
-		//색상 호출
-		String mycolor = "#3788d8";
-		if(!pro_no.equals("0")) {
-			mycolor = service.selectColor(userId, pro_no);
-		}
-		System.out.println("sjk pro_no:"+pro_no);
-		System.out.println("sjk mycolor:"+mycolor);
 
-		//
-		
 		//유저 ID 담기
 		mv.addObject("userId", userId);
 		//프로젝트 리스트 담기
 		mv.addObject("projectlist", project);
-		//색상 담기
-		mv.addObject("mycolor", mycolor);
 		mv.setViewName("calendar/calendar");
 		return mv;
 	}
@@ -79,7 +62,7 @@ public class CalendarController {
 	public ModelAndView listPost(ModelAndView mv,
 			RedirectAttributes rttr,
 			HttpSession ss,
-			@RequestParam(name="pro_no", defaultValue ="0") String pro_no
+			@RequestParam(name="pro_no", defaultValue ="0") int pro_no
 			) {
 		
 		if(ss.getAttribute("loginSsInfo") == null) {
@@ -91,19 +74,22 @@ public class CalendarController {
 		Prouser userInfo = (Prouser) ss.getAttribute("loginSsInfo");
 		String userId = userInfo.getUs_id();
 		 
-		//프로젝트 리스트
+		//프로젝트 리스트 호출
 		List<Map<String, Object>> project = service.selectProject(userId);
+		
+		//색깔 분배 호출
+		Map<String, Object> colorInput = service.selectColorInput(userId, pro_no);
 		
 		//색상 호출
 		String mycolor = "#3788d8";
-		if(!pro_no.equals("0")) {
-			mycolor = service.selectColor(userId, pro_no);
+		if(pro_no != 0) {
+			mycolor = service.selectColor(userId, String.valueOf(pro_no));
 		}
 		System.out.println("sjk pro_no:"+pro_no);
 		System.out.println("sjk mycolor:"+mycolor);
 		
 		//프로젝트 멤버 호출
-		List<PMember> pmlist = service.selectPMemberList(pro_no);
+		List<PMember> pmlist = service.selectPMemberList(String.valueOf(pro_no));
 		
 		//유저 ID 담기
 		mv.addObject("userId", userId);
@@ -113,6 +99,8 @@ public class CalendarController {
 		mv.addObject("mycolor", mycolor);
 		//프로젝트 멤버 담기
 		mv.addObject("pmlist", pmlist);
+		//색깔 분배 담기
+		mv.addObject("colorInput", colorInput);
 		mv.setViewName("calendar/calendar");
 		return mv;
 	}
@@ -122,8 +110,6 @@ public class CalendarController {
 	@ResponseBody
 	public String getCalData(Model m, HttpSession ss,
 			@RequestParam(name="pro_no", defaultValue ="0") String pro_no) {
-		//m.addAttribute("list", service.calenList());
-		//return "pageJsonReport";
 		
 		//세션에서 아이디 호출
 		Prouser userInfo = (Prouser) ss.getAttribute("loginSsInfo");

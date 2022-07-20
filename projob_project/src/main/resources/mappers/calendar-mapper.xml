@@ -82,4 +82,15 @@
 		select us_id, color_code from p_member join color_sample using (color_no) where pro_no = #{pro_no} and prom_ok=1
 	</select>
 	
+	<select id="selectColorInput" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">
+	{
+		CALL color_input_query(
+		#{us_id, javaType=string, jdbcType=VARCHAR, mode=IN},
+		#{pro_no, javaType=int, jdbcType=INTEGER, mode=IN},
+		#{color_no, javaType=int, jdbcType=INTEGER, mode=OUT},
+		#{color_code, javaType=string, jdbcType=VARCHAR, mode=OUT}
+		 )
+	}
+	</select>
+	
 </mapper>

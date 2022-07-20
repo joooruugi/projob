@@ -51,8 +51,18 @@ public class CalendarDao {
 	public List<PMember> selectPMemberList(String pro_no) {
 		return sqlsession.selectList("Calendar.selectPMemberList", pro_no);
 	}
-
 	
+	//색깔 분배 (자료형 db랑 꼭 맞춰야함 -> pro_no 꼭 int로 해야함)
+	public Map<String, Object> selectColorInput(String userId, int pro_no){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("us_id", userId);
+		map.put("pro_no", pro_no);
+		map.put("color_no", 0);
+		map.put("color_code", "");
+		sqlsession.selectOne("Calendar.selectColorInput", map);
+		return map;
+	}
+
 }
 	
 

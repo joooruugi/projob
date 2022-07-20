@@ -26,4 +26,7 @@ public interface CalendarService {
 	
 	//프로젝트 멤버 조회
 	public List<PMember> selectPMemberList(String pro_no);
+	
+	//색깔 분배
+	public Map<String, Object> selectColorInput(String userId, int pro_no);
 }

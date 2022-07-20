@@ -47,6 +47,11 @@ public class CalendarServiceImpl implements CalendarService {
 	public List<PMember> selectPMemberList(String pro_no) {
 		return dao.selectPMemberList(pro_no);
 	}
+	
+	@Override
+	public Map<String, Object> selectColorInput(String userId, int pro_no){
+		return dao.selectColorInput(userId, pro_no);
+	}
 
 	
 	
