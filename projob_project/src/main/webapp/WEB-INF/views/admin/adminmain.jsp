@@ -32,14 +32,15 @@
 			<p class="fontnothing adminmanage">프로젝트 미승인 ${adprojectcnt }건</p>
 		</div>
 		<div class="adminmanagement">
-			<div class="adsearchuser">
-				<label for="searchuser" class="fontcontent2 searchuserp">회원
-					검색</label> <input type="text" class="searchuserinput fontcontent"
-					name="searchuser"> <a
-					href="<%=request.getContextPath()%>/adsearchuser?searchuser="
-					onclick="window.open(this.href, '_blank', 'width=800, height=600'); return false;"
-					class="searchuserbtn fontcontent2 btn1">검색</a>
-			</div>
+			<form action="<%=request.getContextPath()%>/adsearchuser"
+				method="GET">
+				<div class="adsearchuser">
+					<label for="searchuser" class="fontcontent2 searchuserp">회원
+						검색</label> <input type="text" class="searchuserinput fontcontent"
+						name="searchuser">
+					<button type="submit" class="searchuserbtn fontcontent2 btn1">검색</button>
+				</div>
+			</form>
 			<div class="aduserapprove">
 				<a href="<%=request.getContextPath()%>/aduserapprovelist"
 					class="fontcontent2 aduserapprovea">회원가입 승인</a>

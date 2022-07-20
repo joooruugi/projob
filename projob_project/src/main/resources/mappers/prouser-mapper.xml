@@ -156,6 +156,30 @@
 		, re_homepage=#{re_homepage}, re_openyn=#{re_openyn}, re_birth=#{re_birth}, re_title=#{re_title}
 		where re_no = #{re_no}
 	</update>
+	<update id="updatecerti" parameterType="Certi">
+		update certificate set ce_title=#{ce_title}, ce_num = #{ce_num}, ce_cert_pub=#{ce_cert_pub}, ce_date=#{ce_date}
+		where ce_no = #{re_no}
+	</update>
+	<update id="updatecerti2" parameterType="Certi">
+		update certificate set ce_title=#{ce_title2}, ce_num = #{ce_num2}, ce_cert_pub=#{ce_cert_pub2}, ce_date=#{ce_date2}
+		where ce_no = #{re_no}
+	</update>
+	<update id="updatecerti3" parameterType="Certi">
+		update certificate set ce_title=#{ce_title3}, ce_num = #{ce_num3}, ce_cert_pub=#{ce_cert_pub3}, ce_date=#{ce_date3}
+		where ce_no = #{re_no}
+	</update>
+	<update id="updatecareer" parameterType="Career">
+		update career set ca_title=#{ca_title}, ca_dept=#{ca_dept}, ca_jobtitle=#{ca_jobtitle}, ca_adddetail=#{ca_adddetail}, ca_period=#{ca_period}
+		where ca_no = #{re_no}
+	</update>
+	<update id="updatecareer2" parameterType="Career">
+		update career set ca_title=#{ca_title2}, ca_dept=#{ca_dept2}, ca_jobtitle=#{ca_jobtitle2}, ca_adddetail=#{ca_adddetail2}, ca_period=#{ca_period2}
+		where ca_no = #{re_no}
+	</update>
+	<update id="updatecareer3" parameterType="Career">
+		update career set ca_title=#{ca_title3}, ca_dept=#{ca_dept3}, ca_jobtitle=#{ca_jobtitle3}, ca_adddetail=#{ca_adddetail3}, ca_period=#{ca_period3}
+		where ca_no = #{re_no}
+	</update>
 	<!-- 이력서 삭제 -->
 	<delete id="deleteresume" parameterType="int">
 		delete from resume where re_no=#{re_no}

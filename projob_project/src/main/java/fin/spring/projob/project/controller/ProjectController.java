@@ -67,7 +67,7 @@ public class ProjectController {
 	@PostMapping("/projectinsert")
 	public ModelAndView projectinsertPost(ModelAndView mv, HttpSession session, Project project,
 			@ModelAttribute("loginSsInfo") Prouser prouser
-			, MultipartHttpServletRequest mreq) throws Exception {
+			, MultipartHttpServletRequest mreq, HttpServletResponse response) throws Exception {
 		logger.info("projectinsert POST");
 		session.getAttribute("loginSsInfo");
 		project.setPro_comp(prouser.getUs_name());
@@ -76,12 +76,11 @@ public class ProjectController {
 		System.out.println(result);
 		if (result < 1) {
 			logger.info("insertproject fail");
-			mv.setViewName("redirect:/projectinsert");
+			ScriptUtils.alertAndBackPage(response, "프로젝트 등록에 실패하였습니다. 재시도 해주세요.");
 		} else {
 			logger.info("insertproject success");
-			mv.setViewName("project/projectmain");
+			mv.setViewName("redirect:/projectmain");
 		}
-		mv.setViewName("redirect:/project");
 		return mv;
 	}
 
@@ -146,8 +145,7 @@ public class ProjectController {
 				ScriptUtils.alertAndBackPage(response, "신청에 실패했습니다. 재시도해주세요.");
 			} else {
 				logger.info("pmemberinsert success");
-				ScriptUtils.alert(response, "프로젝트 신청이 완료되었습니다.");
-				mv.setViewName("project/projectmain");
+				mv.setViewName("redirect:/project");
 
 			}
 		}
@@ -181,34 +179,34 @@ public class ProjectController {
 		mv.setViewName("project/projectdetailforcomp");
 		return mv;
 	}
-	//(기업) 승인 전 프로젝트 수정 GET
-	@RequestMapping(value="/updateproject", method=RequestMethod.GET)
-	public ModelAndView updateprojectGet(ModelAndView mv, HttpSession session, HttpServletResponse response
-			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
-			,@RequestParam("pro_no")int prono)throws Exception{
-		logger.info("updateproject GET");
-		session.getAttribute("loginSsInfo");
-		mv.addObject("projectdetail", service.projectDetail(prono));
-		mv.setViewName("project/updateproject");
-		return mv;
-	}
-	// (기업) 승인 전 프로젝트 수정 POST
-	@PostMapping("/updateproject")
-	public ModelAndView updateprojectPost(ModelAndView mv, HttpSession session, HttpServletResponse response
-			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
-			, @RequestParam("pro_no")int prono) throws Exception{
-		logger.info("updateproject POST");
-		session.getAttribute("loginSsInfo");
-		int result = service.updateproject(project);
-		if(result == 0) {
-			ScriptUtils.alertAndBackPage(response, "정보수정 실패.");
-			
-		}else {
-			ScriptUtils.alert(response, "정보수정 완료되었습니다.");
-			mv.setViewName("mypage/mypage");
-		}
-		return mv;
-	}
+//	//(기업) 승인 전 프로젝트 수정 GET
+//	@RequestMapping(value="/updateproject", method=RequestMethod.GET)
+//	public ModelAndView updateprojectGet(ModelAndView mv, HttpSession session, HttpServletResponse response
+//			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
+//			,@RequestParam("pro_no")int prono)throws Exception{
+//		logger.info("updateproject GET");
+//		session.getAttribute("loginSsInfo");
+//		mv.addObject("projectdetail", service.projectDetail(prono));
+//		mv.setViewName("project/updateproject");
+//		return mv;
+//	}
+//	// (기업) 승인 전 프로젝트 수정 POST
+//	@PostMapping("/updateproject")
+//	public ModelAndView updateprojectPost(ModelAndView mv, HttpSession session, HttpServletResponse response
+//			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
+//			, @RequestParam("pro_no")int prono) throws Exception{
+//		logger.info("updateproject POST");
+//		session.getAttribute("loginSsInfo");
+//		int result = service.updateproject(project);
+//		if(result == 0) {
+//			ScriptUtils.alertAndBackPage(response, "정보수정 실패.");
+//			
+//		}else {
+//			ScriptUtils.alert(response, "정보수정 완료되었습니다.");
+//			mv.setViewName("mypage/mypage");
+//		}
+//		return mv;
+//	}
 	// (기업) 승인 전 프로젝트 삭제
 	@RequestMapping(value="/deleteproject", method=RequestMethod.GET)
 	public ModelAndView deleteproject(ModelAndView mv, HttpSession session, HttpServletResponse response
@@ -248,7 +246,12 @@ public class ProjectController {
 		session.getAttribute("loginSsInfo");
 		pm.setPro_no(pro_no);
 		pm.setUs_id(free_id);
+		System.out.println(pro_no+" "+free_id);
 		int selected = service.selectedfree(pm);
+		System.out.println(selected);
+		System.out.println(service.selectedfree(pm));
+		//project를 받아오지 못함 왜! 고쳐 ! 
+		System.out.println(project.getPro_personnel());
 		if (selected >= project.getPro_personnel()) {
 			ScriptUtils.alertAndBackPage(response, "이미 필요인원을 다 선정하였습니다. 프로젝트를 마감해주세요.");
 		} else {

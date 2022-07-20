@@ -148,14 +148,14 @@ public class ProuserController {
 			if (result.getUs_ok() == 0) {
 				mv.setViewName("prouser/waitjoin");
 			} else if (result.getUs_ok() == 1) {
-				mv.setViewName("prouser/join");
+				mv.setViewName("home");
 			} else if (result.getUs_ok() == 2) {
-				mv.setViewName("prouser/join");
+				mv.setViewName("home");
 			}
 			return mv;
 		} else {
 			ScriptUtils.alert(response, "로그인 실패. 재시도해주세요.");
-			mv.setViewName("prouser/login");
+			mv.setViewName("redirect:/login");
 			return mv;
 		}
 	}
@@ -267,11 +267,9 @@ public class ProuserController {
 
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logout(ModelAndView mv, HttpServletResponse response, HttpSession session) throws Exception {
+	public String logout(HttpServletRequest request) throws Exception {
 		logger.info("Prouser logout");
-		mv.setViewName("home");
-		session.invalidate();
-		return mv;
+		return "prouser/logout";
 	}
 
 	// 관리자 승인 전 대기화면
@@ -439,15 +437,49 @@ public class ProuserController {
 	}
 
 	// 마이페이지 이력서 수정 POST
-	// TODO 수정 구현하고, jsp파일에서도 re_openyn받아와서 버튼 없애는거 기능 구현하기 ..
 	@PostMapping("/updateresume")
 	public ModelAndView updateresumePost(ModelAndView mv, HttpSession session,
-			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Certificate certi, Career career,
-			@RequestParam("re_no") int re_no) throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Career career, Certificate certi,
+			HttpServletRequest req, HttpServletResponse response
+			,@RequestParam("reno") int reno) throws Exception {
 		logger.info("updateresume POST");
-		session.getAttribute("loginSsInfo");
+		session.getAttribute("loginSsInfo"); // 로그인된 정보 불러오기
+		resume.setRe_no(reno);
+		career.setCa_no(reno);
+		certi.setCe_no(reno);
+		System.out.println(resume.getRe_no());
+		int result = service.updateresume(resume);
+		System.out.println(service.updateresume(resume));
+		int resultcar = service.updatecareer(career);
+		int resultcar2 = service.updatecareer2(career);
+		int resultcar3 = service.updatecareer3(career);
+		int resultcerti = service.updatecerti(certi);
+		int resultcerti2 = service.updatecerti2(certi);
+		int resultcerti3 = service.updatecerti3(certi);
+		if (result < 1 || resultcar < 1 || resultcar2 < 1 || resultcar3 < 1 || resultcerti < 1 || resultcerti2 < 1
+				|| resultcerti3 < 1) {
+			logger.info("resume update fail");
+			mv.setViewName("redirect:/updateresume");
+		} else {
+			logger.info("resume update success");
+			mv.setViewName("redirect:/mypage");
+		}
 		return mv;
 	}
+	
+	/*
+	 * // TODO 수정 구현하고, jsp파일에서도 re_openyn받아와서 버튼 없애는거 기능 구현하기 ..
+	 * 
+	 * @PostMapping("/updateresume") public ModelAndView
+	 * updateresumePost(ModelAndView mv, HttpSession session,
+	 * 
+	 * @ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Certificate
+	 * certi, Career career,
+	 * 
+	 * @RequestParam("re_no") int re_no) throws Exception {
+	 * logger.info("updateresume POST"); session.getAttribute("loginSsInfo"); return
+	 * mv; }
+	 */
 
 	// 마이페이지 이력서 삭제 (p_member에 제출되지 않은 것만 수정 가능)
 	@RequestMapping(value = "deleteresume", method = RequestMethod.GET)
@@ -475,10 +507,10 @@ public class ProuserController {
 		logger.info("resumeview GET");
 		session.getAttribute("loginSsInfo");
 		mv.addObject("resume", service.resume(re_no));
+		mv.addObject("resumeimg", service.resumeimg(re_no));
 		mv.addObject("career", service.career(re_no));
 		mv.addObject("certi", service.certi(re_no));
 		mv.setViewName("mypage/resumeview");
 		return mv;
 	}
-
 }

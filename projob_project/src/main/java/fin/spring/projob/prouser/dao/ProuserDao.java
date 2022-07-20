@@ -134,6 +134,28 @@ public class ProuserDao {
 	public int resumeinsertcerti3(Certificate certi) throws Exception {
 		return sql.insert("Prouser.resumeinsertcerti3", certi);
 	}
+	//이력서 수정
+	public int updateresume(Resume resume)throws Exception{
+		return sql.update("Prouser.updateresume", resume);
+	}
+	public int updatecareer(Career career)throws Exception{
+		return sql.update("Prouser.updatecareer", career);
+	}
+	public int updatecareer2(Career career)throws Exception{
+		return sql.update("Prouser.updatecareer2", career);
+	}
+	public int updatecareer3(Career career)throws Exception{
+		return sql.update("Prouser.updatecareer3", career);
+	}
+	public int updatecerti(Certificate certi)throws Exception{
+		return sql.update("Prouser.updatecerti", certi);
+	}
+	public int updatecerti2(Certificate certi)throws Exception{
+		return sql.update("Prouser.updatecerti2", certi);
+	}
+	public int updatecerti3(Certificate certi)throws Exception{
+		return sql.update("Prouser.updatecerti3", certi);
+	}
 	//이력서 삭제
 	public int deleteresume(int re_no)throws Exception{
 		return sql.delete("Prouser.deleteresume", re_no);

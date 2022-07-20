@@ -27,7 +27,7 @@
 	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
 	<div class="login">
 		<div class="loginname">
-			<p class="fonthighlight">로그인</p>
+			<p class="fontname">로그인</p>
 		</div>
 		<form action="<%=request.getContextPath()%>/login" method="post">
 			<div class="logincontent">

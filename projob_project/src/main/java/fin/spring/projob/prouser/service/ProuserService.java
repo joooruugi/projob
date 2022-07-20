@@ -271,6 +271,28 @@ public class ProuserService {
 	public int resumeinsertcerti3(Certificate certi) throws Exception {
 		return pdao.resumeinsertcerti3(certi);
 	}
+	//이력서 수정
+	public int updateresume(Resume resume)throws Exception{
+		return pdao.updateresume(resume);
+	}
+	public int updatecareer(Career career)throws Exception{
+		return pdao.updatecareer(career);
+	}
+	public int updatecareer2(Career career)throws Exception{
+		return pdao.updatecareer2(career);
+	}
+	public int updatecareer3(Career career)throws Exception{
+		return pdao.updatecareer3(career);
+	}
+	public int updatecerti(Certificate certi)throws Exception{
+		return pdao.updatecerti(certi);
+	}
+	public int updatecerti2(Certificate certi)throws Exception{
+		return pdao.updatecerti2(certi);
+	}
+	public int updatecerti3(Certificate certi)throws Exception{
+		return pdao.updatecerti3(certi);
+	}
 
 	//이력서 삭제
 	public int deleteresume(int re_no) throws Exception{

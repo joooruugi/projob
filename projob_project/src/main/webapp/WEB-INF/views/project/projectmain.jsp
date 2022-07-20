@@ -43,43 +43,49 @@
 			<img
 				src="<%=request.getContextPath()%>/resources/images/projectbanner.png">
 		</div>
-		<form method="post" action="<%=request.getContextPath()%>/projectinsert">
-		<c:forEach items="${projectlist }" var="projectlist">
-			<div class="projectcontent">
-				<div class="projectcontenttitle">
-					<a class="fontname" href="<%=request.getContextPath()%>/projectdetail?pro_no=${projectlist.pro_no}">
-							<c:out value="${projectlist.pro_title }" /> 
-					</a>
+		<form method="post"
+			action="<%=request.getContextPath()%>/projectinsert">
+			<c:forEach items="${projectlist }" var="projectlist">
+				<div class="projectcontent">
+					<div class="projectcontenttitle">
+						<a class="fontname"
+							href="<%=request.getContextPath()%>/projectdetail?pro_no=${projectlist.pro_no}">
+							<c:out value="${projectlist.pro_title }" />
+						</a>
+					</div>
+					<div class="projectcontentdetail">
+						<p class="fontnothing">
+							예상 금액 :
+							<c:out value="${projectlist.pro_budget }" />
+							원
+						</p>
+						<p class="fontnothing">
+							진행 기간 :
+							<c:out value="${projectlist.pro_period }" />
+							일
+						</p>
+						<p class="fontnothing">
+							모집 인원 :
+							<c:out value="${projectlist.pro_personnel }" />
+							명
+						</p>
+					</div>
 				</div>
-				<div class="projectcontentdetail">
-					<p class="fontnothing">
-						예상 금액 :
-						<c:out value="${projectlist.pro_budget }" /> 
-						원
-					</p>
-					<p class="fontnothing">
-						진행 기간 :
-						 <c:out value="${projectlist.pro_period }" /> 
-						일
-					</p>
-					<p class="fontnothing">
-						모집 인원 :
-						<c:out value="${projectlist.pro_personnel }" />
-						명
-					</p>
-				</div>
-			</div>
-		</c:forEach>
+			</c:forEach>
 		</form>
 		<div class="projectpaging"></div>
-		<%if(prouser.getUs_info()==1) {%>
+		<%
+		if (prouser.getUs_info() == 1 && prouser.getUs_ok() == 1) {
+		%>
 		<div class="projectinsertbtn">
 			<button class="projectinsertbtncomp btn3" type="button"
 				onclick="location.href='projectinsert'">
 				<p class="fontcontent">공고 등록하기</p>
 			</button>
 		</div>
-		<%} %>
+		<%
+		}
+		%>
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />

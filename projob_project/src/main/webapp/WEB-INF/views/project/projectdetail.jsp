@@ -78,13 +78,13 @@
 			</div>
 			<div class="pro_detail_bottom fontnothing2">
 				<c:forEach var="selectimgpro" items="${selectimgpro }">
-				<img width=200px;
+					<img width=200px;
 						src="<%=request.getContextPath() %>/resources//project${selectimgpro.changenamepro}">
 				</c:forEach>
 			</div>
 			<div class="projectdetailbutton">
 				<%
-				if (prouser.getUs_info() == 0) {
+				if (prouser.getUs_info() == 0 && prouser.getUs_ok() == 1) {
 				%>
 				<button type="button" class="projectdetailbtn btn5" id="apply_btn"
 					onclick="location.href='projectjoin?pro_no=${projectdetail.pro_no }'">

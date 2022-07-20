@@ -87,36 +87,41 @@
 				</div>
 			</c:forEach>
 			<c:forEach items="${certi }" var="certi">
-				<div class="resumedivision"></div>
-				<div class="resumecerti resumepart">
-					<p class="fonthighlight resumemiddlename">CERTIFICATION</p>
-					<label class="resumelabel" for="ce_title">자격증</label>
-					<p class="resumep" id="ce_title">${certi.ce_title }</p>
-					<br> <br> <label class="resumelabel" for="ce_num">자격번호</label>
-					<p class="resumep" id="ce_num">${certi.ce_num }</p>
-					<br> <br> <label class="resumelabel" for="ce_cert_pub">발행처</label>
-					<p class="resumep" id="ce_cert_pub">${certi.ce_cert_pub }</p>
-					<br> <br> <label class="resumelabel" for="ce_date">발행일자</label>
-					<p class="resumep" id="ce_date">${certi.ce_date }</p>
-				</div>
+				<c:if test="${certi.ce_title != null }">
+					<div class="resumedivision"></div>
+					<div class="resumecerti resumepart">
+						<p class="fonthighlight resumemiddlename">CERTIFICATION</p>
+						<label class="resumelabel" for="ce_title">자격증</label>
+						<p class="resumep" id="ce_title">${certi.ce_title }</p>
+						<br> <br> <label class="resumelabel" for="ce_num">자격번호</label>
+						<p class="resumep" id="ce_num">${certi.ce_num }</p>
+						<br> <br> <label class="resumelabel" for="ce_cert_pub">발행처</label>
+						<p class="resumep" id="ce_cert_pub">${certi.ce_cert_pub }</p>
+						<br> <br> <label class="resumelabel" for="ce_date">발행일자</label>
+						<p class="resumep" id="ce_date">${certi.ce_date }</p>
+					</div>
+				</c:if>
 			</c:forEach>
 			<c:forEach items="${career }" var="career">
-				<div class="resumedivision"></div>
-				<div class="resumecarrer resumepart">
-					<p class="fonthighlight resumemiddlename">CAREER</p>
-					<label class="resumelabel" for="ca_title">경력사항(회사명) </label>
-					<p class="resumep" id="ca_title">${career.ca_title }</p>
-					<br> <br> <label class="resumelabel" for="ca_period">근무
-						개월</label>
-					<p class="resumep" id="ca_period">${career.ca_period }개월</p>
-					<br> <br> <label class="resumelabel" for="ca_dept">근무부서</label>
-					<p class="resumep" id="ca_dept">${career.ca_dept }</p>
-					<br> <br> <label class="resumelabel" for="ca_jobtitle">근무직급</label>
-					<p class="resumep" id="ca_jobtitle">${career.ca_jobtitle }</p>
-					<br> <br> <label class="resumelabel" for="ca_adddetail">추가
-						설명</label>
-					<p class="resumep" id="ca_adddetail">${career.ca_adddetail }</p>
-				</div>
+				<c:if test="${career.ca_title != null }">
+					<!-- c if해서 개수만큼 출력 -->
+					<div class="resumedivision"></div>
+					<div class="resumecarrer resumepart">
+						<p class="fonthighlight resumemiddlename">CAREER</p>
+						<label class="resumelabel" for="ca_title">경력사항(회사명) </label>
+						<p class="resumep" id="ca_title">${career.ca_title }</p>
+						<br> <br> <label class="resumelabel" for="ca_period">근무
+							개월</label>
+						<p class="resumep" id="ca_period">${career.ca_period }개월</p>
+						<br> <br> <label class="resumelabel" for="ca_dept">근무부서</label>
+						<p class="resumep" id="ca_dept">${career.ca_dept }</p>
+						<br> <br> <label class="resumelabel" for="ca_jobtitle">근무직급</label>
+						<p class="resumep" id="ca_jobtitle">${career.ca_jobtitle }</p>
+						<br> <br> <label class="resumelabel" for="ca_adddetail">추가
+							설명</label>
+						<p class="resumep" id="ca_adddetail">${career.ca_adddetail }</p>
+					</div>
+				</c:if>
 			</c:forEach>
 			<c:forEach items="${resume }" var="resume">
 				<div class="resumedivision"></div>
@@ -135,10 +140,13 @@
 					</c:choose>
 				</div>
 				<div class="resumebutton resumepart">
+					<c:if test="${resume.re_openyn == 0 }">
+						<button type="button"
+							onclick="location.href='updateresume?re_no=${resume.re_no}'"
+							class="resumbtn btn3">수정하기</button>
+					</c:if>
 					<button type="button"
-						onclick="location.href='updateresume?re_no=${resume.re_no}'"
-						class="resumbtn btn3">수정하기</button>
-					<button type="button" onclick="location.href='deleteresume?re_no=${resume.re_no}'"
+						onclick="location.href='deleteresume?re_no=${resume.re_no}'"
 						class="resumbtn btn3">삭제하기</button>
 					<button type="button" class="resumbtn btn3" onclick="goBack()">목록으로</button>
 				</div>

@@ -55,16 +55,6 @@ public class AdminController {
 		return mv;
 	}
 
-	// 관리자 로그아웃
-	@RequestMapping(value = "/adlogout", method = RequestMethod.GET)
-	public ModelAndView adlogout(ModelAndView mv, HttpSession session,
-			@ModelAttribute("adminloginSsInfo") Admin admin) {
-		session.getAttribute("adminloginSsInfo");
-		logger.info("Admin logout");
-		session.invalidate();
-		mv.setViewName("home");
-		return mv;
-	}
 
 	// 관리자 메인페이지 Get
 	@RequestMapping(value = "/adminmain", method = RequestMethod.GET)
@@ -106,7 +96,7 @@ public class AdminController {
 		logger.info("adprojectapprove POST");
 		session.getAttribute("adminloginSsInfo");
 		service.updateuserok(usid);
-		ScriptUtils.alertAndBackPage(response, "승인되었습니다.");
+		mv.setViewName("redirect:/aduserapprovelist");
 		return mv;
 	}
 
@@ -140,10 +130,12 @@ public class AdminController {
 			, @RequestParam("searchuser")String searchuser, HttpServletResponse response, Prouser prouser)throws Exception{
 		logger.info("Admin search user");
 		session.getAttribute("adminloginSsInfo");
+		session.getAttribute(searchuser);
 		Prouser result = service.adsearchuser(searchuser);
 		if(result != null) {
 			logger.info("searchuser success");
 			mv.addObject("adsearchuser", service.adsearchuser(searchuser));
+			mv.setViewName("admin/adsearchuser");
 		}else {
 			logger.info("searchuser fail");
 			ScriptUtils.alertAndBackPage(response, "일치하는 회원이 없습니다");

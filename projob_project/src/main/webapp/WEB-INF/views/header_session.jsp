@@ -12,7 +12,7 @@
 			<button type="submit" class="fonthighlight btnwhite"
 				onclick="location.href='/projob/mypage'">Mypage</button>
 			<button type="submit" class="fonthighlight btnwhite"
-				onclick="location.href='/projob/logout'">Logout</button>
+				onclick="location.href='<%=request.getContextPath()%>/logout'">Logout</button>
 		</div>
 	</div>
 	<div class="headerdown">
