@@ -87,7 +87,6 @@
                         start: arg.startStr,
                         end: arg.endStr,
                         allday: arg.allDay,
-                        /* backgroundColor:"#3788d8", //color_code가져오기 */
                         backgroundColor:mycolor,	//color_code 가져오기
                         textColor:"white",
                         borderColor: mycolor,
@@ -120,19 +119,24 @@
                     end: arg.event.endStr,
                     allday: arg.event.allDay,
                   };
-              if (confirm('"'+arg.event.title+'"' + ' 일정을 삭제하시겠습니까?')) {
-                arg.event.remove()
-                 $.ajax({
-                	type: "post",
-                	url: "<%=request.getContextPath()%>/calendar/delete",
-                	data: delData,
-                	success: function(response){
-                		if(response > 0){
-                			alert("일정이 삭제 되었습니다.");
-                		}
-	          		}
-                }) 
+          		if(arg.event.extendedProps.writer == "${loginSsInfo.us_id}"){	//jstl쓸때 "" 넣어쓰기! 변수명말고 값으로 비교하게끔!
+	              if (confirm('"'+arg.event.title+'"' + ' 일정을 삭제하시겠습니까?')) {
+	                arg.event.remove()
+	                 $.ajax({
+	                	type: "post",
+	                	url: "<%=request.getContextPath()%>/calendar/delete",
+	                	data: delData,
+	                	success: function(response){
+	                		if(response > 0){
+	                			alert("일정이 삭제 되었습니다.");
+	                		}
+		          		}
+	                }) 
+	              }
               }
+          		else{
+        			alert("일정 삭제에 실패하였습니다. 본인이 등록한 일정만 삭제할 수 있습니다.");
+        		}
             },
             
             events: //이 부분이 json을 받아서 calendar에 뿌리는 공간(ajax로 데이터 불러옴(로딩))

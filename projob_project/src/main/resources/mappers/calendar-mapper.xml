@@ -63,8 +63,7 @@
 	
 	<!-- 일정 삭제 -->
 	<delete id="deleteCalendar">
-		delete from calendar
-		where id=#{id}
+		delete from calendar where id=#{id} 
 	</delete>
 	
 	<!-- 색깔 조회 -->
