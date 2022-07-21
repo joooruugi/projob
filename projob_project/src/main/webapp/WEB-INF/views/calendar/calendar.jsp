@@ -204,40 +204,32 @@
 	%>
 	
 	<br>
-	<div id="modal_selectp" class="modal">
-    	<div style="padding: 0 5px">
-    	<form id="frmProject">
-    		<select name="pro_no" id="pro_no" onchange="myFunction()">
-    			<option value="0">프로젝트 전체</option>
-    			<c:forEach items="${projectlist }" var="pj">
-    				<option value="${pj.PRO_NO }">${pj.PRO_TITLE }</option>
-    			</c:forEach>
-    		</select>
-    	</form>
-    	</div>
-    	<div id="projectMember"></div>
+   	<div style="padding: 0 5px">
+   	<form id="frmProject">
+   		<select name="pro_no" id="pro_no" onchange="myFunction()">
+   			<option value="0">프로젝트 전체</option>
+   			<c:forEach items="${projectlist }" var="pj">
+   				<option value="${pj.PRO_NO }">${pj.PRO_TITLE }</option>
+   			</c:forEach>
+   		</select>
+   	</form>
+   	</div>
+   	
+   	<p id="selectname"></p>	
+   	<div id="projectMember">
+   	<c:forEach items="${pmlist }" var="pm">
+   		${pm.US_ID }[${pm.US_NAME }]<i class="xi-full-moon xi-x" style="color:${pm.COLOR_CODE };"></i><br>
+   	</c:forEach>
+   	</div>
     	 
-    		<%-- 
-    		<c:forEach items="${pmlist}" var="pl" >
-    			<c:out value="${pmlist.COLOR_CODE} }"/>
-    		 	
-    			<ul>
-    				<li value="${pl.PRO_NO }">${pl.US_ID} + ${pl.COLOR_CODE}</li>
-    			</ul>
-    		 
-    		</c:forEach> 
-    		 --%>
-    	 
-    	<p id="selectname"></p>	
-    </div>
-    <div id="calendar"></div>
-    [[[[[[[${mycolor }]]]]]]]
-    [[[[[[[${pmlist} ]]]]]]]
-    [[[[[[[${pmlist[2].COLOR_CODE}]]]]]]]
     
-    [[[[[[[${colorInput}]]]]]]]
-    <i class="xi-full-moon" style="color:#3788d8;"></i>
-    <i class="xi-full-moon" style="color:${pmlist[2].COLOR_CODE};"></i>
+    <div id="calendar"></div>
+    [[[[[[[mycolor: ${mycolor }]]]]]]]<br>
+    [[[[[[[pmlist: ${pmlist} ]]]]]]]<br>
+    [[[[[[[pmlist[2].COLOR_CODE: ${pmlist[2].COLOR_CODE}]]]]]]]<br>
+    [[[[[[[colorInput: ${colorInput}]]]]]]]
+    <i class="xi-full-moon xi-2x" style="color:#3788d8;"></i>
+    <i class="xi-full-moon xi-x" style="color:${pmlist[2].COLOR_CODE};"></i>
 	<!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
 	

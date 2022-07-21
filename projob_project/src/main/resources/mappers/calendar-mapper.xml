@@ -79,7 +79,8 @@
 	
 	<!-- 프로젝트 멤버 조회 -->
 	<select id="selectPMemberList" parameterType="string" resultType="hashmap">
-		select us_id, color_code from p_member join color_sample using (color_no) where pro_no = #{pro_no} and prom_ok=1
+		select pm.us_id, color_code, p.us_name from p_member pm join color_sample using (color_no) join prouser p on p.us_id = pm.us_id where pro_no = #{pro_no} and prom_ok=1
+		<!-- select us_id, color_code from p_member join color_sample using (color_no) where pro_no = #{pro_no} and prom_ok=1 -->
 	</select>
 	
 	<select id="selectColorInput" statementType="CALLABLE" parameterType="hashmap" resultType="hashmap">

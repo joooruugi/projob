@@ -34,8 +34,7 @@ public class CalendarController {
 	@GetMapping("/list")
 	public ModelAndView list(ModelAndView mv,
 			RedirectAttributes rttr,
-			HttpSession ss,
-			@RequestParam(name="pro_no", defaultValue ="0") String pro_no
+			HttpSession ss
 			) {
 		
 		
@@ -81,7 +80,7 @@ public class CalendarController {
 		Map<String, Object> colorInput = service.selectColorInput(userId, pro_no);
 		
 		//색상 호출
-		String mycolor = "#3788d8";
+		String mycolor = "#3788d8";	//기본 색상
 		if(pro_no != 0) {
 			mycolor = service.selectColor(userId, String.valueOf(pro_no));
 		}
