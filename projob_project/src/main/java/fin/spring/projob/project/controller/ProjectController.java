@@ -241,18 +241,13 @@ public class ProjectController {
 	@PostMapping("/projectjoinstatus")
 	public ModelAndView projectjoinstatusPost(ModelAndView mv, HttpSession session, HttpServletResponse response,
 			@ModelAttribute("loginSsInfo") Prouser prouser, Project project, @RequestParam("pro_no") int pro_no,
-			@RequestParam("free_id") String free_id, PMember pm, RedirectAttributes rttr) throws Exception {
+			@RequestParam("free_id") String free_id,@RequestParam("pro_personnel") int pro_personnel, PMember pm, RedirectAttributes rttr) throws Exception {
 		logger.info("projectjoinstatusPOST for company");
 		session.getAttribute("loginSsInfo");
 		pm.setPro_no(pro_no);
 		pm.setUs_id(free_id);
-		System.out.println(pro_no+" "+free_id);
 		int selected = service.selectedfree(pm);
-		System.out.println(selected);
-		System.out.println(service.selectedfree(pm));
-		//project를 받아오지 못함 왜! 고쳐 ! 
-		System.out.println(project.getPro_personnel());
-		if (selected >= project.getPro_personnel()) {
+		if (selected >= pro_personnel) {
 			ScriptUtils.alertAndBackPage(response, "이미 필요인원을 다 선정하였습니다. 프로젝트를 마감해주세요.");
 		} else {
 			int result = service.selectfree(pm);

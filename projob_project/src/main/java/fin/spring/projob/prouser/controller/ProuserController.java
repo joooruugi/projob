@@ -430,6 +430,7 @@ public class ProuserController {
 		logger.info("updateresume GET");
 		session.getAttribute("loginSsInfo");
 		mv.addObject("resume", service.resume(re_no));
+		mv.addObject("resumeimg", service.resumeimg(re_no));
 		mv.addObject("career", service.career(re_no));
 		mv.addObject("certi", service.certi(re_no));
 		mv.setViewName("mypage/updateresume");
@@ -445,24 +446,14 @@ public class ProuserController {
 		logger.info("updateresume POST");
 		session.getAttribute("loginSsInfo"); // 로그인된 정보 불러오기
 		resume.setRe_no(reno);
-		career.setCa_no(reno);
-		certi.setCe_no(reno);
 		System.out.println(resume.getRe_no());
 		int result = service.updateresume(resume);
-		System.out.println(service.updateresume(resume));
-		int resultcar = service.updatecareer(career);
-		int resultcar2 = service.updatecareer2(career);
-		int resultcar3 = service.updatecareer3(career);
-		int resultcerti = service.updatecerti(certi);
-		int resultcerti2 = service.updatecerti2(certi);
-		int resultcerti3 = service.updatecerti3(certi);
-		if (result < 1 || resultcar < 1 || resultcar2 < 1 || resultcar3 < 1 || resultcerti < 1 || resultcerti2 < 1
-				|| resultcerti3 < 1) {
+		if (result < 1 ) {
 			logger.info("resume update fail");
 			mv.setViewName("redirect:/updateresume");
 		} else {
 			logger.info("resume update success");
-			mv.setViewName("redirect:/mypage");
+			mv.setViewName("redirect:/resumelist");
 		}
 		return mv;
 	}

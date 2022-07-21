@@ -49,6 +49,8 @@
 				<div class="projectjoin_top">
 					<input type="hidden" name="pro_no"
 						value="${projectjoininfo.pro_no }">
+							<input type="hidden" name="pro_personnel"
+						value="${projectjoininfo.pro_personnel }">
 					<p class="fontname project_title">프로젝트 명 :
 						${projectjoininfo.pro_title }</p>
 					<p class="fontname project_title">모집인원 :
