@@ -16,13 +16,16 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<!-- fullcalendar 언어 설정관련 script -->
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.js"></script>
+	<!-- jquery script-->
 	<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
- 	 <style>
+	<style>
 		#calendar{
 		   width:60%;
 		   margin:20px auto;
 		}
 	</style> 
+	
+	<!-- fullcalendar 설정 script -->
 	<script>
       document.addEventListener("DOMContentLoaded", function() {
         var calendarEl = document.getElementById("calendar");
@@ -165,12 +168,6 @@
 
 </head>
 <body>
-	<!-- <script>
-	var msg = '${msg}';
-	if(msg != ''){
-		alert(msg);
-	};
-	</script> -->
 	<!--헤더-->
 	<%
 	Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
@@ -184,24 +181,29 @@
 	<%
 	}
 	%>
-	
 	<br>
-   	<div style="padding: 0 5px">
-   	<form id="frmProject">
-   		<select name="pro_no" id="pro_no" onchange="myFunction(this)">
-   			<option value="0">프로젝트 전체</option>
-   			<c:forEach items="${projectlist }" var="pj">
-   				<option value="${pj.PRO_NO }">${pj.PRO_TITLE }</option>
-   			</c:forEach>
-   		</select>
-   	</form>
+	
+   	<div>
+	   	<form id="frmProject">
+	   		<select name="pro_no" id="pro_no" onchange="myFunction(this)">
+	   			<option value="0">프로젝트 전체</option>
+	   			<c:forEach items="${projectlist }" var="pj">
+	   				<option value="${pj.PRO_NO }">${pj.PRO_TITLE }</option>
+	   			</c:forEach>
+	   		</select>
+	   	</form>
+   		<p id="selectname"></p>	
    	</div>
-   	
-   	<p id="selectname"></p>	
    	<div id="projectMember">
-   	<c:forEach items="${pmlist }" var="pm">
-   		${pm.US_ID }[${pm.US_NAME }]<i class="xi-full-moon xi-x" style="color:${pm.COLOR_CODE };"></i><br>
-   	</c:forEach>
+	   	<table style="width:10%">
+		   	<c:forEach items="${pmlist }" var="pm">
+			   		<tr>
+			   			<td style="padding-top:4px"><i class="xi-full-moon xi-x" style="color:${pm.COLOR_CODE };"></i></td>
+			   			<td>${pm.US_ID }<br></td>
+			   			<td>[${pm.US_NAME }]</td>
+			   		</tr>
+		   	</c:forEach>
+	   	</table>
    	</div>
     	 
     
@@ -239,9 +241,10 @@
             $("#pro_no option[value="+selectedProNo+"]").prop('selected', true);
     	}
 		var pro_title = $("#pro_no option[value="+selectedProNo+"]").text();
-		$("#selectname").html("선택한 프로젝트: "+ pro_title); 
+		$("#selectname").html(pro_title+"의 팀원 목록" ); 
 
 	</script>
+	
     
 </body>
 </html>

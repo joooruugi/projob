@@ -33,12 +33,10 @@ public class CalendarController {
 	//캘린더 기본 화면
 	@GetMapping("/list")
 	public ModelAndView list(ModelAndView mv,
-			RedirectAttributes rttr,
 			HttpSession ss
 			) {
 		if(ss.getAttribute("loginSsInfo") == null) {
 			mv.setViewName("redirect:/login");
-			rttr.addFlashAttribute("msg", "로그인 먼저 해주세요");
 			return mv;
 		}
 		//세션에서 아이디 호출
@@ -57,14 +55,12 @@ public class CalendarController {
 	}
 	@PostMapping("/list")
 	public ModelAndView listPost(ModelAndView mv,
-			RedirectAttributes rttr,
 			HttpSession ss,
 			@RequestParam(name="pro_no", defaultValue ="0") int pro_no
 			) {
 		
 		if(ss.getAttribute("loginSsInfo") == null) {
 			mv.setViewName("redirect:/login");
-			rttr.addFlashAttribute("msg", "로그인 먼저 해주세요");
 			return mv;
 		}
 		//세션에서 아이디 호출

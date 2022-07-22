@@ -334,11 +334,17 @@ REFERENCES "PROUSER" (
 	"US_ID"
 );
 
+-- view ÏÉùÏÑ± (07/22 Í∂åÏÜåÏ†ï)
+create or replace view view_p_member_color
+as 
+select * from p_member left outer join color_sample using(color_no)
+;
+
 COMMIT;
 
 
 
--- «¡∑Œ¡ß∆Æ∫∞ ∏‚πˆµÈ≥¢∏Æ ∞∞¿∫ ªˆ±Ú ∞„ƒ°¡ˆ æ ∞‘ «œ¥¬ «¡∑ŒΩ√¡Æ ª˝º∫ (07/20 ±«º“¡§)
+-- ÎèôÏùº ÌîÑÎ°úÏ†ùÌä∏ ÎÇ¥ÏóêÏÑú ÌåÄÏõêÎÅºÎ¶¨ Í≤πÏπòÏßÄ ÏïäÎäî ÏÉâÍπî ÏßÄÏ†ïÌï¥Ï£ºÎäî ÌîÑÎ°úÏãúÏ†∏ ÏÉùÏÑ±(07/22 Í∂åÏÜåÏ†ï)
 
 create or replace PROCEDURE color_input_query (
     q_us_id         IN p_member.us_id%TYPE
@@ -351,31 +357,37 @@ IS
 BEGIN
     DBMS_OUTPUT.PUT_LINE('q_us_id        : ' || q_us_id);
     DBMS_OUTPUT.PUT_LINE('q_pro_no       : ' || q_pro_no);
-    FOR j IN (select color_no, color_code from color_sample) LOOP
-        DBMS_OUTPUT.PUT_LINE('j c no '|| j.color_no);
-        isfind := 0;
-        select count(*) into isfind from dual where j.color_no in (select color_no from p_member where  pro_no = q_pro_no and prom_ok=1);
---        FOR k IN (select color_no from p_member where  pro_no = q_pro_no and prom_ok=1) LOOP
---            IF (j.color_no = k.color_no)
---                THEN isfind := 1; EXIT;
---            END IF;
---        END LOOP;
-        DBMS_OUTPUT.PUT_LINE('isfind '|| isfind);
-        IF (isfind = 0)
+    select color_no into q_color_no    from view_p_member_color     where us_id=q_us_id and pro_no=q_pro_no;
+    if (q_color_no > 0)
+        then 
+            select color_code into q_color_code    from view_p_member_color     where us_id=q_us_id and pro_no=q_pro_no;
+    else
+        FOR j IN (select color_no, color_code from color_sample) LOOP
+            DBMS_OUTPUT.PUT_LINE('j c no '|| j.color_no);
+            isfind := 0;
+            select count(*) into isfind from dual where j.color_no in (select color_no from p_member where  pro_no = q_pro_no and prom_ok=1);
+    --        FOR k IN (select color_no from p_member where  pro_no = q_pro_no and prom_ok=1) LOOP
+    --            IF (j.color_no = k.color_no)
+    --                THEN isfind := 1; EXIT;
+    --            END IF;
+    --        END LOOP;
+            DBMS_OUTPUT.PUT_LINE('isfind '|| isfind);
+            IF (isfind = 0)
+                THEN 
+                    isfind := 2;
+                    q_color_no := j.color_no;  
+                    q_color_code := j.color_code; 
+                    DBMS_OUTPUT.PUT_LINE('find q_color_no '|| q_color_no);
+                    DBMS_OUTPUT.PUT_LINE('find q_color_code '|| q_color_code);
+                    update p_member set color_no = q_color_no where us_id=q_us_id and pro_no=q_pro_no;
+                    commit;
+                    EXIT;
+            END IF;
+        END LOOP;
+        IF (isfind != 2)
             THEN 
-                isfind := 2;
-                q_color_no := j.color_no;  
-                q_color_code := j.color_code; 
-                DBMS_OUTPUT.PUT_LINE('find q_color_no '|| q_color_no);
-                DBMS_OUTPUT.PUT_LINE('find q_color_code '|| q_color_code);
-                update p_member set color_no = q_color_no where us_id=q_us_id and pro_no=q_pro_no;
-                commit;
-                EXIT;
+                DBMS_OUTPUT.PUT_LINE('Î™®Îëê ÏÇ¨Ïö©Ï§ë');
+                -- Ìïú ÌîÑÎ°úÏ†ùÌä∏ Îãπ ÏµúÎåÄÏù∏Ïõê 15Î™Ö (color_sample Ïàò 15Í∞ú)
         END IF;
-    END LOOP;
-    IF (isfind != 2)
-        THEN 
-            DBMS_OUTPUT.PUT_LINE('∏µŒ ªÁøÎ¡ﬂ');
-            -- «— «¡∑Œ¡ß∆Æ ¥Á √÷¥Î¿Œø¯ 20∏Ì
-    END IF;
+    end if;
 END;
