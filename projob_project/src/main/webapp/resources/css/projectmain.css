@@ -26,28 +26,28 @@
 }
 .projectcontent{
     width: 60%;
-    border: 5px solid   rgb(183, 189, 197);
-    margin: 15px auto;
-    border-style: outset;
+    border: 3px solid   rgb(183, 189, 197);
+    margin: 30px auto;
+    border-style: inset;
 }
 .projectcontent a, .projectcontent p{
     margin: 15px 20px;
 }
 .projectcontenttitle a{
-    font-size: 30px;
+    font-size: 25px;
 }
 .projectcontenttitle  a:hover{
     color: rgb(78, 152, 242);
 }
 .projectcontentcontent p{
-    font-size: 25px;
+    font-size: 20px;
 }
 .projectcontentdetail{
     display: flex;
     flex-direction: row;
 }
 .projectcontentdetail p{
-    font-size: 20px;
+    font-size: 18px;
 }
 .projectinsertbtn{
     width: 85%;

@@ -60,19 +60,22 @@
 				<label class="labelinfo" for="us_crn">사업자등록번호</label><br> <br>
 				<p class="inputinfo">${adsearchuser.us_crn }</p>
 			</div>
-
-			<div class="inforow">
-				<label class="labelinfo" for="us_adname">담당자 이름</label><br> <br>
-				<p class="inputinfo">${adsearchuser.us_adname }</p>
-			</div>
-			<div class="inforow">
-				<label class="labelinfo" for="us_adphone">담당자 연락처</label><br> <br>
-				<p class="inputinfo">${adsearchuser.us_adphone }</p>
-			</div>
-			<div class="inforow">
-				<label class="labelinfo" for="us_ademail">담당자 이메일</label><br> <br>
-				<p class="inputinfo">${adsearchuser.us_ademail }</p>
-			</div>
+			<c:if test="${adsearchuser.us_info == 1} ">
+				<div class="inforow">
+					<label class="labelinfo" for="us_adname">담당자 이름</label><br> <br>
+					<p class="inputinfo">${adsearchuser.us_adname }</p>
+				</div>
+				<div class="inforow">
+					<label class="labelinfo" for="us_adphone">담당자 연락처</label><br>
+					<br>
+					<p class="inputinfo">${adsearchuser.us_adphone }</p>
+				</div>
+				<div class="inforow">
+					<label class="labelinfo" for="us_ademail">담당자 이메일</label><br>
+					<br>
+					<p class="inputinfo">${adsearchuser.us_ademail }</p>
+				</div>
+			</c:if>
 			<div class="inforow">
 				<button type="button" class="bnt2 fontname" onclick="goBack()">뒤로가기</button>
 			</div>

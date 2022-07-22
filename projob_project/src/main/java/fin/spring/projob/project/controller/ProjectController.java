@@ -44,10 +44,8 @@ public class ProjectController {
 	// 프로젝트 메인 GET
 	// 프로젝트 목록 조회
 	@RequestMapping(value = "/project", method = RequestMethod.GET)
-	public ModelAndView projectmainGet(ModelAndView mv, HttpSession session,
-			@ModelAttribute("loginSsInfo") Prouser prouser) throws Exception {
+	public ModelAndView projectmainGet(ModelAndView mv, HttpSession session) throws Exception {
 		logger.info("projectmain GET");
-		session.getAttribute("loginSsInfo");
 		mv.addObject("projectlist", service.projectList());
 		mv.setViewName("project/projectmain");
 		return mv;
@@ -79,7 +77,7 @@ public class ProjectController {
 			ScriptUtils.alertAndBackPage(response, "프로젝트 등록에 실패하였습니다. 재시도 해주세요.");
 		} else {
 			logger.info("insertproject success");
-			mv.setViewName("redirect:/projectmain");
+			mv.setViewName("redirect:/projectstatus");
 		}
 		return mv;
 	}
@@ -252,11 +250,6 @@ public class ProjectController {
 		} else {
 			int result = service.selectfree(pm);
 			rttr.addFlashAttribute("result", pm);
-			if (result == 0) {
-				ScriptUtils.alert(response, "프리랜서 선정 실패. 재시도해주세요.");
-			} else {
-				ScriptUtils.alert(response, "프리랜서 선정되었습니다.");
-			}
 			mv.setViewName("project/projectjoinstatus");
 		}
 

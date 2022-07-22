@@ -106,7 +106,6 @@ public class ProuserController {
 			mv.setViewName("redirect:/infofree");
 			return mv;
 		}
-		ScriptUtils.alert(response, "환영합니다!");
 		mv.setViewName("redirect:/login");
 		return mv;
 	}
@@ -154,10 +153,9 @@ public class ProuserController {
 			}
 			return mv;
 		} else {
-			ScriptUtils.alert(response, "로그인 실패. 재시도해주세요.");
-			mv.setViewName("redirect:/login");
-			return mv;
+			ScriptUtils.alertAndBackPage(response, "로그인실패, 재시도해주세요.");
 		}
+		return mv;
 	}
 
 	// 카카오 로그인
@@ -208,10 +206,9 @@ public class ProuserController {
 			return mv;
 		} else {
 			logger.info("findid fail");
-			ScriptUtils.alert(response, "등록된 회원정보가 없습니다.");
-			mv.setViewName("redirect:/findid");
-			return mv;
+			ScriptUtils.alertAndBackPage(response, "일치하는 회원정보가 없습니다.");
 		}
+		return mv;
 	}
 
 	// 사용자 비밀번호 찾기 get
@@ -223,7 +220,7 @@ public class ProuserController {
 
 	// 사용자 비밀번호 찾기 post
 	@PostMapping(value = "/findpw")
-	public ModelAndView findpwpost(ModelAndView mv, Prouser prouser, @RequestParam("us_id") String usId)
+	public ModelAndView findpwpost(ModelAndView mv, Prouser prouser, @RequestParam("us_id") String usId, HttpServletResponse response)
 			throws Exception {
 		logger.info("findpw POST");
 		int result = service.findpw(prouser);
@@ -233,7 +230,7 @@ public class ProuserController {
 			mv.setViewName("redirect:/updatepw");
 		} else {
 			logger.info("findpw fail");
-			mv.setViewName("redirect:/findpw");
+			ScriptUtils.alertAndBackPage(response, "일치하는 회원정보가 없습니다.");
 		}
 		return mv;
 	}
@@ -324,8 +321,7 @@ public class ProuserController {
 			mv.setViewName("redirect:/updateinfo");
 		} else {
 			logger.info("checkforupdate  fail");
-			ScriptUtils.alert(response, "비밀번호가 틀렸습니다.");
-			mv.setViewName("mypage/checkforupdate");
+			ScriptUtils.alertAndBackPage(response, "비밀번호가 틀렸습니다.");
 		}
 		return mv;
 	}
@@ -417,7 +413,7 @@ public class ProuserController {
 			mv.setViewName("redirect:/resumeinsert");
 		} else {
 			logger.info("resume insert success");
-			mv.setViewName("redirect:/mypage");
+			mv.setViewName("redirect:/resumelist");
 		}
 		return mv;
 	}

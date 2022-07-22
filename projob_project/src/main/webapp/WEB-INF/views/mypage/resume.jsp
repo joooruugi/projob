@@ -46,7 +46,7 @@
 			<c:forEach items="${resumeimg }" var="resumeimg">
 				<div class="resumepart">
 					<label class="resumelabel" for="re_picture">사진 </label> <img
-						width=200px;
+						width=200px; 
 						src="<%=request.getContextPath() %>/resources//resume${resumeimg.changeName }">
 					<br> <br>
 				</div>

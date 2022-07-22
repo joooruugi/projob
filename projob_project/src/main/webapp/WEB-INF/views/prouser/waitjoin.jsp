@@ -50,7 +50,7 @@
 				<p class="fontcontent2">기타 문의사항 : projob@projob.com</p>
 			</div>
 			<div class="waitnoticebtn">
-				<button type="button" class="btnwhite" onclick="location.href='projectmain'">
+				<button type="button" class="btnwhite" onclick="location.href='project'">
 					<p class="fontname2">프 로 젝 트 둘 러 보 기</p>
 				</button>
 			</div>
