@@ -17,29 +17,12 @@
 	<!-- fullcalendar 언어 설정관련 script -->
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales-all.js"></script>
 	<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
-	<!-- ColorPicker codes -->
-	<!-- 
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror-colorpicker@1.7.3/addon/codemirror-colorpicker.css" />
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/codemirror-colorpicker@1.7.3/addon/codemirror-colorpicker.js" ></script>
- 	-->
  	 <style>
 		#calendar{
 		   width:60%;
 		   margin:20px auto;
 		}
 	</style> 
-	<!-- <script>
-		// CodeMirror Addon 
-		var cm = CodeMirror.fromTextArea(document.getElementById("sample_text_area"), {
-		    colorpicker : {
-		        mode : 'edit',
-		        onChange: function (color) { // 색을 선택할 때 호출됩니다. 
-		            console.log(color);
-		        }
-		    }
-		});
-		
-	</script> -->
 	<script>
       document.addEventListener("DOMContentLoaded", function() {
         var calendarEl = document.getElementById("calendar");
@@ -141,13 +124,8 @@
             
             events: //이 부분이 json을 받아서 calendar에 뿌리는 공간(ajax로 데이터 불러옴(로딩))
             	function(info, successCallback, failureCallback){
-	            	var link=document.location.href;
-	            	var lastUrl = link.split("/").pop(); // /를 기준으로 맨 끝 값 꺼내기
-	            	var selectedProNo = lastUrl.split("#").pop(); // #을 기준으로 맨 끝 값 꺼내기
-	            	if(lastUrl != selectedProNo) 
-	                    $("#pro_no option[value="+selectedProNo+"]").prop('selected', true);
 		          	$.ajax({
-		          		type:"get",
+		          		type:"post",
 		          		url:"<%=request.getContextPath()%>/calendar/data",
 		          		data: { pro_no : $("#pro_no").val(), writer:"${loginSsInfo.us_id}"},
 		          		dataType:"json",
@@ -210,7 +188,7 @@
 	<br>
    	<div style="padding: 0 5px">
    	<form id="frmProject">
-   		<select name="pro_no" id="pro_no" onchange="myFunction()">
+   		<select name="pro_no" id="pro_no" onchange="myFunction(this)">
    			<option value="0">프로젝트 전체</option>
    			<c:forEach items="${projectlist }" var="pj">
    				<option value="${pj.PRO_NO }">${pj.PRO_TITLE }</option>
@@ -239,29 +217,31 @@
 	
 	<!-- 프로젝트 선택후 프로젝트별 캘린더 가져오는 스크립트 -->
 	<script>
-		function myFunction(){
-			var pro_no = $("#pro_no").val();
-			
-            //location.href="#"+pro_no;
-            //location.reload();
-            
-			frmProject.action = "#"+pro_no;
-			frmProject.method="post"
-			frmProject.submit();
+		function myFunction(thisElem){
+			console.log($(thisElem).val());  // 선택한 프로젝트 val
+			frmProject.action = "#";
+			frmProject.method="post";
+			frmProject.submit();  // name에 실어서 감
 		}
 	</script>
 	
 	<!-- 선택한 프로젝트명 가져오는 스크립트 -->
 	<script>
-		var link=document.location.href;
-		var lastUrl = link.split("/").pop(); // /를 기준으로 맨 끝 값 꺼내기
-		var selectedProNo = lastUrl.split("#").pop(); // #을 기준으로 맨 끝 값 꺼내기
+		let mycolor = "${mycolor}"; // controller model 에 mycolor 값이 들어있다면
+		console.log(mycolor);
+
+		let selectedProNo = "0";
+		var pro_no_from_model = "${pro_no}";  // controller model 에 pro_no 값이 들어있다면
+		if (pro_no_from_model != ""){
+			selectedProNo = pro_no_from_model;
+		} 
+    	if($("#pro_no").val() != selectedProNo) {
+            $("#pro_no option[value="+selectedProNo+"]").prop('selected', true);
+    	}
 		var pro_title = $("#pro_no option[value="+selectedProNo+"]").text();
 		$("#selectname").html("선택한 프로젝트: "+ pro_title); 
-		let mycolor = "${mycolor}";
-		console.log(mycolor);
+
 	</script>
-	
     
 </body>
 </html>

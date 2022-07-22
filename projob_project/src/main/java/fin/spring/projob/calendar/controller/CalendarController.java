@@ -36,8 +36,6 @@ public class CalendarController {
 			RedirectAttributes rttr,
 			HttpSession ss
 			) {
-		
-		
 		if(ss.getAttribute("loginSsInfo") == null) {
 			mv.setViewName("redirect:/login");
 			rttr.addFlashAttribute("msg", "로그인 먼저 해주세요");
@@ -100,12 +98,14 @@ public class CalendarController {
 		mv.addObject("pmlist", pmlist);
 		//색깔 분배 담기
 		mv.addObject("colorInput", colorInput);
+		//프로젝트 번호 담기
+		mv.addObject("pro_no", pro_no);
 		mv.setViewName("calendar/calendar");
 		return mv;
 	}
 
 	//일정 데이터 조회 (writer별)
-	@GetMapping(value="/data", produces = "text/plain;charset=UTF-8")
+	@PostMapping(value="/data", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String getCalData(Model m, HttpSession ss,
 			@RequestParam(name="pro_no", defaultValue ="0") String pro_no) {
