@@ -357,7 +357,10 @@ IS
 BEGIN
     DBMS_OUTPUT.PUT_LINE('q_us_id        : ' || q_us_id);
     DBMS_OUTPUT.PUT_LINE('q_pro_no       : ' || q_pro_no);
-    select color_no into q_color_no    from view_p_member_color     where us_id=q_us_id and pro_no=q_pro_no;
+    if(q_pro_no > 0)
+        then
+            select color_no into q_color_no    from view_p_member_color     where us_id=q_us_id and pro_no=q_pro_no;
+    END IF;
     if (q_color_no > 0)
         then 
             select color_code into q_color_code    from view_p_member_color     where us_id=q_us_id and pro_no=q_pro_no;
