@@ -48,17 +48,18 @@
 				<div class="resumepart">
 					<p class="fonthighlight resumemiddlename">RESUME</p>
 					<label class="resumelabel" for="re_title">이력서 명</label> <input
-						type="text" class="resumeinput" id="re_title" name="re_title" required>
+						type="text" class="resumeinput" id="re_title" name="re_title"
+						required>
 				</div>
 				<div class="resumedivision"></div>
 				<div class="resumemyself resumepart">
 					<p class="fonthighlight resumemiddlename">PERSONAL INFOMATION</p>
 					<label class="resumelabel" for="re_name">이름</label> <input
-						type="text" class="resumeinput" id="re_name" name="re_name" required>
-					<br> <br> <label class="resumelabel" for="re_picture">사진
-					</label> <input type="file" class="resumeinput" name="f"
-						multiple="multiple" accept=".jpg, .png"> <img
-						id="profileImg"><br>
+						type="text" class="resumeinput" id="re_name" name="re_name"
+						required> <br> <br> <label class="resumelabel"
+						for="re_picture">사진 </label> <input type="file"
+						class="resumeinput" name="f" multiple="multiple"
+						accept=".jpg, .png"> <img id="profileImg"><br>
 					<hr>
 					<div id="div-preview"></div>
 					<br> <br> <label class="resumelabel" for="re_birth">생년월일</label>
@@ -75,10 +76,10 @@
 				<div class="resumeschool resumepart">
 					<p class="fonthighlight resumemiddlename">SCHOOL</p>
 					<label class="resumelabel" for="re_school">최종학력(학교명) </label> <input
-						type="text" class="resumeinput" id="re_school" name="re_school" required>
-					<br> <br> <label class="resumelabel" for="re_graduate">졸업연도</label>
-					<input type="month" class="resumeinput" id="re_graduate"
-						name="re_graduate" required>
+						type="text" class="resumeinput" id="re_school" name="re_school"
+						required> <br> <br> <label class="resumelabel"
+						for="re_graduate">졸업연도</label> <input type="month"
+						class="resumeinput" id="re_graduate" name="re_graduate" required>
 				</div>
 				<div class="resumedivision"></div>
 				<div class="resumecerti resumepart">
@@ -307,11 +308,11 @@
 			btn8.style.display = 'none';
 		}
 	</script>
-	<!-- <!-- 이력서 인서트 ajax로 받아보기 안되면 말자  -->
-	<script>
-	let resumeList = [];
-	$('')
-	</script> -->
+	<c:if test="${not empty insertresume }">
+		<script>
+			alert('${insertresume}');
+		</script>
+	</c:if>
 </body>
 
 </html>

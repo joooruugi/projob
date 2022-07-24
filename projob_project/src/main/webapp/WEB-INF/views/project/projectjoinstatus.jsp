@@ -48,9 +48,8 @@
 				method="post">
 				<div class="projectjoin_top">
 					<input type="hidden" name="pro_no"
-						value="${projectjoininfo.pro_no }">
-							<input type="hidden" name="pro_personnel"
-						value="${projectjoininfo.pro_personnel }">
+						value="${projectjoininfo.pro_no }"> <input type="hidden"
+						name="pro_personnel" value="${projectjoininfo.pro_personnel }">
 					<p class="fontname project_title">프로젝트 명 :
 						${projectjoininfo.pro_title }</p>
 					<p class="fontname project_title">모집인원 :
@@ -113,26 +112,29 @@
 		function goBack() {
 			window.history.back();
 		};
-		$('input:checkbox[class=projectjoin_resumechoice]').click(function(){ 
-			  
-			  var cntEPT = $('input:checkbox[class=projectjoin_resumechoice]:checked').length;   //체크갯수 확인
-			 
-			  if(cntEPT>1){
-			   alert('한명씩 선정 가능합니다.')
-			   $(this).prop('checked', false);
-			  }
-			 });
-		
-	/* 	$.ajax({
-			url:"projectjoinstatus",
-			type:"post",
-			data:{
-				pro_no : '${pro_no}',
-				us_id : '${us_id}'
-			},
-			success:function()
-		}) */
+		$('input:checkbox[class=projectjoin_resumechoice]')
+				.click(
+						function() {
+
+							var cntEPT = $('input:checkbox[class=projectjoin_resumechoice]:checked').length; //체크갯수 확인
+
+							if (cntEPT > 1) {
+								alert('한명씩 선정 가능합니다.')
+								$(this).prop('checked', false);
+							}
+						});
+
+		/* 	$.ajax({
+				url:"projectjoinstatus",
+				type:"post",
+				data:{
+					pro_no : '${pro_no}',
+					us_id : '${us_id}'
+				},
+				success:function()
+			}) */
 	</script>
+	
 </body>
 
 </html>

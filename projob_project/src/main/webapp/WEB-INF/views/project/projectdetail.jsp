@@ -60,7 +60,7 @@
 				<p class="fontname pro_detail_title">[
 					${projectdetail.pro_title} ]</p>
 			</div>
-				<div class="pro_detail_bottom fontnothing2">
+			<div class="pro_detail_bottom fontnothing2">
 				<c:forEach var="selectimgpro" items="${selectimgpro }">
 					<img width=1200px; height=800px;
 						src="<%=request.getContextPath() %>/resources//project${selectimgpro.changenamepro}">
@@ -82,7 +82,7 @@
 				<p class="fontnothing pro_detail_personnel">회사명 :
 					${projectdetail.pro_comp}</p>
 			</div>
-		
+
 			<div class="projectdetailbutton">
 				<%
 				if (prouser.getUs_info() == 0 && prouser.getUs_ok() == 1) {
@@ -108,6 +108,11 @@
 			window.history.back();
 		};
 	</script>
+	<c:if test="${not empty join }">
+		<script>
+			alert('${join}');
+		</script>
+	</c:if>
 </body>
 
 </html>

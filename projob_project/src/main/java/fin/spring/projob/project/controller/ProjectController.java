@@ -1,7 +1,5 @@
 package fin.spring.projob.project.controller;
 
-
-
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +19,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fin.spring.projob.common.ScriptUtils;
 import fin.spring.projob.project.service.ProjectService;
 import fin.spring.projob.project.vo.PMember;
 import fin.spring.projob.project.vo.Project;
@@ -64,8 +61,8 @@ public class ProjectController {
 	// 프로젝트 공고 작성 POST for company
 	@PostMapping("/projectinsert")
 	public ModelAndView projectinsertPost(ModelAndView mv, HttpSession session, Project project,
-			@ModelAttribute("loginSsInfo") Prouser prouser
-			, MultipartHttpServletRequest mreq, HttpServletResponse response) throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser, MultipartHttpServletRequest mreq,
+			HttpServletResponse response, RedirectAttributes rttr) throws Exception {
 		logger.info("projectinsert POST");
 		session.getAttribute("loginSsInfo");
 		project.setPro_comp(prouser.getUs_name());
@@ -74,9 +71,11 @@ public class ProjectController {
 		System.out.println(result);
 		if (result < 1) {
 			logger.info("insertproject fail");
-			ScriptUtils.alertAndBackPage(response, "프로젝트 등록에 실패하였습니다. 재시도 해주세요.");
+			rttr.addFlashAttribute("insert", "프로젝트 등록에 실패했습니다. 재시도 해주세요.");
+			mv.setViewName("project/projectinsert");
 		} else {
 			logger.info("insertproject success");
+			rttr.addFlashAttribute("insert", "프로젝트 등록되었습니다.");
 			mv.setViewName("redirect:/projectstatus");
 		}
 		return mv;
@@ -85,8 +84,7 @@ public class ProjectController {
 	// 프로젝트 상세조회 GET
 	@RequestMapping(value = "/projectdetail", method = RequestMethod.GET)
 	public ModelAndView projectDetailGet(ModelAndView mv, @ModelAttribute("loginSsInfo") Prouser prouser,
-			HttpSession session, Project project
-		) throws Exception {
+			HttpSession session, Project project) throws Exception {
 		logger.info("projectdetail GET");
 		session.getAttribute("loginSsInfo");
 		int prono = project.getPro_no();
@@ -95,9 +93,10 @@ public class ProjectController {
 		mv.setViewName("project/projectdetail");
 		return mv;
 	}
-	//(관리자) 프로젝트 승인시 조회 GET
-	@RequestMapping(value="/adprojectdetail", method=RequestMethod.GET)
-	public ModelAndView adprojectdetail(ModelAndView mv, Project project)throws Exception{
+
+	// (관리자) 프로젝트 승인시 조회 GET
+	@RequestMapping(value = "/adprojectdetail", method = RequestMethod.GET)
+	public ModelAndView adprojectdetail(ModelAndView mv, Project project) throws Exception {
 		logger.info("adprojectdetail GET");
 		int prono = project.getPro_no();
 		mv.addObject("projectdetail", service.projectDetail(prono));
@@ -125,26 +124,29 @@ public class ProjectController {
 	@PostMapping("/projectjoin")
 	public ModelAndView projectjoinPost(ModelAndView mv, HttpSession session, HttpServletResponse response,
 			@ModelAttribute("loginSsInfo") Prouser prouser, Project project, Resume resume, PMember pmember,
-			@RequestParam("pro_no") int pro_no) throws Exception {
+			@RequestParam("pro_no") int pro_no, @RequestParam("re_no") int re_no,RedirectAttributes rttr) throws Exception {
 		logger.info("projectjoin for POST");
 		session.getAttribute("loginSsInfo");
 		pmember.setUs_id(prouser.getUs_id());
 		pmember.setPro_no(pro_no);
+		pmember.setRe_no(re_no);
 		int alreadyjoin = service.alreadyjoinproject(pmember);
 		if (alreadyjoin != 0) {
 			logger.info("User has session already join this project.");
-			ScriptUtils.alertAndBackPage(response, "기신청한 프로젝트 입니다.");
+			rttr.addFlashAttribute("alreadyjoin", "이미 신청한 프로젝트 입니다.");
+			mv.setViewName("redirect:/mypage");
 		} else {
 			pmember.setUs_name(prouser.getUs_name());
 			int result = service.pmemberinsert(pmember);
 			System.out.println(result);
 			if (result < 1) {
 				logger.info("pmemberinsert fail");
-				ScriptUtils.alertAndBackPage(response, "신청에 실패했습니다. 재시도해주세요.");
+				rttr.addFlashAttribute("join", "신청에 실패했습니다. 재시도해주세요.");
+				mv.setViewName("project/projectjoin");
 			} else {
 				logger.info("pmemberinsert success");
-				mv.setViewName("redirect:/project");
-
+				rttr.addFlashAttribute("join", "신청 완료되었습니다.");
+				mv.setViewName("redirect:/mypage");
 			}
 		}
 		return mv;
@@ -166,17 +168,19 @@ public class ProjectController {
 		mv.setViewName("project/projectstatus");
 		return mv;
 	}
+
 	// (기업) 승인 대기중인 프로젝트 GET
-	@RequestMapping(value="/projectdetailforcomp", method=RequestMethod.GET)
-	public ModelAndView projectdetailforcompGet(ModelAndView mv, HttpSession session, HttpServletResponse response
-			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
-			,@RequestParam("pro_no")int prono)throws Exception{
+	@RequestMapping(value = "/projectdetailforcomp", method = RequestMethod.GET)
+	public ModelAndView projectdetailforcompGet(ModelAndView mv, HttpSession session, HttpServletResponse response,
+			@ModelAttribute("loginSsInfo") Prouser prouser, Project project, @RequestParam("pro_no") int prono)
+			throws Exception {
 		logger.info("projectdetailforcomp GET");
 		session.getAttribute("loginSsInfo");
 		mv.addObject("projectdetail", service.projectDetail(prono));
 		mv.setViewName("project/projectdetailforcomp");
 		return mv;
 	}
+
 //	//(기업) 승인 전 프로젝트 수정 GET
 //	@RequestMapping(value="/updateproject", method=RequestMethod.GET)
 //	public ModelAndView updateprojectGet(ModelAndView mv, HttpSession session, HttpServletResponse response
@@ -206,20 +210,23 @@ public class ProjectController {
 //		return mv;
 //	}
 	// (기업) 승인 전 프로젝트 삭제
-	@RequestMapping(value="/deleteproject", method=RequestMethod.GET)
-	public ModelAndView deleteproject(ModelAndView mv, HttpSession session, HttpServletResponse response
-			, @ModelAttribute("loginSsInfo")Prouser prouser, Project project
-			,@RequestParam("pro_no")int prono)throws Exception{
+	@RequestMapping(value = "/deleteproject", method = RequestMethod.GET)
+	public ModelAndView deleteproject(ModelAndView mv, HttpSession session, HttpServletResponse response,
+			@ModelAttribute("loginSsInfo") Prouser prouser, Project project, @RequestParam("pro_no") int prono,
+			RedirectAttributes rttr) throws Exception {
 		logger.info("deleteproject GET");
 		session.getAttribute("loginSsInfo");
-		int result =  service.deleteproject(prono);
-		if(result == 0) {
-			ScriptUtils.alertAndBackPage(response, "공고 삭제에 실패하였습니다.");
-		}else {
-			mv.setViewName("redirect:/mypage");
+		int result = service.deleteproject(prono);
+		if (result == 0) {
+			rttr.addFlashAttribute("deleteproject", "공고 삭제에 실패했습니다.");
+			mv.setViewName("redirect:/projectdetailforcomp");
+		} else {
+			rttr.addFlashAttribute("deleteproject", "삭제 되었습니다.");
+			mv.setViewName("redirect:/projectstatus");
 		}
 		return mv;
 	}
+
 	// (기업) 프로젝트 신청 및 선정현황 GET
 	@RequestMapping(value = "/projectjoinstatus", method = RequestMethod.GET)
 	public ModelAndView projectjoinstatusGet(ModelAndView mv, HttpSession session, HttpServletResponse response,
@@ -239,18 +246,24 @@ public class ProjectController {
 	@PostMapping("/projectjoinstatus")
 	public ModelAndView projectjoinstatusPost(ModelAndView mv, HttpSession session, HttpServletResponse response,
 			@ModelAttribute("loginSsInfo") Prouser prouser, Project project, @RequestParam("pro_no") int pro_no,
-			@RequestParam("free_id") String free_id,@RequestParam("pro_personnel") int pro_personnel, PMember pm, RedirectAttributes rttr) throws Exception {
+			@RequestParam("free_id") String free_id, @RequestParam("pro_personnel") int pro_personnel, PMember pm,
+			RedirectAttributes rttr) throws Exception {
 		logger.info("projectjoinstatusPOST for company");
 		session.getAttribute("loginSsInfo");
 		pm.setPro_no(pro_no);
 		pm.setUs_id(free_id);
 		int selected = service.selectedfree(pm);
+		System.out.println(selected);
 		if (selected >= pro_personnel) {
-			ScriptUtils.alertAndBackPage(response, "이미 필요인원을 다 선정하였습니다. 프로젝트를 마감해주세요.");
+			rttr.addFlashAttribute("select", "이미 필요인원을 다 선정하였습니다. 프로젝트를 마감해주세요.");
+			mv.setViewName("redirect:/projectjoinstatus");
 		} else {
 			int result = service.selectfree(pm);
-			rttr.addFlashAttribute("result", pm);
-			mv.setViewName("project/projectjoinstatus");
+			if (result != 0) {
+				rttr.addFlashAttribute("result", pm);
+				rttr.addFlashAttribute("select", "선정되었습니다.");
+				mv.setViewName("redirect:/projectstatus");
+			}
 		}
 
 		return mv;

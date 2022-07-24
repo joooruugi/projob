@@ -83,6 +83,21 @@
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<c:if test="${not empty insertresume }">
+		<script>
+			alert('${insertresume}');
+		</script>
+	</c:if>
+	<c:if test="${not empty deleteresume }">
+		<script>
+			alert('${deleteresume}');
+		</script>
+	</c:if>
+	<c:if test="${not empty update }">
+		<script>
+			alert('${update}');
+		</script>
+	</c:if>
 </body>
 
 </html>

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fin.spring.projob.common.ScriptUtils;
 import fin.spring.projob.prouser.service.ProuserService;
 import fin.spring.projob.prouser.vo.Career;
 import fin.spring.projob.prouser.vo.Certificate;
@@ -79,9 +78,10 @@ public class ProuserController {
 		logger.info("join for freelancer_POST");
 		int result = service.insertProuserfree(prouser);
 		if (result < 1) {
-			mv.setViewName("redirect:/infofree");
-			return mv;
+			rttr.addFlashAttribute("info", "가입에 실패했습니다. 정보를 다시 입력해주세요.");
+			mv.setViewName("prouser/infofree");
 		}
+		rttr.addFlashAttribute("infofree", "회원가입 성공! 환영합니다.");
 		mv.setViewName("redirect:/login");
 		return mv;
 	}
@@ -102,10 +102,11 @@ public class ProuserController {
 		logger.info("join for company_POST");
 		int result = service.insertProusercomp(prouser);
 		if (result < 1) {
-			ScriptUtils.alert(response, "가입에 실패하였습니다. 정보를 다시 입력해주세요.");
-			mv.setViewName("redirect:/infofree");
+			rttr.addFlashAttribute("info", "가입에 실패했습니다. 정보를 다시 입력해주세요.");
+			mv.setViewName("prouser/infocomp");
 			return mv;
 		}
+		rttr.addFlashAttribute("infocomp", "회원가입 성공! 환영합니다.");
 		mv.setViewName("redirect:/login");
 		return mv;
 	}
@@ -143,17 +144,20 @@ public class ProuserController {
 			logger.info("Login POST");
 			System.out.println(result.getUs_info());
 			session.setAttribute("loginSsInfo", result);
-			ScriptUtils.alert(response, "로그인 성공. 환영합니다!");
 			if (result.getUs_ok() == 0) {
-				mv.setViewName("prouser/waitjoin");
+				rttr.addFlashAttribute("alert", "로그인 되었습니다.");
+				mv.setViewName("redirect:/waitjoin");
 			} else if (result.getUs_ok() == 1) {
-				mv.setViewName("home");
+				rttr.addFlashAttribute("alert", "로그인 되었습니다.");
+				mv.setViewName("redirect:/");
 			} else if (result.getUs_ok() == 2) {
-				mv.setViewName("home");
+				rttr.addFlashAttribute("alert", "로그인 되었습니다.");
+				mv.setViewName("redirect:/");
 			}
 			return mv;
 		} else {
-			ScriptUtils.alertAndBackPage(response, "로그인실패, 재시도해주세요.");
+			rttr.addFlashAttribute("alert", "로그인 실패. 재시도 해주세요.");
+			mv.setViewName("redirect:/login");
 		}
 		return mv;
 	}
@@ -201,12 +205,13 @@ public class ProuserController {
 			logger.info("findid success");
 			logger.info(result.getUs_id());
 //			mv.addObject("msg", result.getUs_name()+"님의 아이디는  "+result.getUs_id()+" 입니다.");
-			ScriptUtils.alert(response, result.getUs_name() + "님의 아이디는 " + result.getUs_id() + " 입니다.");
-			mv.setViewName("prouser/login");
+			rttr.addFlashAttribute("findid", result.getUs_name() + "님의 아이디는 " + result.getUs_id() + " 입니다.");
+			mv.setViewName("redirect:/login");
 			return mv;
 		} else {
 			logger.info("findid fail");
-			ScriptUtils.alertAndBackPage(response, "일치하는 회원정보가 없습니다.");
+			rttr.addFlashAttribute("findid", "일치하는 회원정보가 없습니다.");
+			mv.setViewName("redirect:/findid");
 		}
 		return mv;
 	}
@@ -220,17 +225,18 @@ public class ProuserController {
 
 	// 사용자 비밀번호 찾기 post
 	@PostMapping(value = "/findpw")
-	public ModelAndView findpwpost(ModelAndView mv, Prouser prouser, @RequestParam("us_id") String usId, HttpServletResponse response)
-			throws Exception {
+	public ModelAndView findpwpost(ModelAndView mv, Prouser prouser, @RequestParam("us_id") String usId,
+			HttpServletResponse response, RedirectAttributes rttr) throws Exception {
 		logger.info("findpw POST");
 		int result = service.findpw(prouser);
 		if (result != 0) {
 			logger.info("findpw success");
 			mv.addObject("us_id", usId);
-			mv.setViewName("redirect:/updatepw");
+			mv.setViewName("prouser/updatepw");
 		} else {
 			logger.info("findpw fail");
-			ScriptUtils.alertAndBackPage(response, "일치하는 회원정보가 없습니다.");
+			rttr.addFlashAttribute("findpw", "일치하는 회원정보가 없습니다.");
+			mv.setViewName("redirect:/findpw");
 		}
 		return mv;
 	}
@@ -247,26 +253,29 @@ public class ProuserController {
 	// 사용자 비밀번호 재설정 post
 	@RequestMapping(value = "/updatepw", method = RequestMethod.POST)
 	public ModelAndView updatepwPost(ModelAndView mv, Prouser prouser, HttpServletResponse response,
-			@RequestParam(value = "us_id", required = false) String usId) throws Exception {
+			@RequestParam(value = "us_id", required = false) String usId, RedirectAttributes rttr) throws Exception {
 		logger.info("updatepw POST");
 		prouser.setUs_id(usId);
 		int result = service.updatepw(prouser);
 		if (result != 0) {
 			logger.info("updatepw success");
-			ScriptUtils.alert(response, "비밀번호 재설정 완료.");
-			mv.setViewName("prouser/login");
+			rttr.addFlashAttribute("updatepw", "비밀번호가 재설정 되었습니다.");
+			mv.setViewName("redirect:/login");
 		} else {
 			logger.info("updatepw fail");
-			ScriptUtils.alertAndBackPage(response, "재설정 실패. 정보를 다시 입력해주세요.");
+			rttr.addFlashAttribute("updatepw", "재설정 실패. 정보를 다시 입력해주세요.");
+			mv.setViewName("rediect:/updatepw");
 		}
 		return mv;
 	}
 
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request) throws Exception {
+	public ModelAndView logout(ModelAndView mv, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		logger.info("Prouser logout");
-		return "prouser/logout";
+		rttr.addFlashAttribute("logout", "로그아웃 되었습니다.");
+		mv.setViewName("prouser/logout");
+		return mv;
 	}
 
 	// 관리자 승인 전 대기화면
@@ -314,14 +323,15 @@ public class ProuserController {
 	@PostMapping(value = "/checkforupdate")
 	public ModelAndView checkforupdatePost(ModelAndView mv, HttpSession session,
 			@ModelAttribute("loginSsInfo") Prouser prouser, HttpServletResponse response,
-			@RequestParam("us_pwchk") String uspwchk) throws Exception {
+			@RequestParam("us_pwchk") String uspwchk, RedirectAttributes rttr) throws Exception {
 		session.getAttribute("loginSsInfo");
 		if (passEncoder.matches(uspwchk, prouser.getUs_pw())) {
 			logger.info("checkforupdate success");
 			mv.setViewName("redirect:/updateinfo");
 		} else {
 			logger.info("checkforupdate  fail");
-			ScriptUtils.alertAndBackPage(response, "비밀번호가 틀렸습니다.");
+			rttr.addFlashAttribute("checkpw", "비밀번호가 틀렸습니다.");
+			mv.setViewName("redirect:/checkforupdate");
 		}
 		return mv;
 	}
@@ -342,15 +352,18 @@ public class ProuserController {
 	// 마이페이지 정보수정 POST
 	@PostMapping("/updateinfo")
 	public ModelAndView updateinfoPost(ModelAndView mv, HttpSession session,
-			@ModelAttribute("loginSsInfo") Prouser prouser, HttpServletResponse response) throws Exception {
+			@ModelAttribute("loginSsInfo") Prouser prouser, HttpServletResponse response, RedirectAttributes rttr)
+			throws Exception {
 		logger.info("updateinfo POST");
 		session.getAttribute("loginSsInfo");
 		int result = service.updateInfo(prouser);
 		if (result < 1) {
 			logger.info("updateInfo fail");
-			ScriptUtils.alertAndBackPage(response, "정보수정에 실패했습니다. 재시도해주세요.");
+			rttr.addFlashAttribute("cantupdateinfo", "정보 수정에 실패했습니다. 재시도해주세요.");
+			mv.setViewName("mypage/updateinfo");
 		} else {
 			logger.info("updateInfo success");
+			rttr.addFlashAttribute("updatealert", "정보수정 되었습니다.");
 			mv.setViewName("redirect:/updateinfo");
 		}
 		return mv;
@@ -395,7 +408,7 @@ public class ProuserController {
 	@PostMapping("/resumeinsert")
 	public ModelAndView resumeinsertPost(ModelAndView mv, HttpSession session,
 			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Career career, Certificate certi,
-			HttpServletRequest req, HttpServletResponse response) throws Exception {
+			HttpServletRequest req, HttpServletResponse response, RedirectAttributes rttr) throws Exception {
 		logger.info("resumeinsert POST");
 		session.getAttribute("loginSsInfo"); // 로그인된 정보 불러오기
 		resume.setUs_id(prouser.getUs_id()); // 이력서us_id에 세션아이디값 넣어주기
@@ -410,9 +423,11 @@ public class ProuserController {
 		if (result < 1 || resultcar < 1 || resultcar2 < 1 || resultcar3 < 1 || resultcerti < 1 || resultcerti2 < 1
 				|| resultcerti3 < 1) {
 			logger.info("resume insert fail");
+			rttr.addFlashAttribute("insertresume", "작성에 실패하였습니다. 재시도 해주세요.");
 			mv.setViewName("redirect:/resumeinsert");
 		} else {
 			logger.info("resume insert success");
+			rttr.addFlashAttribute("insertresume", "이력서가 등록되었습니다.");
 			mv.setViewName("redirect:/resumelist");
 		}
 		return mv;
@@ -437,23 +452,24 @@ public class ProuserController {
 	@PostMapping("/updateresume")
 	public ModelAndView updateresumePost(ModelAndView mv, HttpSession session,
 			@ModelAttribute("loginSsInfo") Prouser prouser, Resume resume, Career career, Certificate certi,
-			HttpServletRequest req, HttpServletResponse response
-			,@RequestParam("reno") int reno) throws Exception {
+			HttpServletRequest req, HttpServletResponse response, RedirectAttributes rttr,
+			@RequestParam("reno") int reno) throws Exception {
 		logger.info("updateresume POST");
 		session.getAttribute("loginSsInfo"); // 로그인된 정보 불러오기
 		resume.setRe_no(reno);
 		System.out.println(resume.getRe_no());
 		int result = service.updateresume(resume);
-		if (result < 1 ) {
+		if (result < 1) {
 			logger.info("resume update fail");
 			mv.setViewName("redirect:/updateresume");
 		} else {
 			logger.info("resume update success");
+			rttr.addFlashAttribute("update", "수정되었습니다.");
 			mv.setViewName("redirect:/resumelist");
 		}
 		return mv;
 	}
-	
+
 	/*
 	 * // TODO 수정 구현하고, jsp파일에서도 re_openyn받아와서 버튼 없애는거 기능 구현하기 ..
 	 * 
@@ -472,15 +488,17 @@ public class ProuserController {
 	@RequestMapping(value = "deleteresume", method = RequestMethod.GET)
 	public ModelAndView deleteresume(ModelAndView mv, HttpSession session,
 			@ModelAttribute("loginSsInfo") Prouser prouser, @RequestParam("re_no") int reno, Resume resume,
-			Certificate certi, Career career, HttpServletResponse response) throws Exception {
+			Certificate certi, Career career, HttpServletResponse response, RedirectAttributes rttr) throws Exception {
 		logger.info("deleteresume");
 		session.getAttribute("loginSsInfo");
 		if (service.resumepmember(reno) != 0) {
-			ScriptUtils.alertAndBackPage(response, "프로젝트 신청한 이력서는 삭제 불가합니다.");
+			rttr.addFlashAttribute("deleteresume", "프로젝트에 신청한 이력서는 삭제 불가합니다.");
+			mv.setViewName("redirect:/resume");
 		} else {
 			service.deleteresume(reno);
 			service.deletecerti(reno);
 			service.deletecareer(reno);
+			rttr.addFlashAttribute("deleteresume", "삭제되었습니다.");
 			mv.setViewName("redirect:/resumelist");
 		}
 		return mv;

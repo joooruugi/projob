@@ -46,7 +46,7 @@
 			<c:forEach items="${resumeimg }" var="resumeimg">
 				<div class="resumepart">
 					<label class="resumelabel" for="re_picture">사진 </label> <img
-						width=200px; 
+						width=200px;
 						src="<%=request.getContextPath() %>/resources//resume${resumeimg.changeName }">
 					<br> <br>
 				</div>
@@ -168,6 +168,11 @@
 			}
 		}; --%>
 	</script>
+	<c:if test="${not empty deleteresume }">
+		<script>
+	alert('${deleteresume}');
+	</script>
+	</c:if>
 </body>
 
 </html>

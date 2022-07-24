@@ -35,9 +35,8 @@
 					type="text" class="inputlogin" id="us_id" name="us_id"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-					<br>
-				<label class="loginlabel fontname" for="us_pw">비밀번호</label> <input
-					type="password" class="inputlogin" id="us_pw" name="us_pw"
+				<br> <label class="loginlabel fontname" for="us_pw">비밀번호</label>
+				<input type="password" class="inputlogin" id="us_pw" name="us_pw"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 			</div>
@@ -55,6 +54,31 @@
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<c:if test="${not empty alert }">
+		<script>
+			alert('${alert}');
+		</script>
+	</c:if>
+	<c:if test="${not empty findid }">
+		<script>
+			alert('${findid}');
+		</script>
+	</c:if>
+	<c:if test="${not empty updatepw }">
+		<script>
+			alert('${updatepw}');
+		</script>
+	</c:if>
+	<c:if test="${not empty infofree }">
+		<script>
+			alert('${infofree}');
+		</script>
+	</c:if>
+	<c:if test="${not empty infocomp}">
+		<script>
+			alert('${infocomp}');
+		</script>
+	</c:if>
 </body>
 
 </html>

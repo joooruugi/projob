@@ -70,6 +70,11 @@
 			});
 		});
 	</script>
+	<c:if test="${not empty findid }">
+		<script>
+			alert('${findid}');
+		</script>
+	</c:if>
 </body>
 
 </html>

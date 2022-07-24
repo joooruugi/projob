@@ -53,6 +53,8 @@
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<c:if test="${not empty search }">
+	<script>alert('${search}');</script></c:if>
 </body>
 
 </html>

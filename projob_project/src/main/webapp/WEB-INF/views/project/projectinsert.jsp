@@ -91,7 +91,9 @@
 			</table>
 			<div id="div-preview"></div>
 			<div class="projectinsertbutton">
-			<p class="fontcontent" style="font-weight : 700; color :red;">한 번 등록한 공고는 수정하실 수 없습니다.</p><br>
+				<p class="fontcontent" style="font-weight: 700; color: red;">한 번
+					등록한 공고는 수정하실 수 없습니다.</p>
+				<br>
 				<button type="submit" class="projectinsertbtn btn5" id="insert_btn">프로젝트
 					등록</button>
 
@@ -142,6 +144,11 @@
 			}
 		}
 	</script>
+	<c:if test="${not empty insert }">
+		<script>
+			alert('${insert}');
+		</script>
+	</c:if>
 </body>
 
 </html>

@@ -110,7 +110,7 @@
 				<div class="inforow">
 					<label class="labelinfo" for="us_crn">사업자등록번호</label><br> <br>
 					<input type="text" class="inputinfo" name="us_crn" required
-						id="us_crn" placeholder=""
+						id="us_crn" placeholder="숫자만 입력바랍니다.(-)입력 불가"
 						style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 				</div>
 				<br> <br>
@@ -283,6 +283,11 @@
 					}).open();
 		}
 	</script>
+	<c:if test="${not empty info }">
+		<script>
+			alert('${info}');
+		</script>
+	</c:if>
 </body>
 
 </html>

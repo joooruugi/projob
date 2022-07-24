@@ -47,11 +47,11 @@
 			<div class="projectcontent">
 				<c:forEach items="${projectstatuscomp }" var="projectstatuscomp">
 					<div class="projectcontenttitle">
-						<a class="fontcontent " style="font-size:20px;"
+						<a class="fontcontent " style="font-size: 20px;"
 							href="<%=request.getContextPath()%>/projectjoinstatus?pro_no=${projectstatuscomp.pro_no}">
 							<input type="hidden" name="pro_no"
-							value="${projectstatuscomp.pro_no }" class="fontname">
-								<c:out value="${projectstatuscomp.pro_title }" />
+							value="${projectstatuscomp.pro_no }" class="fontname"> <c:out
+								value="${projectstatuscomp.pro_title }" />
 						</a>
 					</div>
 					<div class="projectcontentdetail">
@@ -70,7 +70,21 @@
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
-	
+	<c:if test="${not empty insert }">
+		<script>
+			alert('${insert}');
+		</script>
+	</c:if>
+	<c:if test="${not empty deleteproject }">
+		<script>
+			alert('${deleteproject}');
+		</script>
+	</c:if>
+	<c:if test="${not empty select }">
+		<script>
+			alert('${select}');
+		</script>
+	</c:if>
 </body>
 
 </html>

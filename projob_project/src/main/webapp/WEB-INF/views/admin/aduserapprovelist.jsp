@@ -50,7 +50,7 @@
 					<c:forEach items="${aduserapprovelist }" var="aduserapprovelist">
 						<tr class="aduserapprovelist_line fontcontent">
 							<td><input type="checkbox" name="us_id"
-								value="${aduserapprovelist.us_id }"  class="userapprovecheckbox"></td>
+								value="${aduserapprovelist.us_id }" class="userapprovecheckbox"></td>
 							<td><c:out value="${aduserapprovelist.us_id }" /></td>
 							<td><c:out value="${aduserapprovelist.us_name }" /></td>
 							<td><c:out value="${aduserapprovelist.us_crn }" /></td>
@@ -68,16 +68,23 @@
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script>
-		$('input:checkbox[class=userapprovecheckbox]').click(function(){ 
-			  
-			  var cntEPT = $('input:checkbox[class=userapprovecheckbox]:checked').length;   //체크갯수 확인
-			 
-			  if(cntEPT>1){
-			   alert('1명씩 승인 가능합니다.')
-			   $(this).prop('checked', false);
-			  }
-			 });
+		$('input:checkbox[class=userapprovecheckbox]')
+				.click(
+						function() {
+
+							var cntEPT = $('input:checkbox[class=userapprovecheckbox]:checked').length; //체크갯수 확인
+
+							if (cntEPT > 1) {
+								alert('1명씩 승인 가능합니다.')
+								$(this).prop('checked', false);
+							}
+						});
 	</script>
+	<c:if test="${not empty userapprove }">
+		<script>
+			alert('${userapprove}');
+		</script>
+	</c:if>
 </body>
 
 </html>

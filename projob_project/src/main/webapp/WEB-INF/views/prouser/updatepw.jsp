@@ -32,18 +32,18 @@
 		</div>
 		<form action="<%=request.getContextPath()%>/updatepw" method="post">
 			<div class="findpwdcontent">
-			<input type="hidden" name="us_id" value="${us_id }">
-				<label class="findpwdlabel" for="us_pw">비밀번호</label><br> <br>
-				<input type="password" class="inputfindpwd" required name="us_pw"
-					id="us_pw" placeholder="영문+특수문자 혼합하여 6자 이상 12자 이하"> <br><label
-					class="findpwdlabel" for="us_pwcheck">비밀번호 확인</label><br> <br>
-				<input type="password" class="inputfindpwd" required
+				<input type="hidden" name="us_id" value="${us_id }"> <label
+					class="findpwdlabel" for="us_pw">비밀번호</label><br> <br> <input
+					type="password" class="inputfindpwd" required name="us_pw"
+					id="us_pw" placeholder="영문+특수문자 혼합하여 6자 이상 12자 이하"> <br>
+				<label class="findpwdlabel" for="us_pwcheck">비밀번호 확인</label><br>
+				<br> <input type="password" class="inputfindpwd" required
 					name="us_pwcheck" id="us_pwcheck" placeholder="">
 				<div class="findpwdcontent" id="alert-success">
-					<p class="fonthighlight" style="color: blue">비밀번호가 일치합니다.</p>
+					<p class="fonthighlight" style="color: blue">일치</p>
 				</div>
 				<div class="findpwdcontent" id="alert-fail">
-					<p class="fonthighlight" style="color: red">비밀번호가 일치하지 않습니다.</p>
+					<p class="fonthighlight" style="color: red">불일치</p>
 				</div>
 			</div>
 			<div class="findpwdcontent2">
@@ -78,6 +78,11 @@
 			});
 		});
 	</script>
+	<c:if test="${not empty updatepw }">
+		<script>
+			alert('${updatepw}');
+		</script>
+	</c:if>
 </body>
 
 </html>

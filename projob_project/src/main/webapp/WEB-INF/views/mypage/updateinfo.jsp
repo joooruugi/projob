@@ -109,6 +109,11 @@
 						<p class="fonthighlight">수정하기</p>
 					</button>
 				</div>
+				<div class="infonextbtn">
+				<button type="button" class="btn3" onclick="location.href='mypage'">
+					<p class="fonthighlight">돌아가기</p>
+				</button>
+			</div>
 			</c:forEach>
 		</form>
 	</div>
@@ -343,6 +348,16 @@
 					}).open();
 		}
 	</script>
+	<c:if test="${not empty cantupdateinfo }">
+		<script>
+			alert('${cantupdateinfo}');
+		</script>
+	</c:if>
+	<c:if test="${not empty updatealert }">
+		<script>
+			alert('${updatealert}');
+		</script>
+	</c:if>
 </body>
 
 </html>

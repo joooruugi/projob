@@ -45,8 +45,9 @@
 					</thead>
 					<c:forEach items="${adprojectapprove }" var="adprojectapprove">
 						<tr class="aduserapprovelist_line fontcontent">
-						<td><input type="checkbox" value="${adprojectapprove.pro_no }"
-							name="pro_no" class="projectapprovecheckbox"></td>
+							<td><input type="checkbox"
+								value="${adprojectapprove.pro_no }" name="pro_no"
+								class="projectapprovecheckbox"></td>
 							<td><c:out value="${adprojectapprove.pro_comp }" /></td>
 							<td><a
 								onclick="window.open(this.href, '_blank', 'width=1200, height=1000'); return false;"
@@ -55,23 +56,30 @@
 					</c:forEach>
 				</table>
 				<button type="submit"
-									class="aduserapprovelistbtn aduserapprovename aduserok btn6">수락</button>
+					class="aduserapprovelistbtn aduserapprovename aduserok btn6">수락</button>
 			</form>
 		</div>
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script>
-		$('input:checkbox[class=projectapprovecheckbox]').click(function(){ 
-			  
-			  var cntEPT = $('input:checkbox[class=projectapprovecheckbox]:checked').length;   //체크갯수 확인
-			 
-			  if(cntEPT>1){
-			   alert('1개의 프로젝트씩 승인 가능합니다.')
-			   $(this).prop('checked', false);
-			  }
-			 });
+		$('input:checkbox[class=projectapprovecheckbox]')
+				.click(
+						function() {
+
+							var cntEPT = $('input:checkbox[class=projectapprovecheckbox]:checked').length; //체크갯수 확인
+
+							if (cntEPT > 1) {
+								alert('1개의 프로젝트씩 승인 가능합니다.')
+								$(this).prop('checked', false);
+							}
+						});
 	</script>
+	<c:if test="${not empty projectapprove }">
+		<script>
+			alert('${projectapprove}');
+		</script>
+	</c:if>
 </body>
 
 </html>

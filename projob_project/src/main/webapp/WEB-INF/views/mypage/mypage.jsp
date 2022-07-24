@@ -166,6 +166,10 @@
 	%>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<c:if test="${not empty join }">
+	<script>alert('${join}');</script></c:if>
+	<c:if test="${not empty alreadyjoin }">
+	<script>alert('${alreadyjoin}');</script></c:if>
 </body>
 
 </html>

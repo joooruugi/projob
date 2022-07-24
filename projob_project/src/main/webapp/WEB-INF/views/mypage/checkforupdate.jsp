@@ -49,6 +49,8 @@
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<c:if test="${not empty checkpw }">
+	<script>alert('${checkpw}');</script></c:if>
 </body>
 
 </html>

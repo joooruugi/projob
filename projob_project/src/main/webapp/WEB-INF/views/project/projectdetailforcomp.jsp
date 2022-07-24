@@ -78,7 +78,9 @@
 			</div>
 			<div class="pro_detail_bottom fontnothing2">
 				<c:forEach var="file" items="${file }">
-					<a href="#" style="color:blue;" onclick="fn_fileDown('${file.FILE_NO}'); return false;"> <c:out value="${file.ORIGINNAME }" /></a>
+					<a href="#" style="color: blue;"
+						onclick="fn_fileDown('${file.FILE_NO}'); return false;"> <c:out
+							value="${file.ORIGINNAME }" /></a>
 				</c:forEach>
 			</div>
 			<div class="projectdetailbutton">
@@ -91,6 +93,11 @@
 	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<c:if test="${not empty deleteproject }">
+		<script>
+			alert('${deleteproject}');
+		</script>
+	</c:if>
 </body>
 
 </html>

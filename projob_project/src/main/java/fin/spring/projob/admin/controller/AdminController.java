@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fin.spring.projob.admin.service.AdminService;
 import fin.spring.projob.admin.vo.Admin;
-import fin.spring.projob.common.ScriptUtils;
 import fin.spring.projob.prouser.controller.ProuserController;
 import fin.spring.projob.prouser.vo.Prouser;
 import lombok.AllArgsConstructor;
@@ -90,12 +90,13 @@ public class AdminController {
 
 	// 관리자 회원 승인 POST
 	@PostMapping("/adprouserok")
-	public ModelAndView adprouserokPOST(ModelAndView mv, HttpSession session, HttpServletResponse response,
+	public ModelAndView adprouserokPOST(ModelAndView mv, HttpSession session, HttpServletResponse response, RedirectAttributes rttr,
 			@RequestParam("us_id")String usid
 			,@ModelAttribute("adminloginSsInfo")Admin admin) throws Exception {
 		logger.info("adprojectapprove POST");
 		session.getAttribute("adminloginSsInfo");
 		service.updateuserok(usid);
+		rttr.addFlashAttribute("userapprove", "승인되었습니다.");
 		mv.setViewName("redirect:/aduserapprovelist");
 		return mv;
 	}
@@ -114,20 +115,21 @@ public class AdminController {
 
 	// 관리자 프로젝트 공고 승인 POST
 	@PostMapping("/adprojectok")
-	public ModelAndView adprojectokPOST(ModelAndView mv, HttpSession session, HttpServletResponse response,
+	public ModelAndView adprojectokPOST(ModelAndView mv, HttpSession session,RedirectAttributes rttr,
 			@RequestParam("pro_no") int prono
 			, @ModelAttribute("adminloginSsInfo")Admin admin) throws Exception {
 		logger.info("adprojectapprove POST");
 		session.getAttribute("adminloginSsInfo");
 		service.updateprojectok(prono);
-		ScriptUtils.alertAndBackPage(response, "승인되었습니다.");
+		rttr.addFlashAttribute("projectapprove", "승인되었습니다.");
+		mv.setViewName("redirect:/aduserapprovelist");
 		return mv;
 	}
 	//관리자 회원 검색
 	@RequestMapping(value="/adsearchuser", method=RequestMethod.GET)
 	public ModelAndView adsearchuser(ModelAndView mv, 
 			@ModelAttribute("adminloginSsInfo")Admin admin, HttpSession session
-			, @RequestParam("searchuser")String searchuser, HttpServletResponse response, Prouser prouser)throws Exception{
+			, @RequestParam("searchuser")String searchuser, HttpServletResponse response, Prouser prouser, RedirectAttributes rttr)throws Exception{
 		logger.info("Admin search user");
 		session.getAttribute("adminloginSsInfo");
 		session.getAttribute(searchuser);
@@ -138,7 +140,8 @@ public class AdminController {
 			mv.setViewName("admin/adsearchuser");
 		}else {
 			logger.info("searchuser fail");
-			ScriptUtils.alertAndBackPage(response, "일치하는 회원이 없습니다");
+			rttr.addFlashAttribute("search", "일치하는 회원이 없습니다.");
+			mv.setViewName("redirect:/adminmain");
 		}
 		return mv;
 	}

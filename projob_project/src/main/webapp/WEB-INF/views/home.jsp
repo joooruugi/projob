@@ -37,5 +37,15 @@
 	%>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
+	<c:if test="${not empty alert }">
+	<script>
+		alert('${alert}');
+	</script>
+	</c:if>
+	<c:if test="${not empty logout }">
+	<script>
+		alert('${logout}');
+	</script>
+	</c:if>
 </body>
 </html>
