@@ -1,3 +1,4 @@
+<%@page import="fin.spring.projob.prouser.vo.Prouser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>  
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -68,7 +69,18 @@
 		};
 	</script>
     <!--헤더-->
-    <jsp:include page="/WEB-INF/views/header.jsp" flush="false"/>
+	<%
+	Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
+	if (prouser != null) {
+	%>
+	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
+	<%
+	} else {
+	%>
+	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<%
+	}
+	%>
 	
     <!--바디 큰 배너가 들어가지 않는 한 body width : 80~90% 중앙정렬로 맞춰주세요-->
 	<br>
@@ -198,7 +210,7 @@
     </div>
     <div id="modal3" class="modal">
     	<div>
-    		<form method="post" action="addMember">
+    		<form method="post" action="addMember" onsubmit="return false">
 		    	<div style="padding: 5px 5px 0">
 		    		<select name="selectProject" id="selectProject2">
 		    			<option value="none">프로젝트를 선택해 주세요</option>
@@ -216,14 +228,13 @@
 		    	<div style="margin: 5px; width: 290px; height:40px; border: 1px solid black; overflow: auto"  id="projectMember4">
 		    	</div>
 		    	<div style="float: right; margin: 0 10px">
-		    		<input type="hidden" name="mr_no" value="${roomId}">
+		    		<input type="hidden" name="mr_no" id="input_mr_no" value="${roomId}">
 		    		<button type="submit" class="btn4" id="creatBtn" style="width: 80px; height: 30px;" >초대</button>
 		    	</div>
 	    </form>
     	</div>
     </div>
     </div>
-    
     <script>
     	$(".createroom").click(function(){
     		$("#modal1").toggle();

@@ -1,3 +1,4 @@
+<%@page import="fin.spring.projob.prouser.vo.Prouser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>  
@@ -89,7 +90,18 @@
 </head>
 <body>
     <!--헤더-->
-    <jsp:include page="/WEB-INF/views/header.jsp" flush="false"/>
+	<%
+	Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
+	if (prouser != null) {
+	%>
+	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
+	<%
+	} else {
+	%>
+	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<%
+	}
+	%>
     
     <div id="fileShare">
         <div id="fs_title">

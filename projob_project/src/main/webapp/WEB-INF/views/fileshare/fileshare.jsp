@@ -1,3 +1,4 @@
+<%@page import="fin.spring.projob.prouser.vo.Prouser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>  
@@ -89,7 +90,18 @@
 </head>
 <body>
     <!--헤더-->
-    <jsp:include page="/WEB-INF/views/header.jsp" flush="false"/>
+	<%
+	Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
+	if (prouser != null) {
+	%>
+	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
+	<%
+	} else {
+	%>
+	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<%
+	}
+	%>
     
     <div id="fileShare">
         <div id="fs_title">
@@ -268,6 +280,7 @@
 		})
 	})
 	$("#delete_btn").click(function(){
+		if(confirm("파일을 삭제하시겠습니까?")){
 		var lists = new Array();
 		  $("input[name='sh_no']:checked").each(function(i){   //jQuery로 for문 돌면서 check 된값 배열에 담는다
 		   lists.push($(this).val());
@@ -283,6 +296,7 @@
 				  location.href = "<%=request.getContextPath()%>/fileshare?pro_no="+${pro_no};
 			  }
 		  })
+		}
 	})
     </script>
     <!-- 프로젝트 선택 시 -->

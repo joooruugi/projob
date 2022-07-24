@@ -3,7 +3,7 @@
 <mapper namespace="Fileshare">
 
 	<select id="selectProject" resultType="Project">
-		select pro_no, pro_title, pro_content from project left join p_member using(pro_no) where us_id=#{us_id}
+		select pro_no, pro_title, pro_content from project left join p_member using(pro_no) where us_id=#{us_id} and prom_ok=1
 	</select>
 	
 	<select id="selectFileshareList" parameterType="map" resultType="map">

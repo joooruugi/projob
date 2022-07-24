@@ -1,3 +1,4 @@
+<%@page import="fin.spring.projob.prouser.vo.Prouser"%>
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -70,7 +71,18 @@
 </head>
 <body>
     <!--헤더-->
-    <jsp:include page="/WEB-INF/views/header.jsp" flush="false"/>
+	<%
+	Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
+	if (prouser != null) {
+	%>
+	<jsp:include page="/WEB-INF/views/header_session.jsp" flush="false" />
+	<%
+	} else {
+	%>
+	<jsp:include page="/WEB-INF/views/header.jsp" flush="false" />
+	<%
+	}
+	%>
     <div id="fileShare">
         <div id="fs_title_div">
         </div>
@@ -147,6 +159,7 @@
 					    			   shf_path : shf_path
 					    		   },
 					    		   success:function(msg){
+					    			   alert("파일이 등록되었습니다")
 					    			   location.href="<%=request.getContextPath()%>/fileshare?pro_no=${pro_no}";
 					    		   }
 					    	   })
@@ -173,7 +186,7 @@
 		   	    })
 		       },
 		       maxfilesexceeded:function(file){
-		    	   alert("5개 이상 등록할수 없습니다");
+		    	   alert("파일은 최대 5개까지 선택 가능합니다");
 		    	   this.removeFile(file);
 		       }
 		    });
