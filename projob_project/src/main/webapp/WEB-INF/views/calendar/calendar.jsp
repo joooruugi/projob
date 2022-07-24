@@ -208,10 +208,6 @@
     	 
     
     <div id="calendar"></div>
-    [[[[[[[mycolor: ${mycolor }]]]]]]]<br>
-    [[[[[[[pmlist: ${pmlist} ]]]]]]]<br>
-    [[[[[[[pmlist[2].COLOR_CODE: ${pmlist[2].COLOR_CODE}]]]]]]]<br>
-    [[[[[[[colorInput: ${colorInput}]]]]]]]
     <i class="xi-full-moon xi-2x" style="color:#3788d8;"></i>
     <i class="xi-full-moon xi-x" style="color:${pmlist[2].COLOR_CODE};"></i>
 	<!--푸터-->
