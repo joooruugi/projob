@@ -351,5 +351,8 @@ public class ProuserService {
 	public List<Project> compprojectinfo(String us_id) throws Exception {
 		return pdao.compprojectinfo(us_id);
 	}
+	public Resume pmemberresume(int re_no) throws Exception{
+		return pdao.pmemberresume(re_no);
+	}
 
 }

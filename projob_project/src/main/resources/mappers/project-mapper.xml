@@ -64,6 +64,6 @@
 	</update>
 	<!-- 프리랜서 선정시 기입력한 필요인원보다 넘지 않도록(기업) -->
 	<select id="selectedfree" parameterType="PMember" resultType="int">
-		select count(*) from p_member where us_id=#{us_id} and pro_no=#{pro_no}
+		select count(*) from p_member where pro_no=#{pro_no} and prom_ok=1
 	</select>
 </mapper>

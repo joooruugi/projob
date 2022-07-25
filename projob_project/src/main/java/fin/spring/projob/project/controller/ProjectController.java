@@ -130,7 +130,12 @@ public class ProjectController {
 		pmember.setUs_id(prouser.getUs_id());
 		pmember.setPro_no(pro_no);
 		pmember.setRe_no(re_no);
+		resume = prouserservice.pmemberresume(re_no);
+		//이력서 정보를 받아서 pmember에 insert할것 
+		System.out.println(resume);
+		pmember.setRe_title(resume.getRe_title());
 		int alreadyjoin = service.alreadyjoinproject(pmember);
+		System.out.println(pmember);
 		if (alreadyjoin != 0) {
 			logger.info("User has session already join this project.");
 			rttr.addFlashAttribute("alreadyjoin", "이미 신청한 프로젝트 입니다.");
@@ -138,6 +143,7 @@ public class ProjectController {
 		} else {
 			pmember.setUs_name(prouser.getUs_name());
 			int result = service.pmemberinsert(pmember);
+			System.out.println(pmember);
 			System.out.println(result);
 			if (result < 1) {
 				logger.info("pmemberinsert fail");
@@ -164,7 +170,6 @@ public class ProjectController {
 		String pro_id = prouser.getUs_id();
 		System.out.println(pro_id);
 		mv.addObject("projectstatuscomp", service.projectstatuscomp(pro_id));
-		System.out.println(service.projectstatuscomp(pro_id));
 		mv.setViewName("project/projectstatus");
 		return mv;
 	}
@@ -255,12 +260,12 @@ public class ProjectController {
 		int selected = service.selectedfree(pm);
 		System.out.println(selected);
 		if (selected >= pro_personnel) {
-			rttr.addFlashAttribute("select", "이미 필요인원을 다 선정하였습니다. 프로젝트를 마감해주세요.");
-			mv.setViewName("redirect:/projectjoinstatus");
+			rttr.addFlashAttribute("selectno", "이미 필요인원을 다 선정하였습니다.");
+			mv.setViewName("redirect:/projectstatus");
 		} else {
 			int result = service.selectfree(pm);
 			if (result != 0) {
-				rttr.addFlashAttribute("result", pm);
+//				rttr.addFlashAttribute("result", pm);
 				rttr.addFlashAttribute("select", "선정되었습니다.");
 				mv.setViewName("redirect:/projectstatus");
 			}

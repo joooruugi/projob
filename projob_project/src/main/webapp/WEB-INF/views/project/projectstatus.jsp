@@ -85,6 +85,11 @@
 			alert('${select}');
 		</script>
 	</c:if>
+	<c:if test="${not empty selectno }">
+		<script>
+			alert('${selectno}');
+		</script>
+	</c:if>
 </body>
 
 </html>

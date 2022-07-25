@@ -288,5 +288,8 @@
 		select pro_no, pro_title from project where pro_id=#{us_id}
 		and pro_ok=1
 	</select>
+	<select id="pmemberresume" parameterType="int" resultType="Resume">
+		select * from resume where re_no = #{re_no}
+	</select>
 
 </mapper>

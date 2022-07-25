@@ -215,5 +215,8 @@ public class ProuserDao {
 	public List<Project> compprojectinfo(String us_id) throws Exception {
 		return sql.selectList("Prouser.compprojectinfo", us_id);
 	}
+	public Resume pmemberresume(int re_no)throws Exception{
+		return sql.selectOne("Prouser.pmemberresume", re_no);
+	}
 
 }
