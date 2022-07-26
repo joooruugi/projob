@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header1.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/all.css">
+    <link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath() %>/resources/images/PROJOB_TITLE.png">
     <title>Fileshare</title>
     <style>
         #fileShare{

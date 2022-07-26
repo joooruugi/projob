@@ -8,7 +8,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>messenger</title>
+    <link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath() %>/resources/images/PROJOB_TITLE.png">
     	<!-- jQuery, bootstrap CDN -->
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script> <!-- msie 문제 해결 -->
@@ -210,7 +211,7 @@
     </div>
     <div id="modal3" class="modal">
     	<div>
-    		<form method="post" action="addMember" onsubmit="return false">
+    		<form method="post" action="addMember">
 		    	<div style="padding: 5px 5px 0">
 		    		<select name="selectProject" id="selectProject2">
 		    			<option value="none">프로젝트를 선택해 주세요</option>
@@ -235,6 +236,13 @@
     	</div>
     </div>
     </div>
+    <script>
+	    $("#searchNP2").keydown(function() {
+	        if (event.keyCode === 13) {
+	            event.preventDefault();
+	        }
+	    });
+    </script>
     <script>
     	$(".createroom").click(function(){
     		$("#modal1").toggle();

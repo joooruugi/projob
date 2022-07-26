@@ -27,5 +27,6 @@
 		<mapper resource="mappers/calendar-mapper.xml"/>
 		<mapper resource="mappers/messenger-mapper.xml"/>
 		<mapper resource="mappers/fileshare-mapper.xml"/>
+		<mapper resource="mappers/home-mapper.xml"/>
 	</mappers>
 </configuration>

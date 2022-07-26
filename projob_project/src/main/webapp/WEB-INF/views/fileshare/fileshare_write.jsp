@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/all.css">
 	<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>  
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath() %>/resources/images/PROJOB_TITLE.png">
     <title>파일등록</title>
     <style>
         #fileShare{
