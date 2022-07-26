@@ -100,7 +100,7 @@ public class CalendarController {
 		return mv;
 	}
 
-	//일정 데이터 조회 (writer별)
+	//일정 데이터 조회 (writer별 & project별)
 	@PostMapping(value="/data", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String getCalData(Model m, HttpSession ss,

@@ -6,11 +6,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>일정관리</title>
+	<!-- 파비콘 -->
+	<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath() %>/resources/images/PROJOB_TITLE.png">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/footer.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header1.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/all.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/calendar.css">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fullcalendar/main.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script src="<%=request.getContextPath() %>/resources/fullcalendar/main.js"></script>
 	<!-- 아이콘 -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
@@ -20,10 +25,22 @@
 	<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 	<style>
 		#calendar{
-		   width:60%;
+		   width:70%;
 		   margin:20px auto;
 		}
-	</style> 
+		#cal_menu_select{
+            float: left;
+            margin-left: 10px;
+        }
+        #cal_menu_select select{
+            width: 250px; 
+        }
+        .mb-3{
+            margin-top: 8px;
+            height: 40px;
+            font-size: 15px;
+        }
+	</style>
 	
 	<!-- fullcalendar 설정 script -->
 	<script>
@@ -33,7 +50,7 @@
         	headerToolbar: {	//헤더 툴바
                 left: 'prev,next today',
                 center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
               },
              titleFormat : function(date) {	//날짜 한국어 설정
       			return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
@@ -47,11 +64,7 @@
                 },
             ],
             select:  
-            /*
-            	function(info) {
-                alert('textColor: ' + info.event.textColor + '; backgroundColor: ' + info.event.backgroundColor);
-           		}, 
-            */
+            
             function(arg) {
           	  console.log(arg);
           	console.log(arg.start.getFullYear());
@@ -182,34 +195,36 @@
 	}
 	%>
 	<br>
-	
-   	<div>
-	   	<form id="frmProject">
-	   		<select name="pro_no" id="pro_no" onchange="myFunction(this)">
-	   			<option value="0">프로젝트 전체</option>
-	   			<c:forEach items="${projectlist }" var="pj">
-	   				<option value="${pj.PRO_NO }">${pj.PRO_TITLE }</option>
-	   			</c:forEach>
-	   		</select>
-	   	</form>
-   		<p id="selectname"></p>	
-   	</div>
-   	<div id="projectMember">
-	   	<table style="width:10%">
-		   	<c:forEach items="${pmlist }" var="pm">
-			   		<tr>
-			   			<td style="padding-top:4px"><i class="xi-full-moon xi-x" style="color:${pm.COLOR_CODE };"></i></td>
-			   			<td>${pm.US_ID }<br></td>
-			   			<td>[${pm.US_NAME }]</td>
-			   		</tr>
-		   	</c:forEach>
-	   	</table>
-   	</div>
+	<div id="calendar_wrap">
+	    <div id="side_wrap">
+		   	<div id="cal_menu_select">
+			   	<form id="frmProject">
+			   		<select class="form-select form-select-lg mb-3" name="pro_no" id="pro_no" onchange="myFunction(this)" aria-label=".form-select-lg example">
+			   			<option value="0">모든 프로젝트내 나의 일정</option>
+				   			<c:forEach items="${projectlist }" var="pj">
+				   				<option value="${pj.PRO_NO }">${pj.PRO_TITLE }</option>
+				   			</c:forEach>
+			   		</select>
+			   	</form>
+		   	</div>
+		   	<div id="projectMember">
+				<p id="selectname"></p>
+			   	<table id="pmlist_table">
+				   	<c:forEach items="${pmlist }" var="pm">
+					   		<tr>
+					   			<td style="padding-top:4px; width:30px"><i class="xi-full-moon xi-x" style="color:${pm.COLOR_CODE };"></i></td>
+					   			<td style="width:20px">${pm.US_ID }<br></td>
+					   			<td>[${pm.US_NAME }]</td>
+					   		</tr>
+				   	</c:forEach>
+			   	</table>
+		   	</div>
+	   	</div>
+	    <div id="calendar"></div>
+	 </div>
     	 
     
-    <div id="calendar"></div>
-    <i class="xi-full-moon xi-2x" style="color:#3788d8;"></i>
-    <i class="xi-full-moon xi-x" style="color:${pmlist[2].COLOR_CODE};"></i>
+    
 	<!--푸터-->
     <jsp:include page="/WEB-INF/views/footer.jsp" flush="false"/>
 	
@@ -232,13 +247,16 @@
 		var pro_no_from_model = "${pro_no}";  // controller model 에 pro_no 값이 들어있다면
 		if (pro_no_from_model != ""){
 			selectedProNo = pro_no_from_model;
-		} 
+		} else{
+			$("#selectname").html("참여중인 프로젝트를 선택해주세요." ); 
+		}
     	if($("#pro_no").val() != selectedProNo) {
             $("#pro_no option[value="+selectedProNo+"]").prop('selected', true);
     	}
 		var pro_title = $("#pro_no option[value="+selectedProNo+"]").text();
-		$("#selectname").html(pro_title+"의 팀원 목록" ); 
-
+    	if (pro_no_from_model != 0){
+			$("#selectname").html(pro_title+"의 팀원 목록" );     		
+    	}
 	</script>
 	
     
