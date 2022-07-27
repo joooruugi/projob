@@ -20,6 +20,8 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/adminmain.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
@@ -54,7 +56,10 @@
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<c:if test="${not empty search }">
-	<script>alert('${search}');</script></c:if>
+		<script>
+			alert('${search}');
+		</script>
+	</c:if>
 </body>
 
 </html>

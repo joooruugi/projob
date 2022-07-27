@@ -22,6 +22,8 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/projectjoin.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
@@ -61,8 +63,8 @@
 						<div class="projectjoin_resumes">
 							<input type="checkbox" class="projectjoin_resumechoice"
 								id="re_no" name="re_no" value="${resumeJoin.re_no }"> <input
-								type="hidden" class="projectjoin_resumechoice" 
-								name="retitle" value="${resumeJoin.re_title }">
+								type="hidden" class="projectjoin_resumechoice" name="retitle"
+								value="${resumeJoin.re_title }">
 							<p class="fontnothing projectjoin_resume">
 								<c:out value="${resumeJoin.re_title }" />
 							</p>

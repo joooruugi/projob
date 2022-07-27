@@ -21,6 +21,8 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/joininfo.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath() %>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
@@ -301,7 +303,10 @@
 		}
 	</script>
 	<c:if test="${not empty info }">
-	<script>alert('${info}');</script></c:if>
+		<script>
+			alert('${info}');
+		</script>
+	</c:if>
 </body>
 
 </html>

@@ -22,11 +22,13 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/login.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
 	<!--헤더-->
-<%
+	<%
 	Prouser prouser = (Prouser) request.getSession().getAttribute("loginSsInfo");
 	Admin admin = (Admin) request.getSession().getAttribute("adminloginSsInfo");
 	if (admin != null) {
@@ -49,14 +51,14 @@
 		</div>
 		<form action="<%=request.getContextPath()%>/adlogin" method="post">
 			<div class="logincontent">
-				<label class="loginlabel fontname" for="ad_id">아이디</label>
-				<input type="text" class="inputlogin" id="us_id" name="ad_id"
+				<label class="loginlabel fontname" for="ad_id">아이디</label> <input
+					type="text" class="inputlogin" id="us_id" name="ad_id"
 					placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 
-				<label class="loginlabel fontname" for="ad_password">비밀번호</label>
-				<input type="password" class="inputlogin" id="ad_password" name="ad_password"
-					placeholder=""
+				<label class="loginlabel fontname" for="ad_password">비밀번호</label> <input
+					type="password" class="inputlogin" id="ad_password"
+					name="ad_password" placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 			</div>
 			<div class="loginbutton">

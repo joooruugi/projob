@@ -21,6 +21,8 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/join.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
@@ -68,8 +70,7 @@
 		</div>
 		<div class="joinbottom">
 			<a href="<%=request.getContextPath()%>/login" class="fontcontent2">
-				이미 projob 회원이신가요? >> 로그인 하러가기
-			</a>
+				이미 projob 회원이신가요? >> 로그인 하러가기 </a>
 		</div>
 	</div>
 	<!--푸터-->

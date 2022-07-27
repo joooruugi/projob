@@ -20,6 +20,8 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/updateinfo.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
@@ -50,7 +52,10 @@
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<c:if test="${not empty checkpw }">
-	<script>alert('${checkpw}');</script></c:if>
+		<script>
+			alert('${checkpw}');
+		</script>
+	</c:if>
 </body>
 
 </html>

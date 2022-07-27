@@ -21,6 +21,8 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/waitjoin.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
@@ -37,24 +39,27 @@
 	<%
 	}
 	%>
-	  <div class="waiting">
-        <div class="waitname">
-            <p class="fonthighlight">프로젝트 승인 대기중</p>
-        </div>
-        <div class="waitcontent">
-            <div class="waitnotice">
-                <p class="fontimportant2">현재 프로젝트 승인 대기중입니다.</p>
-                <p class="fontimportant2 waitcontenthover">영업일 2-3일 내에 승인처리 됩니다.</p>
-            </div>
-            <div class="waitnotice2">
-                <p class="fontcontent2">기타 문의사항 : projob@projob.com</p>
-            </div>
-            <div class="waitnoticebtn">
-              <button type="button" onclick="location.href='projectmain'" class="btnwhite"><p class="fontname2">프로젝트 메인으로</p></button>
-            </div>
+	<div class="waiting">
+		<div class="waitname">
+			<p class="fonthighlight">프로젝트 승인 대기중</p>
+		</div>
+		<div class="waitcontent">
+			<div class="waitnotice">
+				<p class="fontimportant2">현재 프로젝트 승인 대기중입니다.</p>
+				<p class="fontimportant2 waitcontenthover">영업일 2-3일 내에 승인처리 됩니다.</p>
+			</div>
+			<div class="waitnotice2">
+				<p class="fontcontent2">기타 문의사항 : projob@projob.com</p>
+			</div>
+			<div class="waitnoticebtn">
+				<button type="button" onclick="location.href='projectmain'"
+					class="btnwhite">
+					<p class="fontname2">프로젝트 메인으로</p>
+				</button>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 	<!--푸터-->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 </body>

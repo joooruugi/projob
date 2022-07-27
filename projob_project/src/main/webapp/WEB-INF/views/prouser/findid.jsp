@@ -21,6 +21,8 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/findid.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
@@ -32,19 +34,17 @@
 		</div>
 		<form action="<%=request.getContextPath()%>/findid" method="post">
 			<div class="findidcontent">
-				<label class="findidlabel fontname" for="us_name">이름</label>
-				<input type="text" required class="inputfindid" id="us_name" name="us_name"
-					placeholder=""
+				<label class="findidlabel fontname" for="us_name">이름</label> <input
+					type="text" required class="inputfindid" id="us_name"
+					name="us_name" placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				<br>
-				<label class="findidlabel fontname" for="us_id">이메일</label>
-				<input type="email" required  class="inputfindid" id="us_email"
+				<br> <label class="findidlabel fontname" for="us_id">이메일</label>
+				<input type="email" required class="inputfindid" id="us_email"
 					name="us_email" placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
-				<br>
-				<label class="findidlabel fontname" for="us_crn">사업자등록번호</label>
-				<input type="text" required class="inputfindid" id="us_crn" name="us_crn"
-					placeholder=""
+				<br> <label class="findidlabel fontname" for="us_crn">사업자등록번호</label>
+				<input type="text" required class="inputfindid" id="us_crn"
+					name="us_crn" placeholder=""
 					style="font-family: 'Cafe24SsurroundAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff'); font-weight: normal; font-style: normal;">
 			</div>
 			<div class="findidcontent2">

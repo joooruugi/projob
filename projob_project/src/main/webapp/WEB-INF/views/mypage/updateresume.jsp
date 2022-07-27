@@ -24,6 +24,8 @@
 	href="<%=request.getContextPath()%>/resources/css/resume.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/resumedetail.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
@@ -44,14 +46,20 @@
 		<div class="resumename">
 			<p class="fontname">이력서 수정</p>
 		</div>
-		<p class="fontcontent" style="font-weight: 700; color: blue; text-align:center; cursor:default;">인적사항만 수정 가능합니다.</p><br>
-		<p class="fontcontent" style="font-weight: 700; color: blue; text-align:center; cursor:default;">이력서 사진은 수정불가합니다.</p>
-		
-		<form action="<%=request.getContextPath()%>/updateresume" method="post">
+		<p class="fontcontent"
+			style="font-weight: 700; color: blue; text-align: center; cursor: default;">인적사항만
+			수정 가능합니다.</p>
+		<br>
+		<p class="fontcontent"
+			style="font-weight: 700; color: blue; text-align: center; cursor: default;">이력서
+			사진은 수정불가합니다.</p>
+
+		<form action="<%=request.getContextPath()%>/updateresume"
+			method="post">
 			<div class="resumecontent">
 				<c:forEach items="${resumeimg }" var="resumeimg">
 					<div class="resumepart">
-						
+
 						<label class="resumelabel" for="re_picture">사진 </label> <img
 							width=200px;
 							src="<%=request.getContextPath() %>/resources//resume${resumeimg.changeName }">
@@ -63,8 +71,8 @@
 						<p class="fonthighlight resumemiddlename">RESUME</p>
 						<label class="resumelabel" for="re_title">이력서 명</label> <input
 							type="text" class="resumeinput" id="re_title" name="re_title"
-							value="${resume.re_title }"> 
-							<input type="hidden" name="reno" value="${resume.re_no }">
+							value="${resume.re_title }"> <input type="hidden"
+							name="reno" value="${resume.re_no }">
 					</div>
 					<div class="resumedivision"></div>
 					<div class="resumemyself resumepart">
@@ -94,42 +102,42 @@
 					</div>
 				</c:forEach>
 				<c:forEach items="${certi }" var="certi">
-				<c:if test="${certi.ce_title != null }">
-					<div class="resumedivision"></div>
-					<div class="resumecerti resumepart">
-						<p class="fonthighlight resumemiddlename">CERTIFICATION</p>
-						<label class="resumelabel" for="ce_title">자격증</label>
-						<p class="resumep" id="ce_title">${certi.ce_title }</p>
-						<br> <br> <label class="resumelabel" for="ce_num">자격번호</label>
-						<p class="resumep" id="ce_num">${certi.ce_num }</p>
-						<br> <br> <label class="resumelabel" for="ce_cert_pub">발행처</label>
-						<p class="resumep" id="ce_cert_pub">${certi.ce_cert_pub }</p>
-						<br> <br> <label class="resumelabel" for="ce_date">발행일자</label>
-						<p class="resumep" id="ce_date">${certi.ce_date }</p>
-					</div>
-				</c:if>
-			</c:forEach>
-			<c:forEach items="${career }" var="career">
-				<c:if test="${career.ca_title != null }">
-					<!-- c if해서 개수만큼 출력 -->
-					<div class="resumedivision"></div>
-					<div class="resumecarrer resumepart">
-						<p class="fonthighlight resumemiddlename">CAREER</p>
-						<label class="resumelabel" for="ca_title">경력사항(회사명) </label>
-						<p class="resumep" id="ca_title">${career.ca_title }</p>
-						<br> <br> <label class="resumelabel" for="ca_period">근무
-							개월</label>
-						<p class="resumep" id="ca_period">${career.ca_period }개월</p>
-						<br> <br> <label class="resumelabel" for="ca_dept">근무부서</label>
-						<p class="resumep" id="ca_dept">${career.ca_dept }</p>
-						<br> <br> <label class="resumelabel" for="ca_jobtitle">근무직급</label>
-						<p class="resumep" id="ca_jobtitle">${career.ca_jobtitle }</p>
-						<br> <br> <label class="resumelabel" for="ca_adddetail">추가
-							설명</label>
-						<p class="resumep" id="ca_adddetail">${career.ca_adddetail }</p>
-					</div>
-				</c:if>
-			</c:forEach>
+					<c:if test="${certi.ce_title != null }">
+						<div class="resumedivision"></div>
+						<div class="resumecerti resumepart">
+							<p class="fonthighlight resumemiddlename">CERTIFICATION</p>
+							<label class="resumelabel" for="ce_title">자격증</label>
+							<p class="resumep" id="ce_title">${certi.ce_title }</p>
+							<br> <br> <label class="resumelabel" for="ce_num">자격번호</label>
+							<p class="resumep" id="ce_num">${certi.ce_num }</p>
+							<br> <br> <label class="resumelabel" for="ce_cert_pub">발행처</label>
+							<p class="resumep" id="ce_cert_pub">${certi.ce_cert_pub }</p>
+							<br> <br> <label class="resumelabel" for="ce_date">발행일자</label>
+							<p class="resumep" id="ce_date">${certi.ce_date }</p>
+						</div>
+					</c:if>
+				</c:forEach>
+				<c:forEach items="${career }" var="career">
+					<c:if test="${career.ca_title != null }">
+						<!-- c if해서 개수만큼 출력 -->
+						<div class="resumedivision"></div>
+						<div class="resumecarrer resumepart">
+							<p class="fonthighlight resumemiddlename">CAREER</p>
+							<label class="resumelabel" for="ca_title">경력사항(회사명) </label>
+							<p class="resumep" id="ca_title">${career.ca_title }</p>
+							<br> <br> <label class="resumelabel" for="ca_period">근무
+								개월</label>
+							<p class="resumep" id="ca_period">${career.ca_period }개월</p>
+							<br> <br> <label class="resumelabel" for="ca_dept">근무부서</label>
+							<p class="resumep" id="ca_dept">${career.ca_dept }</p>
+							<br> <br> <label class="resumelabel" for="ca_jobtitle">근무직급</label>
+							<p class="resumep" id="ca_jobtitle">${career.ca_jobtitle }</p>
+							<br> <br> <label class="resumelabel" for="ca_adddetail">추가
+								설명</label>
+							<p class="resumep" id="ca_adddetail">${career.ca_adddetail }</p>
+						</div>
+					</c:if>
+				</c:forEach>
 				<c:forEach items="${resume }" var="resume">
 					<div class="resumedivision"></div>
 					<div class="resumeextra resumepart">

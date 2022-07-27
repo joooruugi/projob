@@ -22,6 +22,8 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/updateinfo.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath() %>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
@@ -110,10 +112,10 @@
 					</button>
 				</div>
 				<div class="infonextbtn">
-				<button type="button" class="btn3" onclick="location.href='mypage'">
-					<p class="fonthighlight">돌아가기</p>
-				</button>
-			</div>
+					<button type="button" class="btn3" onclick="location.href='mypage'">
+						<p class="fonthighlight">돌아가기</p>
+					</button>
+				</div>
 			</c:forEach>
 		</form>
 	</div>

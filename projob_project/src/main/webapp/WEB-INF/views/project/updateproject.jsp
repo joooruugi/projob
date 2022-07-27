@@ -23,6 +23,8 @@
 	href="<%=request.getContextPath()%>/resources/css/all.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/projectinsert.css">
+<link rel="shortcut icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/resources/images/PROJOB_TITLE.png">
 </head>
 
 <body>
@@ -43,7 +45,8 @@
 		<div class="insertprojectname">
 			<p class="fontname2">프로젝트 수정</p>
 		</div>
-		<form action="<%=request.getContextPath()%>/updateproject" method="post" enctype="multipart/form-data">
+		<form action="<%=request.getContextPath()%>/updateproject"
+			method="post" enctype="multipart/form-data">
 			<table class="project_insert">
 				<tr class="project_inserttr">
 					<td><p class="fontcontent insertprojectp">카테고리</p></td>
@@ -56,12 +59,13 @@
 				<tr>
 					<td><p class="fontcontent insertprojectp">제목</p></td>
 					<td colspan="10"><input type="text" id="pro_title"
-						name="pro_title" placeholder="공고 제목을 입력해주세요" required value="${projectdetail.pro_title }"></td>
+						name="pro_title" placeholder="공고 제목을 입력해주세요" required
+						value="${projectdetail.pro_title }"></td>
 				</tr>
 				<tr>
 					<td><p class="fontcontent insertprojectp">내용</p></td>
 					<td colspan="100"><input type="text" id="pro_content"
-							name="pro_content" value="${projectdetail.pro_content }" required></td>
+						name="pro_content" value="${projectdetail.pro_content }" required></td>
 				</tr>
 				<tr>
 					<td><p class="fontcontent insertprojectp">작업기간</p></td>
@@ -70,19 +74,19 @@
 					</td>
 					<td><p class="fontcontent insertprojectp">모집인원</p></td>
 					<td colspan="10"><input type="text" id="pro_personnel"
-						name="pro_personnel" value="${projectdetail.pro_personnel }" placeholder="모집인원 '명' 입력해주세요" required>
-					</td>
+						name="pro_personnel" value="${projectdetail.pro_personnel }"
+						placeholder="모집인원 '명' 입력해주세요" required></td>
 				</tr>
 
 				<tr>
 					<td><p class="fontcontent insertprojectp">예산</p></td>
 					<td colspan="10"><input type="text" id="pro_budget"
-						name="pro_budget" value="${projectdetail.pro_budget }" placeholder="예산을 '원'단위로 입력해주세요" required>
-					</td>
+						name="pro_budget" value="${projectdetail.pro_budget }"
+						placeholder="예산을 '원'단위로 입력해주세요" required></td>
 					<td><p class="fontcontent insertprojectp">첨부파일</p></td>
 					<td colspan="3"><input type="file" id="file" name="file">
-					<input type="hidden"  id="pro_comp" name="pro_comp" value="${pro_comp }"/>
-					</td>
+						<input type="hidden" id="pro_comp" name="pro_comp"
+						value="${pro_comp }" /></td>
 				</tr>
 			</table>
 			<input type="hidden" name="pro_no" value="${projectdetail.pro_no }">
