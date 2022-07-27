@@ -26,7 +26,7 @@
 	<style>
 		#calendar{
 		   width:70%;
-		   margin:20px auto;
+		   margin:20px;
 		}
 		#cal_menu_select{
             float: left;
