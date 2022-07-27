@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
@@ -118,10 +117,6 @@ public class CalendarController {
 	@PostMapping(value="/insert", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String insertCalendar(Calendar calendar) {
-//		calendar.setStart(calendar.getStart().substring(0, 16).replace('T', ' '));
-//		calendar.setEnd(calendar.getEnd().substring(0, 16).replace('T', ' '));
-//		System.out.println("^^^^^^^^^^^^^^^^"+calendar.getStart());
-		
 		int result = service.insertCalendar(calendar);
 		return String.valueOf(result);	//숫자를 String으로 변환
 		

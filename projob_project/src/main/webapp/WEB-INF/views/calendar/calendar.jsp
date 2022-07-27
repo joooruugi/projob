@@ -25,8 +25,8 @@
 	<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 	<style>
 		#calendar{
-		   width:70%;
-		   margin:20px;
+		   width:65%;
+		   margin:20px 0px;
 		}
 		#cal_menu_select{
             float: left;
@@ -247,8 +247,6 @@
 		var pro_no_from_model = "${pro_no}";  // controller model 에 pro_no 값이 들어있다면
 		if (pro_no_from_model != ""){
 			selectedProNo = pro_no_from_model;
-		} else{
-			$("#selectname").html("참여중인 프로젝트를 선택해주세요." ); 
 		}
     	if($("#pro_no").val() != selectedProNo) {
             $("#pro_no option[value="+selectedProNo+"]").prop('selected', true);
@@ -256,6 +254,11 @@
 		var pro_title = $("#pro_no option[value="+selectedProNo+"]").text();
     	if (pro_no_from_model != 0){
 			$("#selectname").html(pro_title+"의 팀원 목록" );     		
+    	} else{
+			$("#selectname").html('<table><tr><td style="padding-top:4px; width:30px"><i class="xi-full-moon xi" style="color:#3788d8; "></i></td><td style="width:250px; font-size: 18px">공유되지 않는 개인 일정</td></tr></table>');
+    	}
+    	if(pro_no_from_model == ""){
+    		$("#selectname").html("참여중인 프로젝트를 선택해주세요." );  
     	}
 	</script>
 	
