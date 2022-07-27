@@ -194,7 +194,9 @@ to {
 	</div>
 	<br>
 	<br>
-
+	<%
+	if (admin == null) {
+	%>
 	<div class="slideshow-container">
 		<div class="contentslide">
 			<p class="fontimportant"
@@ -256,6 +258,9 @@ to {
 		<a class="prev" onclick="prevSlide()">&#10094;</a> <a class="next"
 			onclick="nextSlide()">&#10095;</a>
 	</div>
+	<%
+	}
+	%>
 	<div id="content_middle">
 		<div style="float: left">
 			<span style="font-size: 25px;">진행중인 프로젝트</span><br> <br> <span
