@@ -83,14 +83,18 @@ public class ProjectController {
 
 	// 프로젝트 상세조회 GET
 	@RequestMapping(value = "/projectdetail", method = RequestMethod.GET)
-	public ModelAndView projectDetailGet(ModelAndView mv, @ModelAttribute("loginSsInfo") Prouser prouser,
+	public ModelAndView projectDetailGet(ModelAndView mv,
 			HttpSession session, Project project) throws Exception {
 		logger.info("projectdetail GET");
-		session.getAttribute("loginSsInfo");
-		int prono = project.getPro_no();
-		mv.addObject("projectdetail", service.projectDetail(prono));
-		mv.addObject("selectimgpro", service.selectimgpro(prono));
-		mv.setViewName("project/projectdetail");
+		if (session.getAttribute("loginSsInfo") == null) {
+			mv.setViewName("redirect:/login");
+		} else {
+			int prono = project.getPro_no();
+			mv.addObject("projectdetail", service.projectDetail(prono));
+			mv.addObject("selectimgpro", service.selectimgpro(prono));
+			mv.setViewName("project/projectdetail");
+
+		}
 		return mv;
 	}
 
@@ -124,14 +128,15 @@ public class ProjectController {
 	@PostMapping("/projectjoin")
 	public ModelAndView projectjoinPost(ModelAndView mv, HttpSession session, HttpServletResponse response,
 			@ModelAttribute("loginSsInfo") Prouser prouser, Project project, Resume resume, PMember pmember,
-			@RequestParam("pro_no") int pro_no, @RequestParam("re_no") int re_no,RedirectAttributes rttr) throws Exception {
+			@RequestParam("pro_no") int pro_no, @RequestParam("re_no") int re_no, RedirectAttributes rttr)
+			throws Exception {
 		logger.info("projectjoin for POST");
 		session.getAttribute("loginSsInfo");
 		pmember.setUs_id(prouser.getUs_id());
 		pmember.setPro_no(pro_no);
 		pmember.setRe_no(re_no);
 		resume = prouserservice.pmemberresume(re_no);
-		//이력서 정보를 받아서 pmember에 insert할것 
+		// 이력서 정보를 받아서 pmember에 insert할것
 		System.out.println(resume);
 		pmember.setRe_title(resume.getRe_title());
 		int alreadyjoin = service.alreadyjoinproject(pmember);
