@@ -21,7 +21,7 @@
 		delete from project where pro_no = #{pro_no}
 	</delete>
 	<!-- 공고 목록 조회 -->
-	<select id="projectlist" parameterType="Project" resultType="Project">
+	<select id="projectlist" resultType="Project">
 		select pro_no, pro_title, pro_budget, pro_period, pro_personnel from project where pro_ok = 1 order by pro_no desc
 	</select>
 	<!-- 공고 상세조회 -->
