@@ -166,7 +166,7 @@
 	<!-- 이력서 수정 -->
 	<update id="updateresume" parameterType="Resume">
 		update resume set
-		re_school=#{re_school}, re_graduate=#{re_graduate}, re_type=#{re_type}
+		re_school=#{re_school}, re_name=#{re_name}, re_graduate=#{re_graduate}, re_type=#{re_type}
 		, re_homepage=#{re_homepage}, re_openyn=#{re_openyn},
 		re_birth=#{re_birth}, re_title=#{re_title}
 		where re_no = #{re_no}

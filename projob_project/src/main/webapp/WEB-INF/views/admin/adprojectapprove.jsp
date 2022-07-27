@@ -47,7 +47,8 @@
 						<tr class="aduserapprovelist_line fontcontent">
 							<td><input type="checkbox"
 								value="${adprojectapprove.pro_no }" name="pro_no"
-								class="projectapprovecheckbox"></td>
+								class="projectapprovecheckbox">
+								<c:out value="${adprojectapprove.pro_no }" /></td>
 							<td><c:out value="${adprojectapprove.pro_comp }" /></td>
 							<td><a
 								onclick="window.open(this.href, '_blank', 'width=1200, height=1000'); return false;"

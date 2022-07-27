@@ -79,7 +79,7 @@ public class ProuserController {
 		int result = service.insertProuserfree(prouser);
 		if (result < 1) {
 			rttr.addFlashAttribute("info", "가입에 실패했습니다. 정보를 다시 입력해주세요.");
-			mv.setViewName("prouser/infofree");
+			mv.setViewName("redirect:/infofree");
 		}
 		rttr.addFlashAttribute("infofree", "회원가입 성공! 환영합니다.");
 		mv.setViewName("redirect:/login");
@@ -103,7 +103,7 @@ public class ProuserController {
 		int result = service.insertProusercomp(prouser);
 		if (result < 1) {
 			rttr.addFlashAttribute("info", "가입에 실패했습니다. 정보를 다시 입력해주세요.");
-			mv.setViewName("prouser/infocomp");
+			mv.setViewName("redirect:/infocomp");
 			return mv;
 		}
 		rttr.addFlashAttribute("infocomp", "회원가입 성공! 환영합니다.");
@@ -493,7 +493,7 @@ public class ProuserController {
 		session.getAttribute("loginSsInfo");
 		if (service.resumepmember(reno) != 0) {
 			rttr.addFlashAttribute("deleteresume", "프로젝트에 신청한 이력서는 삭제 불가합니다.");
-			mv.setViewName("redirect:/resume");
+			mv.setViewName("redirect:/resumelist");
 		} else {
 			service.deleteresume(reno);
 			service.deletecerti(reno);

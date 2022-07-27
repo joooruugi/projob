@@ -89,14 +89,14 @@
 				<div class="my_project_yet_name">
 					<p class="fontimportant2">신청중인 프로젝트</p>
 				</div>
-				<div class="my_project_yet">
-					<c:forEach items="${freeprojectyetinfo }" var="freeprojectyetinfo">
+				<c:forEach items="${freeprojectyetinfo }" var="freeprojectyetinfo">
+					<div class="my_project_yet">
 						<a
 							href="<%=request.getContextPath()%>/projectdetail?pro_no=${freeprojectyetinfo.pro_no}"
 							class="my_projecting fontnothing"><c:out
 								value="${freeprojectyetinfo.pro_title }" /></a>
-					</c:forEach>
-				</div>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

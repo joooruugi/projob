@@ -47,6 +47,12 @@
 				<p class="fontname pro_detail_title">[
 					${projectdetail.pro_title} ]</p>
 			</div>
+			<div class="pro_detail_bottom fontnothing2">
+				<c:forEach var="selectimgpro" items="${selectimgpro }">
+					<img width=1200px; height=800px;
+						src="<%=request.getContextPath() %>/resources//project${selectimgpro.changenamepro}">
+				</c:forEach>
+			</div>
 			<div class="pro_detail_middle">
 				<br>
 				<p class="fontnothing pro_detail_content">${projectdetail.pro_content}
@@ -65,7 +71,9 @@
 			</div>
 			<div class="pro_detail_bottom fontnothing2">
 				<c:forEach var="file" items="${file }">
-					<a href="#" style="color:blue;" onclick="fn_fileDown('${file.FILE_NO}'); return false;"> <c:out value="${file.ORIGINNAME }" /></a>
+					<a href="#" style="color: blue;"
+						onclick="fn_fileDown('${file.FILE_NO}'); return false;"> <c:out
+							value="${file.ORIGINNAME }" /></a>
 				</c:forEach>
 			</div>
 		</div>

@@ -122,7 +122,7 @@ public class AdminController {
 		session.getAttribute("adminloginSsInfo");
 		service.updateprojectok(prono);
 		rttr.addFlashAttribute("projectapprove", "승인되었습니다.");
-		mv.setViewName("redirect:/aduserapprovelist");
+		mv.setViewName("redirect:/adprojectapprove");
 		return mv;
 	}
 	//관리자 회원 검색
