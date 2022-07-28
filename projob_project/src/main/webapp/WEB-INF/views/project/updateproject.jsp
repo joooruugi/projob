@@ -54,6 +54,7 @@
 							<option value="0">웹사이트 제작</option>
 							<option value="1">웹사이트 유지·보수</option>
 							<option value="2">퍼블리싱</option>
+							<option value="3">개발·프로그래밍</option>
 					</select></td>
 				</tr>
 				<tr>

@@ -219,8 +219,17 @@ to {
 					<c:when test="${list.PRO_FIELD eq '1'}">
 						<div>
 							<span class="slidecontentspan"
-								style="font-size: 20px; font-weight: bold;"> [웹사이트 유지/보수]
-							</span><span class="slidecontentspan2"
+								style="font-size: 20px; font-weight: bold;"> [웹사이트 유지/보수]</span><span 
+								class="slidecontentspan2"
+								style="font-weight: bold; font-size: 28px;">
+								${list.PRO_TITLE } </span>
+						</div>
+					</c:when>
+					<c:when test="${list.PRO_FIELD eq '2'}">
+						<div>
+							<span class="slidecontentspan"
+								style="font-size: 20px; font-weight: bold;"> [퍼블리싱]</span><span 
+								class="slidecontentspan2"
 								style="font-weight: bold; font-size: 28px;">
 								${list.PRO_TITLE } </span>
 						</div>
@@ -228,7 +237,7 @@ to {
 					<c:otherwise>
 						<div>
 							<span class="slidecontentspan"
-								style="font-size: 20px; font-weight: bold;"> [퍼블리싱] </span><span
+								style="font-size: 20px; font-weight: bold;"> [개발·프로그래밍] </span><span
 								class="slidecontentspan2"
 								style="font-weight: bold; font-size: 28px;">
 								${list.PRO_TITLE } </span>

@@ -58,6 +58,9 @@
 					<c:when test="${projectdetail.pro_field eq '2' }">
 						<p class="fontcontent2 pro_detail_cate">[ 퍼블리싱 ]</p>
 					</c:when>
+					<c:when test="${projectdetail.pro_field eq '3' }">
+						<p class="fontcontent2 pro_detail_cate">[ 개발·프로그래밍 ]</p>
+					</c:when>
 				</c:choose>
 				<p class="fontname pro_detail_title">[
 					${projectdetail.pro_title} ]</p>

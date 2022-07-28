@@ -64,6 +64,9 @@
 						<c:when test="${resume.re_type  eq '2'}">
 							<p class="resumep" id="re_type">퍼블리싱</p>
 						</c:when>
+						<c:when test="${resume.re_type  eq '3'}">
+							<p class="resumep" id="re_type">개발·프로그래밍</p>
+						</c:when>
 					</c:choose>
 				</div>
 				<div class="resumedivision"></div>
