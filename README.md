@@ -2,7 +2,7 @@
 # PROJOB
 KH_정보교육원 파이널 프로젝트
 
-<<첫페이지 >>
+![image](https://user-images.githubusercontent.com/92707182/181875397-36a54d8c-361e-4533-8ecf-feb44a7baaad.png)
 
 ### 0️⃣ 개발 주제 / 목표
 
