@@ -6,15 +6,13 @@ KH_정보교육원 파이널 프로젝트
 
 ### 0️⃣ 개발 주제 / 목표
 
-![image](https://user-images.githubusercontent.com/92707182/181875443-e9c4172a-8042-4e2b-b31d-b5eee6b05a81.png)
-
-
-
 #### 📖다양한 프로젝트와 유능한 프리랜서를 이어주는 플랫폼 서비스
 
 - "직접고용보다 외주로 전환" 고정비 부담으로 우수개발자 옥석 가리기
 - 프로젝트당 근무가 가능한 직군인 "개발자"에 초점
 - 독창성과 차별점을 가진 개발자만의 구인·구직 홈페이지를 만들자 ! 
+
+![image](https://user-images.githubusercontent.com/92707182/181875443-e9c4172a-8042-4e2b-b31d-b5eee6b05a81.png)
 
 
 
@@ -40,11 +38,11 @@ KH_정보교육원 파이널 프로젝트
 
    
 
-## 2️⃣ 개발 환경 / 사용 기술
+## 2️⃣ 개발 환경 / 사용 기술 / ERD
 
 ![image](https://user-images.githubusercontent.com/92707182/181875470-8c9507b4-28d8-4c50-bf59-6f31f325b428.png)
 
-
+https://drive.google.com/open?id=1AdQ4s91C3vy8hONXUcNTR3Sy64I18NDi
 
 ## 3️⃣ 주요 기능 / 화면
 
@@ -65,7 +63,7 @@ KH_정보교육원 파이널 프로젝트
 
 2. DB
 	1팀_테이블기술서.xlsx
-	<<erd cloud 추가하기>>
+	Projob erd_cloud.png
 	<<sql문 추가하기 >>
 
 3. UX/UI
