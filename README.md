@@ -41,8 +41,9 @@ KH_정보교육원 파이널 프로젝트
 ## 2️⃣ 개발 환경 / 사용 기술 / ERD
 
 ![image](https://user-images.githubusercontent.com/92707182/181875470-8c9507b4-28d8-4c50-bf59-6f31f325b428.png)
+![image](https://user-images.githubusercontent.com/92707182/181875789-12602eb5-281b-4477-bea7-9922e31d7540.png)
 
-https://drive.google.com/open?id=1AdQ4s91C3vy8hONXUcNTR3Sy64I18NDi
+
 
 ## 3️⃣ 주요 기능 / 화면
 
