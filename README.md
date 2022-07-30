@@ -52,6 +52,35 @@ KH_정보교육원 파이널 프로젝트
 
 ## 3️⃣ 주요 기능 / 화면
 
+<details>
+<summary><h3>언주</h3></summary>
+	<div markdown="1">
+	![메인](https://user-images.githubusercontent.com/92707182/181916709-3a0e3bd7-ed25-4c55-a583-a611c45ffbb0.gif)
+	![메인-메뉴클릭](https://user-images.githubusercontent.com/92707182/181916760-5225deea-024e-4f4b-945b-7a46cc5e27e9.gif)
+
+	![회원가입](https://user-images.githubusercontent.com/92707182/181916734-46d51f3f-f14a-44c5-a53f-8b5756ae9114.gif)
+	![아이디찾기](https://user-images.githubusercontent.com/92707182/181916741-e39716fa-0faa-42c0-816f-1853accb5522.gif)
+	![비밀번호찾기](https://user-images.githubusercontent.com/92707182/181916744-ef2056fe-2c72-4f8e-a110-a257f032ef1f.gif)
+	![로그인승인회원](https://user-images.githubusercontent.com/92707182/181916748-81c10960-2403-4b6e-a5f0-54ba987df8de.gif)
+	![로그인미승인회원](https://user-images.githubusercontent.com/92707182/181916751-07065bae-b14f-4605-8974-706246b2a94f.gif)
+	![정보수정](https://user-images.githubusercontent.com/92707182/181916769-dd4a3c35-235a-480d-bbef-16397184e547.gif)
+	![이력서작성1](https://user-images.githubusercontent.com/92707182/181916778-37bbc50d-1d41-4998-bef0-6b96871978cb.gif)
+	![이력서작성2](https://user-images.githubusercontent.com/92707182/181916782-0de4e363-07be-40f3-9ac4-582e6f1986b5.gif)
+	![이력서수정](https://user-images.githubusercontent.com/92707182/181916786-0c8f3d2c-f7bf-4fda-9ec3-1017dbd3faa8.gif)
+	![이력서삭제](https://user-images.githubusercontent.com/92707182/181916790-972158f3-6a70-41ff-9a92-332f48bb8a9c.gif)
+	![프로젝트등록](https://user-images.githubusercontent.com/92707182/181916798-1f194c1a-6fca-4554-a296-271dc86238da.gif)
+	![프로젝트삭제](https://user-images.githubusercontent.com/92707182/181916804-3227ccde-42b0-4217-9c57-556601c16312.gif)
+	![프로젝트신청](https://user-images.githubusercontent.com/92707182/181916838-389427b8-2556-44f5-ac7b-67e4cc150514.gif)
+	![프로젝트선정](https://user-images.githubusercontent.com/92707182/181916808-7f7c898d-85fc-4d3c-be9e-90668e6d5dcd.gif)
+	![관리자로그인-메인](https://user-images.githubusercontent.com/92707182/181916817-9a8a6a81-eab1-4047-8b26-73b9b6bd9689.gif)
+	![관리자 회원승인](https://user-images.githubusercontent.com/92707182/181916820-b1b1f629-ead9-40e5-b880-82c8628ece60.gif)
+	![관리자 프로젝트승인](https://user-images.githubusercontent.com/92707182/181916824-c95ba6d4-89a1-41e3-86da-4aba924649b9.gif)
+	![관리자 회원검색](https://user-images.githubusercontent.com/92707182/181916827-4bc089ed-5303-488c-ab65-4b27825d3017.gif)
+</div>
+	
+</details>
+
+
 ## 4️⃣  관련 산출물
 
 ```html
