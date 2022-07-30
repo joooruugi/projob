@@ -92,7 +92,9 @@ KH_정보교육원 파이널 프로젝트
 <<내 링크에 옮겨두고 코드 공유하기 >>
 
 
-## 5️⃣
+## 5️⃣ 개발 일정
+![image](https://user-images.githubusercontent.com/92707182/181875548-6feb856a-3624-45af-80da-b0128368cc53.png)
+
 
 6️⃣7️⃣
 
