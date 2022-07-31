@@ -96,9 +96,11 @@ KH_정보교육원 파이널 프로젝트
 	<p>관리자 회원검색</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916827-4bc089ed-5303-488c-ab65-4b27825d3017.gif">
 </div>
+</details>
 
-<summary><h3>재우</h3></summary>
-	<div markdown="2">
+<details>
+	<summary><h3>재우</h3></summary>
+	<div markdown="1">
 	<p>메신저 메인페이지</p>
 	<img src="https://user-images.githubusercontent.com/95215865/182032197-398c8640-f171-4d7b-9e61-6b15cef54727.gif">
 	<p>메신저 메세지 수신/발신</p>
@@ -122,7 +124,6 @@ KH_정보교육원 파이널 프로젝트
 	<p>파일공유 파일 다운로드</p>
 	<img src="https://user-images.githubusercontent.com/95215865/182032520-16b92ddb-e23f-4438-a884-b88f3eb65b17.gif">
 </div>
-
 </details>
 
 
