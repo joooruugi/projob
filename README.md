@@ -98,7 +98,7 @@ KH_정보교육원 파이널 프로젝트
 </div>
 
 <summary><h3>재우</h3></summary>
-	<div markdown="1">
+	<div markdown="2">
 	<p>메신저 메인페이지</p>
 	<img src="https://user-images.githubusercontent.com/95215865/182032197-398c8640-f171-4d7b-9e61-6b15cef54727.gif">
 	<p>메신저 메세지 수신/발신</p>
