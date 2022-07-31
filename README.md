@@ -95,9 +95,34 @@ KH_정보교육원 파이널 프로젝트
 	<img src="https://user-images.githubusercontent.com/92707182/181916824-c95ba6d4-89a1-41e3-86da-4aba924649b9.gif">
 	<p>관리자 회원검색</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916827-4bc089ed-5303-488c-ab65-4b27825d3017.gif">
-		
 </div>
-	
+
+<summary><h3>재우</h3></summary>
+	<div markdown="1">
+	<p>메신저 메인페이지</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032197-398c8640-f171-4d7b-9e61-6b15cef54727.gif">
+	<p>메신저 메세지 수신/발신</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032381-03b7d983-59cf-4082-b5b9-e1ad50b5ebd9.gif">
+	<p>메신저 대화방 생성</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032402-0b3e665f-7417-4587-b53c-e255a01da86b.gif">
+	<p>메신저 대화방 초대</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032428-789c191a-eb0f-4a1d-9786-b3b533c8100f.gif">
+	<p>메신저 대화방 나가기</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032443-283cec38-f06f-4d85-9022-0c03b7602043.gif">
+	<p>메신저 대화방 참가자 목록</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032458-3ca7e43a-787a-4850-9237-1df237128b2a.gif">
+	<p>파일공유 메인페이지</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032475-cb591e8d-6841-42d4-ae5d-4e557fc74fc6.gif">
+	<p>파일공유 파일등록</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032490-3077b664-fa7e-426b-a793-1de5c3d22133.gif">
+	<p>파일공유 리스트 삭제</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032499-87500cd5-aa84-4215-91b2-63af8d68170a.gif">
+	<p>파일공유 리스트 검색</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032508-ca245702-67c2-48f2-9a9c-d47d65027f85.gif">
+	<p>파일공유 파일 다운로드</p>
+	<img src="https://user-images.githubusercontent.com/95215865/182032520-16b92ddb-e23f-4438-a884-b88f3eb65b17.gif">
+</div>
+
 </details>
 
 
