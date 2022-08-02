@@ -1,4 +1,5 @@
 
+
 # PROJOB
 KH_정보교육원 파이널 프로젝트
 
@@ -100,6 +101,10 @@ KH_정보교육원 파이널 프로젝트
 
 <details>
 	<summary><h3>재우</h3></summary>
+		<p>메인</p>
+	<img src="https://user-images.githubusercontent.com/92707182/181916709-3a0e3bd7-ed25-4c55-a583-a611c45ffbb0.gif">
+	<p>메인-메뉴클릭</p>
+	<img src="https://user-images.githubusercontent.com/92707182/181916760-5225deea-024e-4f4b-945b-7a46cc5e27e9.gif">
 	<div markdown="1">
 	<p>메신저 메인페이지</p>
 	<img src="https://user-images.githubusercontent.com/95215865/182032197-398c8640-f171-4d7b-9e61-6b15cef54727.gif">
@@ -145,7 +150,6 @@ KH_정보교육원 파이널 프로젝트
 2. DB
 	1팀_테이블기술서.xlsx
 	Projob erd_cloud.png
-	<<sql문 추가하기 >>
 
 3. UX/UI
 	1팀_메뉴트리
@@ -168,12 +172,11 @@ KH_정보교육원 파이널 프로젝트
 
 ##### 💾구글 드라이브 링크
 
-<<내 링크에 옮겨두고 코드 공유하기 >>
+https://drive.google.com/drive/folders/1Wn3cMSlJPOyGQO8V3o05br86vCeNwl7e?usp=sharing
 
 
 ## 5️⃣ 개발 일정
 ![image](https://user-images.githubusercontent.com/92707182/181875548-6feb856a-3624-45af-80da-b0128368cc53.png)
 
 
-6️⃣7️⃣
 
