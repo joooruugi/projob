@@ -54,7 +54,9 @@ KH_정보교육원 파이널 프로젝트
 ## 3️⃣ 주요 기능 / 화면
 
 <details>
-<summary><h3>언주</h3></summary>
+<summary><h3>서언주</h3></summary>
+<details>
+	<summary><h4>𝐌𝐚𝐢𝐧</h4></summary>
 	<div markdown="1">
 	<p>𝐌𝐚𝐢𝐧</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916709-3a0e3bd7-ed25-4c55-a583-a611c45ffbb0.gif">
@@ -73,7 +75,9 @@ KH_정보교육원 파이널 프로젝트
 ▸ 로그인 여부를 판별하여 서비스 이동 가능여부 결정
 ▸ 프로젝트 목록만 비회원으로 조회 가능
 ```
-
+</details>
+<details>
+<summary><h4>𝐉𝐎𝐈𝐍</h4></summary>
 <p>𝐉𝐎𝐈𝐍</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916734-46d51f3f-f14a-44c5-a53f-8b5756ae9114.gif">
 	
@@ -126,6 +130,7 @@ $(function() {
 	<img src="https://user-images.githubusercontent.com/92707182/181916741-e39716fa-0faa-42c0-816f-1853accb5522.gif">
 <p>𝐋𝐎𝐆𝐈𝐍 - 𝚏𝚒𝚗𝚍 𝙿𝚊𝚜𝚜𝚠𝚘𝚛𝚍</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916744-ef2056fe-2c72-4f8e-a110-a257f032ef1f.gif">
+</details>
 	<p>정보수정</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916769-dd4a3c35-235a-480d-bbef-16397184e547.gif">
 	<p>이력서작성1</p>
