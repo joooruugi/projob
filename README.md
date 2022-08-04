@@ -129,6 +129,7 @@ $(function() {
 </script>
 ```
 </details>
+</details>
 <details>
 <summary><h4>𝐋𝐎𝐆𝐈𝐍</h4></summary>
 <br>
@@ -154,23 +155,29 @@ $(function() {
 	<p>𝐌𝐘 𝐏𝐀𝐆𝐄 - 𝚍𝚎𝚕𝚎𝚝𝚎 𝚛𝚎𝚜𝚞𝚖𝚎</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916790-972158f3-6a70-41ff-9a92-332f48bb8a9c.gif">
 </details>
-	<p>프로젝트등록</p>
+<details>
+<summary><h4>𝐏𝐑𝐎𝐉𝐄𝐂𝐓</h4></summary>
+	<p>𝐏𝐑𝐎𝐉𝐄𝐂𝐓 - 𝚙𝚛𝚘𝚓𝚎𝚌𝚝 𝚛𝚎𝚐𝚒𝚜𝚝𝚛𝚊𝚝𝚒𝚘𝚗</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916798-1f194c1a-6fca-4554-a296-271dc86238da.gif">
-	<p>프로젝트삭제</p>
+	<p>𝐏𝐑𝐎𝐉𝐄𝐂𝐓 - 𝚍𝚎𝚕𝚎𝚝𝚎  𝚙𝚛𝚘𝚓𝚎𝚌𝚝</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916804-3227ccde-42b0-4217-9c57-556601c16312.gif">
-	<p>프로젝트신청</p>
+	<p>𝐏𝐑𝐎𝐉𝐄𝐂𝐓 - 𝚙𝚛𝚘𝚓𝚎𝚌𝚝 𝚊𝚙𝚙𝚕𝚒𝚌𝚊𝚝𝚒𝚘𝚗</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916838-389427b8-2556-44f5-ac7b-67e4cc150514.gif">
-	<p>프로젝트선정</p>
+	<p>𝐏𝐑𝐎𝐉𝐄𝐂𝐓 - 𝚏𝚛𝚎𝚎𝚕𝚊𝚗𝚌𝚎𝚛 𝚜𝚎𝚕𝚎𝚌𝚝𝚒𝚘𝚗</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916808-7f7c898d-85fc-4d3c-be9e-90668e6d5dcd.gif">
-	<p>관리자로그인-메인</p>
+</details>
+<details>
+<summary><h4>𝐀𝐃𝐌𝐈𝐍</h4></summary>
+	<p>𝐀𝐃𝐌𝐈𝐍 - 𝚕𝚘𝚐𝚒𝚗 & 𝚖𝚊𝚒𝚗</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916817-9a8a6a81-eab1-4047-8b26-73b9b6bd9689.gif">
-	<p>관리자 회원승인</p>
+	<p>𝐀𝐃𝐌𝐈𝐍 - 𝚊𝚙𝚙𝚛𝚘𝚟𝚎 𝚞𝚜𝚎𝚛</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916820-b1b1f629-ead9-40e5-b880-82c8628ece60.gif">
-	<p>관리자 프로젝트승인</p>
+	<p>𝐀𝐃𝐌𝐈𝐍 - 𝚊𝚙𝚙𝚛𝚘𝚟𝚎 𝚙𝚛𝚘𝚓𝚎𝚌𝚝</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916824-c95ba6d4-89a1-41e3-86da-4aba924649b9.gif">
-	<p>관리자 회원검색</p>
+	<p>𝐀𝐃𝐌𝐈𝐍 - 𝚜𝚎𝚊𝚛𝚌𝚑 𝚞𝚜𝚎𝚛</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916827-4bc089ed-5303-488c-ab65-4b27825d3017.gif">
 </div>
+</details>
 </details>
 
 <details>
