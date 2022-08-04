@@ -60,15 +60,17 @@ KH_정보교육원 파이널 프로젝트
 	<div markdown="1">
 	<p>𝐌𝐚𝐢𝐧</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916709-3a0e3bd7-ed25-4c55-a583-a611c45ffbb0.gif">
+	<br>
 	
 ```html
 ✅ 𝑫𝒆𝒔𝒄𝒓𝒊𝒑𝒕𝒊𝒐𝒏 
 ▸ 배너를 크게 두어 홈페이지 구성이 풍부해보이도록
 ▸ 가장 하단에는 서비스를 이용한 고객들의 경험을 이미지로 나열하여 친근한 느낌 부여
 ```
-
+<br>
 <p>𝐌𝐚𝐢𝐧 - 𝚖𝚎𝚗𝚞</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916760-5225deea-024e-4f4b-945b-7a46cc5e27e9.gif">
+	<br>
 	
 ```html
 ✅ 𝑫𝒆𝒔𝒄𝒓𝒊𝒑𝒕𝒊𝒐𝒏 
@@ -76,10 +78,12 @@ KH_정보교육원 파이널 프로젝트
 ▸ 프로젝트 목록만 비회원으로 조회 가능
 ```
 </details>
+<br>
 <details>
 <summary><h4>𝐉𝐎𝐈𝐍</h4></summary>
 <p>𝐉𝐎𝐈𝐍</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916734-46d51f3f-f14a-44c5-a53f-8b5756ae9114.gif">
+	<br>
 	
 ```html
 ✅ 𝑫𝒆𝒔𝒄𝒓𝒊𝒑𝒕𝒊𝒐𝒏 
@@ -88,6 +92,8 @@ KH_정보교육원 파이널 프로젝트
 ▸ 비밀번호의 경우 javascript를 사용해서 동일했을 때 "일치합니다"가 출력되도록 구현
 ▸ 담당자 이름, 연락처, 이메일의 경우 기업 회원을 위한 항목
 ```
+<details><summary><h5>𝑪𝒐𝒅𝒆</h5></summary>
+
 ```javascript
 ✅ 𝑪𝒐𝒅𝒆
 //아이디 중복확인
@@ -122,6 +128,10 @@ $(function() {
 });
 </script>
 ```
+</details>
+<details>
+<summary><h4>𝐋𝐎𝐆𝐈𝐍</h4></summary>
+<br>
 <p>𝐋𝐎𝐆𝐈𝐍 - 𝚊𝚙𝚙𝚛𝚘𝚟𝚎𝚍 𝚞𝚜𝚎𝚛</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916748-81c10960-2403-4b6e-a5f0-54ba987df8de.gif">
 <p>𝐋𝐎𝐆𝐈𝐍 - 𝚞𝚗𝚊𝚙𝚙𝚛𝚘𝚟𝚎𝚍 𝚞𝚜𝚎𝚛</p>
@@ -131,16 +141,19 @@ $(function() {
 <p>𝐋𝐎𝐆𝐈𝐍 - 𝚏𝚒𝚗𝚍 𝙿𝚊𝚜𝚜𝚠𝚘𝚛𝚍</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916744-ef2056fe-2c72-4f8e-a110-a257f032ef1f.gif">
 </details>
-	<p>정보수정</p>
+<details>
+<summary><h4>𝐌𝐘 𝐏𝐀𝐆𝐄</h4></summary>
+	<p>𝐌𝐘 𝐏𝐀𝐆𝐄 - 𝙲𝚑𝚊𝚗𝚐𝚒𝚗𝚐 𝚒𝚗𝚏𝚘𝚛𝚖𝚊𝚝𝚒𝚘𝚗</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916769-dd4a3c35-235a-480d-bbef-16397184e547.gif">
-	<p>이력서작성1</p>
+	<p>𝐌𝐘 𝐏𝐀𝐆𝐄 - 𝚠𝚛𝚒𝚝𝚎 𝚛𝚎𝚜𝚞𝚖𝚎</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916778-37bbc50d-1d41-4998-bef0-6b96871978cb.gif">
-	<p>이력서작성2</p>
+	<br>
 	<img src="https://user-images.githubusercontent.com/92707182/181916782-0de4e363-07be-40f3-9ac4-582e6f1986b5.gif">
-	<p>이력서수정</p>
+	<p>𝐌𝐘 𝐏𝐀𝐆𝐄 - 𝚎𝚍𝚒𝚝 𝚛𝚎𝚜𝚞𝚖𝚎</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916786-0c8f3d2c-f7bf-4fda-9ec3-1017dbd3faa8.gif">
-	<p>이력서삭제</p>
+	<p>𝐌𝐘 𝐏𝐀𝐆𝐄 - 𝚍𝚎𝚕𝚎𝚝𝚎 𝚛𝚎𝚜𝚞𝚖𝚎</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916790-972158f3-6a70-41ff-9a92-332f48bb8a9c.gif">
+</details>
 	<p>프로젝트등록</p>
 	<img src="https://user-images.githubusercontent.com/92707182/181916798-1f194c1a-6fca-4554-a296-271dc86238da.gif">
 	<p>프로젝트삭제</p>
